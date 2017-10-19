@@ -23,10 +23,23 @@ logging:
 zuul:
   ignored-services: '*'
   routes:
+    swagger-res:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      path: /swagger-resources/**
+      url: http://localhost:4547/swagger-resources/
+    swagger-api-docs:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      path: /v2/api-docs/**
+      url: http://localhost:4547/v2/api-docs/
+    swagger-webjars:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      path: /webjars/springfox-swagger-ui/**
+      url: http://localhost:4547/webjars/springfox-swagger-ui/
     swagger:
-      path: /swagger*/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      path: /swagger-ui.html
       url: http://localhost:4547/
     rest:
-      path: /rest*/**
+      path: /rest/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
-      url: http://localhost:4547/
+      url: http://localhost:4547/rest/
