@@ -1,0 +1,10 @@
+{
+	"/rest":{
+		"target": "http://localhost:4444",
+		"secure":false
+	},
+  "/init":{
+    "target": "http://localhost:4444",
+    "secure":false
+  }
+}

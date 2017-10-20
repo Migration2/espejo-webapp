@@ -1,0 +1,38 @@
+<div class="animated fadeIn">
+	<div class="tituloPrincipal">
+		<h3>Estaciones</h3>
+	</div>
+
+	<div *ngIf="!showForm">
+		<div class="btnAgregar">
+			<button class="btn btn-outline-dark" (click)="showForm=true">
+				<span class="oi oi-plus"></span> Agregar Estación</button>
+			</div>		
+		</div>
+		<table datatable [dtOptions]="dtOptions" class="table row-border hover table-responsive" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Dirección</th>
+					<th>Estado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr (click)="informacionEstacion()">
+					<td>San Nicolas</td>
+					<td>CC. San Nicolas</td>
+					<td>Operando</td>			
+				</tr>
+				<tr (click)="informacionEstacion()">
+					<td>San Antonio</td>
+					<td>Parque San Antonio</td>
+					<td>Operando</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="formularioAgregar animated fadeIn fast">
+		<app-agregar-estacion *ngIf="showForm"></app-agregar-estacion>
+	</div>

@@ -1,0 +1,42 @@
+
+<div class="animated fadeIn">
+	<div class="tituloPrincipal">
+	<h3>Bicicletas</h3>
+</div>
+
+
+	<div class="btnAgregar" *ngIf="!showForm">
+		<button class="btn btn-outline-dark" (click)="showForm=true">
+			<span class="oi oi-plus"></span> Agregar Bicicleta</button>
+		</div>		
+
+		<table datatable [dtOptions]="dtOptions" class="table row-border hover table-responsive" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>Fecha Registro</th>
+					<th>Estado</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr (click)="informacionBicicleta()">
+					<td>102</td>
+					<td>2017/02/22</td>
+					<td>Activa</td>
+				</tr>
+				<tr (click)="informacionBicicleta()">
+					<td>103</td>
+					<td>2017/09/22</td>
+					<td>Mantenimiento</td>
+				</tr>
+			</tbody>
+		</table>	
+</div>
+
+	
+
+	<div class="formularioAgregar animated fadeIn fast">
+		<app-agregar-bicicleta *ngIf="showForm"></app-agregar-bicicleta>
+	</div>
+	

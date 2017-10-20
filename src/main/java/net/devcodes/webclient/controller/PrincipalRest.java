@@ -26,7 +26,7 @@ public class PrincipalRest {
     Map<String, String> map = new LinkedHashMap<>();
 
     if (principal != null) {
-      map.put("name", principal.getName());
+        map.put("name", principal.getName());
     } else {
       map.put("name", "anonimo");
     }

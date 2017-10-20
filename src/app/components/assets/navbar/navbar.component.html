@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #e3244b;">
+  <a class="navbar-brand" routerLink='/home' href="#">
+    <img src="../../../../assets/images/logo-bicirio-UR.png" width="60" alt=""/>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Administrar
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink='administrarUsuarios'>Usuarios</a>
+          <a class="dropdown-item" routerLink='administrarEmpleados'>Empleados</a>
+          <a class="dropdown-item" routerLink='administrarEstacion'>Estaciones</a>
+          <!-- <a class="dropdown-item" routerLink = 'administrarTotem'>Totem</a>
+                    <a class="dropdown-item" routerLink = 'administrarPuntosAnclaje'>Puntos Anclaje</a> -->
+          <a class="dropdown-item" routerLink='administrarBicicletas'>Bicicletas</a>
+          <a class="dropdown-item" routerLink='administrarSanciones'>Codigo Sanciones</a>
+          <a class="dropdown-item" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>
+          <a class="dropdown-item" routerLink='administrarInformacionGeneral'>Información General</a>
+        </div>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-item nav-link" routerLink='historicos'>Historicos</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-item nav-link" routerLink='promedios'>Promedios</a>
+      </li>
+    </div>
+  </div>
+
+
+  <div>{{principal|json}}</div>
+
+</nav>
