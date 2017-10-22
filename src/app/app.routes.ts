@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 // menu-options
 import {AdministrarBicicletasComponent} from './components/menu-options/administrar-bicicletas/administrar-bicicletas.component';
 import {AdministrarEmpleadosComponent} from './components/menu-options/administrar-empleados/administrar-empleados.component';
-import {AdministrarEstacionComponent} from './components/menu-options/administrar-estacion/administrar-estacion.component';
+import {AdministrarEstacionesComponent} from './components/menu-options/administrar-estaciones/administrar-estaciones.component';
 import {AdministrarInformacionGeneralComponent} from './components/menu-options/administrar-informacion-general/administrar-informacion-general.component';
 import {AdministrarMantenimientoComponent} from './components/menu-options/administrar-mantenimiento/administrar-mantenimiento.component';
 import {AdministrarPuntosAnclajeComponent} from './components/menu-options/administrar-puntos-anclaje/administrar-puntos-anclaje.component';
@@ -28,7 +28,7 @@ const APP_ROUTES: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'administrarBicicletas', component: AdministrarBicicletasComponent},
   {path: 'administrarEmpleados', component: AdministrarEmpleadosComponent},
-  {path: 'administrarEstacion', component: AdministrarEstacionComponent},
+  {path: 'administrarEstaciones', component: AdministrarEstacionesComponent},
   {path: 'administrarInformacionGeneral', component: AdministrarInformacionGeneralComponent},
   {path: 'administrarMantenimiento', component: AdministrarMantenimientoComponent},
   {path: 'administrarPuntosAnclaje', component: AdministrarPuntosAnclajeComponent},

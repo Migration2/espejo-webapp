@@ -1,16 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 .btnAgregar {
   margin-bottom: 20px;
   float: right;
 }
 
-titulos de cada vista
+/*titulos de cada vista*/
 .tituloPrincipal {
   margin-bottom: 20px;
 }
 
-animaciones
+/*animaciones*/
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -41,4 +43,14 @@ animaciones
 
 .formularioAgregar {
   margin-top: 40px;
+}
+
+/*tablas*/
+table{
+  border-left: 1px solid #e9ecef;
+  border-right: 1px solid #e9ecef;
+}
+
+table tbody tr:hover{
+  cursor:pointer;
 }

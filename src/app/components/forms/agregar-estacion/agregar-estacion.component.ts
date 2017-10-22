@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EstacionModel } from '../../../models/model.estacion';
+import { EstacionModel } from '../../../models/estacion.model';
 
 @Component({
   selector: 'app-agregar-estacion',

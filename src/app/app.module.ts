@@ -2,6 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule, MatTableModule} from '@angular/material';
 
 // componente principal
 import {AppComponent} from './app.component';
@@ -16,7 +18,7 @@ import {FooterComponent} from './components/assets/footer/footer.component';
 import {AdministrarUsuariosComponent} from './components/menu-options/administrar-usuarios/administrar-usuarios.component';
 import {AdministrarEmpleadosComponent} from './components/menu-options/administrar-empleados/administrar-empleados.component';
 import {AdministrarTotemComponent} from './components/menu-options/administrar-totem/administrar-totem.component';
-import {AdministrarEstacionComponent} from './components/menu-options/administrar-estacion/administrar-estacion.component';
+import {AdministrarEstacionesComponent} from './components/menu-options/administrar-estaciones/administrar-estaciones.component';
 import {AdministrarPuntosAnclajeComponent} from './components/menu-options/administrar-puntos-anclaje/administrar-puntos-anclaje.component';
 import {AdministrarBicicletasComponent} from './components/menu-options/administrar-bicicletas/administrar-bicicletas.component';
 import {AdministrarSancionesComponent} from './components/menu-options/administrar-sanciones/administrar-sanciones.component';
@@ -36,11 +38,17 @@ import {PuntoAnclajeComponent} from './components/detail-options/punto-anclaje/p
 import {SancionComponent} from './components/detail-options/sancion/sancion.component';
 import {TotemComponent} from './components/detail-options/totem/totem.component';
 
+//Formularios
+import {AgregarBicicletaComponent} from './components/forms/agregar-bicicleta/agregar-bicicleta.component';
+import {AgregarEstacionComponent} from './components/forms/agregar-estacion/agregar-estacion.component';
+
 
 // rutas
 import {APP_ROUTING} from './app.routes';
-import {AgregarBicicletaComponent} from './components/forms/agregar-bicicleta/agregar-bicicleta.component';
-import {AgregarEstacionComponent} from './components/forms/agregar-estacion/agregar-estacion.component';
+
+//pipes
+import { TitleCasePipe } from './pipes/title-case.pipe';
+
 
 
 @NgModule({
@@ -51,7 +59,7 @@ import {AgregarEstacionComponent} from './components/forms/agregar-estacion/agre
     AdministrarUsuariosComponent,
     AdministrarEmpleadosComponent,
     AdministrarTotemComponent,
-    AdministrarEstacionComponent,
+    AdministrarEstacionesComponent,
     AdministrarPuntosAnclajeComponent,
     AdministrarBicicletasComponent,
     AdministrarSancionesComponent,
@@ -69,14 +77,19 @@ import {AgregarEstacionComponent} from './components/forms/agregar-estacion/agre
     SancionComponent,
     TotemComponent,
     AgregarBicicletaComponent,
-    AgregarEstacionComponent
+    AgregarEstacionComponent,
+    TitleCasePipe
   ],
   imports: [
     BrowserModule,
     DataTablesModule,
     APP_ROUTING,
     FormsModule,
-    HttpModule
+    HttpModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

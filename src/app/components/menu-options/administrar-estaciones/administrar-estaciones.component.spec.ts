@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdministrarEstacionComponent } from './administrar-estacion.component';
+import { AdministrarEstacionesComponent } from './administrar-estaciones.component';
 
 describe('AdministrarEstacionComponent', () => {
-  let component: AdministrarEstacionComponent;
-  let fixture: ComponentFixture<AdministrarEstacionComponent>;
+  let component: AdministrarEstacionesComponent;
+  let fixture: ComponentFixture<AdministrarEstacionesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdministrarEstacionComponent ]
+      declarations: [ AdministrarEstacionesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdministrarEstacionComponent);
+    fixture = TestBed.createComponent(AdministrarEstacionesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

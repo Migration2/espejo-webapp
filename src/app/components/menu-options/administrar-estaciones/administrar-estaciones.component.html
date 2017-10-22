@@ -9,24 +9,21 @@
 				<span class="oi oi-plus"></span> Agregar Estación</button>
 			</div>		
 		</div>
-		<table datatable [dtOptions]="dtOptions" class="table row-border hover table-responsive" cellspacing="0" width="100%">
+		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
 			<thead>
 				<tr>
 					<th>Nombre</th>
 					<th>Dirección</th>
+					<th>Num. Contactos</th>
 					<th>Estado</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr (click)="informacionEstacion()">
-					<td>San Nicolas</td>
-					<td>CC. San Nicolas</td>
-					<td>Operando</td>			
-				</tr>
-				<tr (click)="informacionEstacion()">
-					<td>San Antonio</td>
-					<td>Parque San Antonio</td>
-					<td>Operando</td>
+				<tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
+					<td>{{estacion.nombre}}</td>
+					<td>{{estacion.direccion}}</td>
+					<td>{{estacion.moPuntosContactosCollection.length}}</td>	
+					<td>{{estacion.idEstadoEstacion.estado}}</td>		
 				</tr>
 			</tbody>
 		</table>

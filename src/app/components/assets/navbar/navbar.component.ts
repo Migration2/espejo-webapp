@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../../service/user.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-navbar',
@@ -9,14 +9,14 @@ import {UserService} from "../../../service/user.service";
 })
 export class NavbarComponent implements OnInit {
 
-  principal: any;
+  nombre: any;
 
-  constructor(public userService: UserService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    this.userService.getPrincipal().subscribe(response => {
-      this.principal = response;
+    this.userService.getLoginName().subscribe(response => {
+      this.nombre = response.name;
     });
   }
 

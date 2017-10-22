@@ -15,7 +15,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" routerLink='administrarUsuarios'>Usuarios</a>
           <a class="dropdown-item" routerLink='administrarEmpleados'>Empleados</a>
-          <a class="dropdown-item" routerLink='administrarEstacion'>Estaciones</a>
+          <a class="dropdown-item" routerLink='administrarEstaciones'>Estaciones</a>
           <!-- <a class="dropdown-item" routerLink = 'administrarTotem'>Totem</a>
                     <a class="dropdown-item" routerLink = 'administrarPuntosAnclaje'>Puntos Anclaje</a> -->
           <a class="dropdown-item" routerLink='administrarBicicletas'>Bicicletas</a>
@@ -34,6 +34,6 @@
   </div>
 
 
-  <div>{{principal|json}}</div>
+  <div><span style="color:white;">{{nombre | titleCase}}</span></div>
 
 </nav>

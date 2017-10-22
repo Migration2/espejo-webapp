@@ -10,7 +10,7 @@
 			<span class="oi oi-plus"></span> Agregar Bicicleta</button>
 		</div>		
 
-		<table datatable [dtOptions]="dtOptions" class="table row-border hover table-responsive" cellspacing="0" width="100%">
+		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
 			<thead>
 				<tr>
 					<th>Codigo</th>
@@ -20,16 +20,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr (click)="informacionBicicleta()">
-					<td>102</td>
-					<td>2017/02/22</td>
-					<td>Activa</td>
-				</tr>
-				<tr (click)="informacionBicicleta()">
-					<td>103</td>
-					<td>2017/09/22</td>
-					<td>Mantenimiento</td>
-				</tr>
+				<tr  *ngFor="let bici of dataBicis" (click)="informacionBicicleta(bici.id)">
+					<td>{{ bici.codigo }}</td>
+					<td>{{ bici.creado }}</td>
+					<td>{{ bici.idEstadoBicicleta.estado }}</td>
+				</tr>				
 			</tbody>
 		</table>	
 </div>
@@ -40,3 +35,32 @@
 		<app-agregar-bicicleta *ngIf="showForm"></app-agregar-bicicleta>
 	</div>
 	
+
+<!-- 	<div class="example-container mat-elevation-z8">
+  <mat-table #table >
+
+    - Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition"
+
+    Position Column
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{bici.codigo}} </mat-cell>
+    </ng-container>
+
+    Name Column
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{bici.creado}} </mat-cell>
+    </ng-container>
+
+    Weight Column
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{bici.idEstadoBicicleta.estado }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div> -->
