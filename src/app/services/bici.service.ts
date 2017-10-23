@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, RequestOptions,Headers} from '@angular/http';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class BiciService {
+
+	private headers = new Headers({ 'Content-Type': 'application/json', 'charset':'UTF-8' });
+	private options = new RequestOptions({ headers: this.headers });
 
 	constructor(private http : Http) { }
 
@@ -11,12 +14,15 @@ export class BiciService {
 		return this.http.get('/rest/bike', {}).map(res => res.json());
 	}
 
+	getStatesBike(){
+		return this.http.get('/rest/state/bike', {}).map(res => res.json());
+	}
+
 	setBici(data){
 		data.code='B'+data.code;
-		console.log(JSON.stringify(data));
-		var headers = new Headers();
-		headers.append('content-Type','application/x-www-form-urlencoded');
-		this.http.post('/rest/bike', JSON.stringify(data), {}).map(res => res.json());
+		this.http.post('/rest/bike', JSON.stringify(data), this.options).subscribe();
 	}
+
+
 
 }

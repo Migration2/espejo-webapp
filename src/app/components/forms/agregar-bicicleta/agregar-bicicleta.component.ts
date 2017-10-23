@@ -4,22 +4,27 @@ import { BiciService } from '../../../services/bici.service';
 
 
 @Component({
-  selector: 'app-agregar-bicicleta',
-  templateUrl: './agregar-bicicleta.component.html',
-  styleUrls: ['./agregar-bicicleta.component.scss']
+	selector: 'app-agregar-bicicleta',
+	templateUrl: './agregar-bicicleta.component.html',
+	styleUrls: ['./agregar-bicicleta.component.scss']
 })
 export class AgregarBicicletaComponent implements OnInit {
-model = new BicicletaModel;
+	model = new BicicletaModel;
+	estadosBicicletas: Array<any> =[];
 
 
-  constructor(private biciService:BiciService) { }
+	constructor(private biciService:BiciService) { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+		this.biciService.getStatesBike().subscribe(res => this.estadosBicicletas = res);
+	}
 
-  onSubmit() { 
-    let idCliente = this.biciService.setBici(this.model);
-   
-   };
+	onSubmit() { 
+		let idCliente = this.biciService.setBici(this.model); 
+		location.reload();  	
+	};
 
+	onCancel(){
+		console.log("nada");
+	}
 }

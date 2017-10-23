@@ -1,23 +1,22 @@
 <h5>Nueva Bicicleta</h5>
-<form (ngSubmit)="onSubmit()" #nuevaBicicleta="ngForm">
+<form #nuevaBicicleta="ngForm">
 	<div class="form-row">
 		<div class="form-group col-md-4">
-			<label for="code" class="col-form-label">Codigo*</label>
+			<label for="code" class="col-form-label">Código*</label>
 			<input type="text" class="form-control" name="code" id="code" autocomplete="off"
 			required pattern="[0-9]{2,}" [(ngModel)]="model.code" autofocus>
 		</div>
-		<!-- <div class="form-group col-md-2">
-			<label for="idBikeState" class="col-form-label">Estado*</label>
-			<select id="idBikeState" name="idBikeState" class="form-control" [(ngModel)]="model.idBikeState" required>
-				<option value="operando" selected>Operando</option>
-				<option value="mantenimiento">Mantenimiento</option>
+		<div class="form-group col-md-3">
+			<label for="idModel" class="col-form-label">Estado Bicicleta</label>
+			<select class="form-control" id="idModel" name="idModel" [(ngModel)]="model.idModel" required>
+				<option *ngFor="let estado of estadosBicicletas" value="{{ estado.id }}"> {{ estado.estado }}</option>
 			</select>
-		</div> -->
+		</div>
 	</div>
 	<div class="row justify-content-end">
-		<button id="cancelar" class="btn btn-outline-dark" style="margin-right: 5px;">Cancelar</button>
+		<button id="cancelar" class="btn btn-outline-dark" style="margin-right: 5px;" (click)="onCancel()">Cancelar</button>
 		<button type="submit" id="enviar" class="btn btn-outline-dark"
-		[disabled]="!nuevaBicicleta.form.valid">Enviar</button>
+		[disabled]="!nuevaBicicleta.form.valid" (click)="onSubmit()">Enviar</button>
 	</div>
 </form>
 <p><small><strong>* Campo requerido</strong></small></p>

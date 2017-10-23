@@ -7,7 +7,7 @@ export class BicicletaModel {
 		public idBikeModel: string = '1',
 		public idBikeState: string = '1',
 		public idContactPoint: string = '0',
-		public idKindMatto: string = '0',
+		public idKindMatto: string = '1',
 		public idNetwork: string = '0',
 		public modified: string = "2017-10-18 20:27:55"
 		) {}
