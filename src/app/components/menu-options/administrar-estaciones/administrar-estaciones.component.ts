@@ -10,12 +10,11 @@ import { Subject } from 'rxjs/Rx';
 	providers: [EstacionService]
 })
 export class AdministrarEstacionesComponent implements OnInit {
-	showForm: boolean =false;
 	datosEstaciones:Array<any>=[];
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
 
-	constructor(private estacionservice : EstacionService) { }
+	constructor(private estacionservice : EstacionService, private router:Router) { }
 
 	ngOnInit() {
 		this.estacionservice.getEstaciones().subscribe(response => {
@@ -27,6 +26,6 @@ export class AdministrarEstacionesComponent implements OnInit {
 	}
 
 	informacionEstacion(id:number){
-		console.log(id);
+		this.router.navigate(['estacion',id]);
 	}
 }

@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-	name: 'titleCase'
+	name: 'userName'
 })
-export class TitleCasePipe implements PipeTransform {
+export class UserName implements PipeTransform {
 
 	transform(value: string): string {
 		let valor:string = "";
-		if (value ){
+		if (value && value !="anonimo"){
 			valor = String(value).charAt(0).toUpperCase() + String(value).slice(1);
 			valor = `Bienvenido ${valor} `
 		}

@@ -1,3 +1,11 @@
-<p>
-  usuario works!
-</p>
+
+<div class="row justify-content-md-center">
+	<div class="jumbotron">
+		<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
+		<p> Registrado: {{ dataUsuario.creado }}<br>
+			Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>
+		Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}</p>
+		<a class="btn btn-primary btn-lg" href="#" role="button">Inhabilitar</a>
+
+	</div>
+</div>

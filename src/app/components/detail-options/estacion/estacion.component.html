@@ -1,3 +1,34 @@
-<p>
-  estacion works!
-</p>
+<div class="row justify-content-md-center">
+	<div class="jumbotron">
+		<h4>{{ datosEstacion.nombre | uppercase}}</h4>
+		<p> Dirección: {{ datosEstacion.direccion}}<br>
+			Estado: {{ datosEstacion.idEstadoEstacion.estado }}<br>
+			Puntos de Contacto: {{puntosContacto.length}}
+			</p>
+		<a class="btn btn-primary btn-lg" href="#" role="button">Mantenimiento</a>
+
+	</div>
+</div>
+
+
+<div id="puntosContacto" class="animated fadeIn">
+	<div class="tituloPrincipal">
+		<h4>Estado Puntos de Contacto</h4>
+	</div>
+
+		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Estado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let puntoContacto of puntosContacto">
+					<td>{{puntoContacto.alias}}</td>
+					<td>{{puntoContacto.idEstadoPuntoContacto.estados}}</td>	
+				</tr>
+			</tbody>
+		</table>
+
+	</div>

@@ -3,12 +3,6 @@
 		<h3>Estaciones</h3>
 	</div>
 
-	<div *ngIf="!showForm">
-		<div class="btnAgregar">
-			<button class="btn btn-outline-dark" (click)="showForm=true">
-				<span class="oi oi-plus"></span> Agregar Estación</button>
-			</div>		
-		</div>
 		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
 			<thead>
 				<tr>
@@ -30,6 +24,3 @@
 
 	</div>
 
-	<div class="formularioAgregar animated fadeIn fast">
-		<app-agregar-estacion *ngIf="showForm"></app-agregar-estacion>
-	</div>

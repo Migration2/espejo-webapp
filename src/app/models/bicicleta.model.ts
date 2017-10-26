@@ -12,3 +12,20 @@ export class BicicletaModel {
 		public modified: string = "2017-10-18 20:27:55"
 		) {}
 }
+
+export class detalleBicicletaModel {
+	
+	constructor(
+		public id: string = '',
+		public codigo: string = "",
+		public creado: string = "",
+		public modificado: string = "",
+		public idEstadoBicicleta = {
+			id: '',
+			estado: "",
+			descripcion: "",
+			creado: "",
+			modificado: ""
+		}
+		) {}
+}

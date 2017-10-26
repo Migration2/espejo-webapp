@@ -22,5 +22,9 @@ export class EstacionService {
 	setStation(data){
 		this.http.post('/rest/station', JSON.stringify(data), this.options).subscribe();
 	}
+
+	getStationById(id:number){
+		return this.http.get('/rest/station/'+id, {}).map(res => res.json());	
+	}
 }
 

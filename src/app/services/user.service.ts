@@ -19,4 +19,8 @@ export class UserService {
 	getemployees(){
 		return this.http.get('/rest/person', {}).map(res => res.json());
 	}
+
+	getUserById(id:number){
+		return this.http.get('/rest/person/'+id, {}).map(res => res.json());
+	}
 }

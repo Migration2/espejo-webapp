@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BicicletaModel } from '../../../models/bicileta.model';
+import { BicicletaModel } from '../../../models/bicicleta.model';
 import { BiciService } from '../../../services/bici.service';
 
 
@@ -10,14 +10,11 @@ import { BiciService } from '../../../services/bici.service';
 })
 export class AgregarBicicletaComponent implements OnInit {
 	model = new BicicletaModel;
-	estadosBicicletas: Array<any> =[];
-
+	
 
 	constructor(private biciService:BiciService) { }
 
-	ngOnInit() {
-		this.biciService.getStatesBike().subscribe(res => this.estadosBicicletas = res);
-	}
+	ngOnInit() {}
 
 	onSubmit() { 
 		let idCliente = this.biciService.setBici(this.model); 

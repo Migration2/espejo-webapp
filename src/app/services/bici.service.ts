@@ -23,6 +23,8 @@ export class BiciService {
 		this.http.post('/rest/bike', JSON.stringify(data), this.options).subscribe();
 	}
 
-
+	getBiciById(id:number){
+		return this.http.get('/rest/bike/'+id, {}).map(res => res.json());
+	}
 
 }

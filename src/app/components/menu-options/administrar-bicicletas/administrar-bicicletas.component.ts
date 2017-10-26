@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BiciService } from '../../../services/bici.service';
-import { BicicletaModel } from '../../../models/bicileta.model';
 import { Subject } from 'rxjs/Rx';
 
 @Component({
@@ -28,7 +27,7 @@ export class AdministrarBicicletasComponent implements OnInit {
 	}
 
 	informacionBicicleta(id:number){
-		console.log(id);
+		this.router.navigate(['bicicleta',id]);
 	}
 
 	

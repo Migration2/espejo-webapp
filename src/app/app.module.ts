@@ -5,6 +5,11 @@ import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatTableModule} from '@angular/material';
 
+
+//maps
+import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+
 // componente principal
 import {AppComponent} from './app.component';
 
@@ -17,15 +22,12 @@ import {NavbarComponent} from './components/assets/navbar/navbar.component';
 import {FooterComponent} from './components/assets/footer/footer.component';
 import {AdministrarUsuariosComponent} from './components/menu-options/administrar-usuarios/administrar-usuarios.component';
 import {AdministrarEmpleadosComponent} from './components/menu-options/administrar-empleados/administrar-empleados.component';
-import {AdministrarTotemComponent} from './components/menu-options/administrar-totem/administrar-totem.component';
 import {AdministrarEstacionesComponent} from './components/menu-options/administrar-estaciones/administrar-estaciones.component';
-import {AdministrarPuntosAnclajeComponent} from './components/menu-options/administrar-puntos-anclaje/administrar-puntos-anclaje.component';
 import {AdministrarBicicletasComponent} from './components/menu-options/administrar-bicicletas/administrar-bicicletas.component';
 import {AdministrarSancionesComponent} from './components/menu-options/administrar-sanciones/administrar-sanciones.component';
 import {AdministrarMantenimientoComponent} from './components/menu-options/administrar-mantenimiento/administrar-mantenimiento.component';
 import {AdministrarInformacionGeneralComponent} from './components/menu-options/administrar-informacion-general/administrar-informacion-general.component';
 import {HistoricosComponent} from './components/menu-options/historicos/historicos.component';
-import {PromediosComponent} from './components/menu-options/promedios/promedios.component';
 import {HomeComponent} from './components/menu-options/home/home.component';
 
 // componentes de detalle
@@ -36,18 +38,16 @@ import {EstacionComponent} from './components/detail-options/estacion/estacion.c
 import {MantenimientoComponent} from './components/detail-options/mantenimiento/mantenimiento.component';
 import {PuntoAnclajeComponent} from './components/detail-options/punto-anclaje/punto-anclaje.component';
 import {SancionComponent} from './components/detail-options/sancion/sancion.component';
-import {TotemComponent} from './components/detail-options/totem/totem.component';
 
 //Formularios
 import {AgregarBicicletaComponent} from './components/forms/agregar-bicicleta/agregar-bicicleta.component';
-import {AgregarEstacionComponent} from './components/forms/agregar-estacion/agregar-estacion.component';
 
 
 // rutas
 import {APP_ROUTING} from './app.routes';
 
 //pipes
-import { TitleCasePipe } from './pipes/title-case.pipe';
+import { UserName } from './pipes/user-name.pipe';
 
 
 
@@ -58,15 +58,12 @@ import { TitleCasePipe } from './pipes/title-case.pipe';
     FooterComponent,
     AdministrarUsuariosComponent,
     AdministrarEmpleadosComponent,
-    AdministrarTotemComponent,
     AdministrarEstacionesComponent,
-    AdministrarPuntosAnclajeComponent,
     AdministrarBicicletasComponent,
     AdministrarSancionesComponent,
     AdministrarMantenimientoComponent,
     AdministrarInformacionGeneralComponent,
     HistoricosComponent,
-    PromediosComponent,
     HomeComponent,
     UsuarioComponent,
     BicicletaComponent,
@@ -75,10 +72,8 @@ import { TitleCasePipe } from './pipes/title-case.pipe';
     MantenimientoComponent,
     PuntoAnclajeComponent,
     SancionComponent,
-    TotemComponent,
     AgregarBicicletaComponent,
-    AgregarEstacionComponent,
-    TitleCasePipe
+    UserName
   ],
   imports: [
     BrowserModule,
@@ -89,7 +84,11 @@ import { TitleCasePipe } from './pipes/title-case.pipe';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatTableModule
+    MatTableModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBrf3wDF0sR5UJfUo_us3Ul8n6QQ7YBPYY'
+    }),
+    AgmSnazzyInfoWindowModule
   ],
   providers: [],
   bootstrap: [AppComponent]
