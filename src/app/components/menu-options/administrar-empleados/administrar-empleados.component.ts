@@ -18,15 +18,15 @@ export class AdministrarEmpleadosComponent implements OnInit {
 
 	ngOnInit() {
 		
-		this.userService.getUsers().subscribe(response => {
+		this.userService.getEmployees().subscribe(response => {
 			this.dataUsuarios = response;
 			this.dtOptions = {};
 			this.dtTrigger.next();
 		});
 	}
 
-	informacionUsuario(id:number){
-		this.router.navigate(['empleado',id]);
+	informacionUsuario(userName:string){
+		this.router.navigate(['empleado',userName]);
 	}
 
 }

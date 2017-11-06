@@ -1,20 +1,23 @@
 <div class="row justify-content-md-center">
 	<div class="jumbotron">
-		<h4>{{ datosEstacion.nombre | uppercase}}</h4>
-		<p> Dirección: {{ datosEstacion.direccion}}<br>
-			Estado: {{ datosEstacion.idEstadoEstacion.estado }}<br>
-			Puntos de Contacto: {{puntosContacto.length}}
-			</p>
+		<h4>{{ datosEstacion.name | uppercase}}</h4>
+		<p> Dirección: {{ datosEstacion.address}}<br>
+			Estado: {{ datosEstacion.statusName }}<br>
+			Puntos de Contacto: {{datosEstacion.contactPointStates.length}}<br>
+			Bicicletas Disponibles: {{datosEstacion.availableCycles}}
+		</p>
 		<a class="btn btn-primary btn-lg" href="#" role="button">Mantenimiento</a>
 
 	</div>
 </div>
 
 
-<div id="puntosContacto" class="animated fadeIn">
-	<div class="tituloPrincipal">
-		<h4>Estado Puntos de Contacto</h4>
-	</div>
+<div class="animated fadeIn row">
+	<div class="tituloPrincipal col-md-12">
+			<h4>Estado Puntos de Contacto</h4>
+		</div>
+	<div class="col-md-6">
+		
 
 		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
 			<thead>
@@ -26,9 +29,16 @@
 			<tbody>
 				<tr *ngFor="let puntoContacto of puntosContacto">
 					<td>{{puntoContacto.alias}}</td>
-					<td>{{puntoContacto.idEstadoPuntoContacto.estados}}</td>	
+					<td>{{puntoContacto.status}}</td>	
 				</tr>
 			</tbody>
 		</table>
-
+		
 	</div>
+	<div class="col-md-6">
+		<chart [options]="options"></chart>		
+	</div>
+	
+
+</div>
+

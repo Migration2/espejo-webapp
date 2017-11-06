@@ -20,6 +20,16 @@ import {MantenimientoComponent} from './components/detail-options/mantenimiento/
 import {PuntoAnclajeComponent} from './components/detail-options/punto-anclaje/punto-anclaje.component';
 import {SancionComponent} from './components/detail-options/sancion/sancion.component';
 
+//registro
+import { RegistroComponent } from './components/registro/registro.component';
+
+//cliente
+import { HomeClienteComponent } from './components/cliente/home-cliente/home-cliente.component';
+import { EstadisticasClienteComponent } from './components/cliente/estadisticas-cliente/estadisticas-cliente.component';
+
+//pagina no encontrada
+import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
+
 const APP_ROUTES: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'administrarBicicletas', component: AdministrarBicicletasComponent},
@@ -37,8 +47,11 @@ const APP_ROUTES: Routes = [
   {path: 'mantenimiento/:id', component: MantenimientoComponent},
   {path: 'puntoAnclaje/:id', component: PuntoAnclajeComponent},
   {path: 'sancion/:id', component: SancionComponent},
-
-  {path: '**', pathMatch: 'full', redirectTo: 'home'}
+  {path: 'error', component: PaginaNoEncontradaComponent},
+  {path: 'registro', component: SancionComponent},
+  {path: 'cliente/home', component: HomeClienteComponent},
+  {path: 'cliente/estadisticas', component: EstadisticasClienteComponent},
+  {path: '**', pathMatch: 'full', redirectTo: 'error'}
 ];
 
 export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES, {useHash: true});

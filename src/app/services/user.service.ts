@@ -13,14 +13,38 @@ export class UserService {
 	}
 
 	getUsers(){
-		return this.http.get('/rest/person', {}).map(res => res.json());
+		return this.http.get('/rest/person/security/all', {}).map(res => {let c= res.json();
+			let dataFiltrada=c.filter(function (data) {
+				let rol=0;
+				for (let i = data.userRole.length-1; i >= 0; i--) {
+					if (data.userRole[i].authority=="ROLE_ADMIN" || data.userRole[i].authority=="ROLE_EMPLOYEE"){
+						rol=1;
+					}
+				};				
+				return rol == 0;
+			});
+			return dataFiltrada});
 	}
 
-	getemployees(){
-		return this.http.get('/rest/person', {}).map(res => res.json());
+	getEmployees(){
+		return this.http.get('/rest/person/security/all', {}).map(res => {let c= res.json();
+			let dataFiltrada=c.filter(function (data) {
+				let rol=0;
+				for (let i = data.userRole.length-1; i >= 0; i--) {
+					if (data.userRole[i].authority=="ROLE_ADMIN" || data.userRole[i].authority=="ROLE_EMPLOYEE"){
+						rol=1;
+					}
+				};				
+				return rol == 1;
+			});
+			return dataFiltrada});
 	}
 
-	getUserById(id:number){
-		return this.http.get('/rest/person/'+id, {}).map(res => res.json());
+	
+
+	getUserByUserName(username:string){
+		return this.http.get('/rest/person/user/'+username, {}).map(res => res.json());
 	}
 }
+
+

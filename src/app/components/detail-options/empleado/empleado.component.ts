@@ -11,16 +11,16 @@ import { EmpleadoModel } from '../../../models/empleado.model';
 })
 export class EmpleadoComponent implements OnInit {
 	dataEmpleado = new EmpleadoModel;
-	private idEmpleado;
+	private nameEmpleado;
 	
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService) { 
 		this.activedRoute.params.subscribe(params=>{
-			this.idEmpleado = params.id;
+			this.nameEmpleado = params.id;
 		});
 
-		this.userService.getUserById(this.idEmpleado).subscribe(response => {
-			 this.dataEmpleado = response;
-			 	});
+		this.userService.getUserByUserName(this.nameEmpleado).subscribe(response => {
+			this.dataEmpleado = response;
+		});
 	}
 
 	ngOnInit() {

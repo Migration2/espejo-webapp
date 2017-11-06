@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EstacionService } from '../../../services/estacion.service';
+import { EstacionModel } from '../../../models/estacion.model';
 
 @Component({
 	selector: 'app-home',
@@ -11,7 +12,7 @@ export class HomeComponent implements OnInit {
 	title: string = 'Estaciones BiciRío';
 	Centerlat: number = 6.153433;
 	Centerlng: number = -75.372826;
-	datosEstaciones:Array<any>=[];
+	datosEstaciones:Array<EstacionModel>=[];
 
 	constructor(private estacionservice : EstacionService) { }
 

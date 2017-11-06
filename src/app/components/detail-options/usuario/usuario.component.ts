@@ -12,14 +12,14 @@ import { Subject } from 'rxjs/Rx';
 })
 export class UsuarioComponent implements OnInit {
 	dataUsuario = new UsuarioModel;
-	private idUsuario;
+	private userName;
 	
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService) { 
 		this.activedRoute.params.subscribe(params=>{
-			this.idUsuario = params.id;
+			this.userName = params.id;
 		});
 
-		this.userService.getUserById(this.idUsuario).subscribe(response => {
+		this.userService.getUserByUserName(this.userName).subscribe(response => {
 			 this.dataUsuario = response;
 		});
 	}

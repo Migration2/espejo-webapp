@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatTableModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 
 
 //maps
@@ -16,6 +16,9 @@ import {AppComponent} from './app.component';
 // datatables
 import {DataTablesModule} from 'angular-datatables';
 
+//highchart
+import { ChartModule } from 'angular2-highcharts';
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 
 // componentes opciones
 import {NavbarComponent} from './components/assets/navbar/navbar.component';
@@ -42,17 +45,27 @@ import {SancionComponent} from './components/detail-options/sancion/sancion.comp
 //Formularios
 import {AgregarBicicletaComponent} from './components/forms/agregar-bicicleta/agregar-bicicleta.component';
 
-
 // rutas
 import {APP_ROUTING} from './app.routes';
 
 //pipes
 import { UserName } from './pipes/user-name.pipe';
 
+//registro
+import { RegistroComponent } from './components/registro/registro.component';
+
+//rutas Cliente
+import { ClientNavbarComponent } from './components/assets/client-navbar/client-navbar.component';
+import { HomeClienteComponent } from './components/cliente/home-cliente/home-cliente.component';
+import { EstadisticasClienteComponent } from './components/cliente/estadisticas-cliente/estadisticas-cliente.component';
+
+//cargando y error
+import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
+import { CargandoComponent } from './components/assets/cargando/cargando.component';
 
 
 @NgModule({
-  declarations: [
+    declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
@@ -73,9 +86,15 @@ import { UserName } from './pipes/user-name.pipe';
     PuntoAnclajeComponent,
     SancionComponent,
     AgregarBicicletaComponent,
-    UserName
-  ],
-  imports: [
+    UserName,
+    ClientNavbarComponent,
+    RegistroComponent,
+    HomeClienteComponent,
+    EstadisticasClienteComponent,
+    PaginaNoEncontradaComponent,
+    CargandoComponent
+    ],
+    imports: [
     BrowserModule,
     DataTablesModule,
     APP_ROUTING,
@@ -84,14 +103,27 @@ import { UserName } from './pipes/user-name.pipe';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatTableModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBrf3wDF0sR5UJfUo_us3Ul8n6QQ7YBPYY'
+        apiKey: 'AIzaSyBrf3wDF0sR5UJfUo_us3Ul8n6QQ7YBPYY'
     }),
-    AgmSnazzyInfoWindowModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    AgmSnazzyInfoWindowModule,
+    ChartModule
+    ],
+    providers: [
+    {
+        provide: HighchartsStatic,
+        useFactory: highchartsFactory
+    }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
+}
+
+
+export function highchartsFactory() {
+    const hc = require('highcharts/highstock');
+    const dd = require('highcharts/modules/exporting');
+    dd(hc);
+    return hc;
 }

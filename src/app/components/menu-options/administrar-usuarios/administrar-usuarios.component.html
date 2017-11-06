@@ -14,14 +14,16 @@
 			<tr>
 				<th>Nombre</th>
 				<th>Fecha Registro</th>
-				<th>Estado</th>
+				<th>Validado</th>
+				<th>Habilitado</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.id)">
-				<td>{{ usuario.nombre +' '+ usuario.apellido | uppercase}}</td>
-				<td>{{ usuario.creado }}</td>
-				<td>Pendiente</td>
+			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.username)">
+				<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
+				<td>{{ usuario.created }}</td>
+				<td>{{ usuario.validated }}</td>
+				<td>{{ usuario.enabled }}</td>
 			</tr>
 		</tbody>
 	</table>

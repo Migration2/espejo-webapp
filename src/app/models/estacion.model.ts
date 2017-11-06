@@ -2,18 +2,15 @@ export class EstacionModel {
 	
 	constructor(
 		public id: string = "",
-		public nombre: string = "",
-		public direccion: string = "",
+		public name: string = "",
+		public address: string = "",
 		public creado: string = "",
 		public modificado: string = "",
-		public latitud: string = "",
-		public longitud: string = "",
-		public idEstadoEstacion = {
-			id: "",
-			estado: "",
-			descipcion: "",
-			creado: "",
-			modificado: ""
-		}
+		public latitude: string = "",
+		public longitude: string = "",
+		public statusName: string = "",
+		public modelName : string ="",
+		public availableCycles:string ="",
+		public contactPointStates:Array<any>=[]
 		) {}
 }

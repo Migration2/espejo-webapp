@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http, RequestOptions,Headers} from '@angular/http';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EstacionService {
@@ -12,7 +12,7 @@ export class EstacionService {
 	
 
 	getEstaciones(){
-		return this.http.get('/rest/station', {}).map(res => res.json());
+		return this.http.get('/rest/mobile/station', {}).map(res => res.json());
 	}
 
 	getStatesStation(){

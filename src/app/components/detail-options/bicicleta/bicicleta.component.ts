@@ -11,6 +11,7 @@ import { Subject } from 'rxjs/Rx';
 	providers: [BiciService]
 })
 export class BicicletaComponent implements OnInit {
+	
 	private idBici;
 	datosBici = new detalleBicicletaModel;
 

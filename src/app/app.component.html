@@ -1,6 +1,14 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="rol=='1'"></app-navbar>
+<app-client-navbar *ngIf="rol=='2'"></app-client-navbar>
 
-<div id="contenedorPrincipal" class="container">
+<div id="contenedorPrincipal" class="container" *ngIf="rol=='1' || rol=='2' ">
   <router-outlet></router-outlet>
+   <app-footer></app-footer>
+</div>
+
+
+<!-- visualizacion Registro si no tengo rol asignado -->
+<div id="contenedorRegistro" class="container" *ngIf="rol=='0'">
+  <app-registro></app-registro>
   <app-footer></app-footer>
 </div>

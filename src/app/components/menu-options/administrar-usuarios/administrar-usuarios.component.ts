@@ -27,8 +27,8 @@ export class AdministrarUsuariosComponent implements OnInit {
 		});
 	}
 
-	informacionUsuario(id:number){
-		this.router.navigate(['usuario',id]);
+	informacionUsuario(userName:string){
+		this.router.navigate(['usuario',userName]);
 	}
 
 }
