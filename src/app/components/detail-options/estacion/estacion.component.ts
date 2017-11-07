@@ -17,8 +17,7 @@ export class EstacionComponent implements OnInit {
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
 	options: Object;
-	private porcentajePuntosContacto;
-
+	
 	constructor(private activedRoute:ActivatedRoute, private estacionservice : EstacionService) { 
 		this.activedRoute.params.subscribe(params=>{
 			this.idEstacion = params.id;
@@ -28,7 +27,7 @@ export class EstacionComponent implements OnInit {
 			this.datosEstacion = response;
 			this.puntosContacto = response.contactPointStates;
 			this.dtTrigger.next();
-			this.porcentajePuntosContacto = this.estadoPuntosContacto(this.puntosContacto);
+			this.estadoPuntosContacto(this.puntosContacto);
 		});
 
 		
@@ -39,10 +38,26 @@ export class EstacionComponent implements OnInit {
 			searching: false
 		};
 
+	}
 
+	estadoPuntosContacto(puntosContacto){
 
+		let data:Array<any>=[];
+		let matriz = {};
+
+		if (puntosContacto.length > 2) {				
+			puntosContacto.forEach(function(registro) { 
+				let estado = registro["status"];
+				matriz[estado] = matriz[estado] ? (matriz[estado] + 1) : 1;
+			});			
+			for (var i = Object.values(matriz).length - 1; i >= 0; i--) {
+				data.push({'name':Object.keys(matriz)[i] ,'y':Object.values(matriz)[i]});
+			}			
+		}else{
+			data.push({'name': Object.keys(matriz),'y':100});
+		}
+		
 		this.options = {
-			// title : { text : 'Puntos de contacto' },
 			chart: {
 				plotBackgroundColor: null,
 				plotBorderWidth: null,
@@ -53,7 +68,7 @@ export class EstacionComponent implements OnInit {
 				text: ''
 			},
 			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				pointFormat: '{series.name}: <b>{point.y}</b>'
 			},
 			plotOptions: {
 				pie: {
@@ -66,27 +81,10 @@ export class EstacionComponent implements OnInit {
 				}
 			},
 			series: [{
-				name: 'Estado',
+				name: 'Cantidad',
 				colorByPoint: true,
-				data: this.porcentajePuntosContacto
+				data: data
 			}]
 		};
 	}
-
-	estadoPuntosContacto(puntosContacto){
-
-		let data:Array<any>=[];
-
-		if (puntosContacto.length > 2) {			
-			let matriz = {};
-			puntosContacto.forEach(function(registro) { 
-				let estado = registro["status"];
-				matriz[estado] = matriz[estado] ? (matriz[estado] + 1) : 1;
-			});
-		}else{
-			// data.push({name:puntosContacto.status, y:puntosContacto.length});
-		}		console.log(data);
-		return data;
-	}
-
 }

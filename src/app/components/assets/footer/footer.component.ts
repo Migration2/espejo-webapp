@@ -12,8 +12,8 @@ export class FooterComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	openWindow(){
-		window.open('http://www.dev-codes.net/','_blank');
+	openWindow(url){
+		window.open(url,'_blank');
 	}
 
 
