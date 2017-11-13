@@ -9,37 +9,44 @@ import { Router } from '@angular/router';
 	providers: [UserService]
 })
 export class AppComponent {
-	rol = 1;
+	rolPrincipal:string ="";
+	rolAdministrador:string ="ROLE_ADMIN";
+	rolusuario:string ="ROLE_USER";
 
 
 	constructor(private userService :UserService, private router:Router){
-//cargar componente cargando mientras responde el servicio y se sabe el rol del usuario, si el servidor responde un estado diferente a 200 o un rol diferente del esperado, redireccionar a registro
+			//cargar componente cargando mientras responde el servicio y se sabe el rol del usuario, si el servidor responde un estado diferente a 200 o un rol diferente del esperado, redireccionar a registro
+		this.userService.getLoginRol().subscribe(response => {
+			this.redirect(response);
+		});
 
-		// this.userService.getLogin().subscribe(response => {
-			this.redirect();
-			//  });
-
-		}
+	}
 
 
-		redirect(){
-			switch (this.rol) {
-				case 1:
-				this.router.navigate(['home']);	
+	redirect(rol){
+		
+		for (let i = 0; i< rol.length; i++ ){//recorremos todos los roles para verificar este el rol admin
+			if(rol[i].authority==this.rolAdministrador){
+				this.rolPrincipal=this.rolAdministrador;
 				break;
-
-				case 2:
-				this.router.navigate(['cliente/home']);	
-				break;
-
-				case 0:
-				this.router.navigate(['registro']);
-				break;
-
-				default:
-				// this.router.navigate(['registro']);	
-				break;
+			}else{
+				this.rolPrincipal=this.rolusuario;
 			}
 		}
 
+		switch (this.rolPrincipal) {
+			case this.rolAdministrador:
+			this.router.navigate(['home']);	
+			break;
+
+			case this.rolusuario:
+			this.router.navigate(['cliente/home']);	
+			break;
+
+			default:
+			this.router.navigate(['error']);	
+			break;
+		}
 	}
+
+}

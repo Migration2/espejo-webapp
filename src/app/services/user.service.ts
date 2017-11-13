@@ -12,6 +12,10 @@ export class UserService {
 		return this.http.get('/init/me', {}).map(res => res.json());
 	}
 
+	getLoginRol() {
+		return this.http.get('/init/me/roles', {}).map(res => res.json());
+	}
+
 	getUsers(){
 		return this.http.get('/rest/person/security/all', {}).map(res => {let c= res.json();
 			let dataFiltrada=c.filter(function (data) {

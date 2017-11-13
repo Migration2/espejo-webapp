@@ -61,16 +61,17 @@ export class HomeComponent implements OnInit {
 				text: '<br>Estaciones<br>',
 				align: 'center',
 				verticalAlign: 'middle',
-				y: 40
+				y: 60
 			},
 			tooltip: {
 				pointFormat: '{series.name}: <b>{point.y}</b>'
 			},
 			plotOptions: {
 				pie: {
+					size:'90%',
 					dataLabels: {
 						enabled: true,
-						distance: -50,
+						distance: -40,
 						style: {
 							fontWeight: 'bold',
 							color: 'white'
@@ -86,7 +87,10 @@ export class HomeComponent implements OnInit {
 				name: 'Cantidad',
 				innerSize: '60%',
 				data: data
-			}]
+			}],
+			credits: {
+				enabled: false
+			}
 		}
 	}
 
@@ -113,16 +117,17 @@ export class HomeComponent implements OnInit {
 				text: '<br>Contactos<br>',
 				align: 'center',
 				verticalAlign: 'middle',
-				y: 40
+				y: 60
 			},
 			tooltip: {
 				pointFormat: '{series.name}: <b>{point.y}</b>'
 			},
 			plotOptions: {
 				pie: {
+					size:'90%',
 					dataLabels: {
 						enabled: true,
-						distance: -50,
+						distance: -40,
 						style: {
 							fontWeight: 'bold',
 							color: 'white'
@@ -138,7 +143,10 @@ export class HomeComponent implements OnInit {
 				name: 'Cantidad',
 				innerSize: '60%',
 				data: data
-			}]
+			}],
+			credits: {
+				enabled: false
+			}
 		}
 	}
 
@@ -165,16 +173,17 @@ export class HomeComponent implements OnInit {
 				text: '<br>Bicicletas<br>',
 				align: 'center',
 				verticalAlign: 'middle',
-				y: 40
+				y: 60
 			},
 			tooltip: {
 				pointFormat: '{series.name}: <b>{point.y}</b>'
 			},
 			plotOptions: {
 				pie: {
+					size:'90%',
 					dataLabels: {
 						enabled: true,
-						distance: -50,
+						distance: -40,
 						style: {
 							fontWeight: 'bold',
 							color: 'white'
@@ -190,7 +199,10 @@ export class HomeComponent implements OnInit {
 				name: 'Cantidad',
 				innerSize: '60%',
 				data: data
-			}]
+			}],
+			credits: {
+				enabled: false
+			}
 		}
 	}
 
