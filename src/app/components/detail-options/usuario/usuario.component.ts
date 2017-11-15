@@ -12,7 +12,10 @@ import { Subject } from 'rxjs/Rx';
 })
 export class UsuarioComponent implements OnInit {
 	dataUsuario = new UsuarioModel;
+	prestamos:any;
 	private userName;
+	dtTrigger = new Subject();
+	dtOptions: DataTables.Settings = {};
 	
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService) { 
 		this.activedRoute.params.subscribe(params=>{
@@ -20,11 +23,16 @@ export class UsuarioComponent implements OnInit {
 		});
 
 		this.userService.getUserByUserName(this.userName).subscribe(response => {
-			 this.dataUsuario = response;
+			this.dataUsuario = response;
+			this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
+				this.prestamos=response;
+				this.dtTrigger.next();
+			});
 		});
 	}
 
 	ngOnInit() {
+		this.dtOptions = {};
 	}
 
 }

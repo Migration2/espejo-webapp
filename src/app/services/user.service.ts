@@ -49,6 +49,12 @@ export class UserService {
 	getUserByUserName(username:string){
 		return this.http.get('/rest/person/user/'+username, {}).map(res => res.json());
 	}
+
+	getUserLends(id:number){
+		return this.http.get('/rest/lend/statistic/user/'+id, {}).map(res => res.json());
+	}
+
+
 }
 
 

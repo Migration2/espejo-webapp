@@ -4,33 +4,28 @@
 		<h3>Empleados</h3>
 	</div>
 
-	<div class="btnAgregar">
-		<button class="btn btn-outline-dark" >
-			<span class="oi oi-plus"></span> Agregar Funcionario</button>
-		</div>		
-
-		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th>Nombre</th>
-					<th>Fecha Registro</th>
-					<th>Celular</th>
-					<th>Habilitado</th>
-					<th>Rol</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario( usuario.username )">
-					<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
-					<td>{{ usuario.created }}</td>
-					<td>{{ usuario.celphone }}</td>
-					<td>{{ usuario.enabled }}</td>
-					<td>
-						<ul>
-							<li *ngFor="let rol of usuario.userRole"> {{rol.authority}}</li>
-						</ul>
-					</td>					
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Fecha Registro</th>
+				<th>Celular</th>
+				<th style="text-align: center;">Habilitado</th>
+				<th>Rol</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario( usuario.username )">
+				<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
+				<td>{{ usuario.created }}</td>
+				<td>{{ usuario.celphone }}</td>
+				<td style="text-align: center;"><span *ngIf="!usuario.enabled" class="oi oi-x"></span><span *ngIf="usuario.enabled" class="oi oi-check"></span></td>
+				<td>
+					<ul>
+						<li *ngFor="let rol of usuario.userRole"> {{rol.authority | rol}}</li>
+					</ul>
+				</td>					
+			</tr>
+		</tbody>
+	</table>
+</div>

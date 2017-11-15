@@ -50,6 +50,7 @@ import {APP_ROUTING} from './app.routes';
 
 //pipes
 import { UserName } from './pipes/user-name.pipe';
+import { RolPipe } from './pipes/rol.pipe';
 
 //registro
 import { RegistroComponent } from './components/registro/registro.component';
@@ -62,6 +63,8 @@ import { EstadisticasClienteComponent } from './components/cliente/estadisticas-
 //cargando y error
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
 import { CargandoComponent } from './components/assets/cargando/cargando.component';
+
+
 
 
 @NgModule({
@@ -92,7 +95,8 @@ import { CargandoComponent } from './components/assets/cargando/cargando.compone
     HomeClienteComponent,
     EstadisticasClienteComponent,
     PaginaNoEncontradaComponent,
-    CargandoComponent
+    CargandoComponent,
+    RolPipe
     ],
     imports: [
     BrowserModule,

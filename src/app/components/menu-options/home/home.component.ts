@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EstacionService } from '../../../services/estacion.service';
+import { Router } from '@angular/router';
 import { EstadisticasService } from '../../../services/estadisticas.service';
 import { EstacionModel } from '../../../models/estacion.model';
+import { Subject } from 'rxjs/Rx';
 
 @Component({
 	selector: 'app-home',
@@ -17,12 +19,13 @@ export class HomeComponent implements OnInit {
 	optionsEstaciones: Object;
 	optionsPuntosContacto: Object;
 	optionsBicicletas: Object;
+	dtTrigger = new Subject();
+	dtOptions: DataTables.Settings = {};
 
-	constructor(private estacionservice : EstacionService, private estadisticasService : EstadisticasService) { }
-
-	ngOnInit() {
+	constructor(private estacionservice : EstacionService, private estadisticasService : EstadisticasService, private router:Router) {
 		this.estacionservice.getEstaciones().subscribe(response => {
-			this.datosEstaciones = response;
+			this.datosEstaciones = response;			
+			this.dtTrigger.next();
 		});
 
 		this.estadisticasService.getEstadisticasEstaciones().subscribe(response => {
@@ -38,6 +41,14 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
+	ngOnInit() {		
+		this.dtOptions = {};	
+	}
+
+	informacionEstacion(id:number){
+		this.router.navigate(['estacion',id]);
+	}
+
 	estadisticasEstaciones(response){
 		let data:Array<any>=[];
 
@@ -47,11 +58,12 @@ export class HomeComponent implements OnInit {
 			}			
 		}
 		this.optionsEstaciones = {
-			chart: {
+			chart: {				
 				plotBackgroundColor: null,
 				plotBorderWidth: 0,
 				plotShadow: false,
-				renderTo: 'optionsEstaciones'
+				renderTo: 'optionsEstaciones',
+				margin: [0, 0, 0, 0]
 			}, navigation: {
 				buttonOptions: {
 					enabled: false
@@ -107,7 +119,8 @@ export class HomeComponent implements OnInit {
 				plotBackgroundColor: null,
 				plotBorderWidth: 0,
 				plotShadow: false,
-				renderTo: 'optionsPuntosContacto'
+				renderTo: 'optionsPuntosContacto',
+				margin: [0, 0, 0, 0]
 			}, navigation: {
 				buttonOptions: {
 					enabled: false
@@ -163,7 +176,8 @@ export class HomeComponent implements OnInit {
 				plotBackgroundColor: null,
 				plotBorderWidth: 0,
 				plotShadow: false,
-				renderTo: 'optionsBicicletas'
+				renderTo: 'optionsBicicletas',
+				margin: [0, 0, 0, 0]
 			}, navigation: {
 				buttonOptions: {
 					enabled: false

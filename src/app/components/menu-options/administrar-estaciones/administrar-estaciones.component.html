@@ -8,8 +8,8 @@
 				<tr>
 					<th>Nombre</th>
 					<th>Dirección</th>
-					<th>Capacidad</th>
-					<th>Bicicletas</th>					
+					<th style="text-align: center;">Capacidad</th>
+					<th style="text-align: center;">Bicicletas</th>					
 					<th>Estado</th>
 				</tr>
 			</thead>
@@ -17,8 +17,8 @@
 				<tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
 					<td>{{estacion.name}}</td>
 					<td>{{estacion.address}}</td>
-					<td>{{estacion.contactPointStates.length}}</td>	
-					<td>{{estacion.availableCycles}}</td>
+					<td style="text-align: center;">{{estacion.contactPointStates.length}}</td>	
+					<td style="text-align: center;">{{estacion.availableCycles}}</td>
 					<td>{{estacion.statusName}}</td>		
 				</tr>
 			</tbody>

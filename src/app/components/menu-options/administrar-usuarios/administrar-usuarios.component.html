@@ -4,26 +4,21 @@
 		<h3>Usuarios</h3>
 	</div>
 
-<!-- <div class="btnAgregar">
-	<button class="btn btn-outline-dark" >
-		<span class="oi oi-plus"></span> Agregar Usuario</button>
-	</div>	 -->	
-
 	<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
 		<thead>
 			<tr>
 				<th>Nombre</th>
 				<th>Fecha Registro</th>
-				<th>Validado</th>
-				<th>Habilitado</th>
+				<th style="text-align: center;">Validado</th>
+				<th style="text-align: center;">Habilitado</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.username)">
 				<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
 				<td>{{ usuario.created }}</td>
-				<td>{{ usuario.validated }}</td>
-				<td>{{ usuario.enabled }}</td>
+				<td style="text-align: center;"><span *ngIf="!usuario.validated" class="oi oi-x"></span><span *ngIf="usuario.validated" class="oi oi-check"></span></td>
+				<td style="text-align: center;"><span *ngIf="!usuario.enabled" class="oi oi-x"></span><span *ngIf="usuario.enabled" class="oi oi-check"></span></td>
 			</tr>
 		</tbody>
 	</table>

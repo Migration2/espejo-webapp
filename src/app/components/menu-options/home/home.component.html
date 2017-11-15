@@ -1,23 +1,50 @@
 <div class="tituloPrincipal">
-		<h3>{{title}}</h3>
-	</div>
+  <h3>{{title}}</h3>
+</div>
 
-<agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
-  <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
-  	<agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-      <ng-template>
-       <strong>{{ estacion.nombre | uppercase}}</strong>
-       <br>
-       Puntos de Contacto: {{ estacion.availableCycles}}
-      </ng-template>
-    </agm-snazzy-info-window>
-  </agm-marker>
-</agm-map>
+<div class="row">
+  <div class="col-md-12">
+    <agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
+      <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+          <ng-template>
+           <strong>{{ estacion.name | uppercase}}</strong>
+           <br>
+           Puntos de Contacto: {{ estacion.contactPointStates.length}}           
+         </ng-template>
+       </agm-snazzy-info-window>
+     </agm-marker>
+   </agm-map>
+ </div>
+ <div style="margin-top: 40px;" class="col-md-10 offset-md-1">
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th style="text-align: center;">Puntos libres</th>
+        <th style="text-align: center;">Bicicletas Disponibles</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
+        <td>{{estacion.name}}</td>
+        <td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
+        <td style="text-align: center;">{{estacion.availableCycles}}</td>  
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+
+
+
+
 
 <div class="row">
   <div class="col-md-4">
     <div id="optionsEstaciones">
-    <chart [options]="optionsEstaciones"></chart>     
+      <chart [options]="optionsEstaciones"></chart>     
     </div>
     
   </div>
@@ -25,11 +52,11 @@
     <div id="optionsPuntosContacto">
       <chart [options]="optionsPuntosContacto"></chart>   
     </div>
-   
+
   </div>
   <div class="col-md-4">
     <div id="optionsBicicletas">
-    <chart [options]="optionsBicicletas"></chart>     
+      <chart [options]="optionsBicicletas"></chart>     
     </div>    
   </div>  
 </div>
