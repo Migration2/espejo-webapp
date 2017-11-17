@@ -48,7 +48,7 @@ const APP_ROUTES: Routes = [
   {path: 'puntoAnclaje/:id', component: PuntoAnclajeComponent},
   {path: 'sancion/:id', component: SancionComponent},
   {path: 'error', component: PaginaNoEncontradaComponent},
-  {path: 'registro', component: SancionComponent},
+  {path: 'registro', component: RegistroComponent},
   {path: 'cliente/home', component: HomeClienteComponent},
   {path: 'cliente/estadisticas', component: EstadisticasClienteComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'error'}

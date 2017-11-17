@@ -16,6 +16,7 @@ export class UsuarioComponent implements OnInit {
 	private userName;
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
+	showRoles:boolean = false;
 	
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService) { 
 		this.activedRoute.params.subscribe(params=>{

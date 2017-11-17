@@ -1,7 +1,7 @@
 <app-navbar *ngIf="rolPrincipal==rolAdministrador"></app-navbar>
 <app-client-navbar *ngIf="rolPrincipal==rolusuario"></app-client-navbar>
 
-<div id="contenedorPrincipal" class="container" *ngIf="rolPrincipal==rolAdministrador || rolPrincipal==rolusuario ">
+<div id="contenedorPrincipal" class="container">
   <router-outlet></router-outlet>
    <app-footer></app-footer>
 </div>

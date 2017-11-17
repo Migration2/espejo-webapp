@@ -54,6 +54,10 @@ export class UserService {
 		return this.http.get('/rest/lend/statistic/user/'+id, {}).map(res => res.json());
 	}
 
+	getRoles() {
+		return this.http.get('/rest/username/roles', {}).map(res => res.json());
+	}
+
 
 }
 

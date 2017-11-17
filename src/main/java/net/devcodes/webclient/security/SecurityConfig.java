@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/login**", "/webjars/**", "/init/me", "logout.html").permitAll()
+                .antMatchers("/rest/signup","/login**", "/webjars/**", "/init/me", "logout.html", "/rest/type/id","/rest/city").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID")

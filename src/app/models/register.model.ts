@@ -15,7 +15,7 @@
  		lastname: "",
  		modified: "2017-10-18 20:27:55",
  		name: "",
- 		network: [ 0 ],
+ 		network: [ 1 ],
  		nui: "",
  		phone: "",
  		profession: "",

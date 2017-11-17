@@ -29,6 +29,7 @@ export class RegistroComponent implements OnInit {
 
 	onSubmit() { 
 		this.model.username = this.model.person.username;
+		this.model.person.birthday = this.model.person.birthday.concat(" 10:00:00");
 		let idCliente = this.registerService.setRegister(this.model); 
 		console.log("envioa");
 	};
