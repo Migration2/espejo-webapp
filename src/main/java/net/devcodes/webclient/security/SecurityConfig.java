@@ -33,10 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/rest/signup","/login**", "/webjars/**", "/init/me", "logout.html", "/rest/type/id","/rest/city").permitAll()
+                .antMatchers("/logout","/rest/signup","/login**", "/webjars/**", "/init/me", "logout.html", "/rest/type/id","/rest/city","/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
-                .and().logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
+                .and().logout().logoutSuccessUrl("http://bicirio.gov.co/site/")//.logoutUrl("/logout").deleteCookies("JSESSIONID")
                 .and().csrf().disable();
     }
 

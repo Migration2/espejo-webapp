@@ -5,8 +5,9 @@
 		<p> Registrado: {{ dataUsuario.creado }}<br>
 			Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>
 		Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}</p>
-		<button class="btn btn-primary btn-lg" role="button">Inhabilitar</button>
-		<button class="btn btn-primary btn-lg" (click)="showRoles=true" role="button">Roles</button>
+		<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled">Inhabilitar</button>
+		<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="!dataSecurity.enabled">Habilitar</button>
+		<button class="btn btn-primary btn-lg bottonAction" role="button">Roles</button>
 
 	</div>
 </div>
@@ -37,7 +38,5 @@
 		</table>
 	</div>
 </div>
-<div *ngIf="showRoles">
-	perr
-</div>
+
 

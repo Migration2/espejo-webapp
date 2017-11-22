@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-navbar *ngIf=\"rolPrincipal==rolAdministrador\"></app-navbar>\r\n<app-client-navbar *ngIf=\"rolPrincipal==rolusuario\"></app-client-navbar>\r\n\r\n<div id=\"contenedorPrincipal\" class=\"container\" *ngIf=\"rolPrincipal==rolAdministrador || rolPrincipal==rolusuario \">\r\n  <router-outlet></router-outlet>\r\n   <app-footer></app-footer>\r\n</div>"
+module.exports = "<app-navbar *ngIf=\"rolPrincipal==rolAdministrador\"></app-navbar>\r\n<app-client-navbar *ngIf=\"rolPrincipal==rolusuario\"></app-client-navbar>\r\n\r\n<div id=\"contenedorPrincipal\" class=\"container\" *ngIf=\"rolPrincipal==rolusuario || rolPrincipal==rolAdministrador\">\r\n  <router-outlet></router-outlet>\r\n   <app-footer></app-footer>\r\n</div>"
 
 /***/ }),
 
@@ -314,9 +314,10 @@ function highchartsFactory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_detail_options_mantenimiento_mantenimiento_component__ = __webpack_require__("../../../../../src/app/components/detail-options/mantenimiento/mantenimiento.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_detail_options_punto_anclaje_punto_anclaje_component__ = __webpack_require__("../../../../../src/app/components/detail-options/punto-anclaje/punto-anclaje.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_detail_options_sancion_sancion_component__ = __webpack_require__("../../../../../src/app/components/detail-options/sancion/sancion.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_cliente_home_cliente_home_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_cliente_estadisticas_cliente_estadisticas_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__ = __webpack_require__("../../../../../src/app/components/assets/pagina-no-encontrada/pagina-no-encontrada.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_registro_registro_component__ = __webpack_require__("../../../../../src/app/components/registro/registro.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_cliente_home_cliente_home_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_cliente_estadisticas_cliente_estadisticas_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__ = __webpack_require__("../../../../../src/app/components/assets/pagina-no-encontrada/pagina-no-encontrada.component.ts");
 
 // menu-options
 
@@ -335,6 +336,8 @@ function highchartsFactory() {
 
 
 
+
+//registro
 
 //cliente
 
@@ -358,10 +361,11 @@ var APP_ROUTES = [
     { path: 'mantenimiento/:id', component: __WEBPACK_IMPORTED_MODULE_14__components_detail_options_mantenimiento_mantenimiento_component__["a" /* MantenimientoComponent */] },
     { path: 'puntoAnclaje/:id', component: __WEBPACK_IMPORTED_MODULE_15__components_detail_options_punto_anclaje_punto_anclaje_component__["a" /* PuntoAnclajeComponent */] },
     { path: 'sancion/:id', component: __WEBPACK_IMPORTED_MODULE_16__components_detail_options_sancion_sancion_component__["a" /* SancionComponent */] },
-    { path: 'error', component: __WEBPACK_IMPORTED_MODULE_19__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__["a" /* PaginaNoEncontradaComponent */] },
-    { path: 'registro', component: __WEBPACK_IMPORTED_MODULE_16__components_detail_options_sancion_sancion_component__["a" /* SancionComponent */] },
-    { path: 'cliente/home', component: __WEBPACK_IMPORTED_MODULE_17__components_cliente_home_cliente_home_cliente_component__["a" /* HomeClienteComponent */] },
-    { path: 'cliente/estadisticas', component: __WEBPACK_IMPORTED_MODULE_18__components_cliente_estadisticas_cliente_estadisticas_cliente_component__["a" /* EstadisticasClienteComponent */] },
+    { path: 'error', component: __WEBPACK_IMPORTED_MODULE_20__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__["a" /* PaginaNoEncontradaComponent */] },
+    { path: 'registro.html', component: __WEBPACK_IMPORTED_MODULE_17__components_registro_registro_component__["a" /* RegistroComponent */] },
+    { path: 'registro/ok', component: __WEBPACK_IMPORTED_MODULE_17__components_registro_registro_component__["a" /* RegistroComponent */] },
+    { path: 'cliente/home', component: __WEBPACK_IMPORTED_MODULE_18__components_cliente_home_cliente_home_cliente_component__["a" /* HomeClienteComponent */] },
+    { path: 'cliente/estadisticas', component: __WEBPACK_IMPORTED_MODULE_19__components_cliente_estadisticas_cliente_estadisticas_cliente_component__["a" /* EstadisticasClienteComponent */] },
     { path: '**', pathMatch: 'full', redirectTo: 'error' }
 ];
 var APP_ROUTING = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */].forRoot(APP_ROUTES, { useHash: true });
@@ -567,7 +571,7 @@ FooterComponent = __decorate([
 /***/ "../../../../../src/app/components/assets/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark fixed-top\" style=\"background-color: #e3244b;\">\r\n  <a class=\"navbar-brand\" routerLink='/home' href=\"#\">\r\n    <img src=\"../../../../assets/images/logo-bicirio-UR.png\" width=\"60\" alt=\"Home\"/>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\"\r\n  aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n  <span class=\"navbar-toggler-icon\"></span>\r\n</button>\r\n<div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n  <ul class=\"navbar-nav mr-auto\">\r\n    <li class=\"nav-item dropdown\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        Administrar\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" routerLink='administrarUsuarios'>Usuarios</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEmpleados'>Empleados</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEstaciones'>Estaciones</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarBicicletas'>Bicicletas</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarSanciones'>Codigo Sanciones</a> -->\r\n        <a class=\"dropdown-item\" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarInformacionGeneral'>Información General</a> -->\r\n      </div>\r\n    </li>\r\n    <li class=\"nav-item  justify-content-end\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link\" routerLink='historicos'>Estadisticas</a>\r\n    </li>\r\n  </ul>\r\n  <ul class=\"navbar-nav\">\r\n    <li class=\"nav-item dropdown active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        {{nombre | userName}}\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\">LogOut</a>\r\n        <a class=\"dropdown-item\">Mi Perfil</a>\r\n        <a class=\"dropdown-item\">Contraseña</a>        \r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark fixed-top\" style=\"background-color: #e3244b;\">\r\n  <a class=\"navbar-brand\" routerLink='/home' href=\"#\">\r\n    <img src=\"../../../../assets/images/logo-bicirio-UR.png\" width=\"60\" alt=\"Home\"/>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\"\r\n  aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n  <span class=\"navbar-toggler-icon\"></span>\r\n</button>\r\n<div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n  <ul class=\"navbar-nav mr-auto\">\r\n    <li class=\"nav-item dropdown\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        Administrar\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" routerLink='administrarUsuarios'>Usuarios</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEmpleados'>Empleados</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEstaciones'>Estaciones</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarBicicletas'>Bicicletas</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarSanciones'>Codigo Sanciones</a> -->\r\n        <a class=\"dropdown-item\" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarInformacionGeneral'>Información General</a> -->\r\n      </div>\r\n    </li>\r\n    <li class=\"nav-item  justify-content-end\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link\" routerLink='historicos'>Estadisticas</a>\r\n    </li>\r\n  </ul>\r\n  <ul class=\"navbar-nav\">\r\n    <li class=\"nav-item dropdown active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        {{nombre | userName}}\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" (click)=\"logOut()\">LogOut</a>\r\n        <a class=\"dropdown-item\">Mi Perfil</a>\r\n        <a class=\"dropdown-item\">Contraseña</a>        \r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n</nav>\r\n"
 
 /***/ }),
 
@@ -596,6 +600,8 @@ module.exports = module.exports.toString();
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavbarComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cookies_ng2_cookies__ = __webpack_require__("../../../../ng2-cookies/ng2-cookies.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_cookies_ng2_cookies___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_ng2_cookies_ng2_cookies__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -607,15 +613,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var NavbarComponent = (function () {
-    function NavbarComponent(userService) {
+    function NavbarComponent(userService, cookieService) {
         this.userService = userService;
+        this.cookieService = cookieService;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userService.getLoginName().subscribe(function (response) {
             _this.nombre = response.name;
         });
+    };
+    NavbarComponent.prototype.logOut = function () {
+        console.log('Removing all cookies');
+        __WEBPACK_IMPORTED_MODULE_2_ng2_cookies_ng2_cookies__["Cookie"].deleteAll('');
+        this.userService.logOut().subscribe(function (response) { });
     };
     return NavbarComponent;
 }());
@@ -624,12 +637,12 @@ NavbarComponent = __decorate([
         selector: 'app-navbar',
         template: __webpack_require__("../../../../../src/app/components/assets/navbar/navbar.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/assets/navbar/navbar.component.scss")],
-        providers: [__WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_2_ng2_cookies_ng2_cookies__["Cookie"]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_cookies_ng2_cookies__["Cookie"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ng2_cookies_ng2_cookies__["Cookie"]) === "function" && _b || Object])
 ], NavbarComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=navbar.component.js.map
 
 /***/ }),
@@ -820,7 +833,7 @@ HomeClienteComponent = __decorate([
 /***/ "../../../../../src/app/components/detail-options/bicicleta/bicicleta.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ datosBici.codigo | uppercase}}</h4>\r\n\t\t<p> Creada: {{ datosBici.creado}}<br>\r\n\t\t\tEstado: {{ datosBici.idEstadoBicicleta.estado }}\r\n\t\t\t</p>\r\n\t\t<a class=\"btn btn-primary btn-lg\" href=\"#\" role=\"button\">Mantenimiento</a>\r\n\t</div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ datosBici.codigo | uppercase}}</h4>\r\n\t\t<p> Creada: {{ datosBici.creado}}<br>\r\n\t\t\tEstado: {{ datosBici.idEstadoBicicleta.estado }}\r\n\t\t\t</p>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\">Mantenimiento</button>\r\n\t</div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -899,7 +912,7 @@ var _a, _b;
 /***/ "../../../../../src/app/components/detail-options/empleado/empleado.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataEmpleado.creado }}<br>\r\n\t\t\tDirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>\r\n\t\tCelular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}</p>\r\n\t\t<a class=\"btn btn-primary btn-lg\" href=\"#\" role=\"button\">Inhabilitar</a>\r\n\r\n\t</div>\r\n</div>\r\n"
+module.exports = "<div class=\"row justify-content-md-center\" *ngIf=\"show\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataEmpleado.creado }}<br>\r\n\t\t\tDirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>\r\n\t\tCelular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}</p>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled\">Inhabilitar</button>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled\">Habilitar</button>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\">Roles</button>\r\n\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -930,6 +943,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_empleado_model__ = __webpack_require__("../../../../../src/app/models/empleado.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__ = __webpack_require__("../../../../../src/app/models/usuario.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -943,16 +957,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var EmpleadoComponent = (function () {
     function EmpleadoComponent(activedRoute, userService) {
         var _this = this;
         this.activedRoute = activedRoute;
         this.userService = userService;
+        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["b" /* UsuarioSecurityModel */];
         this.dataEmpleado = new __WEBPACK_IMPORTED_MODULE_3__models_empleado_model__["a" /* EmpleadoModel */];
+        this.show = false;
         this.activedRoute.params.subscribe(function (params) {
-            _this.nameEmpleado = params.id;
+            _this.idEmpleado = params.id;
+            _this.userService.getSecurityUserById(_this.idEmpleado).subscribe(function (responseSecurity) {
+                _this.dataSecurity = responseSecurity;
+                _this.userService.getUserByUserName(_this.dataSecurity.username).subscribe(function (responseUserName) {
+                    _this.dataEmpleado = responseUserName;
+                    _this.show = true;
+                });
+            });
         });
-        this.userService.getUserByUserName(this.nameEmpleado).subscribe(function (response) {
+        this.userService.getUserByUserName(this.idEmpleado).subscribe(function (response) {
             _this.dataEmpleado = response;
         });
     }
@@ -978,7 +1002,7 @@ var _a, _b;
 /***/ "../../../../../src/app/components/detail-options/estacion/estacion.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ datosEstacion.name | uppercase}}</h4>\r\n\t\t<p> Dirección: {{ datosEstacion.address}}<br>\r\n\t\t\tEstado: {{ datosEstacion.statusName }}<br>\r\n\t\t\tPuntos de Contacto: {{datosEstacion.contactPointStates.length}}<br>\r\n\t\t\tBicicletas Disponibles: {{datosEstacion.availableCycles}}\r\n\t\t</p>\r\n\t\t<a class=\"btn btn-primary btn-lg\" href=\"#\" role=\"button\">Mantenimiento</a>\r\n\r\n\t</div>\r\n</div>\r\n\r\n\r\n<div class=\"animated fadeIn row\">\r\n\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Estado Puntos de Contacto</h4>\r\n\t\t</div>\r\n\t<div class=\"col-md-6\">\r\n\t\t\r\n\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Id</th>\r\n\t\t\t\t\t<th>Estado</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr *ngFor=\"let puntoContacto of puntosContacto\">\r\n\t\t\t\t\t<td>{{puntoContacto.alias}}</td>\r\n\t\t\t\t\t<td>{{puntoContacto.status}}</td>\t\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t\t\r\n\t</div>\r\n\t<div class=\"col-md-6\">\r\n\t\t<chart [options]=\"options\"></chart>\t\t\r\n\t</div>\r\n\t\r\n\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ datosEstacion.name | uppercase}}</h4>\r\n\t\t<p> Dirección: {{ datosEstacion.address}}<br>\r\n\t\t\tEstado: {{ datosEstacion.statusName }}<br>\r\n\t\t\tPuntos de Contacto: {{datosEstacion.contactPointStates.length}}<br>\r\n\t\t\tBicicletas Disponibles: {{datosEstacion.availableCycles}}\r\n\t\t</p>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\">Mantenimiento</button>\r\n\r\n\t</div>\r\n</div>\r\n\r\n\r\n<div class=\"animated fadeIn row\">\r\n\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Estado Puntos de Contacto</h4>\r\n\t\t</div>\r\n\t<div class=\"col-md-6\">\r\n\t\t\r\n\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Id</th>\r\n\t\t\t\t\t<th>Estado</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr *ngFor=\"let puntoContacto of puntosContacto\">\r\n\t\t\t\t\t<td>{{puntoContacto.alias}}</td>\r\n\t\t\t\t\t<td>{{puntoContacto.status}}</td>\t\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t\t\r\n\t</div>\r\n\t<div class=\"col-md-6\">\r\n\t\t<chart [options]=\"options\"></chart>\t\t\r\n\t</div>\r\n\t\r\n\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -1296,7 +1320,7 @@ SancionComponent = __decorate([
 /***/ "../../../../../src/app/components/detail-options/usuario/usuario.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\r\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\r\n\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}</p>\r\n\t\t<a class=\"btn btn-primary btn-lg\" href=\"#\" role=\"button\">Inhabilitar</a>\r\n\r\n\t</div>\r\n</div>\r\n\r\n<div class=\"animated fadeIn  row\">\r\n\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t<h4>Transacciones del Usuario</h4>\r\n\t</div>\r\n\t\r\n\t<div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Estacion Retiro</th>\r\n\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t<th>Estacion Devolución</th>\r\n\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr *ngFor=\"let prestamo of prestamos\">\r\n\t\t\t\t\t<td>{{prestamo.stationLoan}}</td>\r\n\t\t\t\t\t<td>{{prestamo.start}}</td>\r\n\t\t\t\t\t<td>{{prestamo.stationReturn}}</td>\r\n\t\t\t\t\t<td>{{prestamo.end}}</td>\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t</div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "\r\n<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\r\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\r\n\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}</p>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled\">Inhabilitar</button>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled\">Habilitar</button>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\">Roles</button>\r\n\r\n\t</div>\r\n</div>\r\n\r\n<div class=\"animated fadeIn  row\">\r\n\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t<h4>Transacciones del Usuario</h4>\r\n\t</div>\r\n\t\r\n\t<div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Estacion Retiro</th>\r\n\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t<th>Estacion Devolución</th>\r\n\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr *ngFor=\"let prestamo of prestamos\">\r\n\t\t\t\t\t<td>{{prestamo.stationLoan}}</td>\r\n\t\t\t\t\t<td>{{prestamo.start}}</td>\r\n\t\t\t\t\t<td>{{prestamo.stationReturn}}</td>\r\n\t\t\t\t\t<td>{{prestamo.end}}</td>\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t</div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1347,17 +1371,21 @@ var UsuarioComponent = (function () {
         var _this = this;
         this.activedRoute = activedRoute;
         this.userService = userService;
+        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_3__models_usuario_model__["b" /* UsuarioSecurityModel */];
         this.dataUsuario = new __WEBPACK_IMPORTED_MODULE_3__models_usuario_model__["a" /* UsuarioModel */];
         this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["a" /* Subject */]();
         this.dtOptions = {};
         this.activedRoute.params.subscribe(function (params) {
-            _this.userName = params.id;
-        });
-        this.userService.getUserByUserName(this.userName).subscribe(function (response) {
-            _this.dataUsuario = response;
-            _this.userService.getUserLends(Number(_this.dataUsuario.id)).subscribe(function (response) {
-                _this.prestamos = response;
-                _this.dtTrigger.next();
+            _this.userId = params.id;
+            _this.userService.getSecurityUserById(_this.userId).subscribe(function (responseSecurity) {
+                _this.dataSecurity = responseSecurity;
+                _this.userService.getUserByUserName(_this.dataSecurity.username).subscribe(function (responseUserName) {
+                    _this.dataUsuario = responseUserName;
+                    _this.userService.getUserLends(Number(_this.dataUsuario.id)).subscribe(function (response) {
+                        _this.prestamos = response;
+                        _this.dtTrigger.next();
+                    });
+                });
             });
         });
     }
@@ -1543,7 +1571,7 @@ var _a, _b;
 /***/ "../../../../../src/app/components/menu-options/administrar-empleados/administrar-empleados.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Empleados</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th>Celular</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t\t<th>Rol</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario( usuario.username )\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td>{{ usuario.celphone }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td>\r\n\t\t\t\t\t<ul>\r\n\t\t\t\t\t\t<li *ngFor=\"let rol of usuario.userRole\"> {{rol.authority | rol}}</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</td>\t\t\t\t\t\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
+module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Empleados</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th>Celular</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t\t<th>Rol</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.id)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td>{{ usuario.celphone }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td>\r\n\t\t\t\t\t<ul>\r\n\t\t\t\t\t\t<li *ngFor=\"let rol of usuario.userRole\"> {{rol.authority | rol}}</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</td>\t\t\t\t\t\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
 
 /***/ }),
 
@@ -1603,8 +1631,8 @@ var AdministrarEmpleadosComponent = (function () {
             _this.dtTrigger.next();
         });
     };
-    AdministrarEmpleadosComponent.prototype.informacionUsuario = function (userName) {
-        this.router.navigate(['empleado', userName]);
+    AdministrarEmpleadosComponent.prototype.informacionUsuario = function (userId) {
+        this.router.navigate(['empleado', userId]);
     };
     return AdministrarEmpleadosComponent;
 }());
@@ -1892,7 +1920,7 @@ AdministrarSancionesComponent = __decorate([
 /***/ "../../../../../src/app/components/menu-options/administrar-usuarios/administrar-usuarios.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Usuarios</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Validado</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.username)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.validated\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.validated\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
+module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Usuarios</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Validado</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.id)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.validated\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.validated\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
 
 /***/ }),
 
@@ -2299,7 +2327,7 @@ var _a, _b, _c;
 /***/ "../../../../../src/app/components/registro/registro.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Pre-inscripción</h3>\n<form #preInscripcion=\"ngForm\">\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"name\" class=\"col-form-label\">Nombres*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\" autocomplete=\"off\" required pattern=\"[a-zA-ZñáéíóúÁÉÍÓÚ ]{3,}\" [(ngModel)]=\"model.person.name\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"lastname\" class=\"col-form-label\">Apellidos*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"lastname\" name=\"lastname\" autocomplete=\"off\" required pattern=\"[a-zA-ZñáéíóúÁÉÍÓÚ ]{3,}\" [(ngModel)]=\"model.person.lastname\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"gender\" class=\"col-form-label\">Genero</label>\n\t\t\t<select id=\"gender\" name=\"gender\" class=\"form-control\" [(ngModel)]=\"model.person.gender\" required>\n\t\t\t\t<option value=\"MASCULINO\" selected>Masculino</option>\n\t\t\t\t<option value=\"FEMENINO\">Femenino</option>\n\t\t\t</select>\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"birthday\" class=\"col-form-label\">Fecha de Nacimiento*</label>\n\t\t\t<input type=\"date\" class=\"form-control\" id=\"birthday\" name=\"birthday\" autocomplete=\"off\" required [(ngModel)]=\"model.person.birthday\">\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-1\">\n\t\t\t<label for=\"idKindId\" class=\"col-form-label\">Tipo Doc.</label>\n\t\t\t<select id=\"idKindId\" name=\"idKindId\" class=\"form-control\" [(ngModel)]=\"model.person.idKindId\" required>\n\t\t\t\t<option *ngFor=\"let doc of docTypes\" value=\"{{doc.id}}\" selected>\n\t\t\t\t{{doc.tipo}}</option>\n\t\t\t</select>\n\t\t</div>\n\t\t<div class=\"form-group col-md-3\">\n\t\t\t<label for=\"nui\" class=\"col-form-label\">Numero Documento*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"nui\" name=\"nui\" autocomplete=\"off\" required pattern=\"[0-9A-Za-z]{4,}\" [(ngModel)]=\"model.person.nui\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-6\">\n\t\t\t<label for=\"address\" class=\"col-form-label\">Direccion*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"address\" name=\"address\" autocomplete=\"off\" required pattern=\"[-0-9A-Za-z# ]{4,}\" [(ngModel)]=\"model.person.address\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"idCity\" class=\"col-form-label\">Ciudad</label>\n\t\t\t<select id=\"idCity\" name=\"idCity\" class=\"form-control\" [(ngModel)]=\"model.person.idCity\" required>\n\t\t\t\t<option *ngFor=\"let ciudad of cities\" value=\"{{ciudad.id}}\">\n\t\t\t\t{{ciudad.ciudad}}</option>\n\t\t\t</select>\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"email\" class=\"col-form-label\">Email*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" id=\"email\" autocomplete=\"off\" required pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\" [(ngModel)]=\"model.person.email\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"phone\" class=\"col-form-label\">Telefono*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"phone\" name=\"phone\" autocomplete=\"off\" required pattern=\"[0-9]{4,}\" [(ngModel)]=\"model.person.phone\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"celphone\" class=\"col-form-label\">Celular</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"celphone\" name=\"celphone\" autocomplete=\"off\" required pattern=\"[0-9]{4,}\" [(ngModel)]=\"model.person.celphone\">\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"profession\" class=\"col-form-label\">Profesión</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"profession\" id=\"profession\" autocomplete=\"off\" pattern=\"[a-zA-Z ]{4,}\" [(ngModel)]=\"model.person.profession\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"career\" class=\"col-form-label\">Ocupación</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"career\" name=\"career\" autocomplete=\"off\" pattern=\"[a-zA-Z ]{4,}\" [(ngModel)]=\"model.person.career\">\n\t\t</div>\t\t\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"username\" class=\"col-form-label\">Usuario*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" autocomplete=\"off\" required pattern=\"[a-zA-Z0-9.-]{4,}\" [(ngModel)]=\"model.person.username\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"password\" class=\"col-form-label\">Password*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"password\" id=\"password\" autocomplete=\"off\" required [(ngModel)]=\"model.password\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"password2\" class=\"col-form-label\">Repita Password*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"password2\" autocomplete=\"off\" required>\n\t\t</div>\n\t</div>\n\t<div class=\"row justify-content-end\">\n\t\t\t<button type=\"submit\" id=\"enviar\" class=\"btn btn-outline-dark\"\n\t\t\t[disabled]=\"!preInscripcion.form.valid\" (click)=\"onSubmit()\">Enviar</button>\t\t\n\t</div>\n</form>\n<br>\n<p><small><strong>* Campo requerido</strong></small></p>\n"
+module.exports = "<h3>Pre-inscripción</h3>\n<form #preInscripcion=\"ngForm\">\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"name\" class=\"col-form-label\">Nombres*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\" autocomplete=\"off\" required pattern=\"[a-zA-ZñáéíóúÁÉÍÓÚ ]{3,}\" [(ngModel)]=\"model.person.name\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"lastname\" class=\"col-form-label\">Apellidos*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"lastname\" name=\"lastname\" autocomplete=\"off\" required pattern=\"[a-zA-ZñáéíóúÁÉÍÓÚ ]{3,}\" [(ngModel)]=\"model.person.lastname\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"gender\" class=\"col-form-label\">Genero</label>\n\t\t\t<select id=\"gender\" name=\"gender\" class=\"form-control\" [(ngModel)]=\"model.person.gender\" required>\n\t\t\t\t<option value=\"MASCULINO\" selected>Masculino</option>\n\t\t\t\t<option value=\"FEMENINO\">Femenino</option>\n\t\t\t</select>\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"birthday\" class=\"col-form-label\">Fecha de Nacimiento*</label>\n\t\t\t<input type=\"date\" class=\"form-control\" id=\"birthday\" name=\"birthday\" autocomplete=\"off\" required [(ngModel)]=\"model.person.birthday\">\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-1\">\n\t\t\t<label for=\"idKindId\" class=\"col-form-label\">Tipo Doc.</label>\n\t\t\t<select id=\"idKindId\" name=\"idKindId\" class=\"form-control\" [(ngModel)]=\"model.person.idKindId\" required>\n\t\t\t\t<option *ngFor=\"let doc of docTypes\" value=\"{{doc.id}}\" selected>\n\t\t\t\t{{doc.tipo}}</option>\n\t\t\t</select>\n\t\t</div>\n\t\t<div class=\"form-group col-md-3\">\n\t\t\t<label for=\"nui\" class=\"col-form-label\">Numero Documento*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"nui\" name=\"nui\" autocomplete=\"off\" required pattern=\"[0-9A-Za-z]{4,}\" [(ngModel)]=\"model.person.nui\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-6\">\n\t\t\t<label for=\"address\" class=\"col-form-label\">Direccion*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"address\" name=\"address\" autocomplete=\"off\" required pattern=\"[-0-9A-Za-z# ]{4,}\" [(ngModel)]=\"model.person.address\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"idCity\" class=\"col-form-label\">Ciudad</label>\n\t\t\t<select id=\"idCity\" name=\"idCity\" class=\"form-control\" [(ngModel)]=\"model.person.idCity\" required>\n\t\t\t\t<option *ngFor=\"let ciudad of cities\" value=\"{{ciudad.id}}\">\n\t\t\t\t{{ciudad.ciudad}}</option>\n\t\t\t</select>\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"email\" class=\"col-form-label\">Email*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" id=\"email\" autocomplete=\"off\" required pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\" [(ngModel)]=\"model.person.email\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"phone\" class=\"col-form-label\">Telefono*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"phone\" name=\"phone\" autocomplete=\"off\" required pattern=\"[0-9]{4,}\" [(ngModel)]=\"model.person.phone\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"celphone\" class=\"col-form-label\">Celular</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"celphone\" name=\"celphone\" autocomplete=\"off\" required pattern=\"[0-9]{4,}\" [(ngModel)]=\"model.person.celphone\">\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"profession\" class=\"col-form-label\">Profesión</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"profession\" id=\"profession\" autocomplete=\"off\" pattern=\"[a-zA-Z ]{4,}\" [(ngModel)]=\"model.person.profession\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"career\" class=\"col-form-label\">Ocupación</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"career\" name=\"career\" autocomplete=\"off\" pattern=\"[a-zA-Z ]{4,}\" [(ngModel)]=\"model.person.career\">\n\t\t</div>\t\t\n\t</div>\n\t<div class=\"form-row\">\n\t\t<!-- <div class=\"form-group col-md-4\">\n\t\t\t<label for=\"username\" class=\"col-form-label\">Usuario*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" autocomplete=\"off\" required pattern=\"[a-zA-Z0-9.-]{4,}\" [(ngModel)]=\"model.person.username\">\n\t\t</div> -->\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"password\" class=\"col-form-label\">Password*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"password\" id=\"password\" autocomplete=\"off\" required [(ngModel)]=\"model.password\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"password2\" class=\"col-form-label\">Repita Password*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"password2\" autocomplete=\"off\" required>\n\t\t</div>\n\t</div>\n\t<div class=\"row justify-content-end\">\n\t\t\t<button type=\"submit\" id=\"enviar\" class=\"btn btn-outline-dark\"\n\t\t\t[disabled]=\"!preInscripcion.form.valid\" (click)=\"onSubmit()\">Enviar</button>\t\t\n\t</div>\n</form>\n<br>\n<p><small><strong>* Campo requerido</strong></small></p>\n"
 
 /***/ }),
 
@@ -2358,7 +2386,9 @@ var RegistroComponent = (function () {
         });
     };
     RegistroComponent.prototype.onSubmit = function () {
-        this.model.username = this.model.person.username;
+        this.model.username = this.model.person.nui;
+        this.model.person.username = this.model.person.nui;
+        this.model.person.birthday = this.model.person.birthday.concat(" 10:00:00");
         var idCliente = this.registerService.setRegister(this.model);
         console.log("envioa");
     };
@@ -2552,7 +2582,7 @@ var RegisterModel = (function () {
             lastname: "",
             modified: "2017-10-18 20:27:55",
             name: "",
-            network: [0],
+            network: [1],
             nui: "",
             phone: "",
             profession: "",
@@ -2574,6 +2604,7 @@ var RegisterModel = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UsuarioModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return UsuarioSecurityModel; });
 var UsuarioModel = (function () {
     function UsuarioModel(id, username, nombre, apellido, nui, email, telefono, celular, direccion, profesion, ocupacion, creado, fechaNacimiento, idCiudad) {
         if (id === void 0) { id = ''; }
@@ -2620,6 +2651,34 @@ var UsuarioModel = (function () {
     return UsuarioModel;
 }());
 
+var UsuarioSecurityModel = (function () {
+    function UsuarioSecurityModel(id, username, enabled, firstName, lastName, email, celphone, userRole, created, validated, pin) {
+        if (id === void 0) { id = ''; }
+        if (username === void 0) { username = " "; }
+        if (enabled === void 0) { enabled = ""; }
+        if (firstName === void 0) { firstName = ""; }
+        if (lastName === void 0) { lastName = ""; }
+        if (email === void 0) { email = ""; }
+        if (celphone === void 0) { celphone = ""; }
+        if (userRole === void 0) { userRole = []; }
+        if (created === void 0) { created = ""; }
+        if (validated === void 0) { validated = ""; }
+        if (pin === void 0) { pin = ""; }
+        this.id = id;
+        this.username = username;
+        this.enabled = enabled;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.celphone = celphone;
+        this.userRole = userRole;
+        this.created = created;
+        this.validated = validated;
+        this.pin = pin;
+    }
+    return UsuarioSecurityModel;
+}());
+
 //# sourceMappingURL=usuario.model.js.map
 
 /***/ }),
@@ -2649,8 +2708,11 @@ var RolPipe = (function () {
             case "ROLE_USER":
                 valor = "Usuario";
                 break;
+            case "ROLE_EMPLOYEE":
+                valor = "Facilitador";
+                break;
             default:
-                // code...
+                valor = value;
                 break;
         }
         return valor;
@@ -2922,12 +2984,17 @@ var UserService = (function () {
     function UserService(http) {
         this.http = http;
     }
+    // Login
     UserService.prototype.getLoginName = function () {
         return this.http.get('/init/me', {}).map(function (res) { return res.json(); });
+    };
+    UserService.prototype.logOut = function () {
+        return this.http.get('/logout', {});
     };
     UserService.prototype.getLoginRol = function () {
         return this.http.get('/init/me/roles', {}).map(function (res) { return res.json(); });
     };
+    // devuelve usuarios
     UserService.prototype.getUsers = function () {
         return this.http.get('/rest/person/security/all', {}).map(function (res) {
             var c = res.json();
@@ -2944,6 +3011,7 @@ var UserService = (function () {
             return dataFiltrada;
         });
     };
+    // devuelve empleados o administradores
     UserService.prototype.getEmployees = function () {
         return this.http.get('/rest/person/security/all', {}).map(function (res) {
             var c = res.json();
@@ -2960,11 +3028,19 @@ var UserService = (function () {
             return dataFiltrada;
         });
     };
+    UserService.prototype.getSecurityUserById = function (id) {
+        return this.http.get('/rest/person/security/' + id, {}).map(function (res) { return res.json(); });
+    };
+    // buscar por username y id sin seguridad
     UserService.prototype.getUserByUserName = function (username) {
         return this.http.get('/rest/person/user/' + username, {}).map(function (res) { return res.json(); });
     };
     UserService.prototype.getUserLends = function (id) {
         return this.http.get('/rest/lend/statistic/user/' + id, {}).map(function (res) { return res.json(); });
+    };
+    // lista de roles
+    UserService.prototype.getRoles = function () {
+        return this.http.get('/rest/username/roles', {}).map(function (res) { return res.json(); });
     };
     return UserService;
 }());

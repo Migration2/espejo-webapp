@@ -52,9 +52,6 @@ import {APP_ROUTING} from './app.routes';
 import { UserName } from './pipes/user-name.pipe';
 import { RolPipe } from './pipes/rol.pipe';
 
-//registro
-import { RegistroComponent } from './components/registro/registro.component';
-
 //rutas Cliente
 import { ClientNavbarComponent } from './components/assets/client-navbar/client-navbar.component';
 import { HomeClienteComponent } from './components/cliente/home-cliente/home-cliente.component';
@@ -91,7 +88,6 @@ import { CargandoComponent } from './components/assets/cargando/cargando.compone
     AgregarBicicletaComponent,
     UserName,
     ClientNavbarComponent,
-    RegistroComponent,
     HomeClienteComponent,
     EstadisticasClienteComponent,
     PaginaNoEncontradaComponent,

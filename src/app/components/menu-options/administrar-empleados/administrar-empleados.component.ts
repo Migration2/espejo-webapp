@@ -25,8 +25,8 @@ export class AdministrarEmpleadosComponent implements OnInit {
 		});
 	}
 
-	informacionUsuario(userName:string){
-		this.router.navigate(['empleado',userName]);
+	informacionUsuario(userId:number){
+		this.router.navigate(['empleado',userId]);
 	}
 
 }

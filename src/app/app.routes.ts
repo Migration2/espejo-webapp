@@ -20,15 +20,15 @@ import {MantenimientoComponent} from './components/detail-options/mantenimiento/
 import {PuntoAnclajeComponent} from './components/detail-options/punto-anclaje/punto-anclaje.component';
 import {SancionComponent} from './components/detail-options/sancion/sancion.component';
 
-//registro
-import { RegistroComponent } from './components/registro/registro.component';
-
 //cliente
 import { HomeClienteComponent } from './components/cliente/home-cliente/home-cliente.component';
 import { EstadisticasClienteComponent } from './components/cliente/estadisticas-cliente/estadisticas-cliente.component';
 
 //pagina no encontrada
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
+
+//cargando
+import { CargandoComponent } from './components/assets/cargando/cargando.component';
 
 const APP_ROUTES: Routes = [
   {path: 'home', component: HomeComponent},
@@ -46,11 +46,11 @@ const APP_ROUTES: Routes = [
   {path: 'estacion/:id', component: EstacionComponent},
   {path: 'mantenimiento/:id', component: MantenimientoComponent},
   {path: 'puntoAnclaje/:id', component: PuntoAnclajeComponent},
-  {path: 'sancion/:id', component: SancionComponent},
-  {path: 'error', component: PaginaNoEncontradaComponent},
-  {path: 'registro', component: RegistroComponent},
+  {path: 'sancion/:id', component: SancionComponent},  
   {path: 'cliente/home', component: HomeClienteComponent},
   {path: 'cliente/estadisticas', component: EstadisticasClienteComponent},
+  {path: 'error', component: PaginaNoEncontradaComponent},
+  {path: 'cargando', component: CargandoComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'error'}
 ];
 

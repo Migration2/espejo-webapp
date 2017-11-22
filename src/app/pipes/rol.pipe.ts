@@ -16,8 +16,12 @@ export class RolPipe implements PipeTransform {
 			valor="Usuario"
 			break;
 
+			case "ROLE_EMPLOYEE":
+			valor="Facilitador"
+			break;
+
 			default:
-			// code...
+			valor= value;
 			break;
 		}
 

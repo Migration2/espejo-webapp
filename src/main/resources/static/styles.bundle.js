@@ -15,8 +15,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js??ref--8-1!../node_modules/postcss-loader/index.js??postcss!./styles.css", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js??ref--8-1!../node_modules/postcss-loader/index.js??postcss!./styles.css");
+		module.hot.accept("!!../node_modules/css-loader/index.js??ref--7-1!../node_modules/postcss-loader/index.js??postcss!./styles.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js??ref--7-1!../node_modules/postcss-loader/index.js??postcss!./styles.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -42,8 +42,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css", function() {
-			var newContent = require("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css");
+		module.hot.accept("!!../../../css-loader/index.js??ref--7-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css", function() {
+			var newContent = require("!!../../../css-loader/index.js??ref--7-1!../../../postcss-loader/index.js??postcss!./bootstrap.min.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -62,7 +62,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.i(__webpack_require__("../../../../css-loader/index.js?{\"sourceMap\":false,\"importLoaders\":1}!../../../../postcss-loader/index.js?{\"ident\":\"postcss\"}!../../../material/prebuilt-themes/indigo-pink.css"), "");
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n/* You can add global styles to this file, and also import other style files */\r\n\r\n.btnAgregar {\r\n  margin-bottom: 20px;\r\n  float: right;\r\n}\r\n\r\n/*titulos de cada vista*/\r\n.tituloPrincipal {\r\n  margin-bottom: 20px;\r\n}\r\n\r\n/*animaciones*/\r\n.animated {\r\n  -webkit-animation-duration: 1s;\r\n  animation-duration: 1s;\r\n  -webkit-animation-fill-mode: both;\r\n  animation-fill-mode: both;\r\n}\r\n\r\n.fast {\r\n  -webkit-animation-duration: 0.4s;\r\n  animation-duration: 0.4s;\r\n  -webkit-animation-fill-mode: both;\r\n  animation-fill-mode: both;\r\n}\r\n\r\n@-webkit-keyframes fadeIn {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.fadeIn {\r\n  -webkit-animation-name: fadeIn;\r\n          animation-name: fadeIn;\r\n}\r\n\r\n\r\n\r\n/*tablas*/\r\ntable{\r\n  border-left: 1px solid #e9ecef;\r\n  border-right: 1px solid #e9ecef;\r\n}\r\n\r\ntable tbody tr:hover{\r\n  cursor:pointer;\r\n}\r\n\r\n.jumbotron{\r\n  width: 90%;\r\n}\r\n\r\n@media(min-width: 780px){\r\n.jumbotron{\r\n  width: 60%;\r\n}\r\n\r\n}\r\n\r\n\r\n/*Formularios*/\r\n.ng-valid[required], .ng-valid.required  {\r\n  border-left: 5px solid #42A948; /* green */\r\n}\r\n\r\n.ng-invalid:not(form)  {\r\n  border-left: 5px solid #a94442; /* red */\r\n}\r\n\r\n/**/\r\n.formularioAgregar {\r\n  margin-top: 40px;\r\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n/* You can add global styles to this file, and also import other style files */\r\n\r\n.btnAgregar {\r\n  margin-bottom: 20px;\r\n  float: right;\r\n}\r\n\r\n/*titulos de cada vista*/\r\n.tituloPrincipal {\r\n  margin-bottom: 20px;\r\n}\r\n\r\n/*animaciones*/\r\n.animated {\r\n  -webkit-animation-duration: 1s;\r\n  animation-duration: 1s;\r\n  -webkit-animation-fill-mode: both;\r\n  animation-fill-mode: both;\r\n}\r\n\r\n.fast {\r\n  -webkit-animation-duration: 0.4s;\r\n  animation-duration: 0.4s;\r\n  -webkit-animation-fill-mode: both;\r\n  animation-fill-mode: both;\r\n}\r\n\r\n@-webkit-keyframes fadeIn {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n@keyframes fadeIn {\r\n  from {\r\n    opacity: 0;\r\n  }\r\n\r\n  to {\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.fadeIn {\r\n  -webkit-animation-name: fadeIn;\r\n          animation-name: fadeIn;\r\n}\r\n\r\n\r\n\r\n/*tablas*/\r\ntable{\r\n  border-left: 1px solid #e9ecef;\r\n  border-right: 1px solid #e9ecef;\r\n}\r\n\r\ntable tbody tr:hover{\r\n  cursor:pointer;\r\n}\r\n\r\n.jumbotron{\r\n  width: 90%;\r\n}\r\n\r\n@media(min-width: 780px){\r\n.jumbotron{\r\n  width: 60%;\r\n}\r\n\r\n}\r\n\r\n\r\n/*Formularios*/\r\n.ng-valid[required], .ng-valid.required  {\r\n  border-left: 5px solid #42A948; /* green */\r\n}\r\n\r\n.ng-invalid:not(form)  {\r\n  border-left: 5px solid #a94442; /* red */\r\n}\r\n\r\n.formularioAgregar {\r\n  margin-top: 40px;\r\n}\r\n\r\n/*boton accion*/\r\n.bottonAction{\r\n  cursor:pointer;\r\n}", ""]);
 
 // exports
 
@@ -242,8 +242,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../css-loader/index.js??ref--8-1!../../postcss-loader/index.js??postcss!./jquery.dataTables.css", function() {
-			var newContent = require("!!../../css-loader/index.js??ref--8-1!../../postcss-loader/index.js??postcss!./jquery.dataTables.css");
+		module.hot.accept("!!../../css-loader/index.js??ref--7-1!../../postcss-loader/index.js??postcss!./jquery.dataTables.css", function() {
+			var newContent = require("!!../../css-loader/index.js??ref--7-1!../../postcss-loader/index.js??postcss!./jquery.dataTables.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -304,8 +304,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./open-iconic-bootstrap.min.css", function() {
-			var newContent = require("!!../../../css-loader/index.js??ref--8-1!../../../postcss-loader/index.js??postcss!./open-iconic-bootstrap.min.css");
+		module.hot.accept("!!../../../css-loader/index.js??ref--7-1!../../../postcss-loader/index.js??postcss!./open-iconic-bootstrap.min.css", function() {
+			var newContent = require("!!../../../css-loader/index.js??ref--7-1!../../../postcss-loader/index.js??postcss!./open-iconic-bootstrap.min.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -366,8 +366,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../css-loader/index.js??ref--8-1!../../postcss-loader/index.js??postcss!./snazzy-info-window.css", function() {
-			var newContent = require("!!../../css-loader/index.js??ref--8-1!../../postcss-loader/index.js??postcss!./snazzy-info-window.css");
+		module.hot.accept("!!../../css-loader/index.js??ref--7-1!../../postcss-loader/index.js??postcss!./snazzy-info-window.css", function() {
+			var newContent = require("!!../../css-loader/index.js??ref--7-1!../../postcss-loader/index.js??postcss!./snazzy-info-window.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});

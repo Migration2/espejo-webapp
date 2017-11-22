@@ -7,14 +7,20 @@ export class UserService {
 
 	constructor(public http: Http) {
 	}
-
+	// Login
 	getLoginName() {
 		return this.http.get('/init/me', {}).map(res => res.json());
+	}
+
+	logOut(){
+		return this.http.get('/logout', {});
 	}
 
 	getLoginRol() {
 		return this.http.get('/init/me/roles', {}).map(res => res.json());
 	}
+
+	// devuelve usuarios
 
 	getUsers(){
 		return this.http.get('/rest/person/security/all', {}).map(res => {let c= res.json();
@@ -30,6 +36,7 @@ export class UserService {
 			return dataFiltrada});
 	}
 
+	// devuelve empleados o administradores
 	getEmployees(){
 		return this.http.get('/rest/person/security/all', {}).map(res => {let c= res.json();
 			let dataFiltrada=c.filter(function (data) {
@@ -45,15 +52,21 @@ export class UserService {
 	}
 
 	
+	getSecurityUserById(id:number){
+		return this.http.get('/rest/person/security/'+id, {}).map(res => res.json());
+	}
 
+
+	// buscar por username y id sin seguridad
 	getUserByUserName(username:string){
 		return this.http.get('/rest/person/user/'+username, {}).map(res => res.json());
 	}
-
 	getUserLends(id:number){
 		return this.http.get('/rest/lend/statistic/user/'+id, {}).map(res => res.json());
 	}
 
+
+	// lista de roles
 	getRoles() {
 		return this.http.get('/rest/username/roles', {}).map(res => res.json());
 	}

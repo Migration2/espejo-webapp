@@ -29,3 +29,20 @@ export class UsuarioModel {
 		}
 		) {}
 }
+
+export class UsuarioSecurityModel {
+	
+	constructor(
+		public id:string = '',
+		public username: string =" ",
+		public enabled:string = "",
+		public firstName:string = "",
+		public lastName:string = "",
+		public email:string = "",
+		public celphone:string = "",
+		public userRole:Array<any> = [],
+		public created:string = "",
+		public validated:string = "",
+		public pin:string = ""
+		) {}
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { UsuarioModel } from '../../../models/usuario.model';
+import { UsuarioModel, UsuarioSecurityModel } from '../../../models/usuario.model';
 import { Subject } from 'rxjs/Rx';
 
 @Component({
@@ -11,23 +11,25 @@ import { Subject } from 'rxjs/Rx';
 	providers: [UserService]
 })
 export class UsuarioComponent implements OnInit {
+	dataSecurity = new UsuarioSecurityModel;
 	dataUsuario = new UsuarioModel;
 	prestamos:any;
-	private userName;
+	private userId;
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
-	showRoles:boolean = false;
 	
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService) { 
 		this.activedRoute.params.subscribe(params=>{
-			this.userName = params.id;
-		});
-
-		this.userService.getUserByUserName(this.userName).subscribe(response => {
-			this.dataUsuario = response;
-			this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
-				this.prestamos=response;
-				this.dtTrigger.next();
+			this.userId = params.id;
+			this.userService.getSecurityUserById(this.userId).subscribe(responseSecurity=>{
+				this.dataSecurity = responseSecurity;
+				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
+					this.dataUsuario = responseUserName;
+					this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
+						this.prestamos=response;
+						this.dtTrigger.next();
+					});
+				});
 			});
 		});
 	}

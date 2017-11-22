@@ -43,3 +43,8 @@ zuul:
       path: /rest/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       url: http://104.237.142.25:4547/rest/
+    oa:
+      path: /logout
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      url: http://dev-codes.com:8080/logout
+        

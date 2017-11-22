@@ -18,7 +18,6 @@ export class AdministrarUsuariosComponent implements OnInit {
 	constructor(private router:Router, private userService:UserService) { }
 
 	ngOnInit() {
-		
 
 		this.userService.getUsers().subscribe(response => {
 			this.dataUsuarios = response;
@@ -27,7 +26,7 @@ export class AdministrarUsuariosComponent implements OnInit {
 		});
 	}
 
-	informacionUsuario(userName:string){
+	informacionUsuario(userName:number){
 		this.router.navigate(['usuario',userName]);
 	}
 

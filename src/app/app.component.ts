@@ -16,6 +16,7 @@ export class AppComponent {
 
 	constructor(private userService :UserService, private router:Router){
 			//cargar componente cargando mientras responde el servicio y se sabe el rol del usuario, si el servidor responde un estado diferente a 200 o un rol diferente del esperado, redireccionar a registro
+		this.router.navigate(['cargando']);
 		this.userService.getLoginRol().subscribe(response => {
 			this.redirect(response);
 		});
@@ -44,7 +45,7 @@ export class AppComponent {
 			break;
 
 			default:
-			this.router.navigate(['error']);	
+			this.router.navigate(['cargando']);	
 			break;
 		}
 	}

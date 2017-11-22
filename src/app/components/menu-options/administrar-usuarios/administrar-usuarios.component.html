@@ -14,7 +14,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.username)">
+			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.id)">
 				<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
 				<td>{{ usuario.created }}</td>
 				<td style="text-align: center;"><span *ngIf="!usuario.validated" class="oi oi-x"></span><span *ngIf="usuario.validated" class="oi oi-check"></span></td>

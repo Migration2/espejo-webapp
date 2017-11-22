@@ -74,7 +74,11 @@ table tbody tr:hover{
   border-left: 5px solid #a94442; /* red */
 }
 
-/**/
 .formularioAgregar {
   margin-top: 40px;
+}
+
+/*boton accion*/
+.bottonAction{
+  cursor:pointer;
 }
