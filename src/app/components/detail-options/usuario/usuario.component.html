@@ -4,39 +4,98 @@
 		<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
 		<p> Registrado: {{ dataUsuario.creado }}<br>
 			Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>
-		Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}</p>
-		<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled">Inhabilitar</button>
-		<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="!dataSecurity.enabled">Habilitar</button>
-		<button class="btn btn-primary btn-lg bottonAction" role="button">Roles</button>
+			Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>
+			<span *ngIf=" !dataSecurity.validated ">La cuenta <strong>No</strong> se encuentra validada</span></p>
 
+			<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled && dataSecurity.validated "
+			data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
+			<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="!dataSecurity.enabled && dataSecurity.validated"
+			data-toggle="modal" data-target="#habilitarUsuario" >Habilitar</button>
+			<button class="btn btn-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" (click)="showRoles=true">
+			Roles</button>		
+		</div>
 	</div>
-</div>
 
-<div class="animated fadeIn  row">
-	<div class="tituloPrincipal col-md-12">
-		<h4>Transacciones del Usuario</h4>
+	<div class="animated fadeIn  row">
+		<div class="tituloPrincipal col-md-12">
+			<h4>Transacciones del Usuario</h4>
+		</div>
+
+		<div style="margin-top: 40px;" class="col-md-10 offset-md-1">
+			<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>Estacion Retiro</th>
+						<th style="text-align: center;">Hora</th>
+						<th>Estacion Devolución</th>
+						<th style="text-align: center;">Hora</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let prestamo of prestamos">
+						<td>{{prestamo.stationLoan}}</td>
+						<td>{{prestamo.start}}</td>
+						<td>{{prestamo.stationReturn}}</td>
+						<td>{{prestamo.end}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	
-	<div style="margin-top: 40px;" class="col-md-10 offset-md-1">
-		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th>Estacion Retiro</th>
-					<th style="text-align: center;">Hora</th>
-					<th>Estacion Devolución</th>
-					<th style="text-align: center;">Hora</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let prestamo of prestamos">
-					<td>{{prestamo.stationLoan}}</td>
-					<td>{{prestamo.start}}</td>
-					<td>{{prestamo.stationReturn}}</td>
-					<td>{{prestamo.end}}</td>
-				</tr>
-			</tbody>
-		</table>
+
+	<div class="row justify-content-md-center" id="contenedorRoles" *ngIf="showRoles">		
+		<h5 class="col-md-12">Administrar Roles</h5><br>
+		<div class="form-check form-check-inline col-md-7">
+			<label class="form-check-label" *ngFor="let rol of roles" style="padding-right: 5px;">
+				<input class="form-check-input" type="checkbox" id="{{ rol.role }}" value="{{ rol.id }}">
+				{{ rol.role | rol }}
+			</label>
+		</div>
+		<div class="col-md-3">
+			<button class="btn btn-outline-dark" style="margin-right: 5px;" (click)="showRoles=false">Cancelar</button>
+			<button class="btn btn-outline-dark" autofocus="true" (click)="updateRoles()">Enviar</button>					
+		</div>		
 	</div>
-</div>
 
 
+
+	<div class="modal fade" id="habilitarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Habilitar Usuario</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Estas seguro deseas habilitar el usuario?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary" (click)="enableUser()" data-dismiss="modal">Aceptar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="deshabilitarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Deshabilitar Usuario</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Estas seguro deseas deshabilitar el usuario?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary" (click)="disableUser()" data-dismiss="modal">Aceptar</button>
+				</div>
+			</div>
+		</div>
+	</div>

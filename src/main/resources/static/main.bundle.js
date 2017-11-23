@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-navbar *ngIf=\"rolPrincipal==rolAdministrador\"></app-navbar>\r\n<app-client-navbar *ngIf=\"rolPrincipal==rolusuario\"></app-client-navbar>\r\n\r\n<div id=\"contenedorPrincipal\" class=\"container\" *ngIf=\"rolPrincipal==rolusuario || rolPrincipal==rolAdministrador\">\r\n  <router-outlet></router-outlet>\r\n   <app-footer></app-footer>\r\n</div>"
+module.exports = "<app-navbar *ngIf=\"rolPrincipal==rolAdministrador\"></app-navbar>\r\n<app-client-navbar *ngIf=\"rolPrincipal==rolusuario\"></app-client-navbar>\r\n\r\n<div id=\"contenedorPrincipal\" class=\"container\" *ngIf=\" rolPrincipal==rolusuario || rolPrincipal==rolAdministrador \">\r\n  <router-outlet></router-outlet>\r\n   <app-footer></app-footer>\r\n</div>\r\n\r\n<app-cargando *ngIf=\" rolPrincipal!=rolusuario && rolPrincipal!=rolAdministrador \"></app-cargando>"
 
 /***/ }),
 
@@ -71,6 +71,7 @@ var AppComponent = (function () {
         this.rolAdministrador = "ROLE_ADMIN";
         this.rolusuario = "ROLE_USER";
         //cargar componente cargando mientras responde el servicio y se sabe el rol del usuario, si el servidor responde un estado diferente a 200 o un rol diferente del esperado, redireccionar a registro
+        this.router.navigate(['cargando']);
         this.userService.getLoginRol().subscribe(function (response) {
             _this.redirect(response);
         });
@@ -93,7 +94,7 @@ var AppComponent = (function () {
                 this.router.navigate(['cliente/home']);
                 break;
             default:
-                this.router.navigate(['error']);
+                this.router.navigate(['cargando']);
                 break;
         }
     };
@@ -156,12 +157,11 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pipes_user_name_pipe__ = __webpack_require__("../../../../../src/app/pipes/user-name.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pipes_rol_pipe__ = __webpack_require__("../../../../../src/app/pipes/rol.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_registro_registro_component__ = __webpack_require__("../../../../../src/app/components/registro/registro.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_assets_client_navbar_client_navbar_component__ = __webpack_require__("../../../../../src/app/components/assets/client-navbar/client-navbar.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_cliente_home_cliente_home_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_cliente_estadisticas_cliente_estadisticas_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__ = __webpack_require__("../../../../../src/app/components/assets/pagina-no-encontrada/pagina-no-encontrada.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__components_assets_cargando_cargando_component__ = __webpack_require__("../../../../../src/app/components/assets/cargando/cargando.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_assets_client_navbar_client_navbar_component__ = __webpack_require__("../../../../../src/app/components/assets/client-navbar/client-navbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_cliente_home_cliente_home_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_cliente_estadisticas_cliente_estadisticas_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__ = __webpack_require__("../../../../../src/app/components/assets/pagina-no-encontrada/pagina-no-encontrada.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_assets_cargando_cargando_component__ = __webpack_require__("../../../../../src/app/components/assets/cargando/cargando.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -211,8 +211,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 //pipes
 
 
-//registro
-
 //rutas Cliente
 
 
@@ -249,12 +247,11 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_29__components_detail_options_sancion_sancion_component__["a" /* SancionComponent */],
             __WEBPACK_IMPORTED_MODULE_30__components_forms_agregar_bicicleta_agregar_bicicleta_component__["a" /* AgregarBicicletaComponent */],
             __WEBPACK_IMPORTED_MODULE_32__pipes_user_name_pipe__["a" /* UserName */],
-            __WEBPACK_IMPORTED_MODULE_35__components_assets_client_navbar_client_navbar_component__["a" /* ClientNavbarComponent */],
-            __WEBPACK_IMPORTED_MODULE_34__components_registro_registro_component__["a" /* RegistroComponent */],
-            __WEBPACK_IMPORTED_MODULE_36__components_cliente_home_cliente_home_cliente_component__["a" /* HomeClienteComponent */],
-            __WEBPACK_IMPORTED_MODULE_37__components_cliente_estadisticas_cliente_estadisticas_cliente_component__["a" /* EstadisticasClienteComponent */],
-            __WEBPACK_IMPORTED_MODULE_38__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__["a" /* PaginaNoEncontradaComponent */],
-            __WEBPACK_IMPORTED_MODULE_39__components_assets_cargando_cargando_component__["a" /* CargandoComponent */],
+            __WEBPACK_IMPORTED_MODULE_34__components_assets_client_navbar_client_navbar_component__["a" /* ClientNavbarComponent */],
+            __WEBPACK_IMPORTED_MODULE_35__components_cliente_home_cliente_home_cliente_component__["a" /* HomeClienteComponent */],
+            __WEBPACK_IMPORTED_MODULE_36__components_cliente_estadisticas_cliente_estadisticas_cliente_component__["a" /* EstadisticasClienteComponent */],
+            __WEBPACK_IMPORTED_MODULE_37__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__["a" /* PaginaNoEncontradaComponent */],
+            __WEBPACK_IMPORTED_MODULE_38__components_assets_cargando_cargando_component__["a" /* CargandoComponent */],
             __WEBPACK_IMPORTED_MODULE_33__pipes_rol_pipe__["a" /* RolPipe */]
         ],
         imports: [
@@ -314,10 +311,10 @@ function highchartsFactory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_detail_options_mantenimiento_mantenimiento_component__ = __webpack_require__("../../../../../src/app/components/detail-options/mantenimiento/mantenimiento.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_detail_options_punto_anclaje_punto_anclaje_component__ = __webpack_require__("../../../../../src/app/components/detail-options/punto-anclaje/punto-anclaje.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_detail_options_sancion_sancion_component__ = __webpack_require__("../../../../../src/app/components/detail-options/sancion/sancion.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_registro_registro_component__ = __webpack_require__("../../../../../src/app/components/registro/registro.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_cliente_home_cliente_home_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_cliente_estadisticas_cliente_estadisticas_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__ = __webpack_require__("../../../../../src/app/components/assets/pagina-no-encontrada/pagina-no-encontrada.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_cliente_home_cliente_home_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_cliente_estadisticas_cliente_estadisticas_cliente_component__ = __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__ = __webpack_require__("../../../../../src/app/components/assets/pagina-no-encontrada/pagina-no-encontrada.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_assets_cargando_cargando_component__ = __webpack_require__("../../../../../src/app/components/assets/cargando/cargando.component.ts");
 
 // menu-options
 
@@ -337,12 +334,12 @@ function highchartsFactory() {
 
 
 
-//registro
-
 //cliente
 
 
 //pagina no encontrada
+
+//cargando
 
 var APP_ROUTES = [
     { path: 'home', component: __WEBPACK_IMPORTED_MODULE_9__components_menu_options_home_home_component__["a" /* HomeComponent */] },
@@ -361,11 +358,10 @@ var APP_ROUTES = [
     { path: 'mantenimiento/:id', component: __WEBPACK_IMPORTED_MODULE_14__components_detail_options_mantenimiento_mantenimiento_component__["a" /* MantenimientoComponent */] },
     { path: 'puntoAnclaje/:id', component: __WEBPACK_IMPORTED_MODULE_15__components_detail_options_punto_anclaje_punto_anclaje_component__["a" /* PuntoAnclajeComponent */] },
     { path: 'sancion/:id', component: __WEBPACK_IMPORTED_MODULE_16__components_detail_options_sancion_sancion_component__["a" /* SancionComponent */] },
-    { path: 'error', component: __WEBPACK_IMPORTED_MODULE_20__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__["a" /* PaginaNoEncontradaComponent */] },
-    { path: 'registro.html', component: __WEBPACK_IMPORTED_MODULE_17__components_registro_registro_component__["a" /* RegistroComponent */] },
-    { path: 'registro/ok', component: __WEBPACK_IMPORTED_MODULE_17__components_registro_registro_component__["a" /* RegistroComponent */] },
-    { path: 'cliente/home', component: __WEBPACK_IMPORTED_MODULE_18__components_cliente_home_cliente_home_cliente_component__["a" /* HomeClienteComponent */] },
-    { path: 'cliente/estadisticas', component: __WEBPACK_IMPORTED_MODULE_19__components_cliente_estadisticas_cliente_estadisticas_cliente_component__["a" /* EstadisticasClienteComponent */] },
+    { path: 'cliente/home', component: __WEBPACK_IMPORTED_MODULE_17__components_cliente_home_cliente_home_cliente_component__["a" /* HomeClienteComponent */] },
+    { path: 'cliente/estadisticas', component: __WEBPACK_IMPORTED_MODULE_18__components_cliente_estadisticas_cliente_estadisticas_cliente_component__["a" /* EstadisticasClienteComponent */] },
+    { path: 'error', component: __WEBPACK_IMPORTED_MODULE_19__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__["a" /* PaginaNoEncontradaComponent */] },
+    { path: 'cargando', component: __WEBPACK_IMPORTED_MODULE_20__components_assets_cargando_cargando_component__["a" /* CargandoComponent */] },
     { path: '**', pathMatch: 'full', redirectTo: 'error' }
 ];
 var APP_ROUTING = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */].forRoot(APP_ROUTES, { useHash: true });
@@ -373,7 +369,14 @@ var APP_ROUTING = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterMod
 
 /***/ }),
 
-/***/ "../../../../../src/app/components/assets/cargando/cargando.component.css":
+/***/ "../../../../../src/app/components/assets/cargando/cargando.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"loading\" class=\"text-center\">\n\t<div id=\"borde\"></div>\n\t<img src=\"../../../../assets/images/logo-bicirio-low.png\" class=\"rounded\" alt=\"BiciRío\">\t\t\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/assets/cargando/cargando.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -381,20 +384,13 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "#loading {\n  width: 300px;\n  height: 300px;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  margin: auto; }\n\n#borde {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  border: 2px solid #f3f3f3;\n  border-top: 3px solid #e3244b;\n  border-radius: 100%;\n  -webkit-animation: spin 1s  infinite linear;\n          animation: spin 1s  infinite linear; }\n\n#loading img {\n  position: absolute;\n  top: 15%;\n  left: 5%;\n  width: 90%; }\n\n@-webkit-keyframes spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n", ""]);
 
 // exports
 
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/assets/cargando/cargando.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  cargando works!\n</p>\n"
 
 /***/ }),
 
@@ -425,7 +421,7 @@ CargandoComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-cargando',
         template: __webpack_require__("../../../../../src/app/components/assets/cargando/cargando.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/components/assets/cargando/cargando.component.css")]
+        styles: [__webpack_require__("../../../../../src/app/components/assets/cargando/cargando.component.scss")]
     }),
     __metadata("design:paramtypes", [])
 ], CargandoComponent);
@@ -571,7 +567,7 @@ FooterComponent = __decorate([
 /***/ "../../../../../src/app/components/assets/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark fixed-top\" style=\"background-color: #e3244b;\">\r\n  <a class=\"navbar-brand\" routerLink='/home' href=\"#\">\r\n    <img src=\"../../../../assets/images/logo-bicirio-UR.png\" width=\"60\" alt=\"Home\"/>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\"\r\n  aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n  <span class=\"navbar-toggler-icon\"></span>\r\n</button>\r\n<div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n  <ul class=\"navbar-nav mr-auto\">\r\n    <li class=\"nav-item dropdown\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        Administrar\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" routerLink='administrarUsuarios'>Usuarios</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEmpleados'>Empleados</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEstaciones'>Estaciones</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarBicicletas'>Bicicletas</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarSanciones'>Codigo Sanciones</a> -->\r\n        <a class=\"dropdown-item\" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarInformacionGeneral'>Información General</a> -->\r\n      </div>\r\n    </li>\r\n    <li class=\"nav-item  justify-content-end\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link\" routerLink='historicos'>Estadisticas</a>\r\n    </li>\r\n  </ul>\r\n  <ul class=\"navbar-nav\">\r\n    <li class=\"nav-item dropdown active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        {{nombre | userName}}\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" (click)=\"logOut()\">LogOut</a>\r\n        <a class=\"dropdown-item\">Mi Perfil</a>\r\n        <a class=\"dropdown-item\">Contraseña</a>        \r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark fixed-top\" style=\"background-color: #e3244b;\">\r\n  <a class=\"navbar-brand\" routerLink='/home' href=\"#\">\r\n    <img src=\"../../../../assets/images/favicon2.png\" width=\"60\" alt=\"Home\"/>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\"\r\n  aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n  <span class=\"navbar-toggler-icon\"></span>\r\n</button>\r\n<div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n  <ul class=\"navbar-nav mr-auto\">\r\n    <li class=\"nav-item dropdown\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        Administrar\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" routerLink='administrarUsuarios'>Usuarios</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEmpleados'>Empleados</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEstaciones'>Estaciones</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarBicicletas'>Bicicletas</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarSanciones'>Codigo Sanciones</a> -->\r\n        <a class=\"dropdown-item\" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarInformacionGeneral'>Información General</a> -->\r\n      </div>\r\n    </li>\r\n    <li class=\"nav-item  justify-content-end\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link\" routerLink='historicos'>Estadisticas</a>\r\n    </li>\r\n  </ul>\r\n  <ul class=\"navbar-nav\">\r\n    <li class=\"nav-item dropdown active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        {{nombre | userName}}\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" (click)=\"logOut()\">LogOut</a>\r\n        <a class=\"dropdown-item\">Mi Perfil</a>\r\n        <a class=\"dropdown-item\">Contraseña</a>        \r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n</nav>\r\n"
 
 /***/ }),
 
@@ -650,7 +646,7 @@ var _a, _b;
 /***/ "../../../../../src/app/components/assets/pagina-no-encontrada/pagina-no-encontrada.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"alert alert-danger\" role=\"alert\">\n No se encuentra el recurso.\n</div>"
+module.exports = "<div class=\"alert alert-danger\" role=\"alert\">\n Estamos trabajando en la página que solicitas.\n</div>"
 
 /***/ }),
 
@@ -912,7 +908,7 @@ var _a, _b;
 /***/ "../../../../../src/app/components/detail-options/empleado/empleado.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\" *ngIf=\"show\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataEmpleado.creado }}<br>\r\n\t\t\tDirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>\r\n\t\tCelular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}</p>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled\">Inhabilitar</button>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled\">Habilitar</button>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\">Roles</button>\r\n\r\n\t</div>\r\n</div>"
+module.exports = "<div class=\"row justify-content-md-center\" *ngIf=\"show\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataEmpleado.creado }}<br>\r\n\t\t\tDirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"showRoles=true\">\r\n\t\t\tRoles</button>\t\r\n\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" *ngIf=\"showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-dark\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-dark\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
 
 /***/ }),
 
@@ -924,7 +920,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "#contenedorRoles {\n  margin: 30px auto;\n  border: 1px dotted;\n  width: 80%;\n  padding: 20px; }\n\n@media (max-width: 780px) {\n  width: 99%; }\n", ""]);
 
 // exports
 
@@ -959,10 +955,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var EmpleadoComponent = (function () {
-    function EmpleadoComponent(activedRoute, userService) {
+    function EmpleadoComponent(activedRoute, userService, router) {
         var _this = this;
         this.activedRoute = activedRoute;
         this.userService = userService;
+        this.router = router;
         this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["b" /* UsuarioSecurityModel */];
         this.dataEmpleado = new __WEBPACK_IMPORTED_MODULE_3__models_empleado_model__["a" /* EmpleadoModel */];
         this.show = false;
@@ -976,11 +973,31 @@ var EmpleadoComponent = (function () {
                 });
             });
         });
-        this.userService.getUserByUserName(this.idEmpleado).subscribe(function (response) {
-            _this.dataEmpleado = response;
+        this.userService.getRoles().subscribe(function (respuestaRoles) {
+            _this.roles = respuestaRoles;
+            for (var i = 0; i < _this.roles.length; ++i) {
+                var rol = document.getElementById(_this.roles[i].role);
+            }
         });
     }
     EmpleadoComponent.prototype.ngOnInit = function () {
+    };
+    EmpleadoComponent.prototype.updateRoles = function () {
+        for (var i = 0; i < this.roles.length; ++i) {
+            var rol = document.getElementById(this.roles[i].role);
+            if (rol.checked) {
+                this.userService.addRol({ 'role': rol.value, 'user': this.dataSecurity.id });
+                this.router.navigate(['administrarEmpleados']);
+            }
+        }
+    };
+    EmpleadoComponent.prototype.disableUser = function () {
+        this.userService.disableUser(this.dataSecurity.username);
+        this.router.navigate(['administrarEmpleados']);
+    };
+    EmpleadoComponent.prototype.enableUser = function () {
+        this.userService.enableUser(this.dataSecurity.username);
+        this.router.navigate(['administrarEmpleados']);
     };
     return EmpleadoComponent;
 }());
@@ -991,10 +1008,10 @@ EmpleadoComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/components/detail-options/empleado/empleado.component.scss")],
         providers: [__WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _c || Object])
 ], EmpleadoComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=empleado.component.js.map
 
 /***/ }),
@@ -1320,7 +1337,7 @@ SancionComponent = __decorate([
 /***/ "../../../../../src/app/components/detail-options/usuario/usuario.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\r\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\r\n\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}</p>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled\">Inhabilitar</button>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled\">Habilitar</button>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\">Roles</button>\r\n\r\n\t</div>\r\n</div>\r\n\r\n<div class=\"animated fadeIn  row\">\r\n\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t<h4>Transacciones del Usuario</h4>\r\n\t</div>\r\n\t\r\n\t<div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Estacion Retiro</th>\r\n\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t<th>Estacion Devolución</th>\r\n\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr *ngFor=\"let prestamo of prestamos\">\r\n\t\t\t\t\t<td>{{prestamo.stationLoan}}</td>\r\n\t\t\t\t\t<td>{{prestamo.start}}</td>\r\n\t\t\t\t\t<td>{{prestamo.stationReturn}}</td>\r\n\t\t\t\t\t<td>{{prestamo.end}}</td>\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t</div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "\r\n<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\r\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"showRoles=true\">\r\n\t\t\tRoles</button>\t\t\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"animated fadeIn  row\">\r\n\t\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Transacciones del Usuario</h4>\r\n\t\t</div>\r\n\r\n\t\t<div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n\t\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t\t<thead>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>Estacion Retiro</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t\t<th>Estacion Devolución</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</thead>\r\n\t\t\t\t<tbody>\r\n\t\t\t\t\t<tr *ngFor=\"let prestamo of prestamos\">\r\n\t\t\t\t\t\t<td>{{prestamo.stationLoan}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.start}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.stationReturn}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.end}}</td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</tbody>\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" *ngIf=\"showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-dark\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-dark\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
 
 /***/ }),
 
@@ -1332,7 +1349,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "#contenedorRoles {\n  margin: 30px auto;\n  border: 1px dotted;\n  width: 80%;\n  padding: 20px; }\n\n@media (max-width: 780px) {\n  width: 99%; }\n", ""]);
 
 // exports
 
@@ -1367,14 +1384,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var UsuarioComponent = (function () {
-    function UsuarioComponent(activedRoute, userService) {
+    function UsuarioComponent(activedRoute, userService, router) {
         var _this = this;
         this.activedRoute = activedRoute;
         this.userService = userService;
+        this.router = router;
         this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_3__models_usuario_model__["b" /* UsuarioSecurityModel */];
         this.dataUsuario = new __WEBPACK_IMPORTED_MODULE_3__models_usuario_model__["a" /* UsuarioModel */];
         this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["a" /* Subject */]();
         this.dtOptions = {};
+        this.showRoles = false;
         this.activedRoute.params.subscribe(function (params) {
             _this.userId = params.id;
             _this.userService.getSecurityUserById(_this.userId).subscribe(function (responseSecurity) {
@@ -1388,9 +1407,29 @@ var UsuarioComponent = (function () {
                 });
             });
         });
+        this.userService.getRoles().subscribe(function (respuestaRoles) {
+            _this.roles = respuestaRoles;
+        });
     }
     UsuarioComponent.prototype.ngOnInit = function () {
         this.dtOptions = {};
+    };
+    UsuarioComponent.prototype.updateRoles = function () {
+        for (var i = 0; i < this.roles.length; ++i) {
+            var rol = document.getElementById(this.roles[i].role);
+            if (rol.checked) {
+                this.userService.addRol({ 'role': rol.value, 'user': this.dataSecurity.id });
+                this.router.navigate(['administrarUsuarios']);
+            }
+        }
+    };
+    UsuarioComponent.prototype.disableUser = function () {
+        this.userService.disableUser(this.dataSecurity.username);
+        this.router.navigate(['administrarUsuarios']);
+    };
+    UsuarioComponent.prototype.enableUser = function () {
+        this.userService.enableUser(this.dataSecurity.username);
+        this.router.navigate(['administrarUsuarios']);
     };
     return UsuarioComponent;
 }());
@@ -1401,10 +1440,10 @@ UsuarioComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/components/detail-options/usuario/usuario.component.scss")],
         providers: [__WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service__["a" /* UserService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _c || Object])
 ], UsuarioComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=usuario.component.js.map
 
 /***/ }),
@@ -2324,95 +2363,6 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ "../../../../../src/app/components/registro/registro.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<h3>Pre-inscripción</h3>\n<form #preInscripcion=\"ngForm\">\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"name\" class=\"col-form-label\">Nombres*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\" autocomplete=\"off\" required pattern=\"[a-zA-ZñáéíóúÁÉÍÓÚ ]{3,}\" [(ngModel)]=\"model.person.name\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"lastname\" class=\"col-form-label\">Apellidos*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"lastname\" name=\"lastname\" autocomplete=\"off\" required pattern=\"[a-zA-ZñáéíóúÁÉÍÓÚ ]{3,}\" [(ngModel)]=\"model.person.lastname\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"gender\" class=\"col-form-label\">Genero</label>\n\t\t\t<select id=\"gender\" name=\"gender\" class=\"form-control\" [(ngModel)]=\"model.person.gender\" required>\n\t\t\t\t<option value=\"MASCULINO\" selected>Masculino</option>\n\t\t\t\t<option value=\"FEMENINO\">Femenino</option>\n\t\t\t</select>\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"birthday\" class=\"col-form-label\">Fecha de Nacimiento*</label>\n\t\t\t<input type=\"date\" class=\"form-control\" id=\"birthday\" name=\"birthday\" autocomplete=\"off\" required [(ngModel)]=\"model.person.birthday\">\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-1\">\n\t\t\t<label for=\"idKindId\" class=\"col-form-label\">Tipo Doc.</label>\n\t\t\t<select id=\"idKindId\" name=\"idKindId\" class=\"form-control\" [(ngModel)]=\"model.person.idKindId\" required>\n\t\t\t\t<option *ngFor=\"let doc of docTypes\" value=\"{{doc.id}}\" selected>\n\t\t\t\t{{doc.tipo}}</option>\n\t\t\t</select>\n\t\t</div>\n\t\t<div class=\"form-group col-md-3\">\n\t\t\t<label for=\"nui\" class=\"col-form-label\">Numero Documento*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"nui\" name=\"nui\" autocomplete=\"off\" required pattern=\"[0-9A-Za-z]{4,}\" [(ngModel)]=\"model.person.nui\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-6\">\n\t\t\t<label for=\"address\" class=\"col-form-label\">Direccion*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"address\" name=\"address\" autocomplete=\"off\" required pattern=\"[-0-9A-Za-z# ]{4,}\" [(ngModel)]=\"model.person.address\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-2\">\n\t\t\t<label for=\"idCity\" class=\"col-form-label\">Ciudad</label>\n\t\t\t<select id=\"idCity\" name=\"idCity\" class=\"form-control\" [(ngModel)]=\"model.person.idCity\" required>\n\t\t\t\t<option *ngFor=\"let ciudad of cities\" value=\"{{ciudad.id}}\">\n\t\t\t\t{{ciudad.ciudad}}</option>\n\t\t\t</select>\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"email\" class=\"col-form-label\">Email*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"email\" id=\"email\" autocomplete=\"off\" required pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\" [(ngModel)]=\"model.person.email\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"phone\" class=\"col-form-label\">Telefono*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"phone\" name=\"phone\" autocomplete=\"off\" required pattern=\"[0-9]{4,}\" [(ngModel)]=\"model.person.phone\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"celphone\" class=\"col-form-label\">Celular</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"celphone\" name=\"celphone\" autocomplete=\"off\" required pattern=\"[0-9]{4,}\" [(ngModel)]=\"model.person.celphone\">\n\t\t</div>\n\t</div>\n\t<div class=\"form-row\">\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"profession\" class=\"col-form-label\">Profesión</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"profession\" id=\"profession\" autocomplete=\"off\" pattern=\"[a-zA-Z ]{4,}\" [(ngModel)]=\"model.person.profession\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"career\" class=\"col-form-label\">Ocupación</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"career\" name=\"career\" autocomplete=\"off\" pattern=\"[a-zA-Z ]{4,}\" [(ngModel)]=\"model.person.career\">\n\t\t</div>\t\t\n\t</div>\n\t<div class=\"form-row\">\n\t\t<!-- <div class=\"form-group col-md-4\">\n\t\t\t<label for=\"username\" class=\"col-form-label\">Usuario*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" autocomplete=\"off\" required pattern=\"[a-zA-Z0-9.-]{4,}\" [(ngModel)]=\"model.person.username\">\n\t\t</div> -->\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"password\" class=\"col-form-label\">Password*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"password\" id=\"password\" autocomplete=\"off\" required [(ngModel)]=\"model.password\">\n\t\t</div>\n\t\t<div class=\"form-group col-md-4\">\n\t\t\t<label for=\"password2\" class=\"col-form-label\">Repita Password*</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"password2\" autocomplete=\"off\" required>\n\t\t</div>\n\t</div>\n\t<div class=\"row justify-content-end\">\n\t\t\t<button type=\"submit\" id=\"enviar\" class=\"btn btn-outline-dark\"\n\t\t\t[disabled]=\"!preInscripcion.form.valid\" (click)=\"onSubmit()\">Enviar</button>\t\t\n\t</div>\n</form>\n<br>\n<p><small><strong>* Campo requerido</strong></small></p>\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/registro/registro.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/registro/registro.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegistroComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_register_model__ = __webpack_require__("../../../../../src/app/models/register.model.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_register_service__ = __webpack_require__("../../../../../src/app/services/register.service.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var RegistroComponent = (function () {
-    function RegistroComponent(registerService) {
-        this.registerService = registerService;
-        this.model = new __WEBPACK_IMPORTED_MODULE_1__models_register_model__["a" /* RegisterModel */];
-        this.docTypes = [];
-        this.cities = [];
-    }
-    RegistroComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.registerService.getDocType().subscribe(function (response) {
-            _this.docTypes = response;
-        });
-        this.registerService.getCities().subscribe(function (response) {
-            _this.cities = response;
-        });
-    };
-    RegistroComponent.prototype.onSubmit = function () {
-        this.model.username = this.model.person.nui;
-        this.model.person.username = this.model.person.nui;
-        this.model.person.birthday = this.model.person.birthday.concat(" 10:00:00");
-        var idCliente = this.registerService.setRegister(this.model);
-        console.log("envioa");
-    };
-    ;
-    RegistroComponent.prototype.onCancel = function () {
-        console.log("nada");
-    };
-    return RegistroComponent;
-}());
-RegistroComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'app-registro',
-        template: __webpack_require__("../../../../../src/app/components/registro/registro.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/components/registro/registro.component.scss")],
-        providers: [__WEBPACK_IMPORTED_MODULE_2__services_register_service__["a" /* RegisterService */]]
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_register_service__["a" /* RegisterService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_register_service__["a" /* RegisterService */]) === "function" && _a || Object])
-], RegistroComponent);
-
-var _a;
-//# sourceMappingURL=registro.component.js.map
-
-/***/ }),
-
 /***/ "../../../../../src/app/models/bicicleta.model.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2561,44 +2511,6 @@ var EstacionModel = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/models/register.model.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterModel; });
-var RegisterModel = (function () {
-    function RegisterModel(password, person, username) {
-        if (password === void 0) { password = ""; }
-        if (person === void 0) { person = { address: "",
-            birthday: "",
-            career: "",
-            celphone: "",
-            created: "2017-10-18 20:27:55",
-            email: "",
-            gender: "",
-            id: 0,
-            idCity: 0,
-            idKindId: 0,
-            lastname: "",
-            modified: "2017-10-18 20:27:55",
-            name: "",
-            network: [1],
-            nui: "",
-            phone: "",
-            profession: "",
-            username: "" }; }
-        if (username === void 0) { username = ""; }
-        this.password = password;
-        this.person = person;
-        this.username = username;
-    }
-    return RegisterModel;
-}());
-
-//# sourceMappingURL=register.model.js.map
-
-/***/ }),
-
 /***/ "../../../../../src/app/models/usuario.model.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2710,6 +2622,9 @@ var RolPipe = (function () {
                 break;
             case "ROLE_EMPLOYEE":
                 valor = "Facilitador";
+                break;
+            case "ROLE_GUEST":
+                valor = "Invitado";
                 break;
             default:
                 valor = value;
@@ -2913,53 +2828,6 @@ var _a;
 
 /***/ }),
 
-/***/ "../../../../../src/app/services/register.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var RegisterService = (function () {
-    function RegisterService(http) {
-        this.http = http;
-        this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-        this.options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: this.headers });
-    }
-    RegisterService.prototype.setRegister = function (data) {
-        this.http.post('/rest/signup', JSON.stringify(data), this.options).subscribe();
-    };
-    RegisterService.prototype.getDocType = function () {
-        return this.http.get('/rest/type/id', {}).map(function (res) { return res.json(); });
-    };
-    RegisterService.prototype.getCities = function () {
-        return this.http.get('/rest/city', {}).map(function (res) { return res.json(); });
-    };
-    return RegisterService;
-}());
-RegisterService = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
-], RegisterService);
-
-var _a;
-//# sourceMappingURL=register.service.js.map
-
-/***/ }),
-
 /***/ "../../../../../src/app/services/user.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2983,6 +2851,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
+        this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
+        this.options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: this.headers });
     }
     // Login
     UserService.prototype.getLoginName = function () {
@@ -3041,6 +2911,20 @@ var UserService = (function () {
     // lista de roles
     UserService.prototype.getRoles = function () {
         return this.http.get('/rest/username/roles', {}).map(function (res) { return res.json(); });
+    };
+    //habilitar desabilitar usuarios
+    UserService.prototype.enableUser = function (data) {
+        this.http.put('/rest/username/enable/' + data, JSON.stringify(data)).subscribe();
+    };
+    UserService.prototype.disableUser = function (data) {
+        this.http.put('/rest/username/disable/' + data, JSON.stringify(data)).subscribe();
+    };
+    // roles
+    UserService.prototype.addRol = function (data) {
+        this.http.post('/rest/person/security/authorize/role', JSON.stringify(data), this.options).subscribe();
+    };
+    UserService.prototype.removeRol = function (data) {
+        this.http.post('/rest/person/security/revoke/role', JSON.stringify(data), this.options).subscribe();
     };
     return UserService;
 }());

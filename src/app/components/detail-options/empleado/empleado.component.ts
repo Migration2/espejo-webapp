@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { EmpleadoModel } from '../../../models/empleado.model';
 import { UsuarioSecurityModel } from '../../../models/usuario.model';
@@ -15,8 +15,9 @@ export class EmpleadoComponent implements OnInit {
 	dataEmpleado = new EmpleadoModel;
 	private idEmpleado;
 	show:boolean=false;
+	roles:any;
 	
-	constructor(private activedRoute:ActivatedRoute, private userService:UserService) { 
+	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router) { 
 		this.activedRoute.params.subscribe(params=>{
 			this.idEmpleado = params.id;
 			this.userService.getSecurityUserById(this.idEmpleado).subscribe(responseSecurity=>{
@@ -27,13 +28,37 @@ export class EmpleadoComponent implements OnInit {
 				});
 			});
 		});
-
-		this.userService.getUserByUserName(this.idEmpleado).subscribe(response => {
-			this.dataEmpleado = response;
+		this.userService.getRoles().subscribe(respuestaRoles =>{
+			this.roles = respuestaRoles;
+			for (let i = 0; i < this.roles.length ; ++i) {
+				let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
+			}
 		});
+
 	}
 
 	ngOnInit() {
+		
+	}
+
+
+	updateRoles(){
+		for (let i = 0; i < this.roles.length ; ++i) {
+			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
+			if (rol.checked){
+				this.userService.addRol({'role':rol.value, 'user':this.dataSecurity.id});
+				this.router.navigate(['administrarEmpleados']);
+			}
+		}
+	}
+
+	disableUser(){
+		this.userService.disableUser(this.dataSecurity.username);
+		this.router.navigate(['administrarEmpleados']);
+	}
+	enableUser (){
+		this.userService.enableUser(this.dataSecurity.username);
+		this.router.navigate(['administrarEmpleados']);
 	}
 
 }

@@ -20,6 +20,10 @@ export class RolPipe implements PipeTransform {
 			valor="Facilitador"
 			break;
 
+			case "ROLE_GUEST":
+			valor="Invitado"
+			break;			
+
 			default:
 			valor= value;
 			break;

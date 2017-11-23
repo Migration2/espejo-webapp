@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http,RequestOptions,Headers} from '@angular/http';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class UserService {
+	private headers = new Headers({ 'Content-Type': 'application/json', 'charset':'UTF-8' });
+	private options = new RequestOptions({ headers: this.headers });
 
 	constructor(public http: Http) {
 	}
@@ -71,6 +73,25 @@ export class UserService {
 		return this.http.get('/rest/username/roles', {}).map(res => res.json());
 	}
 
+	//habilitar desabilitar usuarios
+
+	enableUser(data){
+		this.http.put('/rest/username/enable/'+data, JSON.stringify(data)).subscribe();
+	}
+
+	disableUser(data){
+		this.http.put('/rest/username/disable/'+data, JSON.stringify(data)).subscribe();
+	}
+
+	// roles
+	addRol(data){
+		this.http.post('/rest/person/security/authorize/role', JSON.stringify(data), this.options).subscribe();
+	}
+
+	removeRol(data){
+		this.http.post('/rest/person/security/revoke/role', JSON.stringify(data), this.options).subscribe();
+	}
+	
 
 }
 
