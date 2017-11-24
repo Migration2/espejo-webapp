@@ -11,8 +11,10 @@
 			data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
 			<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="!dataSecurity.enabled && dataSecurity.validated"
 			data-toggle="modal" data-target="#habilitarUsuario" >Habilitar</button>
-			<button class="btn btn-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" (click)="showRoles=true">
-			Roles</button>		
+			<button class="btn btn-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" (click)="activarRoles()">
+			Roles</button>	
+			<button class="btn btn-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
+			Asignar Tarjeta</button>		
 		</div>
 	</div>
 
@@ -43,7 +45,7 @@
 		</div>
 	</div>
 
-	<div class="row justify-content-md-center" id="contenedorRoles" *ngIf="showRoles">		
+	<div class="row justify-content-md-center" id="contenedorRoles" [hidden]="!showRoles">		
 		<h5 class="col-md-12">Administrar Roles</h5><br>
 		<div class="form-check form-check-inline col-md-7">
 			<label class="form-check-label" *ngFor="let rol of roles" style="padding-right: 5px;">

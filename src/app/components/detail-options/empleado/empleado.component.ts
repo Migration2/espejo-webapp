@@ -16,6 +16,7 @@ export class EmpleadoComponent implements OnInit {
 	private idEmpleado;
 	show:boolean=false;
 	roles:any;
+	showRoles:boolean=false;
 	
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router) { 
 		this.activedRoute.params.subscribe(params=>{
@@ -29,10 +30,7 @@ export class EmpleadoComponent implements OnInit {
 			});
 		});
 		this.userService.getRoles().subscribe(respuestaRoles =>{
-			this.roles = respuestaRoles;
-			for (let i = 0; i < this.roles.length ; ++i) {
-				let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
-			}
+			this.roles = respuestaRoles;			
 		});
 
 	}
@@ -40,15 +38,29 @@ export class EmpleadoComponent implements OnInit {
 	ngOnInit() {
 		
 	}
-
-
+	
 	updateRoles(){
 		for (let i = 0; i < this.roles.length ; ++i) {
 			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
-			if (rol.checked){
-				this.userService.addRol({'role':rol.value, 'user':this.dataSecurity.id});
-				this.router.navigate(['administrarEmpleados']);
+			for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+				if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+					if (!rol.checked){
+						this.userService.removeRol({'role':rol.value, 'user':this.dataSecurity.id});
+					}
+				}											
 			}
+			if (rol.checked){
+				let a:boolean=false;
+				for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+					if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+						a=true;
+					}
+				}
+				if (!a) {
+					this.userService.addRol({'role':rol.value, 'user':this.dataSecurity.id});
+				}				
+			}			
+			this.router.navigate(['administrarEmpleados']);
 		}
 	}
 
@@ -59,6 +71,18 @@ export class EmpleadoComponent implements OnInit {
 	enableUser (){
 		this.userService.enableUser(this.dataSecurity.username);
 		this.router.navigate(['administrarEmpleados']);
+	}
+
+	activarRoles (){
+		this.showRoles=true;
+		for (let i = 0; i < this.roles.length ; ++i) {
+			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
+			for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+				if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+					rol.checked=true;
+				}
+			}
+		}
 	}
 
 }

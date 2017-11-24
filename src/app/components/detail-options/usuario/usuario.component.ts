@@ -45,14 +45,29 @@ export class UsuarioComponent implements OnInit {
 	ngOnInit() {
 		this.dtOptions = {};
 	}
-
+	
 	updateRoles(){
 		for (let i = 0; i < this.roles.length ; ++i) {
 			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
-			if (rol.checked){
-				this.userService.addRol({'role':rol.value, 'user':this.dataSecurity.id});
-				this.router.navigate(['administrarUsuarios']);
+			for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+				if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+					if (!rol.checked){
+						this.userService.removeRol({'role':rol.value, 'user':this.dataSecurity.id});
+					}
+				}											
 			}
+			if (rol.checked){
+				let a:boolean=false;
+				for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+					if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+						a=true;
+					}
+				}
+				if (!a) {
+					this.userService.addRol({'role':rol.value, 'user':this.dataSecurity.id});
+				}				
+			}			
+			this.router.navigate(['administrarUsuarios']);
 		}
 	}
 
@@ -64,5 +79,18 @@ export class UsuarioComponent implements OnInit {
 		this.userService.enableUser(this.dataSecurity.username);
 		this.router.navigate(['administrarUsuarios']);
 	}
+
+	activarRoles (){
+		this.showRoles=true;
+		for (let i = 0; i < this.roles.length ; ++i) {
+			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
+			for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+				if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+					rol.checked=true;
+				}
+			}
+		}
+	}
+
 
 }

@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
     console.log('Removing all cookies');
     Cookie.deleteAll('');
     this.userService.logOut().subscribe(response => { });
+    window.location.href = 'http://bicirio.gov.co/site/';
   }
 
 }

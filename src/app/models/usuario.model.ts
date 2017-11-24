@@ -43,6 +43,7 @@ export class UsuarioSecurityModel {
 		public userRole:Array<any> = [],
 		public created:string = "",
 		public validated:string = "",
-		public pin:string = ""
+		public pin:string = "",
+		public idCard:string= null
 		) {}
 }
