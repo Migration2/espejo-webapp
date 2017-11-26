@@ -153,7 +153,7 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_detail_options_mantenimiento_mantenimiento_component__ = __webpack_require__("../../../../../src/app/components/detail-options/mantenimiento/mantenimiento.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_detail_options_punto_anclaje_punto_anclaje_component__ = __webpack_require__("../../../../../src/app/components/detail-options/punto-anclaje/punto-anclaje.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__components_detail_options_sancion_sancion_component__ = __webpack_require__("../../../../../src/app/components/detail-options/sancion/sancion.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_forms_agregar_bicicleta_agregar_bicicleta_component__ = __webpack_require__("../../../../../src/app/components/forms/agregar-bicicleta/agregar-bicicleta.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_assets_asignar_tarjeta_asignar_tarjeta_component__ = __webpack_require__("../../../../../src/app/components/assets/asignar-tarjeta/asignar-tarjeta.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pipes_user_name_pipe__ = __webpack_require__("../../../../../src/app/pipes/user-name.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pipes_rol_pipe__ = __webpack_require__("../../../../../src/app/pipes/rol.pipe.ts");
@@ -204,7 +204,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-//Formularios
 
 // rutas
 
@@ -245,14 +244,14 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_27__components_detail_options_mantenimiento_mantenimiento_component__["a" /* MantenimientoComponent */],
             __WEBPACK_IMPORTED_MODULE_28__components_detail_options_punto_anclaje_punto_anclaje_component__["a" /* PuntoAnclajeComponent */],
             __WEBPACK_IMPORTED_MODULE_29__components_detail_options_sancion_sancion_component__["a" /* SancionComponent */],
-            __WEBPACK_IMPORTED_MODULE_30__components_forms_agregar_bicicleta_agregar_bicicleta_component__["a" /* AgregarBicicletaComponent */],
             __WEBPACK_IMPORTED_MODULE_32__pipes_user_name_pipe__["a" /* UserName */],
             __WEBPACK_IMPORTED_MODULE_34__components_assets_client_navbar_client_navbar_component__["a" /* ClientNavbarComponent */],
             __WEBPACK_IMPORTED_MODULE_35__components_cliente_home_cliente_home_cliente_component__["a" /* HomeClienteComponent */],
             __WEBPACK_IMPORTED_MODULE_36__components_cliente_estadisticas_cliente_estadisticas_cliente_component__["a" /* EstadisticasClienteComponent */],
             __WEBPACK_IMPORTED_MODULE_37__components_assets_pagina_no_encontrada_pagina_no_encontrada_component__["a" /* PaginaNoEncontradaComponent */],
             __WEBPACK_IMPORTED_MODULE_38__components_assets_cargando_cargando_component__["a" /* CargandoComponent */],
-            __WEBPACK_IMPORTED_MODULE_33__pipes_rol_pipe__["a" /* RolPipe */]
+            __WEBPACK_IMPORTED_MODULE_33__pipes_rol_pipe__["a" /* RolPipe */],
+            __WEBPACK_IMPORTED_MODULE_30__components_assets_asignar_tarjeta_asignar_tarjeta_component__["a" /* AsignarTarjetaComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -366,6 +365,67 @@ var APP_ROUTES = [
 ];
 var APP_ROUTING = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */].forRoot(APP_ROUTES, { useHash: true });
 //# sourceMappingURL=app.routes.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/assets/asignar-tarjeta/asignar-tarjeta.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/assets/asignar-tarjeta/asignar-tarjeta.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  asignar-tarjeta works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/assets/asignar-tarjeta/asignar-tarjeta.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AsignarTarjetaComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AsignarTarjetaComponent = (function () {
+    function AsignarTarjetaComponent() {
+    }
+    AsignarTarjetaComponent.prototype.ngOnInit = function () {
+    };
+    return AsignarTarjetaComponent;
+}());
+AsignarTarjetaComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-asignar-tarjeta',
+        template: __webpack_require__("../../../../../src/app/components/assets/asignar-tarjeta/asignar-tarjeta.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/assets/asignar-tarjeta/asignar-tarjeta.component.css")]
+    }),
+    __metadata("design:paramtypes", [])
+], AsignarTarjetaComponent);
+
+//# sourceMappingURL=asignar-tarjeta.component.js.map
 
 /***/ }),
 
@@ -567,7 +627,7 @@ FooterComponent = __decorate([
 /***/ "../../../../../src/app/components/assets/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark fixed-top\" style=\"background-color: #e3244b;\">\r\n  <a class=\"navbar-brand\" routerLink='/home' href=\"#\">\r\n    <img src=\"../../../../assets/images/favicon2.png\" width=\"60\" alt=\"Home\"/>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\"\r\n  aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n  <span class=\"navbar-toggler-icon\"></span>\r\n</button>\r\n<div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n  <ul class=\"navbar-nav mr-auto\">\r\n    <li class=\"nav-item dropdown\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        Administrar\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" routerLink='administrarUsuarios'>Usuarios</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEmpleados'>Empleados</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEstaciones'>Estaciones</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarBicicletas'>Bicicletas</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarSanciones'>Codigo Sanciones</a> -->\r\n        <a class=\"dropdown-item\" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarInformacionGeneral'>Información General</a> -->\r\n      </div>\r\n    </li>\r\n    <li class=\"nav-item  justify-content-end\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link\" routerLink='historicos'>Estadisticas</a>\r\n    </li>\r\n  </ul>\r\n  <ul class=\"navbar-nav\">\r\n    <li class=\"nav-item dropdown active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        {{nombre | userName}}\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" (click)=\"logOut()\">LogOut</a>\r\n        <a class=\"dropdown-item\">Mi Perfil</a>\r\n        <a class=\"dropdown-item\">Contraseña</a>        \r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark fixed-top\" style=\"background-color: #e3244b;\">\r\n  <a class=\"navbar-brand\" routerLink='/home' href=\"#\">\r\n    <img src=\"../../../../assets/images/favicon2.png\" width=\"60\" alt=\"Home\"/>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\"\r\n  aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n  <span class=\"navbar-toggler-icon\"></span>\r\n</button>\r\n<div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n  <ul class=\"navbar-nav mr-auto\">\r\n    <li class=\"nav-item dropdown\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        Administrar\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" routerLink='administrarUsuarios'>Usuarios</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEmpleados'>Empleados</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEstaciones'>Estaciones</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarBicicletas'>Bicicletas</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarSanciones'>Codigo Sanciones</a> -->\r\n        <a class=\"dropdown-item\" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarInformacionGeneral'>Información General</a> -->\r\n      </div>\r\n    </li>\r\n    <li class=\"nav-item  justify-content-end\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link\" routerLink='historicos'>Estadisticas</a>\r\n    </li>\r\n  </ul>\r\n  <ul class=\"navbar-nav\">\r\n    <li class=\"nav-item dropdown active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        {{nombre | userName}}\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" (click)=\"logOut()\">LogOut</a>\r\n        <a class=\"dropdown-item\" routerLink='cliente/estadisticas'>Mi Perfil</a>       \r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n</nav>"
 
 /***/ }),
 
@@ -625,6 +685,7 @@ var NavbarComponent = (function () {
         console.log('Removing all cookies');
         __WEBPACK_IMPORTED_MODULE_2_ng2_cookies_ng2_cookies__["Cookie"].deleteAll('');
         this.userService.logOut().subscribe(function (response) { });
+        window.location.href = 'http://bicirio.gov.co/site/';
     };
     return NavbarComponent;
 }());
@@ -704,7 +765,14 @@ PaginaNoEncontradaComponent = __decorate([
 
 /***/ }),
 
-/***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.css":
+/***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p *ngIf=\" !dataSecurity.validated \">El usuario <strong>No</strong> ha validado su cuenta</p>\n\n<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\" dataSecurity.validated \"\ndata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\" (click)=\"cambiarPass()\">Cambiar contraseña</button>\n<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\" dataSecurity.validated\"\ndata-toggle=\"modal\" data-target=\"#habilitarUsuario\" (click)=\"cambiarPin()\" >Cambiar Pin</button>\n<br>\n<br>\n\n\n<div class=\"tituloPrincipal\">\n\t<h3>{{title}}</h3>\n</div>\n\n<div class=\"row \" >\n\t<div class=\"col-md-6 align-self-center\" >\n\t\t<agm-map [latitude]=\"Centerlat\" [longitude]=\"Centerlng\" [zoom]=\"14\">\n\t\t\t<agm-marker *ngFor=\"let estacion of datosEstaciones\" [latitude]=\"estacion.latitude\" [longitude]=\"estacion.longitude\" icon=\"assets/imagenes/favicon.png\">\n\t\t\t\t<agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n\t\t\t\t\t<ng-template>\n\t\t\t\t\t\t<strong>{{ estacion.name | uppercase}}</strong>\n\t\t\t\t\t\t<br>\n\t\t\t\t\t\tBicicletas disponibles: {{ estacion.availableCycles}}\n\t\t\t\t\t\t<br>\n\t\t\t\t\t\tPuntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}           \n\t\t\t\t\t</ng-template>\n\t\t\t\t</agm-snazzy-info-window>\n\t\t\t</agm-marker>\n\t\t</agm-map>\n\t</div>\n\t<div class=\"col-md-6\" id=\"tablaestaciones\">\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Estación</th>\n\t\t\t\t\t<th style=\"text-align: center;\">Puntos libres</th>\n\t\t\t\t\t<th style=\"text-align: center;\">Bicicletas Disponibles</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr *ngFor=\"let estacion of datosEstaciones\">\n\t\t\t\t\t<td>{{estacion.name}}</td>\n\t\t\t\t\t<td style=\"text-align: center;\">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>\n\t\t\t\t\t<td style=\"text-align: center;\">{{estacion.availableCycles}}</td>  \n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\t</div>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -712,7 +780,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "agm-map {\n  width: 99%;\n  height: 400px; }\n\n@media (max-width: 780px) {\n  #tablaestaciones {\n    margin-top: 30px; } }\n\n.bottonAction {\n  color: #E3244B;\n  border-color: #E3244B;\n  cursor: pointer; }\n\n.bottonAction:hover {\n  background-color: #E3244B;\n  border-color: #E3244B;\n  color: white; }\n", ""]);
 
 // exports
 
@@ -722,19 +790,16 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  estadisticas-cliente works!\n</p>\n"
-
-/***/ }),
-
 /***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EstadisticasClienteComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_estacion_service__ = __webpack_require__("../../../../../src/app/services/estacion.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__ = __webpack_require__("../../../../../src/app/models/usuario.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -745,10 +810,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
 var EstadisticasClienteComponent = (function () {
-    function EstadisticasClienteComponent() {
+    function EstadisticasClienteComponent(estacionservice, userService) {
+        var _this = this;
+        this.estacionservice = estacionservice;
+        this.userService = userService;
+        this.title = 'Estaciones BiciRío';
+        this.Centerlat = 6.153433;
+        this.Centerlng = -75.372826;
+        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["b" /* UsuarioSecurityModel */];
+        this.datosEstaciones = [];
+        this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["a" /* Subject */]();
+        this.dtOptions = {};
+        this.estacionservice.getEstaciones().subscribe(function (response) {
+            _this.datosEstaciones = response;
+            _this.dtTrigger.next();
+        });
+        this.userService.getInformationMe().subscribe(function (response) {
+            _this.dataSecurity = response;
+        });
     }
     EstadisticasClienteComponent.prototype.ngOnInit = function () {
+        this.dtOptions = {};
+    };
+    EstadisticasClienteComponent.prototype.cambiarPass = function () {
+    };
+    EstadisticasClienteComponent.prototype.cambiarPin = function () {
     };
     return EstadisticasClienteComponent;
 }());
@@ -756,11 +847,13 @@ EstadisticasClienteComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-estadisticas-cliente',
         template: __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.css")]
+        styles: [__webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.scss")],
+        providers: [__WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */]]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _b || Object])
 ], EstadisticasClienteComponent);
 
+var _a, _b;
 //# sourceMappingURL=estadisticas-cliente.component.js.map
 
 /***/ }),
@@ -829,7 +922,7 @@ HomeClienteComponent = __decorate([
 /***/ "../../../../../src/app/components/detail-options/bicicleta/bicicleta.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ datosBici.codigo | uppercase}}</h4>\r\n\t\t<p> Creada: {{ datosBici.creado}}<br>\r\n\t\t\tEstado: {{ datosBici.idEstadoBicicleta.estado }}\r\n\t\t\t</p>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\">Mantenimiento</button>\r\n\t</div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ datosBici.codigo | uppercase}}</h4>\r\n\t\t<p> Creada: {{ datosBici.creado}}<br>\r\n\t\t\tEstado: {{ datosBici.idEstadoBicicleta.estado }}\r\n\t\t\t</p>\r\n\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\">Mantenimiento</button>\r\n\t</div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -841,7 +934,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".bottonAction {\n  color: #E3244B;\n  border-color: #E3244B;\n  cursor: pointer; }\n\n.bottonAction:hover {\n  background-color: #E3244B;\n  border-color: #E3244B;\n  color: white; }\n", ""]);
 
 // exports
 
@@ -908,7 +1001,7 @@ var _a, _b;
 /***/ "../../../../../src/app/components/detail-options/empleado/empleado.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\" *ngIf=\"show\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataEmpleado.creado }}<br>\r\n\t\t\tDirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"showRoles=true\">\r\n\t\t\tRoles</button>\t\r\n\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" *ngIf=\"showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-dark\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-dark\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
+module.exports = "<div class=\"row justify-content-md-center\" *ngIf=\"show\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataEmpleado.creado }}<br>\r\n\t\t\tDirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"activarRoles()\">\r\n\t\t\tRoles</button>\t\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated && (dataSecurity.idCard == null) \" role=\"button\" >\r\n\t\t\tAsignar Tarjeta</button>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" [hidden]=\"!showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
 
 /***/ }),
 
@@ -920,7 +1013,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#contenedorRoles {\n  margin: 30px auto;\n  border: 1px dotted;\n  width: 80%;\n  padding: 20px; }\n\n@media (max-width: 780px) {\n  width: 99%; }\n", ""]);
+exports.push([module.i, "#contenedorRoles {\n  margin: 30px auto;\n  border: 1px dotted;\n  width: 80%;\n  padding: 20px; }\n\n@media (max-width: 780px) {\n  width: 99%; }\n\n.bottonAction {\n  color: #E3244B;\n  border-color: #E3244B;\n  cursor: pointer; }\n\n.bottonAction:hover {\n  background-color: #E3244B;\n  border-color: #E3244B;\n  color: white; }\n", ""]);
 
 // exports
 
@@ -963,6 +1056,7 @@ var EmpleadoComponent = (function () {
         this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["b" /* UsuarioSecurityModel */];
         this.dataEmpleado = new __WEBPACK_IMPORTED_MODULE_3__models_empleado_model__["a" /* EmpleadoModel */];
         this.show = false;
+        this.showRoles = false;
         this.activedRoute.params.subscribe(function (params) {
             _this.idEmpleado = params.id;
             _this.userService.getSecurityUserById(_this.idEmpleado).subscribe(function (responseSecurity) {
@@ -975,9 +1069,6 @@ var EmpleadoComponent = (function () {
         });
         this.userService.getRoles().subscribe(function (respuestaRoles) {
             _this.roles = respuestaRoles;
-            for (var i = 0; i < _this.roles.length; ++i) {
-                var rol = document.getElementById(_this.roles[i].role);
-            }
         });
     }
     EmpleadoComponent.prototype.ngOnInit = function () {
@@ -985,10 +1076,25 @@ var EmpleadoComponent = (function () {
     EmpleadoComponent.prototype.updateRoles = function () {
         for (var i = 0; i < this.roles.length; ++i) {
             var rol = document.getElementById(this.roles[i].role);
-            if (rol.checked) {
-                this.userService.addRol({ 'role': rol.value, 'user': this.dataSecurity.id });
-                this.router.navigate(['administrarEmpleados']);
+            for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
+                if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+                    if (!rol.checked) {
+                        this.userService.removeRol({ 'role': rol.value, 'user': this.dataSecurity.id });
+                    }
+                }
             }
+            if (rol.checked) {
+                var a = false;
+                for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
+                    if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+                        a = true;
+                    }
+                }
+                if (!a) {
+                    this.userService.addRol({ 'role': rol.value, 'user': this.dataSecurity.id });
+                }
+            }
+            this.router.navigate(['administrarEmpleados']);
         }
     };
     EmpleadoComponent.prototype.disableUser = function () {
@@ -998,6 +1104,17 @@ var EmpleadoComponent = (function () {
     EmpleadoComponent.prototype.enableUser = function () {
         this.userService.enableUser(this.dataSecurity.username);
         this.router.navigate(['administrarEmpleados']);
+    };
+    EmpleadoComponent.prototype.activarRoles = function () {
+        this.showRoles = true;
+        for (var i = 0; i < this.roles.length; ++i) {
+            var rol = document.getElementById(this.roles[i].role);
+            for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
+                if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+                    rol.checked = true;
+                }
+            }
+        }
     };
     return EmpleadoComponent;
 }());
@@ -1019,7 +1136,7 @@ var _a, _b, _c;
 /***/ "../../../../../src/app/components/detail-options/estacion/estacion.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ datosEstacion.name | uppercase}}</h4>\r\n\t\t<p> Dirección: {{ datosEstacion.address}}<br>\r\n\t\t\tEstado: {{ datosEstacion.statusName }}<br>\r\n\t\t\tPuntos de Contacto: {{datosEstacion.contactPointStates.length}}<br>\r\n\t\t\tBicicletas Disponibles: {{datosEstacion.availableCycles}}\r\n\t\t</p>\r\n\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\">Mantenimiento</button>\r\n\r\n\t</div>\r\n</div>\r\n\r\n\r\n<div class=\"animated fadeIn row\">\r\n\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Estado Puntos de Contacto</h4>\r\n\t\t</div>\r\n\t<div class=\"col-md-6\">\r\n\t\t\r\n\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Id</th>\r\n\t\t\t\t\t<th>Estado</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr *ngFor=\"let puntoContacto of puntosContacto\">\r\n\t\t\t\t\t<td>{{puntoContacto.alias}}</td>\r\n\t\t\t\t\t<td>{{puntoContacto.status}}</td>\t\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t\t\r\n\t</div>\r\n\t<div class=\"col-md-6\">\r\n\t\t<chart [options]=\"options\"></chart>\t\t\r\n\t</div>\r\n\t\r\n\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ datosEstacion.name | uppercase}}</h4>\r\n\t\t<p> Dirección: {{ datosEstacion.address}}<br>\r\n\t\t\tEstado: {{ datosEstacion.statusName }}<br>\r\n\t\t\tPuntos de Contacto: {{datosEstacion.contactPointStates.length}}<br>\r\n\t\t\tBicicletas Disponibles: {{datosEstacion.availableCycles}}\r\n\t\t</p>\r\n\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\">Mantenimiento</button>\r\n\r\n\t</div>\r\n</div>\r\n\r\n\r\n<div class=\"animated fadeIn row\">\r\n\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Estado Puntos de Contacto</h4>\r\n\t\t</div>\r\n\t<div class=\"col-md-6\">\r\n\t\t\r\n\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Id</th>\r\n\t\t\t\t\t<th>Estado</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr *ngFor=\"let puntoContacto of puntosContacto\">\r\n\t\t\t\t\t<td>{{puntoContacto.alias}}</td>\r\n\t\t\t\t\t<td>{{puntoContacto.status}}</td>\t\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t\t\r\n\t</div>\r\n\t<div class=\"col-md-6\">\r\n\t\t<chart [options]=\"options\"></chart>\t\t\r\n\t</div>\r\n\t\r\n\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -1031,7 +1148,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".bottonAction {\n  color: #E3244B;\n  border-color: #E3244B;\n  cursor: pointer; }\n\n.bottonAction:hover {\n  background-color: #E3244B;\n  border-color: #E3244B;\n  color: white; }\n", ""]);
 
 // exports
 
@@ -1337,7 +1454,7 @@ SancionComponent = __decorate([
 /***/ "../../../../../src/app/components/detail-options/usuario/usuario.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\r\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"showRoles=true\">\r\n\t\t\tRoles</button>\t\t\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"animated fadeIn  row\">\r\n\t\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Transacciones del Usuario</h4>\r\n\t\t</div>\r\n\r\n\t\t<div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n\t\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t\t<thead>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>Estacion Retiro</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t\t<th>Estacion Devolución</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</thead>\r\n\t\t\t\t<tbody>\r\n\t\t\t\t\t<tr *ngFor=\"let prestamo of prestamos\">\r\n\t\t\t\t\t\t<td>{{prestamo.stationLoan}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.start}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.stationReturn}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.end}}</td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</tbody>\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" *ngIf=\"showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-dark\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-dark\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
+module.exports = "\r\n<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\r\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"activarRoles()\">\r\n\t\t\tRoles</button>\t\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated && (dataSecurity.idCard == null) \" role=\"button\" >\r\n\t\t\tAsignar Tarjeta</button>\t\t\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"animated fadeIn  row\">\r\n\t\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Transacciones del Usuario</h4>\r\n\t\t</div>\r\n\r\n\t\t<div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n\t\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t\t<thead>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>Estacion Retiro</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t\t<th>Estacion Devolución</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</thead>\r\n\t\t\t\t<tbody>\r\n\t\t\t\t\t<tr *ngFor=\"let prestamo of prestamos\">\r\n\t\t\t\t\t\t<td>{{prestamo.stationLoan}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.start}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.stationReturn}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.end}}</td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</tbody>\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" [hidden]=\"!showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
 
 /***/ }),
 
@@ -1349,7 +1466,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#contenedorRoles {\n  margin: 30px auto;\n  border: 1px dotted;\n  width: 80%;\n  padding: 20px; }\n\n@media (max-width: 780px) {\n  width: 99%; }\n", ""]);
+exports.push([module.i, "#contenedorRoles {\n  margin: 30px auto;\n  border: 1px dotted;\n  width: 80%;\n  padding: 20px; }\n\n@media (max-width: 780px) {\n  width: 99%; }\n\n.bottonAction {\n  color: #E3244B;\n  border-color: #E3244B;\n  cursor: pointer; }\n\n.bottonAction:hover {\n  background-color: #E3244B;\n  border-color: #E3244B;\n  color: white; }\n", ""]);
 
 // exports
 
@@ -1417,10 +1534,25 @@ var UsuarioComponent = (function () {
     UsuarioComponent.prototype.updateRoles = function () {
         for (var i = 0; i < this.roles.length; ++i) {
             var rol = document.getElementById(this.roles[i].role);
-            if (rol.checked) {
-                this.userService.addRol({ 'role': rol.value, 'user': this.dataSecurity.id });
-                this.router.navigate(['administrarUsuarios']);
+            for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
+                if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+                    if (!rol.checked) {
+                        this.userService.removeRol({ 'role': rol.value, 'user': this.dataSecurity.id });
+                    }
+                }
             }
+            if (rol.checked) {
+                var a = false;
+                for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
+                    if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+                        a = true;
+                    }
+                }
+                if (!a) {
+                    this.userService.addRol({ 'role': rol.value, 'user': this.dataSecurity.id });
+                }
+            }
+            this.router.navigate(['administrarUsuarios']);
         }
     };
     UsuarioComponent.prototype.disableUser = function () {
@@ -1430,6 +1562,17 @@ var UsuarioComponent = (function () {
     UsuarioComponent.prototype.enableUser = function () {
         this.userService.enableUser(this.dataSecurity.username);
         this.router.navigate(['administrarUsuarios']);
+    };
+    UsuarioComponent.prototype.activarRoles = function () {
+        this.showRoles = true;
+        for (var i = 0; i < this.roles.length; ++i) {
+            var rol = document.getElementById(this.roles[i].role);
+            for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
+                if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
+                    rol.checked = true;
+                }
+            }
+        }
     };
     return UsuarioComponent;
 }());
@@ -1448,85 +1591,10 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ "../../../../../src/app/components/forms/agregar-bicicleta/agregar-bicicleta.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<h5>Nueva Bicicleta</h5>\r\n<form #nuevaBicicleta=\"ngForm\">\r\n\t<div class=\"form-row\">\r\n\t\t<div class=\"form-group col-md-4\">\r\n\t\t\t<label for=\"code\" class=\"col-form-label\">Código*</label>\r\n\t\t\t<input type=\"text\" class=\"form-control\" name=\"code\" id=\"code\" autocomplete=\"off\"\r\n\t\t\trequired pattern=\"[0-9]{2,}\" [(ngModel)]=\"model.code\" autofocus>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"row justify-content-end\">\r\n\t\t<button id=\"cancelar\" class=\"btn btn-outline-dark\" style=\"margin-right: 5px;\" (click)=\"onCancel()\">Cancelar</button>\r\n\t\t<button type=\"submit\" id=\"enviar\" class=\"btn btn-outline-dark\"\r\n\t\t[disabled]=\"!nuevaBicicleta.form.valid\" (click)=\"onSubmit()\">Enviar</button>\r\n\t</div>\r\n</form>\r\n<p><small><strong>* Campo requerido</strong></small></p>\r\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/forms/agregar-bicicleta/agregar-bicicleta.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/forms/agregar-bicicleta/agregar-bicicleta.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AgregarBicicletaComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_bicicleta_model__ = __webpack_require__("../../../../../src/app/models/bicicleta.model.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_bici_service__ = __webpack_require__("../../../../../src/app/services/bici.service.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var AgregarBicicletaComponent = (function () {
-    function AgregarBicicletaComponent(biciService) {
-        this.biciService = biciService;
-        this.model = new __WEBPACK_IMPORTED_MODULE_1__models_bicicleta_model__["a" /* BicicletaModel */];
-    }
-    AgregarBicicletaComponent.prototype.ngOnInit = function () { };
-    AgregarBicicletaComponent.prototype.onSubmit = function () {
-        var idCliente = this.biciService.setBici(this.model);
-        location.reload();
-    };
-    ;
-    AgregarBicicletaComponent.prototype.onCancel = function () {
-        console.log("nada");
-    };
-    return AgregarBicicletaComponent;
-}());
-AgregarBicicletaComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'app-agregar-bicicleta',
-        template: __webpack_require__("../../../../../src/app/components/forms/agregar-bicicleta/agregar-bicicleta.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/components/forms/agregar-bicicleta/agregar-bicicleta.component.scss")]
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_bici_service__["a" /* BiciService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_bici_service__["a" /* BiciService */]) === "function" && _a || Object])
-], AgregarBicicletaComponent);
-
-var _a;
-//# sourceMappingURL=agregar-bicicleta.component.js.map
-
-/***/ }),
-
 /***/ "../../../../../src/app/components/menu-options/administrar-bicicletas/administrar-bicicletas.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"animated fadeIn\">\r\n\t<div class=\"tituloPrincipal\">\r\n\t<h3>Bicicletas</h3>\r\n</div>\r\n\r\n\r\n\t<div class=\"btnAgregar\" *ngIf=\"!showForm\">\r\n\t\t<button class=\"btn btn-outline-dark\" (click)=\"showForm=true\">\r\n\t\t\t<span class=\"oi oi-plus\"></span> Agregar Bicicleta</button>\r\n\t\t</div>\t\t\r\n\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Codigo</th>\r\n\t\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t\t<th>Estado</th>\r\n\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr  *ngFor=\"let bici of dataBicis\" (click)=\"informacionBicicleta(bici.id)\">\r\n\t\t\t\t\t<td>{{ bici.codigo }}</td>\r\n\t\t\t\t\t<td>{{ bici.creado }}</td>\r\n\t\t\t\t\t<td>{{ bici.idEstadoBicicleta.estado }}</td>\r\n\t\t\t\t</tr>\t\t\t\t\r\n\t\t\t</tbody>\r\n\t\t</table>\t\r\n</div>\r\n\r\n\t\r\n\r\n\t<div class=\"formularioAgregar animated fadeIn fast\">\r\n\t\t<app-agregar-bicicleta *ngIf=\"showForm\"></app-agregar-bicicleta>\r\n\t</div>\r\n\t\r\n"
+module.exports = "\r\n<div class=\"animated fadeIn\">\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Bicicletas</h3>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"btnAgregar\" *ngIf=\"!showForm\">\r\n\t\t<button class=\"btn btn-outline-primary bottonAction\" (click)=\"showForm=true\">\r\n\t\t\t<span class=\"oi oi-plus\"></span> Agregar Bicicleta</button>\r\n\t\t</div>\t\t\r\n\r\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr>\r\n\t\t\t\t\t<th>Codigo</th>\r\n\t\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t\t<th>Estado</th>\r\n\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr  *ngFor=\"let bici of dataBicis\" (click)=\"informacionBicicleta(bici.id)\">\r\n\t\t\t\t\t<td>{{ bici.codigo }}</td>\r\n\t\t\t\t\t<td>{{ bici.creado }}</td>\r\n\t\t\t\t\t<td>{{ bici.idEstadoBicicleta.estado }}</td>\r\n\t\t\t\t</tr>\t\t\t\t\r\n\t\t\t</tbody>\r\n\t\t</table>\t\r\n\t</div>\r\n\r\n\t\r\n\r\n\t<div class=\"formularioAgregar animated fadeIn fast\" *ngIf=\"showForm\">\r\n\t\t<h5>Nueva Bicicleta</h5>\r\n\t\t<form #nuevaBicicleta=\"ngForm\">\r\n\t\t\t<div class=\"form-row\">\r\n\t\t\t\t<div class=\"form-group col-md-4\">\r\n\t\t\t\t\t<label for=\"code\" class=\"col-form-label\">Código*</label>\r\n\t\t\t\t\t<input type=\"text\" class=\"form-control\" name=\"code\" id=\"code\" autocomplete=\"off\"\r\n\t\t\t\t\trequired pattern=\"[0-9]{2,}\" [(ngModel)]=\"model.code\" autofocus>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"row justify-content-end\">\r\n\t\t\t\t<button id=\"cancelar\" class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" (click)=\"showForm=false\">Cancelar</button>\r\n\t\t\t\t<button type=\"submit\" id=\"enviar\" class=\"btn btn-outline-primary bottonAction\"\r\n\t\t\t\t[disabled]=\"!nuevaBicicleta.form.valid\" (click)=\"onSubmit()\">Enviar</button>\r\n\t\t\t</div>\r\n\t\t</form>\r\n\t\t<p><small><strong>* Campo requerido</strong></small></p>\r\n\t</div>\r\n\t\r\n"
 
 /***/ }),
 
@@ -1538,7 +1606,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".bottonAction {\n  color: #E3244B;\n  border-color: #E3244B;\n  cursor: pointer; }\n\n.bottonAction:hover {\n  background-color: #E3244B;\n  border-color: #E3244B;\n  color: white; }\n", ""]);
 
 // exports
 
@@ -1557,6 +1625,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_bici_service__ = __webpack_require__("../../../../../src/app/services/bici.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_bicicleta_model__ = __webpack_require__("../../../../../src/app/models/bicicleta.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1570,6 +1639,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AdministrarBicicletasComponent = (function () {
     function AdministrarBicicletasComponent(router, biciService) {
         this.router = router;
@@ -1578,6 +1648,7 @@ var AdministrarBicicletasComponent = (function () {
         this.showForm = false;
         this.dataBicis = [];
         this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__["a" /* Subject */]();
+        this.model = new __WEBPACK_IMPORTED_MODULE_4__models_bicicleta_model__["a" /* BicicletaModel */];
     }
     AdministrarBicicletasComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1590,6 +1661,11 @@ var AdministrarBicicletasComponent = (function () {
     AdministrarBicicletasComponent.prototype.informacionBicicleta = function (id) {
         this.router.navigate(['bicicleta', id]);
     };
+    AdministrarBicicletasComponent.prototype.onSubmit = function () {
+        var idCliente = this.biciService.setBici(this.model);
+        location.reload();
+    };
+    ;
     return AdministrarBicicletasComponent;
 }());
 AdministrarBicicletasComponent = __decorate([
@@ -1610,7 +1686,7 @@ var _a, _b;
 /***/ "../../../../../src/app/components/menu-options/administrar-empleados/administrar-empleados.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Empleados</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th>Celular</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t\t<th>Rol</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.id)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td>{{ usuario.celphone }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td>\r\n\t\t\t\t\t<ul>\r\n\t\t\t\t\t\t<li *ngFor=\"let rol of usuario.userRole\"> {{rol.authority | rol}}</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</td>\t\t\t\t\t\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
+module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Empleados</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th>Celular</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t\t<th>Rol</th>\r\n\t\t\t\t<th>username</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.id)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td>{{ usuario.celphone }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td>\r\n\t\t\t\t\t<ul>\r\n\t\t\t\t\t\t<li *ngFor=\"let rol of usuario.userRole\"> {{rol.authority | rol}}</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</td>\r\n\t\t\t\t<td>{{ usuario.username }}</td>\t\t\t\t\t\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
 
 /***/ }),
 
@@ -1656,19 +1732,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var AdministrarEmpleadosComponent = (function () {
     function AdministrarEmpleadosComponent(router, userService) {
+        var _this = this;
         this.router = router;
         this.userService = userService;
         this.dtOptions = {};
         this.dataUsuarios = [];
         this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__["a" /* Subject */]();
-    }
-    AdministrarEmpleadosComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.userService.getEmployees().subscribe(function (response) {
             _this.dataUsuarios = response;
-            _this.dtOptions = {};
             _this.dtTrigger.next();
         });
+    }
+    AdministrarEmpleadosComponent.prototype.ngOnInit = function () {
+        this.dtOptions = {
+            columnDefs: [
+                {
+                    targets: [5],
+                    visible: false,
+                    searchable: false
+                }
+            ]
+        };
     };
     AdministrarEmpleadosComponent.prototype.informacionUsuario = function (userId) {
         this.router.navigate(['empleado', userId]);
@@ -1959,7 +2043,7 @@ AdministrarSancionesComponent = __decorate([
 /***/ "../../../../../src/app/components/menu-options/administrar-usuarios/administrar-usuarios.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Usuarios</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Validado</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.id)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.validated\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.validated\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
+module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Usuarios</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Validado</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t\t<th>username</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.id)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.validated\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.validated\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td>{{ usuario.username }}</td>\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
 
 /***/ }),
 
@@ -2005,19 +2089,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var AdministrarUsuariosComponent = (function () {
     function AdministrarUsuariosComponent(router, userService) {
+        var _this = this;
         this.router = router;
         this.userService = userService;
         this.dtOptions = {};
         this.dataUsuarios = [];
         this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__["a" /* Subject */]();
-    }
-    AdministrarUsuariosComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.userService.getUsers().subscribe(function (response) {
             _this.dataUsuarios = response;
-            _this.dtOptions = {};
             _this.dtTrigger.next();
         });
+    }
+    AdministrarUsuariosComponent.prototype.ngOnInit = function () {
+        this.dtOptions = {
+            columnDefs: [
+                {
+                    targets: [4],
+                    visible: false,
+                    searchable: false
+                }
+            ]
+        };
     };
     AdministrarUsuariosComponent.prototype.informacionUsuario = function (userName) {
         this.router.navigate(['usuario', userName]);
@@ -2103,7 +2195,7 @@ HistoricosComponent = __decorate([
 /***/ "../../../../../src/app/components/menu-options/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"tituloPrincipal\">\r\n  <h3>{{title}}</h3>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-12\">\r\n    <agm-map [latitude]=\"Centerlat\" [longitude]=\"Centerlng\" [zoom]=\"14\">\r\n      <agm-marker *ngFor=\"let estacion of datosEstaciones\" [latitude]=\"estacion.latitude\" [longitude]=\"estacion.longitude\" icon=\"assets/imagenes/favicon.png\">\r\n        <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\r\n          <ng-template>\r\n           <strong>{{ estacion.name | uppercase}}</strong>\r\n           <br>\r\n           Puntos de Contacto: {{ estacion.contactPointStates.length}}           \r\n         </ng-template>\r\n       </agm-snazzy-info-window>\r\n     </agm-marker>\r\n   </agm-map>\r\n </div>\r\n <div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n  <table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n    <thead>\r\n      <tr>\r\n        <th>Nombre</th>\r\n        <th style=\"text-align: center;\">Puntos libres</th>\r\n        <th style=\"text-align: center;\">Bicicletas Disponibles</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let estacion of datosEstaciones\" (click)=\"informacionEstacion(estacion.id)\">\r\n        <td>{{estacion.name}}</td>\r\n        <td style=\"text-align: center;\">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>\r\n        <td style=\"text-align: center;\">{{estacion.availableCycles}}</td>  \r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n</div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsEstaciones\">\r\n      <chart [options]=\"optionsEstaciones\"></chart>     \r\n    </div>\r\n    \r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsPuntosContacto\">\r\n      <chart [options]=\"optionsPuntosContacto\"></chart>   \r\n    </div>\r\n\r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsBicicletas\">\r\n      <chart [options]=\"optionsBicicletas\"></chart>     \r\n    </div>    \r\n  </div>  \r\n</div>"
+module.exports = "<div class=\"tituloPrincipal\">\r\n  <h3>{{title}}</h3>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-12\">\r\n    <agm-map [latitude]=\"Centerlat\" [longitude]=\"Centerlng\" [zoom]=\"14\">\r\n      <agm-marker *ngFor=\"let estacion of datosEstaciones\" [latitude]=\"estacion.latitude\" [longitude]=\"estacion.longitude\" icon=\"assets/imagenes/favicon.png\">\r\n        <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\r\n          <ng-template>\r\n           <strong>{{ estacion.name | uppercase}}</strong>\r\n           <br>\r\n           Puntos de Contacto: {{ estacion.contactPointStates.length}} \r\n           <br>\r\n           Bicicletas disponibles: {{ estacion.availableCycles}}\r\n           <br>\r\n           Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}             \r\n         </ng-template>\r\n       </agm-snazzy-info-window>\r\n     </agm-marker>\r\n   </agm-map>\r\n </div>\r\n <div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n  <table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n    <thead>\r\n      <tr>\r\n        <th>Nombre</th>\r\n        <th style=\"text-align: center;\">Puntos libres</th>\r\n        <th style=\"text-align: center;\">Bicicletas Disponibles</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let estacion of datosEstaciones\" (click)=\"informacionEstacion(estacion.id)\">\r\n        <td>{{estacion.name}}</td>\r\n        <td style=\"text-align: center;\">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>\r\n        <td style=\"text-align: center;\">{{estacion.availableCycles}}</td>  \r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsEstaciones\">\r\n      <chart [options]=\"optionsEstaciones\"></chart>     \r\n    </div>\r\n    \r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsPuntosContacto\">\r\n      <chart [options]=\"optionsPuntosContacto\"></chart>   \r\n    </div>\r\n\r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsBicicletas\">\r\n      <chart [options]=\"optionsBicicletas\"></chart>     \r\n    </div>    \r\n  </div>  \r\n</div>"
 
 /***/ }),
 
@@ -2564,7 +2656,7 @@ var UsuarioModel = (function () {
 }());
 
 var UsuarioSecurityModel = (function () {
-    function UsuarioSecurityModel(id, username, enabled, firstName, lastName, email, celphone, userRole, created, validated, pin) {
+    function UsuarioSecurityModel(id, username, enabled, firstName, lastName, email, celphone, userRole, created, validated, pin, idCard) {
         if (id === void 0) { id = ''; }
         if (username === void 0) { username = " "; }
         if (enabled === void 0) { enabled = ""; }
@@ -2576,6 +2668,7 @@ var UsuarioSecurityModel = (function () {
         if (created === void 0) { created = ""; }
         if (validated === void 0) { validated = ""; }
         if (pin === void 0) { pin = ""; }
+        if (idCard === void 0) { idCard = null; }
         this.id = id;
         this.username = username;
         this.enabled = enabled;
@@ -2587,6 +2680,7 @@ var UsuarioSecurityModel = (function () {
         this.created = created;
         this.validated = validated;
         this.pin = pin;
+        this.idCard = idCard;
     }
     return UsuarioSecurityModel;
 }());
@@ -2857,6 +2951,9 @@ var UserService = (function () {
     // Login
     UserService.prototype.getLoginName = function () {
         return this.http.get('/init/me', {}).map(function (res) { return res.json(); });
+    };
+    UserService.prototype.getInformationMe = function () {
+        return this.http.get('/rest/person/security/me', {}).map(function (res) { return res.json(); });
     };
     UserService.prototype.logOut = function () {
         return this.http.get('/logout', {});

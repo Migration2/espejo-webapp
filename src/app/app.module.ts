@@ -41,9 +41,8 @@ import {EstacionComponent} from './components/detail-options/estacion/estacion.c
 import {MantenimientoComponent} from './components/detail-options/mantenimiento/mantenimiento.component';
 import {PuntoAnclajeComponent} from './components/detail-options/punto-anclaje/punto-anclaje.component';
 import {SancionComponent} from './components/detail-options/sancion/sancion.component';
+import { AsignarTarjetaComponent } from './components/assets/asignar-tarjeta/asignar-tarjeta.component';
 
-//Formularios
-import {AgregarBicicletaComponent} from './components/forms/agregar-bicicleta/agregar-bicicleta.component';
 
 // rutas
 import {APP_ROUTING} from './app.routes';
@@ -60,7 +59,6 @@ import { EstadisticasClienteComponent } from './components/cliente/estadisticas-
 //cargando y error
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
 import { CargandoComponent } from './components/assets/cargando/cargando.component';
-import { AsignarTarjetaComponent } from './components/assets/asignar-tarjeta/asignar-tarjeta.component';
 
 
 
@@ -86,7 +84,6 @@ import { AsignarTarjetaComponent } from './components/assets/asignar-tarjeta/asi
     MantenimientoComponent,
     PuntoAnclajeComponent,
     SancionComponent,
-    AgregarBicicletaComponent,
     UserName,
     ClientNavbarComponent,
     HomeClienteComponent,

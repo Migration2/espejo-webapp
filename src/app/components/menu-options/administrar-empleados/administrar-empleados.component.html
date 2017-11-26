@@ -12,6 +12,7 @@
 				<th>Celular</th>
 				<th style="text-align: center;">Habilitado</th>
 				<th>Rol</th>
+				<th>username</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,7 +25,8 @@
 					<ul>
 						<li *ngFor="let rol of usuario.userRole"> {{rol.authority | rol}}</li>
 					</ul>
-				</td>					
+				</td>
+				<td>{{ usuario.username }}</td>					
 			</tr>
 		</tbody>
 	</table>

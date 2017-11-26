@@ -14,6 +14,10 @@ export class UserService {
 		return this.http.get('/init/me', {}).map(res => res.json());
 	}
 
+	getInformationMe(){
+		return this.http.get('/rest/person/security/me', {}).map(res => res.json());		
+	}
+
 	logOut(){
 		return this.http.get('/logout', {});
 	}

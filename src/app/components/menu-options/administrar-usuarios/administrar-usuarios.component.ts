@@ -15,15 +15,22 @@ export class AdministrarUsuariosComponent implements OnInit {
 	dataUsuarios: Array<any>=[];
 	dtTrigger = new Subject();
 
-	constructor(private router:Router, private userService:UserService) { }
-
-	ngOnInit() {
-
+	constructor(private router:Router, private userService:UserService) { 
 		this.userService.getUsers().subscribe(response => {
-			this.dataUsuarios = response;
-			this.dtOptions = {};
+			this.dataUsuarios = response;			
 			this.dtTrigger.next();
 		});
+	}
+
+	ngOnInit() {
+		this.dtOptions = {
+			columnDefs: [
+			{
+				targets: [ 4 ],
+				visible: false,
+				searchable: false
+			}]
+		};
 	}
 
 	informacionUsuario(userName:number){

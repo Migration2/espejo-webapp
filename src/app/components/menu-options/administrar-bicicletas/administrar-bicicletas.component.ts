@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BiciService } from '../../../services/bici.service';
 import { Subject } from 'rxjs/Rx';
+import { BicicletaModel } from '../../../models/bicicleta.model';
 
 @Component({
 	selector: 'app-administrar-bicicletas',
@@ -14,6 +15,7 @@ export class AdministrarBicicletasComponent implements OnInit {
 	showForm :boolean =false;
 	dataBicis: Array<any> = [];
 	dtTrigger = new Subject();
+	model = new BicicletaModel;
 	
 
 	constructor(private router:Router, private biciService:BiciService) { }
@@ -30,5 +32,8 @@ export class AdministrarBicicletasComponent implements OnInit {
 		this.router.navigate(['bicicleta',id]);
 	}
 
-	
+	onSubmit() { 
+		let idCliente = this.biciService.setBici(this.model); 
+		location.reload();  	
+	};	
 }

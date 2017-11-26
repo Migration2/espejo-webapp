@@ -14,15 +14,22 @@ export class AdministrarEmpleadosComponent implements OnInit {
 	dataUsuarios:Array<any>=[];
 	dtTrigger = new Subject();
 
-	constructor(private router:Router, private userService:UserService) { }
-
-	ngOnInit() {
-		
+	constructor(private router:Router, private userService:UserService) { 
 		this.userService.getEmployees().subscribe(response => {
 			this.dataUsuarios = response;
-			this.dtOptions = {};
 			this.dtTrigger.next();
 		});
+	}
+
+	ngOnInit() {
+		this.dtOptions = {
+			columnDefs: [
+			{
+				targets: [ 5 ],
+				visible: false,
+				searchable: false
+			}]
+		};
 	}
 
 	informacionUsuario(userId:number){

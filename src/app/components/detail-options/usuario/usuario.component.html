@@ -7,13 +7,13 @@
 			Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>
 			<span *ngIf=" !dataSecurity.validated ">La cuenta <strong>No</strong> se encuentra validada</span></p>
 
-			<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled && dataSecurity.validated "
+			<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled && dataSecurity.validated "
 			data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
-			<button class="btn btn-primary btn-lg bottonAction" role="button" *ngIf="!dataSecurity.enabled && dataSecurity.validated"
+			<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf="!dataSecurity.enabled && dataSecurity.validated"
 			data-toggle="modal" data-target="#habilitarUsuario" >Habilitar</button>
-			<button class="btn btn-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" (click)="activarRoles()">
+			<button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" (click)="activarRoles()">
 			Roles</button>	
-			<button class="btn btn-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
+			<button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
 			Asignar Tarjeta</button>		
 		</div>
 	</div>
@@ -54,8 +54,8 @@
 			</label>
 		</div>
 		<div class="col-md-3">
-			<button class="btn btn-outline-dark" style="margin-right: 5px;" (click)="showRoles=false">Cancelar</button>
-			<button class="btn btn-outline-dark" autofocus="true" (click)="updateRoles()">Enviar</button>					
+			<button class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" (click)="showRoles=false">Cancelar</button>
+			<button class="btn btn-outline-primary bottonAction" autofocus="true" (click)="updateRoles()">Enviar</button>					
 		</div>		
 	</div>
 
@@ -74,8 +74,8 @@
 					Estas seguro deseas habilitar el usuario?
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-primary" (click)="enableUser()" data-dismiss="modal">Aceptar</button>
+					<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-outline-primary bottonAction" (click)="enableUser()" data-dismiss="modal">Aceptar</button>
 				</div>
 			</div>
 		</div>
@@ -95,8 +95,8 @@
 					Estas seguro deseas deshabilitar el usuario?
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-primary" (click)="disableUser()" data-dismiss="modal">Aceptar</button>
+					<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-outline-primary bottonAction" (click)="disableUser()" data-dismiss="modal">Aceptar</button>
 				</div>
 			</div>
 		</div>

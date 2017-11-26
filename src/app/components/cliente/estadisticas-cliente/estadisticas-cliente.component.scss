@@ -1,12 +1,12 @@
-#contenedorRoles{
-	margin: 30px auto;
-	border: 1px dotted;
-	width:80%;
-	padding:20px;
+agm-map {
+	width: 99%;
+	height: 400px;
 }
 
-@media(max-width:780px){
-	width:99%;
+@media (max-width:780px) {
+	#tablaestaciones{
+		margin-top: 30px;
+	}	
 }
 
 .bottonAction{

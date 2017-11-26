@@ -1,3 +1,49 @@
-<p>
-  estadisticas-cliente works!
-</p>
+<p *ngIf=" !dataSecurity.validated ">El usuario <strong>No</strong> ha validado su cuenta</p>
+
+<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated "
+data-toggle="modal" data-target="#deshabilitarUsuario" (click)="cambiarPass()">Cambiar contraseña</button>
+<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated"
+data-toggle="modal" data-target="#habilitarUsuario" (click)="cambiarPin()" >Cambiar Pin</button>
+<br>
+<br>
+
+
+<div class="tituloPrincipal">
+	<h3>{{title}}</h3>
+</div>
+
+<div class="row " >
+	<div class="col-md-6 align-self-center" >
+		<agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
+			<agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
+				<agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+					<ng-template>
+						<strong>{{ estacion.name | uppercase}}</strong>
+						<br>
+						Bicicletas disponibles: {{ estacion.availableCycles}}
+						<br>
+						Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}           
+					</ng-template>
+				</agm-snazzy-info-window>
+			</agm-marker>
+		</agm-map>
+	</div>
+	<div class="col-md-6" id="tablaestaciones">
+		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Estación</th>
+					<th style="text-align: center;">Puntos libres</th>
+					<th style="text-align: center;">Bicicletas Disponibles</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let estacion of datosEstaciones">
+					<td>{{estacion.name}}</td>
+					<td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
+					<td style="text-align: center;">{{estacion.availableCycles}}</td>  
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

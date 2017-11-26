@@ -1,12 +1,12 @@
 
 <div class="animated fadeIn">
 	<div class="tituloPrincipal">
-	<h3>Bicicletas</h3>
-</div>
+		<h3>Bicicletas</h3>
+	</div>
 
 
 	<div class="btnAgregar" *ngIf="!showForm">
-		<button class="btn btn-outline-dark" (click)="showForm=true">
+		<button class="btn btn-outline-primary bottonAction" (click)="showForm=true">
 			<span class="oi oi-plus"></span> Agregar Bicicleta</button>
 		</div>		
 
@@ -27,11 +27,26 @@
 				</tr>				
 			</tbody>
 		</table>	
-</div>
+	</div>
 
 	
 
-	<div class="formularioAgregar animated fadeIn fast">
-		<app-agregar-bicicleta *ngIf="showForm"></app-agregar-bicicleta>
+	<div class="formularioAgregar animated fadeIn fast" *ngIf="showForm">
+		<h5>Nueva Bicicleta</h5>
+		<form #nuevaBicicleta="ngForm">
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="code" class="col-form-label">Código*</label>
+					<input type="text" class="form-control" name="code" id="code" autocomplete="off"
+					required pattern="[0-9]{2,}" [(ngModel)]="model.code" autofocus>
+				</div>
+			</div>
+			<div class="row justify-content-end">
+				<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" (click)="showForm=false">Cancelar</button>
+				<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
+				[disabled]="!nuevaBicicleta.form.valid" (click)="onSubmit()">Enviar</button>
+			</div>
+		</form>
+		<p><small><strong>* Campo requerido</strong></small></p>
 	</div>
 	
