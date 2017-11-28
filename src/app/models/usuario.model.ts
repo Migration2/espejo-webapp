@@ -47,3 +47,15 @@ export class UsuarioSecurityModel {
 		public idCard:string= null
 		) {}
 }
+
+
+export class UsuarioSecurityAccessModel {
+	
+	constructor(
+		public  idUser: string = "",
+		public password: string ="",
+		public passwordOld: string ="",
+		public pin: string ="",
+		public pinOld: string =""
+		) {}
+}

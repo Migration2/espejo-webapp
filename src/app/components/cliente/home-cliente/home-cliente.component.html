@@ -1,3 +1,128 @@
-<p>
-  home-cliente works!
-</p>
+<p *ngIf=" !dataSecurity.validated ">El usuario <strong>No</strong> ha validado su cuenta</p>
+
+<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated "
+data-toggle="modal" data-target="#cambiarPassword">Cambiar contraseña</button>
+<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated"
+data-toggle="modal" data-target="#cambiarPin" >Cambiar Pin</button>
+<br>
+<br>
+
+
+<div class="tituloPrincipal">
+	<h3>{{title}}</h3>
+</div>
+
+<div class="row">
+	<div class="col-md-6 align-self-center" >
+		<agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
+			<agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
+				<agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+					<ng-template>
+						<strong>{{ estacion.name | uppercase}}</strong>
+						<br>
+						Bicicletas disponibles: {{ estacion.availableCycles}}
+						<br>
+						Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}           
+					</ng-template>
+				</agm-snazzy-info-window>
+			</agm-marker>
+		</agm-map>
+	</div>
+	<div class="col-md-6" id="tablaestaciones">
+		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Estación</th>
+					<th style="text-align: center;">Puntos libres</th>
+					<th style="text-align: center;">Bicicletas Disponibles</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let estacion of datosEstaciones">
+					<td>{{estacion.name}}</td>
+					<td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
+					<td style="text-align: center;">{{estacion.availableCycles}}</td>  
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<div class="modal fade" id="cambiarPin" tabindex="-1" role="dialog" aria-labelledby="cambiarPin" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="cambiarPin">Cambiar PIN</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+			</div>
+			<p style="font-size: 0.6em; color: gray; padding: 10px;">El pin es un numero de <strong>cuatro digitos</strong> que te permitira usar las estaciones de BiciRío</p>
+			<form #cambiarPin="ngForm">
+				<div class="form-row modal-body">
+					<div class="form-group col-md-12">
+						<label for="pinOld" class="col-form-label">Pin actual</label>
+						<input type="text" class="form-control" name="pinOld" id="pinOld" autocomplete="off"
+						required pattern="[0-9]{4}" [(ngModel)]="securituyAccess.pinOld" autofocus>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="pin" class="col-form-label">Pin Nuevo</label>
+						<input type="text" class="form-control" name="pin" id="pin" autocomplete="off"
+						required pattern="[0-9]{4}" [(ngModel)]="securituyAccess.pin" autofocus>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="pin2" class="col-form-label">Repita el nuevo Pin</label>
+						<input type="text" class="form-control" name="pin2" id="pin2" autocomplete="off"
+						required pattern="[0-9]{4}" autofocus>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+					<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
+					[disabled]="!cambiarPin.form.valid" (click)="cambiarPin()" data-dismiss="modal">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="cambiarPassword" tabindex="-1" role="dialog" aria-labelledby="cambiarPassword" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="cambiarPassword">Cambiar Contraseña</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<p style="font-size: 0.6em; color: gray; padding: 10px;">La contraseña te permitira el acceso a tu pagina de BiciRío</p>
+			<form #cambiarPin="ngForm">
+				<div class="form-row modal-body">
+					<div class="form-group col-md-12">
+						<label for="passwordOld" class="col-form-label">Contraseña actual</label>
+						<input type="text" class="form-control" name="passwordOld" id="passwordOld" autocomplete="off"
+						required pattern="[0-9]{4}" [(ngModel)]="securituyAccess.passwordOld" autofocus>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="password" class="col-form-label">Contraseña Nueva</label>
+						<input type="text" class="form-control" name="password" id="password" autocomplete="off"
+						required pattern="[0-9]{4}" [(ngModel)]="securituyAccess.password" autofocus>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="password2" class="col-form-label">Repita la nueva Contraseña</label>
+						<input type="text" class="form-control" name="password2" id="password2" autocomplete="off"
+						required pattern="[0-9]{4}" autofocus>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+					<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
+					[disabled]="!cambiarPin.form.valid" (click)="cambiarPin()" data-dismiss="modal">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
