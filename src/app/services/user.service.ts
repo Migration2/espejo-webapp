@@ -10,7 +10,7 @@ export class UserService {
 	constructor(public http: Http) {
 	}
 	// Login
-	getLoginName() {
+	getLoginName() { //devuelve solo username
 		return this.http.get('/init/me', {}).map(res => res.json());
 	}
 
@@ -95,7 +95,15 @@ export class UserService {
 	removeRol(data){
 		this.http.post('/rest/person/security/revoke/role', JSON.stringify(data), this.options).subscribe();
 	}
-	
+
+	// changue password or pin
+	changePassword(data){
+		this.http.put('/rest/person/security/access', JSON.stringify(data), this.options).subscribe();
+	}
+
+	changePin(data){
+		this.http.put('/rest/person/security/access', JSON.stringify(data), this.options).subscribe();
+	}
 
 }
 

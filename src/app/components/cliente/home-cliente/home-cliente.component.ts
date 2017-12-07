@@ -3,7 +3,7 @@ import { EstacionService } from '../../../services/estacion.service';
 import { EstacionModel } from '../../../models/estacion.model';
 import { Subject } from 'rxjs/Rx';
 import { UserService } from '../../../services/user.service';
-import { UsuarioSecurityModel, UsuarioSecurityAccessModel } from '../../../models/usuario.model';
+import { UsuarioSecurityModel, UsuarioSecurityAccessModel, UsuarioModel } from '../../../models/usuario.model';
 
 @Component({
 	selector: 'app-home-cliente',
@@ -20,6 +20,10 @@ export class HomeClienteComponent implements OnInit {
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
 	securituyAccess= new UsuarioSecurityAccessModel;
+	dataUsuario = new UsuarioModel;
+	// repetido:boolean=false;
+	pin2="";
+	password2="";
 
 	constructor(private estacionservice : EstacionService, private userService : UserService) { 
 		this.estacionservice.getEstaciones().subscribe(response => {
@@ -29,6 +33,9 @@ export class HomeClienteComponent implements OnInit {
 
 		this.userService.getInformationMe().subscribe(response => {
 			this.dataSecurity = response;
+			this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
+				this.dataUsuario = responseUserName;
+			});					
 		});		
 	}
 
@@ -36,30 +43,32 @@ export class HomeClienteComponent implements OnInit {
 		this.dtOptions = {};
 	}
 
-	cambiarPass(){
-
+	cambioPass(){
+		this.securituyAccess.idUser = this.dataSecurity.id;
+		this.userService.changePassword(this.securituyAccess);
 	}
 
-	cambiarPin(){
+	cambioPin(){
+		this.securituyAccess.idUser = this.dataSecurity.id;
+		this.userService.changePin(this.securituyAccess);
+	}
+
+	validarPin(){
+		if (this.pin2 == this.securituyAccess.pin){
+			return false;
+		}else{
+			return true;
+		}
 		
 	}
 
-
-
-
-// checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-//           return (group: FormGroup) => {
-//             let passwordInput = group.controls[passwordKey],
-//                 passwordConfirmationInput = group.controls[passwordConfirmationKey];
-//             if (passwordInput.value !== passwordConfirmationInput.value) {
-//               return passwordConfirmationInput.setErrors({notEquivalent: true})
-//             }
-//             else {
-//                 return passwordConfirmationInput.setErrors(null);
-//             }
-//           }
-//         }
-
-
+	validarPassword(){
+		if (this.password2 == this.securituyAccess.password){
+			return false;
+		}else{
+			return true;
+		}
+		
+	}
 
 }

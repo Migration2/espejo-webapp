@@ -13,8 +13,8 @@ export class ClientNavbarComponent implements OnInit {
 	constructor(private userService: UserService) { }
 
 	ngOnInit() {
-		this.userService.getLoginName().subscribe(response => {
-			this.nombre = response.name;
+		this.userService.getInformationMe().subscribe(response => {
+			this.nombre = response.firstName;
 		});
 	}
 

@@ -3,7 +3,9 @@
 		<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>
 		<p> Registrado: {{ dataEmpleado.creado }}<br>
 			Dirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>
-			Celular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}
+			Celular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}<br>
+			<span *ngIf=" !dataSecurity.code ">El usuario <strong>No</strong> tiene una tarjeta asignada<br></span>
+			<span *ngIf=" dataSecurity.code ">El usuario tiene una tarjeta asignada<br></span>
 			<span *ngIf=" !dataSecurity.validated ">La cuenta <strong>No</strong> se encuentra validada</span></p>
 
 			<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled && dataSecurity.validated "
@@ -12,8 +14,8 @@
 			data-toggle="modal" data-target="#habilitarUsuario" >Habilitar</button>
 			<button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" (click)="activarRoles()">
 			Roles</button>	
-			<button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
-			Asignar Tarjeta</button>
+		<!-- 	<button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
+			Asignar Tarjeta</button> -->
 		</div>
 	</div>
 

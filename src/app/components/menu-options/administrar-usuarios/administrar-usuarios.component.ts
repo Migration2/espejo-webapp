@@ -24,16 +24,16 @@ export class AdministrarUsuariosComponent implements OnInit {
 
 	ngOnInit() {
 		this.dtOptions = {
-			columnDefs: [
-			{
-				targets: [ 4 ],
-				visible: false,
-				searchable: false
-			}]
+			// columnDefs: [
+			// {
+			// 	targets: [ 4 ],
+			// 	visible: false,
+			// 	searchable: false
+			// }]
 		};
 	}
 
-	informacionUsuario(userName:number){
+	informacionUsuario(userName:any){
 		this.router.navigate(['usuario',userName]);
 	}
 

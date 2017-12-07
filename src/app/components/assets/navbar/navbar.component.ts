@@ -17,8 +17,8 @@ export class NavbarComponent implements OnInit {
   constructor(private userService: UserService, public cookieService: Cookie ) { }
 
   ngOnInit() {
-    this.userService.getLoginName().subscribe(response => {
-      this.nombre = response.name;
+    this.userService.getInformationMe().subscribe(response => {
+      this.nombre = response.firstName;
     });
   }
 

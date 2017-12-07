@@ -539,8 +539,8 @@ var ClientNavbarComponent = (function () {
     }
     ClientNavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getLoginName().subscribe(function (response) {
-            _this.nombre = response.name;
+        this.userService.getInformationMe().subscribe(function (response) {
+            _this.nombre = response.firstName;
         });
     };
     return ClientNavbarComponent;
@@ -627,7 +627,7 @@ FooterComponent = __decorate([
 /***/ "../../../../../src/app/components/assets/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark fixed-top\" style=\"background-color: #e3244b;\">\r\n  <a class=\"navbar-brand\" routerLink='/home' href=\"#\">\r\n    <img src=\"../../../../assets/images/favicon2.png\" width=\"60\" alt=\"Home\"/>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\"\r\n  aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n  <span class=\"navbar-toggler-icon\"></span>\r\n</button>\r\n<div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n  <ul class=\"navbar-nav mr-auto\">\r\n    <li class=\"nav-item dropdown\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        Administrar\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" routerLink='administrarUsuarios'>Usuarios</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEmpleados'>Empleados</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEstaciones'>Estaciones</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarBicicletas'>Bicicletas</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarSanciones'>Codigo Sanciones</a> -->\r\n        <a class=\"dropdown-item\" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarInformacionGeneral'>Información General</a> -->\r\n      </div>\r\n    </li>\r\n    <li class=\"nav-item  justify-content-end\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link\" routerLink='historicos'>Estadisticas</a>\r\n    </li>\r\n  </ul>\r\n  <ul class=\"navbar-nav\">\r\n    <li class=\"nav-item dropdown active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        {{nombre | userName}}\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" (click)=\"logOut()\">LogOut</a>\r\n        <a class=\"dropdown-item\" routerLink='cliente/estadisticas'>Mi Perfil</a>       \r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n</nav>"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark fixed-top\" style=\"background-color: #e3244b;\">\r\n  <a class=\"navbar-brand\" routerLink='/home' href=\"#\">\r\n    <img src=\"../../../../assets/images/favicon2.png\" width=\"60\" alt=\"Home\"/>\r\n  </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\"\r\n  aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n  <span class=\"navbar-toggler-icon\"></span>\r\n</button>\r\n<div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n  <ul class=\"navbar-nav mr-auto\">\r\n    <li class=\"nav-item dropdown\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        Administrar\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" routerLink='administrarUsuarios'>Usuarios</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEmpleados'>Empleados</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarEstaciones'>Estaciones</a>\r\n        <a class=\"dropdown-item\" routerLink='administrarBicicletas'>Bicicletas</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarSanciones'>Codigo Sanciones</a> -->\r\n        <a class=\"dropdown-item\" routerLink='administrarMantenimiento'>Codigo Mantenimiento</a>\r\n        <!-- <a class=\"dropdown-item\" routerLink='administrarInformacionGeneral'>Información General</a> -->\r\n      </div>\r\n    </li>\r\n    <li class=\"nav-item  justify-content-end\" routerLinkActive=\"active\">\r\n      <a class=\"nav-link\" routerLink='historicos'>Estadisticas</a>\r\n    </li>\r\n  </ul>\r\n  <ul class=\"navbar-nav\">\r\n    <li class=\"nav-item dropdown active\">\r\n      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n        {{nombre | userName}}\r\n      </a>\r\n      <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n        <a class=\"dropdown-item\" (click)=\"logOut()\">LogOut</a>\r\n        <a class=\"dropdown-item\" routerLink='cliente/home'>Mi Perfil</a>       \r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n</nav>"
 
 /***/ }),
 
@@ -677,8 +677,8 @@ var NavbarComponent = (function () {
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userService.getLoginName().subscribe(function (response) {
-            _this.nombre = response.name;
+        this.userService.getInformationMe().subscribe(function (response) {
+            _this.nombre = response.firstName;
         });
     };
     NavbarComponent.prototype.logOut = function () {
@@ -768,11 +768,72 @@ PaginaNoEncontradaComponent = __decorate([
 /***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p *ngIf=\" !dataSecurity.validated \">El usuario <strong>No</strong> ha validado su cuenta</p>\n\n<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\" dataSecurity.validated \"\ndata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\" (click)=\"cambiarPass()\">Cambiar contraseña</button>\n<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\" dataSecurity.validated\"\ndata-toggle=\"modal\" data-target=\"#habilitarUsuario\" (click)=\"cambiarPin()\" >Cambiar Pin</button>\n<br>\n<br>\n\n\n<div class=\"tituloPrincipal\">\n\t<h3>{{title}}</h3>\n</div>\n\n<div class=\"row \" >\n\t<div class=\"col-md-6 align-self-center\" >\n\t\t<agm-map [latitude]=\"Centerlat\" [longitude]=\"Centerlng\" [zoom]=\"14\">\n\t\t\t<agm-marker *ngFor=\"let estacion of datosEstaciones\" [latitude]=\"estacion.latitude\" [longitude]=\"estacion.longitude\" icon=\"assets/imagenes/favicon.png\">\n\t\t\t\t<agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n\t\t\t\t\t<ng-template>\n\t\t\t\t\t\t<strong>{{ estacion.name | uppercase}}</strong>\n\t\t\t\t\t\t<br>\n\t\t\t\t\t\tBicicletas disponibles: {{ estacion.availableCycles}}\n\t\t\t\t\t\t<br>\n\t\t\t\t\t\tPuntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}           \n\t\t\t\t\t</ng-template>\n\t\t\t\t</agm-snazzy-info-window>\n\t\t\t</agm-marker>\n\t\t</agm-map>\n\t</div>\n\t<div class=\"col-md-6\" id=\"tablaestaciones\">\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Estación</th>\n\t\t\t\t\t<th style=\"text-align: center;\">Puntos libres</th>\n\t\t\t\t\t<th style=\"text-align: center;\">Bicicletas Disponibles</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr *ngFor=\"let estacion of datosEstaciones\">\n\t\t\t\t\t<td>{{estacion.name}}</td>\n\t\t\t\t\t<td style=\"text-align: center;\">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>\n\t\t\t\t\t<td style=\"text-align: center;\">{{estacion.availableCycles}}</td>  \n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\t</div>\n</div>\n"
+module.exports = "<p>\n\tEstadisticas!\n</p>"
 
 /***/ }),
 
 /***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EstadisticasClienteComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var EstadisticasClienteComponent = (function () {
+    function EstadisticasClienteComponent() {
+    }
+    EstadisticasClienteComponent.prototype.ngOnInit = function () {
+    };
+    return EstadisticasClienteComponent;
+}());
+EstadisticasClienteComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-estadisticas-cliente',
+        template: __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.scss")]
+    }),
+    __metadata("design:paramtypes", [])
+], EstadisticasClienteComponent);
+
+//# sourceMappingURL=estadisticas-cliente.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/cliente/home-cliente/home-cliente.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p *ngIf=\" !dataSecurity.validated \">El usuario <strong>No</strong> ha validado su cuenta</p>\n\n\n<div class=\"row justify-content-md-center\">\n\t<div class=\"jumbotron\">\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\n\t\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\n\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\" dataSecurity.validated \"\n\t\t\tdata-toggle=\"modal\" data-target=\"#cambiarPassword\">Cambiar contraseña</button>\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\" dataSecurity.validated\"\n\t\t\tdata-toggle=\"modal\" data-target=\"#cambiarPin\" >Cambiar Pin</button>\t\n\t\t</div>\n\t</div>\n\n\n\n\t<br>\n\t<br>\n\n\n\t<div class=\"tituloPrincipal\">\n\t\t<h3>{{title}}</h3>\n\t</div>\n\n\t<div class=\"row\">\n\t\t<div class=\"col-md-6 align-self-center\" >\n\t\t\t<agm-map [latitude]=\"Centerlat\" [longitude]=\"Centerlng\" [zoom]=\"14\">\n\t\t\t\t<agm-marker *ngFor=\"let estacion of datosEstaciones\" [latitude]=\"estacion.latitude\" [longitude]=\"estacion.longitude\" icon=\"assets/imagenes/favicon.png\">\n\t\t\t\t\t<agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\n\t\t\t\t\t\t<ng-template>\n\t\t\t\t\t\t\t<strong>{{ estacion.name | uppercase}}</strong>\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\tBicicletas disponibles: {{ estacion.availableCycles}}\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\tPuntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}           \n\t\t\t\t\t\t</ng-template>\n\t\t\t\t\t</agm-snazzy-info-window>\n\t\t\t\t</agm-marker>\n\t\t\t</agm-map>\n\t\t</div>\n\t\t<div class=\"col-md-6\" id=\"tablaestaciones\">\n\t\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>Estación</th>\n\t\t\t\t\t\t<th style=\"text-align: center;\">Puntos libres</th>\n\t\t\t\t\t\t<th style=\"text-align: center;\">Bicicletas Disponibles</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t\t<tr *ngFor=\"let estacion of datosEstaciones\">\n\t\t\t\t\t\t<td>{{estacion.name}}</td>\n\t\t\t\t\t\t<td style=\"text-align: center;\">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>\n\t\t\t\t\t\t<td style=\"text-align: center;\">{{estacion.availableCycles}}</td>  \n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n\n\n\t<div class=\"modal fade\" id=\"cambiarPin\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"cambiarPin\" aria-hidden=\"true\">\n\t\t<div class=\"modal-dialog\" role=\"document\">\n\t\t\t<div class=\"modal-content\">\n\t\t\t\t<div class=\"modal-header\">\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"cambiarPin\">Cambiar PIN</h5>\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t\t<p style=\"font-size: 0.6em; color: gray; padding: 10px;\">El pin es un numero de <strong>cuatro digitos</strong> que te permitira usar las estaciones de BiciRío</p>\n\t\t\t\t<form #cambiarPin=\"ngForm\">\n\t\t\t\t\t<div class=\"form-row modal-body\">\n\t\t\t\t\t\t<div class=\"form-group col-md-12\">\n\t\t\t\t\t\t\t<label for=\"pinOld\" class=\"col-form-label\">Pin actual</label>\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" name=\"pinOld\" id=\"pinOld\" autocomplete=\"off\"\n\t\t\t\t\t\t\trequired pattern=\"[0-9]{4}\" [(ngModel)]=\"securituyAccess.pinOld\" autofocus>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"form-group col-md-12\">\n\t\t\t\t\t\t\t<label for=\"pin\" class=\"col-form-label\">Pin Nuevo</label>\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" name=\"pin\" id=\"pin\" autocomplete=\"off\"\n\t\t\t\t\t\t\trequired pattern=\"[0-9]{4}\" [(ngModel)]=\"securituyAccess.pin\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"form-group col-md-12\">\n\t\t\t\t\t\t\t<label for=\"pin2\" class=\"col-form-label\">Repita el nuevo Pin</label>\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" (keyup)=\"validarPin()\" name=\"pin2\" id=\"pin2\" autocomplete=\"off\" required pattern=\"[0-9]{4}\" [(ngModel)]=\"pin2\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"modal-footer\">\n\t\t\t\t\t\t<button id=\"cancelar\" class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" data-dismiss=\"modal\">Cancelar</button>\n\t\t\t\t\t\t<button type=\"submit\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\"\n\t\t\t\t\t\t[disabled]=\"!cambiarPin.form.valid || (validarPin())\" (click)=\"cambioPin()\" >Enviar</button>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\n\t<div class=\"modal fade\" id=\"cambiarPassword\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"cambiarPassword\" aria-hidden=\"true\">\n\t\t<div class=\"modal-dialog\" role=\"document\">\n\t\t\t<div class=\"modal-content\">\n\t\t\t\t<div class=\"modal-header\">\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"cambiarPassword\">Cambiar Contraseña</h5>\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t\t<p style=\"font-size: 0.6em; color: gray; padding: 10px;\">La contraseña te permitira el acceso a tu pagina de BiciRío</p>\n\t\t\t\t<form #cambiarPass=\"ngForm\">\n\t\t\t\t\t<div class=\"form-row modal-body\">\n\t\t\t\t\t\t<div class=\"form-group col-md-12\">\n\t\t\t\t\t\t\t<label for=\"passwordOld\" class=\"col-form-label\">Contraseña actual</label>\n\t\t\t\t\t\t\t<input type=\"password\" class=\"form-control\" name=\"passwordOld\" id=\"passwordOld\" autocomplete=\"off\"\n\t\t\t\t\t\t\trequired [(ngModel)]=\"securituyAccess.passwordOld\" autofocus minlength=\"5\" maxlength=\"20\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"form-group col-md-12\">\n\t\t\t\t\t\t\t<label for=\"password\" class=\"col-form-label\">Contraseña Nueva</label>\n\t\t\t\t\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" id=\"password\" autocomplete=\"off\"\n\t\t\t\t\t\t\trequired [(ngModel)]=\"securituyAccess.password\" minlength=\"5\" maxlength=\"20\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"form-group col-md-12\">\n\t\t\t\t\t\t\t<label for=\"password2\" class=\"col-form-label\">Repita la nueva Contraseña</label>\n\t\t\t\t\t\t\t<input type=\"password\" class=\"form-control\" name=\"password2\" id=\"password2\" autocomplete=\"off\"\n\t\t\t\t\t\t\trequired minlength=\"5\" maxlength=\"20\" (keyup)=\"validarPassword()\" [(ngModel)]=\"password2\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"modal-footer\">\n\t\t\t\t\t\t<button id=\"cancelar\" class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" data-dismiss=\"modal\">Cancelar</button>\n\t\t\t\t\t\t<button type=\"submit\" class=\"btn btn-outline-primary bottonAction\"\n\t\t\t\t\t\t[disabled]=\"!cambiarPass.form.valid || (validarPassword())\" (click)=\"cambioPass()\" data-dismiss=\"modal\">Enviar</button>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/cliente/home-cliente/home-cliente.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -790,11 +851,11 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ "../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.ts":
+/***/ "../../../../../src/app/components/cliente/home-cliente/home-cliente.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EstadisticasClienteComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeClienteComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_estacion_service__ = __webpack_require__("../../../../../src/app/services/estacion.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
@@ -814,95 +875,60 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var EstadisticasClienteComponent = (function () {
-    function EstadisticasClienteComponent(estacionservice, userService) {
+var HomeClienteComponent = (function () {
+    function HomeClienteComponent(estacionservice, userService) {
         var _this = this;
         this.estacionservice = estacionservice;
         this.userService = userService;
         this.title = 'Estaciones BiciRío';
         this.Centerlat = 6.153433;
         this.Centerlng = -75.372826;
-        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["b" /* UsuarioSecurityModel */];
+        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["c" /* UsuarioSecurityModel */];
         this.datosEstaciones = [];
         this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["a" /* Subject */]();
         this.dtOptions = {};
+        this.securituyAccess = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["b" /* UsuarioSecurityAccessModel */];
+        this.dataUsuario = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["a" /* UsuarioModel */];
+        // repetido:boolean=false;
+        this.pin2 = "";
+        this.password2 = "";
         this.estacionservice.getEstaciones().subscribe(function (response) {
             _this.datosEstaciones = response;
             _this.dtTrigger.next();
         });
         this.userService.getInformationMe().subscribe(function (response) {
             _this.dataSecurity = response;
+            _this.userService.getUserByUserName(_this.dataSecurity.username).subscribe(function (responseUserName) {
+                _this.dataUsuario = responseUserName;
+            });
         });
     }
-    EstadisticasClienteComponent.prototype.ngOnInit = function () {
+    HomeClienteComponent.prototype.ngOnInit = function () {
         this.dtOptions = {};
     };
-    EstadisticasClienteComponent.prototype.cambiarPass = function () {
+    HomeClienteComponent.prototype.cambioPass = function () {
+        this.securituyAccess.idUser = this.dataSecurity.id;
+        this.userService.changePassword(this.securituyAccess);
     };
-    EstadisticasClienteComponent.prototype.cambiarPin = function () {
+    HomeClienteComponent.prototype.cambioPin = function () {
+        this.securituyAccess.idUser = this.dataSecurity.id;
+        this.userService.changePin(this.securituyAccess);
     };
-    return EstadisticasClienteComponent;
-}());
-EstadisticasClienteComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'app-estadisticas-cliente',
-        template: __webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/components/cliente/estadisticas-cliente/estadisticas-cliente.component.scss")],
-        providers: [__WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */]]
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _b || Object])
-], EstadisticasClienteComponent);
-
-var _a, _b;
-//# sourceMappingURL=estadisticas-cliente.component.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/cliente/home-cliente/home-cliente.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/cliente/home-cliente/home-cliente.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  home-cliente works!\n</p>\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/cliente/home-cliente/home-cliente.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeClienteComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var HomeClienteComponent = (function () {
-    function HomeClienteComponent() {
-    }
-    HomeClienteComponent.prototype.ngOnInit = function () {
+    HomeClienteComponent.prototype.validarPin = function () {
+        if (this.pin2 == this.securituyAccess.pin) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    HomeClienteComponent.prototype.validarPassword = function () {
+        if (this.password2 == this.securituyAccess.password) {
+            return false;
+        }
+        else {
+            return true;
+        }
     };
     return HomeClienteComponent;
 }());
@@ -910,11 +936,13 @@ HomeClienteComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-home-cliente',
         template: __webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.css")]
+        styles: [__webpack_require__("../../../../../src/app/components/cliente/home-cliente/home-cliente.component.scss")],
+        providers: [__WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */]]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_estacion_service__["a" /* EstacionService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_user_service__["a" /* UserService */]) === "function" && _b || Object])
 ], HomeClienteComponent);
 
+var _a, _b;
 //# sourceMappingURL=home-cliente.component.js.map
 
 /***/ }),
@@ -1001,7 +1029,7 @@ var _a, _b;
 /***/ "../../../../../src/app/components/detail-options/empleado/empleado.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row justify-content-md-center\" *ngIf=\"show\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataEmpleado.creado }}<br>\r\n\t\t\tDirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"activarRoles()\">\r\n\t\t\tRoles</button>\t\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated && (dataSecurity.idCard == null) \" role=\"button\" >\r\n\t\t\tAsignar Tarjeta</button>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" [hidden]=\"!showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
+module.exports = "<div class=\"row justify-content-md-center\" *ngIf=\"show\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataEmpleado.nombre +' '+ dataEmpleado.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataEmpleado.creado }}<br>\r\n\t\t\tDirección: {{ dataEmpleado.direccion }} - {{ dataEmpleado.idCiudad.ciudad }}/{{ dataEmpleado.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataEmpleado.celular }} / Email: {{ dataEmpleado.email }}<br>\r\n\t\t\t<span *ngIf=\" !dataSecurity.code \">El usuario <strong>No</strong> tiene una tarjeta asignada<br></span>\r\n\t\t\t<span *ngIf=\" dataSecurity.code \">El usuario tiene una tarjeta asignada<br></span>\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"activarRoles()\">\r\n\t\t\tRoles</button>\t\r\n\t\t<!-- \t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated && (dataSecurity.idCard == null) \" role=\"button\" >\r\n\t\t\tAsignar Tarjeta</button> -->\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" [hidden]=\"!showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
 
 /***/ }),
 
@@ -1053,7 +1081,7 @@ var EmpleadoComponent = (function () {
         this.activedRoute = activedRoute;
         this.userService = userService;
         this.router = router;
-        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["b" /* UsuarioSecurityModel */];
+        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_4__models_usuario_model__["c" /* UsuarioSecurityModel */];
         this.dataEmpleado = new __WEBPACK_IMPORTED_MODULE_3__models_empleado_model__["a" /* EmpleadoModel */];
         this.show = false;
         this.showRoles = false;
@@ -1454,7 +1482,7 @@ SancionComponent = __decorate([
 /***/ "../../../../../src/app/components/detail-options/usuario/usuario.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\r\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"activarRoles()\">\r\n\t\t\tRoles</button>\t\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated && (dataSecurity.idCard == null) \" role=\"button\" >\r\n\t\t\tAsignar Tarjeta</button>\t\t\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"animated fadeIn  row\">\r\n\t\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Transacciones del Usuario</h4>\r\n\t\t</div>\r\n\r\n\t\t<div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n\t\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t\t<thead>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>Estacion Retiro</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t\t<th>Estacion Devolución</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</thead>\r\n\t\t\t\t<tbody>\r\n\t\t\t\t\t<tr *ngFor=\"let prestamo of prestamos\">\r\n\t\t\t\t\t\t<td>{{prestamo.stationLoan}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.start}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.stationReturn}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.end}}</td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</tbody>\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" [hidden]=\"!showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"exampleModalLabel\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
+module.exports = "\r\n<div class=\"row justify-content-md-center\">\r\n\t<div class=\"jumbotron\">\r\n\t\t<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>\r\n\t\t<p> Registrado: {{ dataUsuario.creado }}<br>\r\n\t\t\tDirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>\r\n\t\t\tCelular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>\r\n\t\t\t<span *ngIf=\" !dataSecurity.code \">El usuario <strong>No</strong> tiene una tarjeta asignada<br></span>\r\n\t\t\t<span *ngIf=\" dataSecurity.code \">El usuario tiene una tarjeta asignada<br></span>\r\n\t\t\t<span *ngIf=\" !dataSecurity.validated \">La cuenta <strong>No</strong> se encuentra validada</span></p>\r\n\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"dataSecurity.enabled && dataSecurity.validated \"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#deshabilitarUsuario\">Deshabilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" role=\"button\" *ngIf=\"!dataSecurity.enabled && dataSecurity.validated\"\r\n\t\t\tdata-toggle=\"modal\" data-target=\"#habilitarUsuario\" >Habilitar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated \" role=\"button\" (click)=\"activarRoles()\">\r\n\t\t\tRoles</button>\t\r\n\t\t\t<!-- <button class=\"btn btn-outline-primary btn-lg bottonAction\" *ngIf=\" dataSecurity.validated && (dataSecurity.idCard == null) \" role=\"button\" >\r\n\t\t\tAsignar Tarjeta</button> -->\t\t\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"animated fadeIn  row\">\r\n\t\t<div class=\"tituloPrincipal col-md-12\">\r\n\t\t\t<h4>Transacciones del Usuario</h4>\r\n\t\t</div>\r\n\r\n\t\t<div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n\t\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t\t\t<thead>\r\n\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t<th>Estacion Retiro</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t\t<th>Estacion Devolución</th>\r\n\t\t\t\t\t\t<th style=\"text-align: center;\">Hora</th>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</thead>\r\n\t\t\t\t<tbody>\r\n\t\t\t\t\t<tr *ngFor=\"let prestamo of prestamos\">\r\n\t\t\t\t\t\t<td>{{prestamo.stationLoan}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.start}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.stationReturn}}</td>\r\n\t\t\t\t\t\t<td>{{prestamo.end}}</td>\r\n\t\t\t\t\t</tr>\r\n\t\t\t\t</tbody>\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"row justify-content-md-center\" id=\"contenedorRoles\" [hidden]=\"!showRoles\">\t\t\r\n\t\t<h5 class=\"col-md-12\">Administrar Roles</h5><br>\r\n\t\t<div class=\"form-check form-check-inline col-md-7\">\r\n\t\t\t<label class=\"form-check-label\" *ngFor=\"let rol of roles\" style=\"padding-right: 5px;\">\r\n\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\" id=\"{{ rol.role }}\" value=\"{{ rol.id }}\">\r\n\t\t\t\t{{ rol.role | rol }}\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" style=\"margin-right: 5px;\" (click)=\"showRoles=false\">Cancelar</button>\r\n\t\t\t<button class=\"btn btn-outline-primary bottonAction\" autofocus=\"true\" (click)=\"updateRoles()\">Enviar</button>\t\t\t\t\t\r\n\t\t</div>\t\t\r\n\t</div>\r\n\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"habilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"habilitarUsuario\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"habilitarUsuario\">Habilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas habilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"enableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n\t<div class=\"modal fade\" id=\"deshabilitarUsuario\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deshabilitarUsuario\" aria-hidden=\"true\">\r\n\t\t<div class=\"modal-dialog\" role=\"document\">\r\n\t\t\t<div class=\"modal-content\">\r\n\t\t\t\t<div class=\"modal-header\">\r\n\t\t\t\t\t<h5 class=\"modal-title\" id=\"deshabilitarUsuario\">Deshabilitar Usuario</h5>\r\n\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n\t\t\t\t\t\t<span aria-hidden=\"true\">&times;</span>\r\n\t\t\t\t\t</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-body\">\r\n\t\t\t\t\tEstas seguro deseas deshabilitar el usuario?\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"modal-footer\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" data-dismiss=\"modal\">Cerrar</button>\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-outline-primary bottonAction\" (click)=\"disableUser()\" data-dismiss=\"modal\">Aceptar</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>"
 
 /***/ }),
 
@@ -1506,7 +1534,7 @@ var UsuarioComponent = (function () {
         this.activedRoute = activedRoute;
         this.userService = userService;
         this.router = router;
-        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_3__models_usuario_model__["b" /* UsuarioSecurityModel */];
+        this.dataSecurity = new __WEBPACK_IMPORTED_MODULE_3__models_usuario_model__["c" /* UsuarioSecurityModel */];
         this.dataUsuario = new __WEBPACK_IMPORTED_MODULE_3__models_usuario_model__["a" /* UsuarioModel */];
         this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["a" /* Subject */]();
         this.dtOptions = {};
@@ -2043,7 +2071,7 @@ AdministrarSancionesComponent = __decorate([
 /***/ "../../../../../src/app/components/menu-options/administrar-usuarios/administrar-usuarios.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Usuarios</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Validado</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t\t<th>username</th>\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.id)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.validated\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.validated\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td>{{ usuario.username }}</td>\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
+module.exports = "<div class=\"animated fadeIn\">\r\n\r\n\t<div class=\"tituloPrincipal\">\r\n\t\t<h3>Usuarios</h3>\r\n\t</div>\r\n\r\n\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n\t\t<thead>\r\n\t\t\t<tr>\r\n\t\t\t\t<th>Nombre</th>\r\n\t\t\t\t<th>Fecha Registro</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Validado</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Habilitado</th>\r\n\t\t\t\t<th style=\"text-align: center;\">Tarjeta</th>\r\n\t\t\t\t<!-- <th>username</th> -->\r\n\t\t\t</tr>\r\n\t\t</thead>\r\n\t\t<tbody>\r\n\t\t\t<tr *ngFor=\"let usuario of dataUsuarios\" (click)=\"informacionUsuario(usuario.id)\">\r\n\t\t\t\t<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>\r\n\t\t\t\t<td>{{ usuario.created }}</td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.validated\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.validated\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.enabled\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.enabled\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<td style=\"text-align: center;\"><span *ngIf=\"!usuario.code\" class=\"oi oi-x\"></span><span *ngIf=\"usuario.code\" class=\"oi oi-check\"></span></td>\r\n\t\t\t\t<!-- <td>{{ usuario.username }}</td> -->\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n</div>"
 
 /***/ }),
 
@@ -2101,15 +2129,7 @@ var AdministrarUsuariosComponent = (function () {
         });
     }
     AdministrarUsuariosComponent.prototype.ngOnInit = function () {
-        this.dtOptions = {
-            columnDefs: [
-                {
-                    targets: [4],
-                    visible: false,
-                    searchable: false
-                }
-            ]
-        };
+        this.dtOptions = {};
     };
     AdministrarUsuariosComponent.prototype.informacionUsuario = function (userName) {
         this.router.navigate(['usuario', userName]);
@@ -2195,7 +2215,7 @@ HistoricosComponent = __decorate([
 /***/ "../../../../../src/app/components/menu-options/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"tituloPrincipal\">\r\n  <h3>{{title}}</h3>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-12\">\r\n    <agm-map [latitude]=\"Centerlat\" [longitude]=\"Centerlng\" [zoom]=\"14\">\r\n      <agm-marker *ngFor=\"let estacion of datosEstaciones\" [latitude]=\"estacion.latitude\" [longitude]=\"estacion.longitude\" icon=\"assets/imagenes/favicon.png\">\r\n        <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\r\n          <ng-template>\r\n           <strong>{{ estacion.name | uppercase}}</strong>\r\n           <br>\r\n           Puntos de Contacto: {{ estacion.contactPointStates.length}} \r\n           <br>\r\n           Bicicletas disponibles: {{ estacion.availableCycles}}\r\n           <br>\r\n           Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}             \r\n         </ng-template>\r\n       </agm-snazzy-info-window>\r\n     </agm-marker>\r\n   </agm-map>\r\n </div>\r\n <div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n  <table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n    <thead>\r\n      <tr>\r\n        <th>Nombre</th>\r\n        <th style=\"text-align: center;\">Puntos libres</th>\r\n        <th style=\"text-align: center;\">Bicicletas Disponibles</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let estacion of datosEstaciones\" (click)=\"informacionEstacion(estacion.id)\">\r\n        <td>{{estacion.name}}</td>\r\n        <td style=\"text-align: center;\">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>\r\n        <td style=\"text-align: center;\">{{estacion.availableCycles}}</td>  \r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsEstaciones\">\r\n      <chart [options]=\"optionsEstaciones\"></chart>     \r\n    </div>\r\n    \r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsPuntosContacto\">\r\n      <chart [options]=\"optionsPuntosContacto\"></chart>   \r\n    </div>\r\n\r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsBicicletas\">\r\n      <chart [options]=\"optionsBicicletas\"></chart>     \r\n    </div>    \r\n  </div>  \r\n</div>"
+module.exports = "<div class=\"tituloPrincipal\">\r\n  <h3>{{title}}</h3>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-12\">\r\n    <agm-map [latitude]=\"Centerlat\" [longitude]=\"Centerlng\" [zoom]=\"14\">\r\n      <agm-marker *ngFor=\"let estacion of datosEstaciones\" [latitude]=\"estacion.latitude\" [longitude]=\"estacion.longitude\" icon=\"assets/imagenes/favicon.png\">\r\n        <agm-snazzy-info-window [maxWidth]=\"200\" [closeWhenOthersOpen]=\"true\">\r\n          <ng-template>\r\n           <strong>{{ estacion.name | uppercase}}</strong>\r\n           <br>\r\n           Puntos de Contacto: {{ estacion.contactPointStates.length}} \r\n           <br>\r\n           Bicicletas disponibles: {{ estacion.availableCycles}}\r\n           <br>\r\n           Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}             \r\n         </ng-template>\r\n       </agm-snazzy-info-window>\r\n     </agm-marker>\r\n   </agm-map>\r\n </div>\r\n <div style=\"margin-top: 40px;\" class=\"col-md-10 offset-md-1\">\r\n  <table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"table row-border hover\" cellspacing=\"0\" width=\"100%\">\r\n    <thead>\r\n      <tr>\r\n        <th>Nombre</th>\r\n        <th style=\"text-align: center;\">Puntos libres</th>\r\n        <th style=\"text-align: center;\">Bicicletas Disponibles</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let estacion of datosEstaciones\" (click)=\"informacionEstacion(estacion.id)\">\r\n        <td>{{estacion.name}}</td>\r\n        <td style=\"text-align: center;\">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>\r\n        <td style=\"text-align: center;\">{{estacion.availableCycles}}</td>  \r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n</div>\r\n\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsEstaciones\">\r\n      <chart [options]=\"optionsEstaciones\"></chart>     \r\n    </div>\r\n    \r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsPuntosContacto\">\r\n      <chart [options]=\"optionsPuntosContacto\"></chart>   \r\n    </div>\r\n\r\n  </div>\r\n  <div class=\"col-md-4\">\r\n    <div id=\"optionsBicicletas\">\r\n      <chart [options]=\"optionsBicicletas\"></chart>     \r\n    </div>    \r\n  </div>  \r\n</div>"
 
 /***/ }),
 
@@ -2608,7 +2628,8 @@ var EstacionModel = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UsuarioModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return UsuarioSecurityModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return UsuarioSecurityModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return UsuarioSecurityAccessModel; });
 var UsuarioModel = (function () {
     function UsuarioModel(id, username, nombre, apellido, nui, email, telefono, celular, direccion, profesion, ocupacion, creado, fechaNacimiento, idCiudad) {
         if (id === void 0) { id = ''; }
@@ -2683,6 +2704,22 @@ var UsuarioSecurityModel = (function () {
         this.idCard = idCard;
     }
     return UsuarioSecurityModel;
+}());
+
+var UsuarioSecurityAccessModel = (function () {
+    function UsuarioSecurityAccessModel(idUser, password, passwordOld, pin, pinOld) {
+        if (idUser === void 0) { idUser = ""; }
+        if (password === void 0) { password = ""; }
+        if (passwordOld === void 0) { passwordOld = ""; }
+        if (pin === void 0) { pin = ""; }
+        if (pinOld === void 0) { pinOld = ""; }
+        this.idUser = idUser;
+        this.password = password;
+        this.passwordOld = passwordOld;
+        this.pin = pin;
+        this.pinOld = pinOld;
+    }
+    return UsuarioSecurityAccessModel;
 }());
 
 //# sourceMappingURL=usuario.model.js.map
@@ -3022,6 +3059,13 @@ var UserService = (function () {
     };
     UserService.prototype.removeRol = function (data) {
         this.http.post('/rest/person/security/revoke/role', JSON.stringify(data), this.options).subscribe();
+    };
+    // changue password or pin
+    UserService.prototype.changePassword = function (data) {
+        this.http.put('/rest/person/security/access', JSON.stringify(data), this.options).subscribe();
+    };
+    UserService.prototype.changePin = function (data) {
+        this.http.put('/rest/person/security/access', JSON.stringify(data), this.options).subscribe();
     };
     return UserService;
 }());
