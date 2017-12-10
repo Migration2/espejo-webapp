@@ -17,6 +17,7 @@ export class EmpleadoComponent implements OnInit {
 	show:boolean=false;
 	roles:any;
 	showRoles:boolean=false;
+	mostrar:boolean = false;
 	
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router) { 
 		this.activedRoute.params.subscribe(params=>{
@@ -26,12 +27,14 @@ export class EmpleadoComponent implements OnInit {
 				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
 					this.dataEmpleado = responseUserName;
 					this.show=true;
+					this.userService.getRoles().subscribe(respuestaRoles =>{
+						this.roles = respuestaRoles;
+						this.mostrar = true;			
+					});
 				});
 			});
 		});
-		this.userService.getRoles().subscribe(respuestaRoles =>{
-			this.roles = respuestaRoles;			
-		});
+
 
 	}
 

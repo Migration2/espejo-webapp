@@ -1,4 +1,5 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn"  [style.display]="mostrar ? 'block' : 'none'">
+	
 
 	<div class="tituloPrincipal">
 		<h3>Usuarios</h3>
@@ -26,4 +27,9 @@
 			</tr>
 		</tbody>
 	</table>
+</div>
+
+<div id="loadingGeneral" class="text-center" *ngIf="!mostrar">
+	<div id="bordeGeneral"></div>
+	<div id="TextLoading">Cargando...</div>
 </div>

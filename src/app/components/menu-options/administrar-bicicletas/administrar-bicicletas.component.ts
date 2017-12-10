@@ -16,16 +16,19 @@ export class AdministrarBicicletasComponent implements OnInit {
 	dataBicis: Array<any> = [];
 	dtTrigger = new Subject();
 	model = new BicicletaModel;
+	mostrar:boolean = false;
 	
 
-	constructor(private router:Router, private biciService:BiciService) { }
-
-	ngOnInit() {
+	constructor(private router:Router, private biciService:BiciService) { 
 		this.biciService.getBicis().subscribe(response => {
 			this.dataBicis = response;
-			this.dtOptions = {};
 			this.dtTrigger.next();
+			this.mostrar = true;
 		});
+	}
+
+	ngOnInit() {
+		this.dtOptions = {};
 	}
 
 	informacionBicicleta(id:number){

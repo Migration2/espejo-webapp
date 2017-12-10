@@ -1,11 +1,17 @@
-<div class="row justify-content-md-center">
-	<div class="jumbotron">
-		<h4>{{ datosBici.codigo | uppercase}}</h4>
-		<p> Creada: {{ datosBici.creado}}<br>
-			Estado: {{ datosBici.idEstadoBicicleta.estado }}
+<div class="animated fadeIn"  [style.display]="mostrar ? 'block' : 'none'">
+	<div class="row justify-content-md-center">
+		<div class="jumbotron">
+			<h4>{{ datosBici.codigo | uppercase}}</h4>
+			<p> Creada: {{ datosBici.creado}}<br>
+				Estado: {{ datosBici.idEstadoBicicleta.estado }}
 			</p>
-		<button class="btn btn-outline-primary btn-lg bottonAction" role="button">Mantenimiento</button>
+			<button class="btn btn-outline-primary btn-lg bottonAction" role="button">Mantenimiento</button>
+		</div>
 	</div>
 </div>
 
+<div id="loadingGeneral" class="text-center" *ngIf="!mostrar">
+	<div id="bordeGeneral"></div>
+	<div id="TextLoading">Cargando...</div>
+</div>
 

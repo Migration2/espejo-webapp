@@ -13,8 +13,8 @@ import { UsuarioSecurityModel, UsuarioSecurityAccessModel, UsuarioModel } from '
 })
 export class HomeClienteComponent implements OnInit {
 	title: string = 'Estaciones BiciRío';
-	Centerlat: number = 6.153433;
-	Centerlng: number = -75.372826;
+	Centerlat: number = 6.142979;
+	Centerlng: number = -75.378276;
 	dataSecurity = new UsuarioSecurityModel;
 	datosEstaciones:Array<EstacionModel>=[];	
 	dtTrigger = new Subject();
@@ -24,19 +24,22 @@ export class HomeClienteComponent implements OnInit {
 	// repetido:boolean=false;
 	pin2="";
 	password2="";
+	mostrar:boolean = false;
 
 	constructor(private estacionservice : EstacionService, private userService : UserService) { 
 		this.estacionservice.getEstaciones().subscribe(response => {
 			this.datosEstaciones = response;			
 			this.dtTrigger.next();
+			this.userService.getInformationMe().subscribe(response => {
+				this.dataSecurity = response;
+				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
+					this.dataUsuario = responseUserName;
+					this.mostrar = true;
+				});					
+			});	
 		});
 
-		this.userService.getInformationMe().subscribe(response => {
-			this.dataSecurity = response;
-			this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
-				this.dataUsuario = responseUserName;
-			});					
-		});		
+		
 	}
 
 	ngOnInit() {

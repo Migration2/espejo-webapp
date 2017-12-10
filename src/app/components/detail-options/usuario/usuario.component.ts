@@ -20,6 +20,7 @@ export class UsuarioComponent implements OnInit {
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
 	showRoles:boolean = false;
+	mostrar:boolean = false;
 
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router) { 
 		this.activedRoute.params.subscribe(params=>{
@@ -31,14 +32,16 @@ export class UsuarioComponent implements OnInit {
 					this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
 						this.prestamos=response;
 						this.dtTrigger.next();
+						this.userService.getRoles().subscribe(respuestaRoles =>{
+							this.roles = respuestaRoles;
+							this.mostrar = true;	
+						});							
 					});
 				});
 			});
 		});
 
-		this.userService.getRoles().subscribe(respuestaRoles =>{
-			this.roles = respuestaRoles;
-		});
+		
 
 	}
 

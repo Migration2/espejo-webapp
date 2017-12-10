@@ -14,11 +14,13 @@ export class AdministrarUsuariosComponent implements OnInit {
 	dtOptions: DataTables.Settings = {};
 	dataUsuarios: Array<any>=[];
 	dtTrigger = new Subject();
+	mostrar:boolean = false;
 
 	constructor(private router:Router, private userService:UserService) { 
 		this.userService.getUsers().subscribe(response => {
-			this.dataUsuarios = response;			
-			this.dtTrigger.next();
+			this.dataUsuarios = response;	
+			this.dtTrigger.next();	
+			this.mostrar = true;		
 		});
 	}
 

@@ -1,28 +1,32 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
 	<div class="tituloPrincipal">
 		<h3>Estaciones</h3>
 	</div>
 
-		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th>Nombre</th>
-					<th>Dirección</th>
-					<th style="text-align: center;">Capacidad</th>
-					<th style="text-align: center;">Bicicletas</th>					
-					<th>Estado</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
-					<td>{{estacion.name}}</td>
-					<td>{{estacion.address}}</td>
-					<td style="text-align: center;">{{estacion.contactPointStates.length}}</td>	
-					<td style="text-align: center;">{{estacion.availableCycles}}</td>
-					<td>{{estacion.statusName}}</td>		
-				</tr>
-			</tbody>
-		</table>
+	<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Dirección</th>
+				<th style="text-align: center;">Capacidad</th>
+				<th style="text-align: center;">Bicicletas</th>					
+				<th>Estado</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
+				<td>{{estacion.name}}</td>
+				<td>{{estacion.address}}</td>
+				<td style="text-align: center;">{{estacion.contactPointStates.length}}</td>	
+				<td style="text-align: center;">{{estacion.availableCycles}}</td>
+				<td>{{estacion.statusName}}</td>		
+			</tr>
+		</tbody>
+	</table>
 
-	</div>
+</div>
 
+<div id="loadingGeneral" class="text-center" *ngIf="!mostrar">
+	<div id="bordeGeneral"></div>
+	<div id="TextLoading">Cargando...</div>
+</div>

@@ -17,6 +17,8 @@ export class EstacionComponent implements OnInit {
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
 	options: Object;
+	mostrar:boolean = false;
+
 	
 	constructor(private activedRoute:ActivatedRoute, private estacionservice : EstacionService) { 
 		this.activedRoute.params.subscribe(params=>{
@@ -28,6 +30,7 @@ export class EstacionComponent implements OnInit {
 			this.puntosContacto = response.contactPointStates;
 			this.dtTrigger.next();
 			this.estadoPuntosContacto(this.puntosContacto);
+			this.mostrar = true;		
 		});
 
 		

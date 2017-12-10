@@ -68,6 +68,7 @@ input:valid {
 	top: 15%;
 	left: 5%;
 	width: 90%;
+	z-index: -2;
 }
 
 @keyframes spin{

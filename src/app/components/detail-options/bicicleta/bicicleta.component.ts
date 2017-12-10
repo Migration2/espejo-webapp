@@ -11,9 +11,9 @@ import { Subject } from 'rxjs/Rx';
 	providers: [BiciService]
 })
 export class BicicletaComponent implements OnInit {
-	
 	private idBici;
 	datosBici = new detalleBicicletaModel;
+	mostrar:boolean = false;
 
 	constructor(private activedRoute:ActivatedRoute, private biciService:BiciService) { 
 		this.activedRoute.params.subscribe(params=>{
@@ -22,6 +22,7 @@ export class BicicletaComponent implements OnInit {
 
 		this.biciService.getBiciById(this.idBici).subscribe(response => {
 			this.datosBici = response;		
+			this.mostrar = true;
 		});
 	}
 

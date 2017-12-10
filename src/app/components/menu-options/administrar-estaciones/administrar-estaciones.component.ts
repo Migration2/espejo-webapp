@@ -14,6 +14,7 @@ export class AdministrarEstacionesComponent implements OnInit {
 	datosEstaciones:  Array<EstacionModel> = [];
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
+	mostrar:boolean = false;
 
 	constructor(private estacionservice : EstacionService, private router:Router) { }
 
@@ -22,6 +23,7 @@ export class AdministrarEstacionesComponent implements OnInit {
 			this.datosEstaciones = response;
 			this.dtOptions = {};
 			this.dtTrigger.next();
+			this.mostrar = true;		
 		});		
 	}
 

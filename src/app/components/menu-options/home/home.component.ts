@@ -13,8 +13,8 @@ import { Subject } from 'rxjs/Rx';
 })
 export class HomeComponent implements OnInit {
 	title: string = 'Estaciones BiciRío';
-	Centerlat: number = 6.153433;
-	Centerlng: number = -75.372826;
+	Centerlat: number = 6.142979;
+	Centerlng: number = -75.378276;
 	datosEstaciones:Array<EstacionModel>=[];
 	optionsEstaciones: Object;
 	optionsPuntosContacto: Object;

@@ -35,16 +35,18 @@ export class UsuarioSecurityModel {
 	constructor(
 		public id:string = '',
 		public username: string =" ",
-		public enabled:string = "",
+		public enabled:boolean = false,
 		public firstName:string = "",
 		public lastName:string = "",
 		public email:string = "",
 		public celphone:string = "",
 		public userRole:Array<any> = [],
 		public created:string = "",
-		public validated:string = "",
+		public validated:boolean = false,
 		public pin:string = "",
-		public idCard:string= null
+		public idCard:string= null,
+		public code:string = null,
+		public idLoanActive:string = null 
 		) {}
 }
 
