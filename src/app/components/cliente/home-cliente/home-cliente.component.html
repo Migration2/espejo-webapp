@@ -1,11 +1,13 @@
-<div id="loadingGeneral" class="text-center" *ngIf="!mostrar">
-	<div id="bordeGeneral"></div>
-	<div id="TextLoading">Cargando...</div>
+<div class="row justify-content-md-center" *ngIf="!mostrar">
+	<div id="loadingGeneral" class="text-center">
+		<div id="bordeGeneral"></div>
+		<div id="TextLoading">Cargando...</div>
+	</div>	
 </div>
 
 <div class="animated fadeIn" [style.visibility]="mostrar ? 'visible' : 'hidden'">
 	<div class="row justify-content-md-center">
-		<div class="jumbotron">
+		<div class="jumbotron col-md-7">
 			<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
 			<p> Registrado: {{ dataUsuario.creado }}<br>
 				Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>
@@ -16,6 +18,8 @@
 				data-toggle="modal" data-target="#cambiarPassword">Cambiar contraseña</button>
 				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated"
 				data-toggle="modal" data-target="#cambiarPin" >Cambiar Pin</button>	
+				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#editarInformacion" >
+				Editar</button>	
 			</div>
 		</div>
 
@@ -138,6 +142,71 @@
 						[disabled]="!cambiarPass.form.valid || (validarPassword())" (click)="cambioPass()" data-dismiss="modal">Enviar</button>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="editarInformacion" tabindex="-1" role="dialog" aria-labelledby="editarInformacion" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editarInformacion">Editar Información</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" style="width: 95%;">
+					<form #editarInformacionUsuario="ngForm">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="name" class="col-form-label">Nombre*</label>
+								<input type="text" class="form-control" name="name" id="name" autocomplete="off"
+								required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" title="El nombre no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.name" autofocus>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="lastname" class="col-form-label">Apellido*</label>
+								<input type="text" class="form-control" name="lastname" id="lastname" autocomplete="off"
+								required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastname" autofocus>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="phone" class="col-form-label">Telefono*</label>
+								<input type="text" class="form-control" name="phone" id="phone" autocomplete="off"
+								required pattern="[0-9]{4,}" title="El número de teléfono solo debe contener numeros" [(ngModel)]="dataUsuarioUpdate.phone" autofocus>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="celphone" class="col-form-label">Celular*</label>
+								<input type="text" class="form-control" name="celphone" id="celphone" autocomplete="off"
+								required pattern="[0-9]{4,}" title="El número de teléfono solo debe contener numeros" [(ngModel)]="dataUsuarioUpdate.celphone" autofocus>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="profession" class="col-form-label">Profesión*</label>
+								<input type="text" class="form-control" name="profession" id="profession" autocomplete="off"
+								required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" pattern="[a-zA-Z ]{4,}" itle="La profesión no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.profession" autofocus>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="career" class="col-form-label">Ocupación*</label>
+								<input type="text" class="form-control" name="career" id="career" autocomplete="off"
+								required pattern="[a-zA-Z ]{4,}" itle="La ocupación no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.career" autofocus>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="email" class="col-form-label">Email*</label>
+								<input type="text" class="form-control" name="email" id="email" autocomplete="off"
+								required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" itle="El Dirección no debe contener caracteres especiales (a excepción de @ - _ ) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.email" autofocus>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="address" class="col-form-label">Dirección*</label>
+								<input type="text" class="form-control" name="address" id="address" autocomplete="off"
+								required pattern="[-0-9A-Za-z# ]{4,}" title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address" autofocus>
+							</div>
+						</div>
+						<div class="row justify-content-end">
+							<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+							<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
+							[disabled]="!editarInformacionUsuario.form.valid" (click)="onSubmit()" data-dismiss="modal">Enviar</button>
+						</div>
+					</form>
+					<p><small><strong>* Campo requerido</strong></small></p>
+				</div>
 			</div>
 		</div>
 	</div>

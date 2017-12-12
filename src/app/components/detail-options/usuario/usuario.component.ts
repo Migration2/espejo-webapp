@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { UsuarioModel, UsuarioSecurityModel } from '../../../models/usuario.model';
+import { UsuarioModel, UsuarioSecurityModel, usuarioDataUpdate } from '../../../models/usuario.model';
 import { Subject } from 'rxjs/Rx';
 
 
 @Component({
-	selector: 'app-usuario',
+	selector:'app-usuario',
 	templateUrl: './usuario.component.html',
 	styleUrls: ['./usuario.component.scss'],
 	providers: [UserService]
@@ -14,6 +14,7 @@ import { Subject } from 'rxjs/Rx';
 export class UsuarioComponent implements OnInit {
 	dataSecurity = new UsuarioSecurityModel;
 	dataUsuario = new UsuarioModel;
+	dataUsuarioUpdate = new usuarioDataUpdate;
 	prestamos:any;
 	roles:any;
 	private userId;
@@ -29,6 +30,7 @@ export class UsuarioComponent implements OnInit {
 				this.dataSecurity = responseSecurity;
 				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
 					this.dataUsuario = responseUserName;
+					this.dataUpdate(this.dataUsuario);
 					this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
 						this.prestamos=response;
 						this.dtTrigger.next();
@@ -95,5 +97,30 @@ export class UsuarioComponent implements OnInit {
 		}
 	}
 
+	onSubmit() { 
+		let idCliente = this.userService.updateUser(this.dataUsuarioUpdate, this.dataSecurity.id); 
+		this.router.navigate(['administrarUsuarios']);
+	};	
+
+	dataUpdate(data){
+		this.dataUsuarioUpdate.id= data.id,
+		this.dataUsuarioUpdate.username =data.username,
+		this.dataUsuarioUpdate.name= data.nombre,
+		this.dataUsuarioUpdate.lastname= data.apellido,
+		this.dataUsuarioUpdate.nui= data.nui,
+		this.dataUsuarioUpdate.email= data.email,
+		this.dataUsuarioUpdate.phone= data.telefono,
+		this.dataUsuarioUpdate.celphone= data.celular,
+		this.dataUsuarioUpdate.address= data.direccion,
+		this.dataUsuarioUpdate.profession= data.profesion,
+		this.dataUsuarioUpdate.career= data.ocupacion,
+		this.dataUsuarioUpdate.created= data.creado,
+		this.dataUsuarioUpdate.birthday= data.fechaNacimiento,
+		this.dataUsuarioUpdate.gender= data.sexo,
+		this.dataUsuarioUpdate.idCity = data.idCiudad.id,
+		this.dataUsuarioUpdate.idKindId= data.idTipoIdentificacion.id,
+		this.dataUsuarioUpdate.modified = data.modificado,
+		this.dataUsuarioUpdate.network = data.network
+	}
 
 }

@@ -11,6 +11,12 @@ export class EstacionModel {
 		public statusName: string = "",
 		public modelName : string ="",
 		public availableCycles:string ="",
-		public contactPointStates:Array<any>=[]
+		public contactPointStates ={
+			alias :"",
+			bikeCode : null,
+			id:"",
+			status:"",
+			statusTotem:""
+		}		
 		) {}
 }

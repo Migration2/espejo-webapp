@@ -105,6 +105,11 @@ export class UserService {
 		this.http.put('/rest/person/security/access', JSON.stringify(data), this.options).subscribe();
 	}
 
+	//update Usuario
+	updateUser(data, securityID){
+	this.http.put('/rest/person/'+securityID, JSON.stringify(data), this.options).subscribe();	
+	}
+
 }
 
 

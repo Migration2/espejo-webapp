@@ -13,6 +13,8 @@ export class UsuarioModel {
 		public profesion:string = "",
 		public ocupacion:string = "",
 		public creado:string = "",
+		public sexo:string ="",
+		public modificado:string = "",
 		public fechaNacimiento:string = "",
 		public idCiudad = { 
 			id: '', 
@@ -59,5 +61,29 @@ export class UsuarioSecurityAccessModel {
 		public passwordOld: string ="",
 		public pin: string ="",
 		public pinOld: string =""
+		) {}
+}
+
+export class usuarioDataUpdate {
+	
+	constructor(
+		public id:string = '',
+		public username: string =" ",
+		public name:string = "",
+		public lastname:string = "",
+		public nui:string = "",
+		public email:string = "",
+		public phone:string = "",
+		public celphone:string = "",
+		public address:string = "",
+		public profession:string = "",
+		public career:string = "",
+		public created:string = "",
+		public birthday:string = "",
+		public gender:string = "",
+		public idCity:number = 0,
+		public idKindId: number = 0,
+		public modified: string ="",
+		public network?:any
 		) {}
 }

@@ -53,17 +53,6 @@ table tbody tr:hover{
   cursor:pointer;
 }
 
-.jumbotron{
-  width: 90%;
-}
-
-@media(min-width: 780px){
-.jumbotron{
-  width: 60%;
-}
-
-}
-
 
 /*Formularios*/
 .ng-valid[required], .ng-valid.required  {
