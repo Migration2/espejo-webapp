@@ -77,7 +77,12 @@ export class HomeClienteComponent implements OnInit {
 
 	onSubmit() { 
 		let idCliente = this.userService.updateUser(this.dataUsuarioUpdate, this.dataSecurity.id); 
-		this.router.navigate(['administrarUsuarios']);
+		let currentUrl = this.router.url;
+		if(currentUrl != '/cliente/home'){
+			this.router.navigate(['administrarUsuarios']);
+		}else{
+			location.reload();
+		}		
 	};	
 
 	dataUpdate(data){

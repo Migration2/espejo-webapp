@@ -38,6 +38,7 @@
 			</div>
 			<div class="form-row justify-content-md-center">
 				<div>
+					<button style="margin-right: 5px;" id="cancelar" class="btn btn-outline-primary">Cancelar</button>
 					<button name="submit" type="submit" class="btn btn-outline-primary">Siguiente</button>		
 				</div>				
 			</div>			
@@ -58,6 +59,7 @@
 	<script src="./complementos/popper.js"></script>
 	<script src="./complementos/bootstrap/js/bootstrap.min.js"></script>
 
+
 	<script>
 		$("#contenedorPrincipal").fadeIn(2000);
 	</script>
@@ -66,6 +68,10 @@
 		if((window.location.href).indexOf('?') != -1) {
 			$("#alerta").removeAttr('hidden');
 		}
+		$("#cancelar").click(function(event) {
+			event.preventDefault();
+			window.location.href ="http://bicirio.gov.co/site/";
+		});;
 	</script>
 </body>
 </html>

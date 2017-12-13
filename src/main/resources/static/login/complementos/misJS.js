@@ -207,3 +207,8 @@ rules:{
             	}
             	return false;
             }
+
+$("#cancelar").click(function(event) {
+	event.preventDefault();
+	window.location.href ="http://bicirio.gov.co/site/";
+});;
