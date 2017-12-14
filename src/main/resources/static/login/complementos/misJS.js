@@ -211,4 +211,9 @@ rules:{
 $("#cancelar").click(function(event) {
 	event.preventDefault();
 	window.location.href ="http://bicirio.gov.co/site/";
-});;
+});
+
+$("#cancelarL").click(function(event) {
+	event.preventDefault();
+	window.location.href ="http://bici-rio.com:8080/oa/login/login.html";
+});

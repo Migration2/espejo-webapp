@@ -37,8 +37,7 @@
 				</div>
 			</div>
 			<div class="form-row justify-content-md-center">
-				<div>
-					<button style="margin-right: 5px;" id="cancelar" class="btn btn-outline-primary">Cancelar</button>
+				<div>					
 					<button name="submit" type="submit" class="btn btn-outline-primary">Siguiente</button>		
 				</div>				
 			</div>			
@@ -68,10 +67,6 @@
 		if((window.location.href).indexOf('?') != -1) {
 			$("#alerta").removeAttr('hidden');
 		}
-		$("#cancelar").click(function(event) {
-			event.preventDefault();
-			window.location.href ="http://bicirio.gov.co/site/";
-		});;
 	</script>
 </body>
 </html>
