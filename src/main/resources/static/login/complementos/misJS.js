@@ -88,7 +88,7 @@ rules:{
 		minlength: 4
 	},
 	birthday:{
-		required: true
+		required: true,
 	},
 	nui:{
 		required: true,
@@ -136,7 +136,9 @@ rules:{
 			minlength: ' (Invalido)'
 		}, 
 		birthday:{
-			required:' (Requerido)'
+			required:' (Requerido)',
+			min: 'Fecha Demasiado Antigüa',
+			max: 'Fecha Demasiado Reciente'
 		},nui:{
 			required:' (Requerido)',
 			minlength: ' (Invalido)'
