@@ -20,7 +20,6 @@ export class UsuarioComponent implements OnInit {
 	private userId;
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
-	showRoles:boolean = false;
 	mostrar:boolean = false;
 
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router) { 
@@ -86,7 +85,6 @@ export class UsuarioComponent implements OnInit {
 	}
 
 	activarRoles (){
-		this.showRoles=true;
 		for (let i = 0; i < this.roles.length ; ++i) {
 			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
 			for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {

@@ -14,9 +14,7 @@ export class EmpleadoComponent implements OnInit {
 	dataSecurity = new UsuarioSecurityModel;
 	dataEmpleado = new EmpleadoModel;
 	private idEmpleado;
-	show:boolean=false;
 	roles:any;
-	showRoles:boolean=false;
 	mostrar:boolean = false;
 	dataUsuarioUpdate = new usuarioDataUpdate;
 	
@@ -28,7 +26,6 @@ export class EmpleadoComponent implements OnInit {
 				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
 					this.dataEmpleado = responseUserName;
 					this.dataUpdate(this.dataEmpleado);
-					this.show=true;
 					this.userService.getRoles().subscribe(respuestaRoles =>{
 						this.roles = respuestaRoles;
 						this.mostrar = true;			
@@ -79,7 +76,6 @@ export class EmpleadoComponent implements OnInit {
 	}
 
 	activarRoles (){
-		this.showRoles=true;
 		for (let i = 0; i < this.roles.length ; ++i) {
 			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
 			for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {

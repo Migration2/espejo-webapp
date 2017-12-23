@@ -12,7 +12,6 @@ import { BicicletaModel } from '../../../models/bicicleta.model';
 })
 export class AdministrarBicicletasComponent implements OnInit {
 	dtOptions: DataTables.Settings = {};
-	showForm :boolean =false;
 	dataBicis: Array<any> = [];
 	dtTrigger = new Subject();
 	model = new BicicletaModel;
