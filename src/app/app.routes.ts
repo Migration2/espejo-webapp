@@ -27,8 +27,6 @@ import { EstadisticasClienteComponent } from './components/cliente/estadisticas-
 //pagina no encontrada
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
 
-//cargando
-import { CargandoComponent } from './components/assets/cargando/cargando.component';
 
 const APP_ROUTES: Routes = [
   {path: 'home', component: HomeComponent},
@@ -50,7 +48,6 @@ const APP_ROUTES: Routes = [
   {path: 'cliente/home', component: HomeClienteComponent},
   {path: 'cliente/estadisticas', component: EstadisticasClienteComponent},
   {path: 'error', component: PaginaNoEncontradaComponent},
-  {path: 'cargando', component: CargandoComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'error'}
 ];
 

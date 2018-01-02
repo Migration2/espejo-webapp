@@ -26,12 +26,12 @@ export class AdministrarUsuariosComponent implements OnInit {
 
 	ngOnInit() {
 		this.dtOptions = {
-			// columnDefs: [
-			// {
-			// 	targets: [ 4 ],
-			// 	visible: false,
-			// 	searchable: false
-			// }]
+			columnDefs: [
+			{
+				targets: [ 2 ],
+				// visible: false,
+				searchable: false
+			}]
 		};
 	}
 

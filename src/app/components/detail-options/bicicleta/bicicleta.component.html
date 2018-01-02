@@ -4,8 +4,12 @@
 			<h4>{{ datosBici.codigo | uppercase}}</h4>
 			<p> Creada: {{ datosBici.creado}}<br>
 				Estado: {{ datosBici.idEstadoBicicleta.estado }}
+				<span *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO'"><br>La Bicicleta se encuentra en mantenimiento</span>
 			</p>
-			<button class="btn btn-outline-primary btn-lg bottonAction" role="button">Mantenimiento</button>
+			<button *ngIf="datosBici.idEstadoBicicleta.estado =='BODEGA'" class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#Mantenimiento">
+			Iniciar Mantenimiento</button>
+			<button *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO'" class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#finMantenimiento">
+			Finalizar Mantenimiento</button>
 		</div>
 	</div>
 </div>
@@ -15,4 +19,72 @@
 		<div id="bordeGeneral"></div>
 		<div id="TextLoading">Cargando...</div>
 	</div>	
+</div>
+
+<div class="modal fade" id="Mantenimiento" tabindex="-1" role="dialog" aria-labelledby="Mantenimiento" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="Mantenimiento">Iniciar Mantenimiento</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="width: 95%;">
+				<form #crearMantenimiento="ngForm">
+					<div class="form-group">
+						<label for="exampleFormControlSelect1"><em>Tipo de Mantenimiento</em></label>
+						<select class="form-control" id="idTypeMantto" name="idTypeMantto" [(ngModel)]="mantenimientoBikeModel.idTypeMantto" required>
+							<option *ngFor="let typeMantto of typesMantto" value="{{ typeMantto.id}}">{{ typeMantto.alias }}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<em>Piezas</em>	
+						<br>					
+						<div class="form-check form-check-inline" *ngFor="let parteBike of partesBike">
+							<label class="form-check-label">
+								<input class="form-check-input" type="checkbox" value="{{ parteBike.id }}" (change)="eventoParteBike($event)"> {{ parteBike.parts }}
+							</label>
+						</div>	
+					</div>				
+					<div class="form-group">
+						<label for="desc"><em>Observaciones</em></label>
+						<textarea class="form-control" id="desc" name="desc" rows="3" [(ngModel)]="mantenimientoBikeModel.desc"></textarea>
+					</div>
+					<div class="row justify-content-end">
+						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
+						[disabled]="!crearMantenimiento.form.valid" (click)="onSubmit()" data-dismiss="modal">Enviar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="finMantenimiento" tabindex="-1" role="dialog" aria-labelledby="finMantenimiento" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="finMantenimiento">Finalizar Mantenimiento</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="width: 95%;">
+				<form #finMantenimiento="ngForm">
+					<div class="form-group">
+						<label for="exampleFormControlTextarea1"><em>Observaciones</em></label>
+						<textarea class="form-control" id="desc" name="desc" rows="3" [(ngModel)]="finMantenimientoBikeModel.desc"></textarea>
+					</div>
+					<div class="row justify-content-end">
+						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
+						[disabled]="!finMantenimiento.form.valid" (click)="onSubmitFin()" data-dismiss="modal">Enviar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

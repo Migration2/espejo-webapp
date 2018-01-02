@@ -8,16 +8,17 @@
 		<thead>
 			<tr>
 				<th>Nombre</th>
+				<th>Documento</th>
 				<th>Fecha Registro</th>
 				<th>Celular</th>
 				<th style="text-align: center;">Habilitado</th>
 				<th>Rol</th>
-				<th>username</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.id)">
 				<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
+				<td>{{ usuario.username }}</td>
 				<td>{{ usuario.created }}</td>
 				<td>{{ usuario.celphone }}</td>
 				<td style="text-align: center;"><span *ngIf="!usuario.enabled" class="oi oi-x"></span><span *ngIf="usuario.enabled" class="oi oi-check"></span></td>
@@ -25,8 +26,7 @@
 					<ul>
 						<li *ngFor="let rol of usuario.userRole"> {{rol.authority | rol}}</li>
 					</ul>
-				</td>
-				<td>{{ usuario.username }}</td>					
+				</td>				
 			</tr>
 		</tbody>
 	</table>

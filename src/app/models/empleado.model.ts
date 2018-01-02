@@ -26,6 +26,9 @@ export class EmpleadoModel {
 					pais: ""
 				}
 			}
+		},
+		public idTipoIdentificacion ={
+			tipo:''
 		}
 		) {}
 }

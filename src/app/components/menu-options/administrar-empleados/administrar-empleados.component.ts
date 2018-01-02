@@ -27,8 +27,8 @@ export class AdministrarEmpleadosComponent implements OnInit {
 		this.dtOptions = {
 			columnDefs: [
 			{
-				targets: [ 5 ],
-				visible: false,
+				targets: [ 2 ],
+				// visible: false,
 				searchable: false
 			}]
 		};

@@ -58,7 +58,6 @@ import { EstadisticasClienteComponent } from './components/cliente/estadisticas-
 
 //cargando y error
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
-import { CargandoComponent } from './components/assets/cargando/cargando.component';
 
 
 
@@ -89,7 +88,6 @@ import { CargandoComponent } from './components/assets/cargando/cargando.compone
     HomeClienteComponent,
     EstadisticasClienteComponent,
     PaginaNoEncontradaComponent,
-    CargandoComponent,
     RolPipe,
     AsignarTarjetaComponent
     ],

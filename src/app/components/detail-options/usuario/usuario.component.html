@@ -5,7 +5,8 @@
 	<div class="row justify-content-md-center">
 		<div class="jumbotron col-md-7">
 			<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
-			<p> Registrado: {{ dataUsuario.creado }}<br>
+			<p> {{dataUsuario.idTipoIdentificacion.tipo}} {{dataUsuario.nui}}<br>
+				Registrado: {{ dataUsuario.creado }}<br>
 				Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>
 				Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>
 				<span *ngIf=" !dataSecurity.code ">El usuario <strong>No</strong> tiene una tarjeta asignada<br></span>

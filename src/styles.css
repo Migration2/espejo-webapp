@@ -105,3 +105,23 @@ table tbody tr:hover{
       transform: rotate(360deg)
     }
   }
+
+  /*cargando*/
+  #loading{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+  }
+
+  #loading img{
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: 90%;
+    z-index: -29;
+  }

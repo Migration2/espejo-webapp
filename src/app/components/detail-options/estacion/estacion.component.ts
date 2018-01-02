@@ -1,26 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EstacionService } from '../../../services/estacion.service';
 import { EstacionModel } from '../../../models/estacion.model';
+import { mantenimientoEstacionModel, finMantenimientoEstacionModel } from '../../../models/mantenimiento.model';
+import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { Subject } from 'rxjs/Rx';
+
 
 @Component({
 	selector: 'app-estacion',
 	templateUrl: './estacion.component.html',
 	styleUrls: ['./estacion.component.scss'],
-	providers: [EstacionService]
+	providers: [EstacionService, MantenimientoService]
 })
 export class EstacionComponent implements OnInit {
 	private idEstacion;
 	datosEstacion = new EstacionModel;
+	mantenimientoEstacionModel = new mantenimientoEstacionModel;
+	finMantenimientoEstacionModel = new finMantenimientoEstacionModel;
 	puntosContacto:Array<any>=[];
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
 	options: Object;
 	mostrar:boolean = false;
+	partesEstacion:Array<any>=[];
+	typesMantto:Array<any>=[];
+	idParts: Array<any>=[];
 
 	
-	constructor(private activedRoute:ActivatedRoute, private estacionservice : EstacionService) { 
+	constructor(private activedRoute:ActivatedRoute, private estacionservice : EstacionService, private mantenimientoService: MantenimientoService, private router:Router) { 
 		this.activedRoute.params.subscribe(params=>{
 			this.idEstacion = params.id;
 		});
@@ -33,7 +41,13 @@ export class EstacionComponent implements OnInit {
 			this.mostrar = true;		
 		});
 
-		
+		this.mantenimientoService.getStationParts().subscribe(respose =>{
+			this.partesEstacion = respose;
+		});
+
+		this.mantenimientoService.getManttoTypes().subscribe(respose =>{
+			this.typesMantto = respose;
+		});		
 	}
 
 	ngOnInit() {
@@ -90,4 +104,31 @@ export class EstacionComponent implements OnInit {
 			}]
 		};
 	}
+
+
+	onSubmit() { 
+		this.mantenimientoEstacionModel.idParts = this.idParts;
+		this.mantenimientoEstacionModel.idStationOrBike = this.datosEstacion.id;
+		this.mantenimientoService.setManttoStation(this.mantenimientoEstacionModel);
+		this.router.navigate(['administrarEstaciones']);		
+	};	
+
+	onSubmitFin() { 
+		this.finMantenimientoEstacionModel.id = this.datosEstacion.id;
+		this.mantenimientoService.setManttoStationFin(this.finMantenimientoEstacionModel);
+		this.router.navigate(['administrarEstaciones']);		
+	};	
+
+	eventoParteEstacion(evento){		
+		if (!evento.target.checked){
+			for (let i = 0; i<this.idParts.length;i++){
+				if(evento.target.defaultValue == this.idParts[i]){
+					this.idParts.splice(i,1);
+				}
+			}
+		}else{
+			this.idParts.push(evento.target.defaultValue);
+		}
+	}
+
 }

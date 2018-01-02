@@ -35,8 +35,8 @@ img{
 input:invalid {
 	border-color: red;
 }
-input,
-input:valid {
+
+input, input:valid {
 	border-color: #ccc;
 }
 

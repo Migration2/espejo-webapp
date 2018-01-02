@@ -28,6 +28,9 @@ export class UsuarioModel {
 					pais: ""
 				}
 			}
+		},
+		public idTipoIdentificacion ={
+			tipo:''
 		}
 		) {}
 }
