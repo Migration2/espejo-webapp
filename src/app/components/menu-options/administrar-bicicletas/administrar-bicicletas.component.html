@@ -30,27 +30,6 @@
 				</tr>				
 			</tbody>
 		</table>	
-
-<!-- 
-		<div class="formularioAgregar" >
-			<h5>Nueva Bicicleta</h5>
-			<form #nuevaBicicleta="ngForm">
-				<div class="form-row">
-					<div class="form-group col-md-4">
-						<label for="code" class="col-form-label">Código*</label>
-						<input type="text" class="form-control" name="code" id="code" autocomplete="off"
-						required pattern="[0-9]{4}" [(ngModel)]="model.code" autofocus>
-					</div>
-				</div>
-				<div class="row justify-content-end">
-					<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" (click)="showForm=false">Cancelar</button>
-					<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
-					[disabled]="!nuevaBicicleta.form.valid" (click)="onSubmit()">Enviar</button>
-				</div>
-			</form>
-			<p><small><strong>* Campo requerido</strong></small></p>
-		</div> -->
-		
 	</div>
 
 	<div class="row justify-content-md-center" *ngIf="!mostrar">

@@ -37,4 +37,12 @@ export class MantenimientoService {
 		this.http.post('/rest/mantto/bike/mantto/terminate', JSON.stringify(data), this.options).subscribe();
 	}
 
+	getManttosStation(Id){
+		return this.http.get('/rest/mantto/station/'+Id, {}).map(res => res.json());
+	}
+
+	getManttosBike(Id){
+		return this.http.get('/rest/mantto/bike/'+Id, {}).map(res => res.json());
+	}
+
 }

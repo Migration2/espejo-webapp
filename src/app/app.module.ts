@@ -50,6 +50,7 @@ import {APP_ROUTING} from './app.routes';
 //pipes
 import { UserName } from './pipes/user-name.pipe';
 import { RolPipe } from './pipes/rol.pipe';
+import { ObservacionesMantenimientoPipe } from './pipes/observaciones-mantenimiento.pipe';
 
 //rutas Cliente
 import { ClientNavbarComponent } from './components/assets/client-navbar/client-navbar.component';
@@ -58,6 +59,8 @@ import { EstadisticasClienteComponent } from './components/cliente/estadisticas-
 
 //cargando y error
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
+
+
 
 
 
@@ -89,7 +92,8 @@ import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encon
     EstadisticasClienteComponent,
     PaginaNoEncontradaComponent,
     RolPipe,
-    AsignarTarjetaComponent
+    AsignarTarjetaComponent,
+    ObservacionesMantenimientoPipe
     ],
     imports: [
     BrowserModule,

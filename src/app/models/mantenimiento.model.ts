@@ -35,3 +35,23 @@ export class finMantenimientoBikeModel {
 		public desc: string = ""
 		) {}
 }
+
+export class mantenimientoHistorial {
+	
+	constructor(
+		public observation: string = "",
+		public inicio: string = "",
+		public fin: string = "",
+		public id: string = "",
+		public detailsMantto = {
+			idMoTiposPartesBicicleta:{
+				name:''
+			},
+			idMoTiposPartesEstacion:{
+				name:''	
+			}
+			
+		}
+		
+		) {}
+}

@@ -15,7 +15,7 @@ export class UsuarioComponent implements OnInit {
 	dataSecurity = new UsuarioSecurityModel;
 	dataUsuario = new UsuarioModel;
 	dataUsuarioUpdate = new usuarioDataUpdate;
-	prestamos:any;
+	prestamos:Array<any> = [{'idBikeCode':''}];
 	roles:any;
 	private userId;
 	dtTrigger = new Subject();

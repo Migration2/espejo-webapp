@@ -1,17 +1,45 @@
 <div class="animated fadeIn"  [style.display]="mostrar ? 'block' : 'none'">
 	<div class="row justify-content-md-center">
-		<div class="jumbotron col-md-7">
+		<div class="jumbotron col-md-5">
 			<h4>{{ datosBici.codigo | uppercase}}</h4>
 			<p> Creada: {{ datosBici.creado}}<br>
 				Estado: {{ datosBici.idEstadoBicicleta.estado }}
-				<span *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO'"><br>La Bicicleta se encuentra en mantenimiento</span>
+				<span *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO' && mantenimientoHistorial"><br>La Bicicleta se encuentra en mantenimiento desde {{ mantenimientoHistorial[numeroMantenimientos].inicio }}</span>
 			</p>
 			<button *ngIf="datosBici.idEstadoBicicleta.estado =='BODEGA'" class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#Mantenimiento">
 			Iniciar Mantenimiento</button>
 			<button *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO'" class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#finMantenimiento">
 			Finalizar Mantenimiento</button>
 		</div>
-	</div>
+		<br>
+		<div class="col-md-12">
+			<h4>Historico de Mantenimiento</h4>
+			<br>
+			<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>Inicio</th>
+						<th>Observaciones</th>
+						<th>Piezas</th>
+						<th>Fin</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<tr  *ngFor="let historial of mantenimientoHistorial; let i=index">
+						<td>{{ historial.inicio }}</td>
+						<td>{{ historial.observation | observacionesMantenimiento}}</td>
+						<td>
+							<ul>
+								<li *ngFor="let item of mantenimientoHistorial[i].detailsMantto">{{ item.idMoTiposPartesBicicleta.name }}
+								</li>
+							</ul>
+						</td>
+						<td>{{ historial.fin }}</td>
+					</tr>				
+				</tbody>
+			</table>			
+		</div>
+	</div>	
 </div>
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">

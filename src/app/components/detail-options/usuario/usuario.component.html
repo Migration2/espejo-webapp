@@ -12,7 +12,7 @@
 				<span *ngIf=" !dataSecurity.code ">El usuario <strong>No</strong> tiene una tarjeta asignada<br></span>
 				<span *ngIf=" dataSecurity.code ">El usuario tiene una tarjeta asignada<br></span>
 				<span *ngIf=" !dataSecurity.validated ">La cuenta <strong>No</strong> se encuentra validada<br></span>
-				<span *ngIf=" dataSecurity.idLoanActive ">El usuario tiene una bicicleta en prestamo</span></p>
+				<span *ngIf=" dataSecurity.idLoanActive ">El usuario tiene la bicicleta {{ prestamos[0].idBikeCode }} en prestamo</span></p>
 
 				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled && dataSecurity.validated "
 				data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>

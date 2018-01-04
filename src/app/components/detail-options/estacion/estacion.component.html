@@ -7,7 +7,7 @@
 					Estado: {{ datosEstacion.statusName }}<br>
 					Puntos de Contacto: {{puntosContacto.length}}<br>
 					Bicicletas Disponibles: {{datosEstacion.availableCycles}}
-					<span *ngIf="datosEstacion.statusName=='MANTENIMIENTO'"><br>La estación se encuentra en mantenimiento</span>
+					<span *ngIf="datosEstacion.statusName=='MANTENIMIENTO' && mantenimientoHistorial"><br>La estación se encuentra en mantenimiento desde  {{ mantenimientoHistorial[numeroMantenimientos].inicio }}</span>
 				</p>
 				<button *ngIf="datosEstacion.statusName!='MANTENIMIENTO' && datosEstacion.availableCycles == 0" class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#Mantenimiento">
 				Iniciar Mantenimiento</button>
@@ -36,12 +36,44 @@
 			</table>			
 		</div>
 	</div>	
-</div>
-<div class="row justify-content-md-end">
-	<div class="col-md-6">
-		<chart style="display:block; width: 100% !important;" [options]="options"></chart>		
+
+	<div class="row justify-content-md-end">
+		<div class="col-md-6">
+			<chart style="display:block; width: 100% !important;" [options]="options"></chart>		
+		</div>
+	</div>
+	<br>
+	<br>
+	<div class="col-md-12">
+		<h4>Historico de Mantenimiento</h4>
+		<br>
+		<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Inicio</th>
+					<th>Observaciones</th>
+					<th>Piezas</th>
+					<th>Fin</th>						
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let historial of mantenimientoHistorial; let i=index">
+					<td>{{ historial.inicio }}</td>
+					<td>{{ historial.observation | observacionesMantenimiento }}</td>
+					<td>
+						<ul>
+							<li *ngFor="let item of mantenimientoHistorial[i].detailsMantto">{{ item.idMoTiposPartesEstacion.name }}
+							</li>
+						</ul>
+					</td>
+					<td>{{ historial.fin }}</td>
+				</tr>				
+			</tbody>
+		</table>			
 	</div>
 </div>
+
+
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
 	<div id="loadingGeneral" class="text-center">

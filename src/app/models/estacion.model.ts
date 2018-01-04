@@ -10,7 +10,7 @@ export class EstacionModel {
 		public longitude: string = "",
 		public statusName: string = "",
 		public modelName : string ="",
-		public availableCycles:string ="",
+		public availableCycles:number =0,
 		public contactPointStates ={
 			alias :"",
 			bikeCode : null,
