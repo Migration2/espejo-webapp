@@ -43,13 +43,13 @@
 				</div>				
 			</div>			
 		</form>
-		
-		<div class="row justify-content-md-center" style="margin-top: 20px;">
-			<div class="text-justify">
-				<p style="font-size: 0.9em; color: gray;">Si aún no eres usuario de BiciRío puedes <a  href="http://www.bici-rio.com/login/signup.html" style="color: gray;"><strong>Crear tu cuenta</strong></a></p>
-			</div>
-		</div>
+		<div style="text-align: center; margin-top: 20px;">
+			<p style="font-size: 0.9em; color: gray;">Si aún no eres usuario de BiciRío puedes <a  href="http://www.bici-rio.com/login/signup.html" style="color: gray;" pattern="[0-9]{3}" title="El documento solo debe contener números"><strong>Crear tu cuenta</strong></a>
+				<br>	
+				Si no recuerdas tu contraseña o PIN de acceso a BiciRío puedes <a  data-toggle="modal" data-target="#recuperarCredenciales" style="color: gray;" id="botonRecuperarCredenciales"><strong>Recuperar Credenciales</strong></a>
+			</p>
 
+		</div>	
 		<div class="text-center">
 			<img src="./complementos/imagenes/alcaldia_rionegro.png" class="rounded" alt="BiciRío">
 		</div>
@@ -68,6 +68,37 @@
 		if((window.location.href).indexOf('?') != -1) {
 			$("#alerta").removeAttr('hidden');
 		}
+		function enviarRecuperarCredenciales(){
+			NumeroDocumento=document.getElementById('documento').value;
+			if(!isNaN(NumeroDocumento) && NumeroDocumento!="" && NumeroDocumento!=null){
+				$.get("/rest/recovery/credential/"+NumeroDocumento);
+				$('#recuperarCredenciales').modal('toggle');
+			}
+		}
 	</script>
+
+	<!-- Modal -->
+	<div class="modal fade" id="recuperarCredenciales" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Recuperar Credenciales</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p style="text-align: justify;">Si deseas recuperar tu contraseña y PIN de acceso a BiciRío ingresa tu número de documento, y en breves momentos te enviaremos la información solicitada al correo electrónico registrado.</p>		
+					<div style="margin-top: 15px;">
+						<input class="form-control" style="width: 60%; margin:0 auto;" type="text" id="documento" required autocomplete="off" autofocus placeholder="Número de documento">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary" onclick="enviarRecuperarCredenciales()">Enviar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

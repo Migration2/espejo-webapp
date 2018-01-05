@@ -1,5 +1,5 @@
 #contenedorPrincipal{
-	margin:50px 30px;
+	margin:20px 30px;
 }
 
 img{
@@ -77,4 +77,8 @@ input, input:valid {
 		}to{
 			transform: rotate(360deg)
 		}
+	}
+
+	#botonRecuperarCredenciales :hover{
+		cursor: pointer;
 	}
