@@ -71,7 +71,7 @@
 		function enviarRecuperarCredenciales(){
 			NumeroDocumento=document.getElementById('documento').value;
 			if(!isNaN(NumeroDocumento) && NumeroDocumento!="" && NumeroDocumento!=null){
-				$.get("/rest/recovery/credential/"+NumeroDocumento);
+				$.get("http://bici-rio.com/rest/recovery/credential/"+NumeroDocumento);
 				$('#recuperarCredenciales').modal('toggle');
 			}
 		}
