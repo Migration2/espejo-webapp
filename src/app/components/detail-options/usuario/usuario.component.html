@@ -1,33 +1,106 @@
+<div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
 
-<div class="animated fadeIn"  [style.display]="mostrar ? 'block' : 'none'">
-	
 
 	<div class="row justify-content-md-center">
-		<div class="jumbotron col-md-7">
-			<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
-			<p> {{dataUsuario.idTipoIdentificacion.tipo}} {{dataUsuario.nui}}<br>
-				Registrado: {{ dataUsuario.creado }}<br>
-				Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>
-				Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>
-				<span *ngIf=" !dataSecurity.code ">El usuario <strong>No</strong> tiene una tarjeta asignada<br></span>
-				<span *ngIf=" dataSecurity.code ">El usuario tiene una tarjeta asignada<br></span>
-				<span *ngIf=" !dataSecurity.validated ">La cuenta <strong>No</strong> se encuentra validada<br></span>
-				<span *ngIf=" dataSecurity.idLoanActive ">El usuario tiene la bicicleta {{ prestamos[0].idBikeCode }} en prestamo</span></p>
+		<div class="col-md-7 clearfix">
+			<div class="jumbotron">
+				<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
+				<p> {{dataUsuario.idTipoIdentificacion.tipo}} {{dataUsuario.nui}}
+					<br> Registrado: {{ dataUsuario.creado }}
+					<br> Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento
+					}}
+					<br> Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}
+					<br>
+					<span *ngIf=" !dataSecurity.code ">El usuario
+						<strong>No</strong> tiene una tarjeta asignada
+						<br>
+					</span>
+					<span *ngIf=" dataSecurity.code ">El usuario tiene una tarjeta asignada
+						<br>
+					</span>
+					<span *ngIf=" !dataSecurity.validated ">La cuenta
+						<strong>No</strong> se encuentra validada
+						<br>
+					</span>
+					<span *ngIf=" dataSecurity.idLoanActive ">El usuario tiene la bicicleta {{ prestamos[0].idBikeCode }} en prestamo</span>
+				</p>
 
 				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled && dataSecurity.validated "
-				data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
+				 data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
 				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf="!dataSecurity.enabled && dataSecurity.validated"
-				data-toggle="modal" data-target="#habilitarUsuario" >Habilitar</button>
-				<button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" data-toggle="modal" data-target="#contenedorRoles" (click)="activarRoles()">
-				Roles</button>	
-			<!-- <button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
+				 data-toggle="modal" data-target="#habilitarUsuario">Habilitar</button>
+				<button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" data-toggle="modal"
+				 data-target="#contenedorRoles" (click)="activarRoles()">
+					Roles</button>
+				<!-- <button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
 			Asignar Tarjeta</button> -->
-			<button class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#editarInformacion" >
-			Editar</button>		
+				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#editarInformacion">
+					Editar</button>
+			</div>
 		</div>
 	</div>
 
 	<div class="row">
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Transacciones</h5>
+					<br>
+					<div class="card-text">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Estacion Retiro</th>
+									<th style="text-align: center;">Hora</th>
+									<th>Estacion Devolución</th>
+									<th style="text-align: center;">Hora</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let prestamo of prestamos">
+									<td>{{prestamo.stationLoan}}</td>
+									<td>{{prestamo.start}}</td>
+									<td>{{prestamo.stationReturn}}</td>
+									<td>{{prestamo.end}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Sanciones</h5>
+					<br>
+					<div class="card-text">
+						<table datatable [dtOptions]="dtOptionsSanciones" [dtTrigger]="dtTriggerSanciones" class="table row-border hover" cellspacing="0"
+						 width="100%">
+							<thead>
+								<tr>
+									<th>Observación</th>
+									<th>Inicio Sanción</th>
+									<th>Fin Sanción</th>
+									<th>Estado</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let sancion of sanciones" data-toggle="modal" data-target="#habilitarUsuario" (click)="detalleSancion(sancion.id)">
+									<td>{{ sancion.idSancion.descripcion }}</td>
+									<td>{{ sancion.fechaSancion }}</td>
+									<td>{{ sancion.fechaLimiteSancion }}</td>
+									<td>{{ sancion.idEstado.estado }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="row">
 		<div class="tituloPrincipal col-md-12">
 			<h4>Transacciones del Usuario</h4>
 		</div>
@@ -52,7 +125,7 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
+	</div> -->
 
 </div>
 
@@ -68,8 +141,7 @@
 			<div class="modal-body">
 				<div class="form-check form-check-inline col-md-12">
 					<label class="form-check-label" *ngFor="let rol of roles" style="padding-right: 5px;">
-						<input class="form-check-input" type="checkbox" id="{{ rol.role }}" value="{{ rol.id }}">
-						{{ rol.role | rol }}
+						<input class="form-check-input" type="checkbox" id="{{ rol.role }}" value="{{ rol.id }}"> {{ rol.role | rol }}
 					</label>
 				</div>
 			</div>
@@ -136,27 +208,34 @@
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="name" class="col-form-label">Nombre*</label>
-							<input type="text" class="form-control" name="name" id="name" autocomplete="off"
-							required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" title="El nombre no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.name" autofocus>
+							<input type="text" class="form-control" name="name" id="name" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}"
+							 title="El nombre no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.name"
+							 autofocus>
 						</div>
 						<div class="form-group col-md-6">
 							<label for="lastname" class="col-form-label">Apellido*</label>
-							<input type="text" class="form-control" name="lastname" id="lastname" autocomplete="off"
-							required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastname" autofocus>
+							<input type="text" class="form-control" name="lastname" id="lastname" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}"
+							 title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastname"
+							 autofocus>
 						</div>
 						<div class="form-group col-md-12">
 							<label for="address" class="col-form-label">Dirección*</label>
-							<input type="text" class="form-control" name="address" id="address" autocomplete="off"
-							required pattern="[-0-9A-Za-z# ]{4,}" title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address" autofocus>
+							<input type="text" class="form-control" name="address" id="address" autocomplete="off" required pattern="[-0-9A-Za-z# ]{4,}"
+							 title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address"
+							 autofocus>
 						</div>
 					</div>
 					<div class="row justify-content-end">
 						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
-						[disabled]="!editarInformacionUsuario.form.valid" (click)="onSubmit()" data-dismiss="modal">Enviar</button>
+						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!editarInformacionUsuario.form.valid"
+						 (click)="onSubmit()" data-dismiss="modal">Enviar</button>
 					</div>
 				</form>
-				<p><small><strong>* Campo requerido</strong></small></p>
+				<p>
+					<small>
+						<strong>* Campo requerido</strong>
+					</small>
+				</p>
 			</div>
 		</div>
 	</div>
@@ -167,5 +246,5 @@
 	<div id="loadingGeneral" class="text-center">
 		<div id="bordeGeneral"></div>
 		<div id="TextLoading">Cargando...</div>
-	</div>	
+	</div>
 </div>

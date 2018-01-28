@@ -2,211 +2,293 @@
 	<div id="loadingGeneral" class="text-center">
 		<div id="bordeGeneral"></div>
 		<div id="TextLoading">Cargando...</div>
-	</div>	
+	</div>
 </div>
 
 <div class="animated fadeIn" [style.visibility]="mostrar ? 'visible' : 'hidden'">
+	<div class="row">
+		<div class="col-md-12 align-self-center">
+			<agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
+				<agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
+					<agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+						<ng-template>
+							<strong>{{ estacion.name | uppercase}}</strong>
+							<br> Bicicletas disponibles: {{ estacion.availableCycles}}
+							<br> Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}
+						</ng-template>
+					</agm-snazzy-info-window>
+				</agm-marker>
+			</agm-map>
+		</div>
+	</div>
+	<br>
+	<br>
+
 	<div class="row justify-content-md-center">
-		<div class="jumbotron col-md-7">
-			<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
-			<p> Registrado: {{ dataUsuario.creado }}<br>
-				Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento }}<br>
-				Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }} <br>
-				<span *ngIf=" !dataSecurity.validated ">La cuenta <strong>No</strong> se encuentra validada</span></p>
+		<div class="col-md-7 clearfix">
+			<div class="jumbotron ">
+				<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
+				<p> Registrado: {{ dataUsuario.creado }}
+					<br> Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento
+					}}
+					<br> Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}
+					<br>
+					<span *ngIf=" !dataSecurity.validated ">La cuenta
+						<strong>No</strong> se encuentra validada</span>
+				</p>
 
-				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated "
-				data-toggle="modal" data-target="#cambiarPassword">Cambiar contraseña</button>
-				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated"
-				data-toggle="modal" data-target="#cambiarPin" >Cambiar Pin</button>	
-				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#editarInformacion" >
-				Editar</button>	
-			</div>
-		</div>
-
-
-
-		<br>
-		<br>
-
-
-		<div class="tituloPrincipal">
-			<h3>{{title}}</h3>
-		</div>
-
-		<div class="row">
-			<div class="col-md-6 align-self-center" >
-				<agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
-					<agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
-						<agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-							<ng-template>
-								<strong>{{ estacion.name | uppercase}}</strong>
-								<br>
-								Bicicletas disponibles: {{ estacion.availableCycles}}
-								<br>
-								Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}           
-							</ng-template>
-						</agm-snazzy-info-window>
-					</agm-marker>
-				</agm-map>
-			</div>
-			<div class="col-md-6" id="tablaestaciones">
-				<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-					<thead>
-						<tr>
-							<th>Estación</th>
-							<th style="text-align: center;">Puntos libres</th>
-							<th style="text-align: center;">Bicicletas Disponibles</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let estacion of datosEstaciones">
-							<td>{{estacion.name}}</td>
-							<td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
-							<td style="text-align: center;">{{estacion.availableCycles}}</td>  
-						</tr>
-					</tbody>
-				</table>
+				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated " data-toggle="modal"
+				 data-target="#cambiarPassword">Cambiar contraseña</button>
+				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated" data-toggle="modal"
+				 data-target="#cambiarPin">Cambiar Pin</button>
+				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#editarInformacion">
+					Editar</button>
 			</div>
 		</div>
 	</div>
-
-	<div class="modal fade" id="cambiarPin" tabindex="-1" role="dialog" aria-labelledby="cambiarPin" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="cambiarPin">Cambiar PIN</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+	<br>
+	<br>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">{{title}}</h5>
+					<br>
+					<div class="card-text" id="tablaestaciones">
+						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Estación</th>
+									<th style="text-align: center;">Puntos libres</th>
+									<th style="text-align: center;">Bicicletas Disponibles</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let estacion of datosEstaciones">
+									<td>{{estacion.name}}</td>
+									<td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
+									<td style="text-align: center;">{{estacion.availableCycles}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-				<p style="font-size: 0.6em; color: gray; padding: 10px;">El pin es un numero de <strong>cuatro digitos</strong> que te permitira usar las estaciones de BiciRío</p>
-				<form #cambiarPin="ngForm">
-					<div class="form-row modal-body">
-						<div class="form-group col-md-12">
-							<label for="pinOld" class="col-form-label">Pin actual</label>
-							<input type="text" class="form-control" name="pinOld" id="pinOld" autocomplete="off"
-							required pattern="[0-9]{4}" [(ngModel)]="securituyAccess.pinOld" autofocus>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-header">
+					<ul class="nav nav-tabs card-header-tabs">
+						<li class="nav-item" (click)='opcionCard="transacciones"'>
+							<a class="nav-link" [class.active]='opcionCard=="transacciones"'>Transacciones</a>
+						</li>
+						<li class="nav-item" (click)='opcionCard="sanciones"'>
+							<a class="nav-link" [class.active]='opcionCard=="sanciones"'>Sanciones</a>
+						</li>
+					</ul>
+				</div>
+				<div class="card-body" [hidden]='opcionCard!="transacciones"'>
+					<h5 class="card-title">Mis Transacciones</h5>
+					<br>
+					<div class="card-text">
+						<table datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover"
+						 cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Estacion Retiro</th>
+									<th style="text-align: center;">Hora</th>
+									<th>Estacion Devolución</th>
+									<th style="text-align: center;">Hora</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let prestamo of prestamos">
+									<td>{{prestamo.stationLoan}}</td>
+									<td>{{prestamo.start}}</td>
+									<td>{{prestamo.stationReturn}}</td>
+									<td>{{prestamo.end}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="card-body" [hidden]='opcionCard!="sanciones"'>
+					<h5 class="card-title">Sanciones</h5>
+					<br>
+					<div class="card-text">
+						<table datatable [dtOptions]="dtOptionsSanciones" [dtTrigger]="dtTriggerSanciones" class="table row-border hover" cellspacing="0"
+						 width="100%">
+							<thead>
+								<tr>
+									<th>Observación</th>
+									<th>Inicio Sanción</th>
+									<th>Fin Sanción</th>
+									<th>Estado</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let sancion of sanciones" data-toggle="modal" data-target="#habilitarUsuario" (click)="detalleSancion(sancion.id)">
+									<td>{{ sancion.idSancion.descripcion }}</td>
+									<td>{{ sancion.fechaSancion }}</td>
+									<td>{{ sancion.fechaLimiteSancion }}</td>
+									<td>{{ sancion.idEstado.estado }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="cambiarPin" tabindex="-1" role="dialog" aria-labelledby="cambiarPin" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="cambiarPin">Cambiar PIN</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<p style="font-size: 0.6em; color: gray; padding: 10px;">El pin es un numero de
+				<strong>cuatro digitos</strong> que te permitira usar las estaciones de BiciRío</p>
+			<form #cambiarPin="ngForm">
+				<div class="form-row modal-body">
+					<div class="form-group col-md-12">
+						<label for="pinOld" class="col-form-label">Pin actual</label>
+						<input type="text" class="form-control" name="pinOld" id="pinOld" autocomplete="off" required pattern="[0-9]{4}" [(ngModel)]="securituyAccess.pinOld"
+						 autofocus>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="pin" class="col-form-label">Pin Nuevo</label>
+						<input type="text" class="form-control" name="pin" id="pin" autocomplete="off" required pattern="[0-9]{4}" [(ngModel)]="securituyAccess.pin">
+					</div>
+					<div class="form-group col-md-12">
+						<label for="pin2" class="col-form-label">Repita el nuevo Pin</label>
+						<input type="text" class="form-control" (keyup)="validarPin()" name="pin2" id="pin2" autocomplete="off" required pattern="[0-9]{4}"
+						 [(ngModel)]="pin2">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-outline-primary bottonAction" data-dismiss="modal" [disabled]="!cambiarPin.form.valid || (validarPin())"
+					 (click)="cambioPin()">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="cambiarPassword" tabindex="-1" role="dialog" aria-labelledby="cambiarPassword" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="cambiarPassword">Cambiar Contraseña</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<p style="font-size: 0.6em; color: gray; padding: 10px;">La contraseña te permitira el acceso a tu pagina de BiciRío</p>
+			<form #cambiarPass="ngForm">
+				<div class="form-row modal-body">
+					<div class="form-group col-md-12">
+						<label for="passwordOld" class="col-form-label">Contraseña actual</label>
+						<input type="password" class="form-control" name="passwordOld" id="passwordOld" autocomplete="off" required [(ngModel)]="securituyAccess.passwordOld"
+						 autofocus minlength="5" maxlength="20">
+					</div>
+					<div class="form-group col-md-12">
+						<label for="password" class="col-form-label">Contraseña Nueva</label>
+						<input type="password" class="form-control" name="password" id="password" autocomplete="off" required [(ngModel)]="securituyAccess.password"
+						 minlength="5" maxlength="20">
+					</div>
+					<div class="form-group col-md-12">
+						<label for="password2" class="col-form-label">Repita la nueva Contraseña</label>
+						<input type="password" class="form-control" name="password2" id="password2" autocomplete="off" required minlength="5" maxlength="20"
+						 (keyup)="validarPassword()" [(ngModel)]="password2">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-outline-primary bottonAction" [disabled]="!cambiarPass.form.valid || (validarPassword())"
+					 (click)="cambioPass()" data-dismiss="modal">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editarInformacion" tabindex="-1" role="dialog" aria-labelledby="editarInformacion" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="editarInformacion">Editar Información</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="width: 95%;">
+				<form #editarInformacionUsuario="ngForm">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="name" class="col-form-label">Nombre*</label>
+							<input type="text" class="form-control" name="name" id="name" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}"
+							 title="El nombre no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.name"
+							 autofocus>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="lastname" class="col-form-label">Apellido*</label>
+							<input type="text" class="form-control" name="lastname" id="lastname" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}"
+							 title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastname"
+							 autofocus>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="phone" class="col-form-label">Telefono*</label>
+							<input type="text" class="form-control" name="phone" id="phone" autocomplete="off" required pattern="[0-9]{4,}" title="El número de teléfono solo debe contener numeros"
+							 [(ngModel)]="dataUsuarioUpdate.phone" autofocus>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="celphone" class="col-form-label">Celular*</label>
+							<input type="text" class="form-control" name="celphone" id="celphone" autocomplete="off" required pattern="[0-9]{4,}" title="El número de teléfono solo debe contener numeros"
+							 [(ngModel)]="dataUsuarioUpdate.celphone" autofocus>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="profession" class="col-form-label">Profesión*</label>
+							<input type="text" class="form-control" name="profession" id="profession" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}"
+							 pattern="[a-zA-Z ]{4,}" itle="La profesión no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.profession"
+							 autofocus>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="career" class="col-form-label">Ocupación*</label>
+							<input type="text" class="form-control" name="career" id="career" autocomplete="off" required pattern="[a-zA-Z ]{4,}" itle="La ocupación no debe contener caracteres especiales ni simbolos de puntuación"
+							 [(ngModel)]="dataUsuarioUpdate.career" autofocus>
 						</div>
 						<div class="form-group col-md-12">
-							<label for="pin" class="col-form-label">Pin Nuevo</label>
-							<input type="text" class="form-control" name="pin" id="pin" autocomplete="off"
-							required pattern="[0-9]{4}" [(ngModel)]="securituyAccess.pin">
+							<label for="email" class="col-form-label">Email*</label>
+							<input type="text" class="form-control" name="email" id="email" autocomplete="off" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+							 itle="El Dirección no debe contener caracteres especiales (a excepción de @ - _ ) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.email"
+							 autofocus>
 						</div>
 						<div class="form-group col-md-12">
-							<label for="pin2" class="col-form-label">Repita el nuevo Pin</label>
-							<input type="text" class="form-control" (keyup)="validarPin()" name="pin2" id="pin2" autocomplete="off" required pattern="[0-9]{4}" [(ngModel)]="pin2">
+							<label for="address" class="col-form-label">Dirección*</label>
+							<input type="text" class="form-control" name="address" id="address" autocomplete="off" required pattern="[-0-9A-Za-z# ]{4,}"
+							 title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address"
+							 autofocus>
 						</div>
 					</div>
-					<div class="modal-footer">
+					<div class="row justify-content-end">
 						<button class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-outline-primary bottonAction" data-dismiss="modal"
-						[disabled]="!cambiarPin.form.valid || (validarPin())" (click)="cambioPin()" >Enviar</button>
+						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!editarInformacionUsuario.form.valid"
+						 (click)="onSubmit()" data-dismiss="modal">Enviar</button>
 					</div>
 				</form>
+				<p>
+					<small>
+						<strong>* Campo requerido</strong>
+					</small>
+				</p>
 			</div>
 		</div>
 	</div>
-
-
-	<div class="modal fade" id="cambiarPassword" tabindex="-1" role="dialog" aria-labelledby="cambiarPassword" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="cambiarPassword">Cambiar Contraseña</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<p style="font-size: 0.6em; color: gray; padding: 10px;">La contraseña te permitira el acceso a tu pagina de BiciRío</p>
-				<form #cambiarPass="ngForm">
-					<div class="form-row modal-body">
-						<div class="form-group col-md-12">
-							<label for="passwordOld" class="col-form-label">Contraseña actual</label>
-							<input type="password" class="form-control" name="passwordOld" id="passwordOld" autocomplete="off"
-							required [(ngModel)]="securituyAccess.passwordOld" autofocus minlength="5" maxlength="20">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="password" class="col-form-label">Contraseña Nueva</label>
-							<input type="password" class="form-control" name="password" id="password" autocomplete="off"
-							required [(ngModel)]="securituyAccess.password" minlength="5" maxlength="20">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="password2" class="col-form-label">Repita la nueva Contraseña</label>
-							<input type="password" class="form-control" name="password2" id="password2" autocomplete="off"
-							required minlength="5" maxlength="20" (keyup)="validarPassword()" [(ngModel)]="password2">
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-outline-primary bottonAction"
-						[disabled]="!cambiarPass.form.valid || (validarPassword())" (click)="cambioPass()" data-dismiss="modal">Enviar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="editarInformacion" tabindex="-1" role="dialog" aria-labelledby="editarInformacion" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="editarInformacion">Editar Información</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body" style="width: 95%;">
-					<form #editarInformacionUsuario="ngForm">
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="name" class="col-form-label">Nombre*</label>
-								<input type="text" class="form-control" name="name" id="name" autocomplete="off"
-								required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" title="El nombre no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.name" autofocus>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="lastname" class="col-form-label">Apellido*</label>
-								<input type="text" class="form-control" name="lastname" id="lastname" autocomplete="off"
-								required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastname" autofocus>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="phone" class="col-form-label">Telefono*</label>
-								<input type="text" class="form-control" name="phone" id="phone" autocomplete="off"
-								required pattern="[0-9]{4,}" title="El número de teléfono solo debe contener numeros" [(ngModel)]="dataUsuarioUpdate.phone" autofocus>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="celphone" class="col-form-label">Celular*</label>
-								<input type="text" class="form-control" name="celphone" id="celphone" autocomplete="off"
-								required pattern="[0-9]{4,}" title="El número de teléfono solo debe contener numeros" [(ngModel)]="dataUsuarioUpdate.celphone" autofocus>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="profession" class="col-form-label">Profesión*</label>
-								<input type="text" class="form-control" name="profession" id="profession" autocomplete="off"
-								required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" pattern="[a-zA-Z ]{4,}" itle="La profesión no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.profession" autofocus>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="career" class="col-form-label">Ocupación*</label>
-								<input type="text" class="form-control" name="career" id="career" autocomplete="off"
-								required pattern="[a-zA-Z ]{4,}" itle="La ocupación no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.career" autofocus>
-							</div>
-							<div class="form-group col-md-12">
-								<label for="email" class="col-form-label">Email*</label>
-								<input type="text" class="form-control" name="email" id="email" autocomplete="off"
-								required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" itle="El Dirección no debe contener caracteres especiales (a excepción de @ - _ ) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.email" autofocus>
-							</div>
-							<div class="form-group col-md-12">
-								<label for="address" class="col-form-label">Dirección*</label>
-								<input type="text" class="form-control" name="address" id="address" autocomplete="off"
-								required pattern="[-0-9A-Za-z# ]{4,}" title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address" autofocus>
-							</div>
-						</div>
-						<div class="row justify-content-end">
-							<button class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-							<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
-							[disabled]="!editarInformacionUsuario.form.valid" (click)="onSubmit()" data-dismiss="modal">Enviar</button>
-						</div>
-					</form>
-					<p><small><strong>* Campo requerido</strong></small></p>
-				</div>
-			</div>
-		</div>
-	</div>
+</div>

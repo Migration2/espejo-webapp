@@ -32,6 +32,7 @@ import {AdministrarMantenimientoComponent} from './components/menu-options/admin
 import {AdministrarInformacionGeneralComponent} from './components/menu-options/administrar-informacion-general/administrar-informacion-general.component';
 import {HistoricosComponent} from './components/menu-options/historicos/historicos.component';
 import {HomeComponent} from './components/menu-options/home/home.component';
+import { SancionesComponent } from './components/menu-options/sanciones/sanciones.component';
 
 // componentes de detalle
 import {UsuarioComponent} from './components/detail-options/usuario/usuario.component';
@@ -59,6 +60,7 @@ import { EstadisticasClienteComponent } from './components/cliente/estadisticas-
 
 //cargando y error
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
+
 
 
 
@@ -93,7 +95,8 @@ import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encon
     PaginaNoEncontradaComponent,
     RolPipe,
     AsignarTarjetaComponent,
-    ObservacionesMantenimientoPipe
+    ObservacionesMantenimientoPipe,
+    SancionesComponent
     ],
     imports: [
     BrowserModule,

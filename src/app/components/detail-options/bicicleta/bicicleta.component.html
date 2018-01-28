@@ -1,6 +1,7 @@
 <div class="animated fadeIn"  [style.display]="mostrar ? 'block' : 'none'">
 	<div class="row justify-content-md-center">
-		<div class="jumbotron col-md-5">
+		<div class="col-md-5 clearfix"> 
+		<div class="jumbotron ">
 			<h4>{{ datosBici.codigo | uppercase}}</h4>
 			<p> Creada: {{ datosBici.creado}}<br>
 				Estado: {{ datosBici.idEstadoBicicleta.estado }}
@@ -11,6 +12,7 @@
 			<button *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO'" class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#finMantenimiento">
 			Finalizar Mantenimiento</button>
 		</div>
+	</div>
 		<br>
 		<div class="col-md-12">
 			<h4>Historico de Mantenimiento</h4>

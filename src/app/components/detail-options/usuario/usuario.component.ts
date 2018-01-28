@@ -3,13 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { UsuarioModel, UsuarioSecurityModel, usuarioDataUpdate } from '../../../models/usuario.model';
 import { Subject } from 'rxjs/Rx';
+import { SancionesService } from '../../../services/sanciones.service';
+import { sancionesModel } from '../../../models/sanciones.model';
 
 
 @Component({
 	selector:'app-usuario',
 	templateUrl: './usuario.component.html',
 	styleUrls: ['./usuario.component.scss'],
-	providers: [UserService]
+	providers: [UserService, SancionesService]
 })
 export class UsuarioComponent implements OnInit {
 	dataSecurity = new UsuarioSecurityModel;
@@ -21,8 +23,11 @@ export class UsuarioComponent implements OnInit {
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
 	mostrar:boolean = false;
+	dtTriggerSanciones = new Subject();
+	dtOptionsSanciones: DataTables.Settings = {};
+	sanciones: Array<sancionesModel> = [];
 
-	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router) { 
+	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router, private sancionesService: SancionesService) { 
 		this.activedRoute.params.subscribe(params=>{
 			this.userId = params.id;
 			this.userService.getSecurityUserById(this.userId).subscribe(responseSecurity=>{
@@ -30,6 +35,10 @@ export class UsuarioComponent implements OnInit {
 				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
 					this.dataUsuario = responseUserName;
 					this.dataUpdate(this.dataUsuario);
+					this.sancionesService.getSancionesByUserDocument(this.dataUsuario.username).subscribe(response => {
+						this.sanciones = response;
+						this.dtTriggerSanciones.next();
+					});	
 					this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
 						this.prestamos=response;
 						this.dtTrigger.next();
