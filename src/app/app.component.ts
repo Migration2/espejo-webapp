@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UserService} from "./services/user.service";
+import { UserService } from "./services/user.service";
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,44 +9,41 @@ import { Router } from '@angular/router';
 	providers: [UserService]
 })
 export class AppComponent {
-	rolPrincipal:string ="";
-	rolAdministrador:string ="ROLE_ADMIN";
-	rolusuario:string ="ROLE_USER";
+	rolPrincipal: string = "";
+	rolAdministrador: string = "ROLE_ADMIN";
+	rolusuario: string = "ROLE_USER";
 
-
-	constructor(private userService :UserService, private router:Router){
-			//cargar componente cargando mientras responde el servicio y se sabe el rol del usuario, si el servidor responde un estado diferente a 200 o un rol diferente del esperado, redireccionar a registro
-			this.userService.getLoginRol().subscribe(response => {
+	constructor(private userService: UserService, private router: Router) {
+		//cargar componente cargando mientras responde el servicio y se sabe el rol del usuario, si el servidor responde un estado diferente a 200 o un rol diferente del esperado, redireccionar a registro
+		this.userService.getLoginRol().subscribe(response => {
 			this.redirect(response);
 		});
-
 	}
 
+	redirect(rol) {
 
-	redirect(rol){
-		
-		for (let i = 0; i< rol.length; i++ ){//recorremos todos los roles para verificar este el rol admin
-			if(rol[i].authority==this.rolAdministrador){
-				this.rolPrincipal=this.rolAdministrador;
+		for (let i = 0; i < rol.length; i++) {//recorremos todos los roles para verificar este el rol admin
+			if (rol[i].authority == this.rolAdministrador) {
+				this.rolPrincipal = this.rolAdministrador;
 				break;
-			}else{
-				this.rolPrincipal=this.rolusuario;
+			} else {
+				this.rolPrincipal = this.rolusuario;
 			}
 		}
 
 		switch (this.rolPrincipal) {
 			case this.rolAdministrador:
-			this.router.navigate(['home']);	
-			break;
+				this.router.navigate(['home']);
+				break;
 
 			case this.rolusuario:
-			this.router.navigate(['cliente/home']);	
-			break;
+				this.router.navigate(['cliente/home']);
+				break;
 
 			default:
-			// this.router.navigate(['error']);	
-			window.location.href = 'http://bicirio.gov.co/site/';
-			break;
+				// this.router.navigate(['error']);	
+				window.location.href = 'http://bicirio.gov.co/site/';
+				break;
 		}
 	}
 

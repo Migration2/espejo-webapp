@@ -47,4 +47,8 @@ zuul:
       path: /logout
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       url: http://dev-codes.com:8080/logout
+    websocket:
+      path: /websocket
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      url: http://dev-codes.com:4547/  
         

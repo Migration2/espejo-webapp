@@ -6,5 +6,9 @@
   "/init":{
     "target": "http://localhost:4444",
     "secure":false
+  },
+  "/websocket":{
+    "target": "http://localhost:4444",
+    "secure":false
   }
 }

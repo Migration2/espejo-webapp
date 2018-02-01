@@ -27,6 +27,7 @@
         <th>Nombre</th>
         <th style="text-align: center;">Puntos libres</th>
         <th style="text-align: center;">Bicicletas Disponibles</th>
+        <th style="text-align: center;">Estado</th>
       </tr>
     </thead>
     <tbody>
@@ -34,6 +35,7 @@
         <td>{{estacion.name}}</td>
         <td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
         <td style="text-align: center;">{{estacion.availableCycles}}</td>  
+        <td style="text-align: center;">{{estacion.statusName}}</td>  
       </tr>
     </tbody>
   </table>

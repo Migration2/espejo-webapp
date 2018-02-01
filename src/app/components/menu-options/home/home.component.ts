@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EstadisticasService } from '../../../services/estadisticas.service';
 import { EstacionModel } from '../../../models/estacion.model';
 import { Subject } from 'rxjs/Rx';
+import { StompService } from 'ng2-stomp-service';
 
 @Component({
 	selector: 'app-home',
@@ -15,17 +16,32 @@ export class HomeComponent implements OnInit {
 	title: string = 'Estaciones BiciRío';
 	Centerlat: number = 6.142979;
 	Centerlng: number = -75.378276;
-	datosEstaciones:Array<EstacionModel>=[];
+	datosEstaciones: Array<EstacionModel> = [];
 	optionsEstaciones: Object;
 	optionsPuntosContacto: Object;
 	optionsBicicletas: Object;
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
+	private subscription: any;
+	respuestas: Array<any> = [];
 
-	constructor(private estacionservice : EstacionService, private estadisticasService : EstadisticasService, private router:Router) {
+	constructor(private estacionservice: EstacionService, public stomp: StompService, private estadisticasService: EstadisticasService, private router: Router) {
 		this.estacionservice.getEstaciones().subscribe(response => {
-			this.datosEstaciones = response;			
+			this.datosEstaciones = response;
 			this.dtTrigger.next();
+		});
+
+		stomp.configure({
+			host: 'http://dev-codes.com:4547/bicirio-websocket',
+			// host: '/websocket/bicirio-websocket',
+			debug: true,
+			queue: { 'init': false, 'user': true }
+		});
+
+		stomp.startConnect().then(() => {
+			console.log('connected');
+			stomp.done('init');
+			this.subscription = stomp.subscribe('/topic/bikes', this.response);
 		});
 
 		this.estadisticasService.getEstadisticasEstaciones().subscribe(response => {
@@ -41,24 +57,40 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {		
-		this.dtOptions = {};	
+	// response
+	public response = (data) => {
+		this.respuestas.push(data);
 	}
 
-	informacionEstacion(id:number){
-		this.router.navigate(['estacion',id]);
+	ngOnDestroy() {
+		console.log("chao ome");
+		//unsubscribe 
+		this.subscription.unsubscribe();
+    
+		//disconnect 
+		this.stomp.disconnect().then(() => {
+		  console.log( 'Connection closed' )
+		})
 	}
 
-	estadisticasEstaciones(response){
-		let data:Array<any>=[];
+	ngOnInit() {
+		this.dtOptions = {};
+	}
+
+	informacionEstacion(id: number) {
+		this.router.navigate(['estacion', id]);
+	}
+
+	estadisticasEstaciones(response) {
+		let data: Array<any> = [];
 
 		for (var i = Object.values(response).length - 1; i >= 0; i--) {
-			if( Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0){
-				data.push([Object.keys(response)[i] , Object.values(response)[i]]);
-			}			
+			if (Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0) {
+				data.push([Object.keys(response)[i], Object.values(response)[i]]);
+			}
 		}
 		this.optionsEstaciones = {
-			chart: {				
+			chart: {
 				plotBackgroundColor: null,
 				plotBorderWidth: 0,
 				plotShadow: false,
@@ -80,7 +112,7 @@ export class HomeComponent implements OnInit {
 			},
 			plotOptions: {
 				pie: {
-					size:'90%',
+					size: '90%',
 					dataLabels: {
 						enabled: true,
 						distance: -40,
@@ -106,13 +138,13 @@ export class HomeComponent implements OnInit {
 		}
 	}
 
-	estadisticasPuntoContacto(response){
-		let data:Array<any>=[];
+	estadisticasPuntoContacto(response) {
+		let data: Array<any> = [];
 
 		for (var i = Object.values(response).length - 1; i >= 0; i--) {
-			if( Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0){
-				data.push([Object.keys(response)[i] , Object.values(response)[i]]);
-			}			
+			if (Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0) {
+				data.push([Object.keys(response)[i], Object.values(response)[i]]);
+			}
 		}
 		this.optionsPuntosContacto = {
 			chart: {
@@ -137,7 +169,7 @@ export class HomeComponent implements OnInit {
 			},
 			plotOptions: {
 				pie: {
-					size:'90%',
+					size: '90%',
 					dataLabels: {
 						enabled: true,
 						distance: -40,
@@ -163,13 +195,13 @@ export class HomeComponent implements OnInit {
 		}
 	}
 
-	estadisticasBicicletas(response){
-		let data:Array<any>=[];
+	estadisticasBicicletas(response) {
+		let data: Array<any> = [];
 
 		for (var i = Object.values(response).length - 1; i >= 0; i--) {
-			if( Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0){
-				data.push([Object.keys(response)[i] , Object.values(response)[i]]);
-			}			
+			if (Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0) {
+				data.push([Object.keys(response)[i], Object.values(response)[i]]);
+			}
 		}
 		this.optionsBicicletas = {
 			chart: {
@@ -194,7 +226,7 @@ export class HomeComponent implements OnInit {
 			},
 			plotOptions: {
 				pie: {
-					size:'90%',
+					size: '90%',
 					dataLabels: {
 						enabled: true,
 						distance: -40,
@@ -219,7 +251,4 @@ export class HomeComponent implements OnInit {
 			}
 		}
 	}
-
-
-
 }
