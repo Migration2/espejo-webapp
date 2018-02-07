@@ -27,17 +27,12 @@ export class HomeComponent implements OnInit {
 	public pieDataContactos: number[] = [];
 	public pieLabelsBicicletas: string[] = [];
 	public pieDataBicicletas: number[] = [];
-
+	mostrar: boolean = false;
 	constructor(private estacionservice: EstacionService, public stomp: StompService, private estadisticasService: EstadisticasService, private router: Router) {
-=======
-	mostrar:boolean = false;
-
-	constructor(private estacionservice : EstacionService, private estadisticasService : EstadisticasService, private router:Router) {
->>>>>>> master
 		this.estacionservice.getEstaciones().subscribe(response => {
 			this.datosEstaciones = response;
 			this.dtTrigger.next();
-			this.mostrar = true;		
+			this.mostrar = true;
 		});
 
 		stomp.configure({

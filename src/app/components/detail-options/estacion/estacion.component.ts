@@ -74,7 +74,6 @@ export class EstacionComponent implements OnInit {
 	}
 
 	estadoPuntosContacto(puntosContacto) {
-		console.log(puntosContacto);
 		let labels = [];
 		let data = [];
 
@@ -93,10 +92,8 @@ export class EstacionComponent implements OnInit {
 			data.push(100);
 			labels.push(Object.keys(matriz)[i]);
 		}
-
-
-		this.pieLabelsEstaciones = labels; console.log(this.pieLabelsEstaciones);
-		this.pieDataEstaciones = data; console.log(this.pieDataEstaciones);
+		this.pieLabelsEstaciones = labels;
+		this.pieDataEstaciones = data;
 	}
 
 
