@@ -21,11 +21,13 @@ export class HomeComponent implements OnInit {
 	optionsBicicletas: Object;
 	dtTrigger = new Subject();
 	dtOptions: DataTables.Settings = {};
+	mostrar:boolean = false;
 
 	constructor(private estacionservice : EstacionService, private estadisticasService : EstadisticasService, private router:Router) {
 		this.estacionservice.getEstaciones().subscribe(response => {
 			this.datosEstaciones = response;			
 			this.dtTrigger.next();
+			this.mostrar = true;		
 		});
 
 		this.estadisticasService.getEstadisticasEstaciones().subscribe(response => {
