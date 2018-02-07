@@ -20,7 +20,9 @@
 		</div>
 		<div class="col-md-6">
 			<h4>Estadistica Puntos de Contacto</h4>
-			<chart style="display:block; width: 100% !important;" [options]="options"></chart>
+			<canvas baseChart *ngIf="pieLabelsEstaciones.length > 0" [data]="pieDataEstaciones" [labels]="pieLabelsEstaciones" [chartType]="pieChartType"
+			 [options]="pieChartTooltips">
+			</canvas>
 		</div>
 	</div>
 	<br>

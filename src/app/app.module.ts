@@ -18,10 +18,6 @@ import { AppComponent } from './app.component';
 // datatables
 import { DataTablesModule } from 'angular-datatables';
 
-//highchart
-import { ChartModule } from 'angular2-highcharts';
-import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
-
 // componentes opciones
 import { NavbarComponent } from './components/assets/navbar/navbar.component';
 import { FooterComponent } from './components/assets/footer/footer.component';
@@ -63,7 +59,8 @@ import { EstadisticasClienteComponent } from './components/cliente/estadisticas-
 //cargando y error
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
 
-
+//charts
+import { ChartsModule } from 'ng2-charts';
 
 
 
@@ -104,6 +101,7 @@ import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encon
         BrowserModule,
         DataTablesModule,
         APP_ROUTING,
+        ChartsModule,
         FormsModule,
         HttpModule,
         BrowserAnimationsModule,
@@ -112,25 +110,12 @@ import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encon
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBrf3wDF0sR5UJfUo_us3Ul8n6QQ7YBPYY'
         }),
-        AgmSnazzyInfoWindowModule,
-        ChartModule
+        AgmSnazzyInfoWindowModule
     ],
     providers: [
-        StompService,
-        {
-            provide: HighchartsStatic,
-            useFactory: highchartsFactory
-        }
+        StompService
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
-}
-
-
-export function highchartsFactory() {
-    const hc = require('highcharts/highstock');
-    const dd = require('highcharts/modules/exporting');
-    dd(hc);
-    return hc;
 }
