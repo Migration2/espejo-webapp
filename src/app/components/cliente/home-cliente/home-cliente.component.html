@@ -7,7 +7,7 @@
 
 <div class="animated fadeIn" [style.visibility]="mostrar ? 'visible' : 'hidden'">
 	<div class="row">
-		<div class="col-md-12 align-self-center">
+		<div class="col-md-6">
 			<agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
 				<agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
 					<agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
@@ -20,12 +20,7 @@
 				</agm-marker>
 			</agm-map>
 		</div>
-	</div>
-	<br>
-	<br>
-
-	<div class="row justify-content-md-center">
-		<div class="col-md-7 clearfix">
+		<div class="col-md-6">
 			<div class="jumbotron ">
 				<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
 				<p> Registrado: {{ dataUsuario.creado }}
@@ -36,7 +31,6 @@
 					<span *ngIf=" !dataSecurity.validated ">La cuenta
 						<strong>No</strong> se encuentra validada</span>
 				</p>
-
 				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated " data-toggle="modal"
 				 data-target="#cambiarPassword">Cambiar contraseña</button>
 				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf=" dataSecurity.validated" data-toggle="modal"
