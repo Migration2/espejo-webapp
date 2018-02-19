@@ -8,7 +8,7 @@
     "secure":false
   },
   "/websocket":{
-    "target": "http://localhost:4444",
+    "target": "http://localhost:4444/bicirio-websocket ",
     "secure":false
   }
 }

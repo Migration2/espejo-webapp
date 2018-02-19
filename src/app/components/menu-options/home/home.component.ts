@@ -36,7 +36,8 @@ export class HomeComponent implements OnInit {
 		});
 
 		stomp.configure({
-			host: 'http://dev-codes.com:4547/bicirio-websocket',
+			host: 'http://bici-rio.com:4547/bicirio-websocket',
+			// host: 'https://orion-bike.com:4443/bicirio-websocket',
 			// host: '/websocket/bicirio-websocket',
 			debug: true,
 			queue: { 'init': false, 'user': true }
