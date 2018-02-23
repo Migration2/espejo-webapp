@@ -13,7 +13,7 @@ import { Subject } from 'rxjs/Rx';
 export class AdministrarEstacionesComponent implements OnInit {
 	datosEstaciones:  Array<EstacionModel> = [];
 	dtTrigger = new Subject();
-	dtOptions: DataTables.Settings = {};
+	dtOptions: any = {};
 	mostrar:boolean = false;
 
 	constructor(private estacionservice : EstacionService, private router:Router) { }
@@ -21,7 +21,7 @@ export class AdministrarEstacionesComponent implements OnInit {
 	ngOnInit() {
 		this.estacionservice.getEstaciones().subscribe(response => {
 			this.datosEstaciones = response;
-			this.dtOptions = {};
+			this.dtOptions = {responsive: true};
 			this.dtTrigger.next();
 			this.mostrar = true;		
 		});		

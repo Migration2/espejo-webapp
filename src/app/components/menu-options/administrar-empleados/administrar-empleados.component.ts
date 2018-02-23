@@ -10,7 +10,7 @@ import { Subject } from 'rxjs/Rx';
 	providers: [UserService]
 })
 export class AdministrarEmpleadosComponent implements OnInit {
-	dtOptions: DataTables.Settings = {};
+	dtOptions: any = {};
 	dataUsuarios:Array<any>=[];
 	dtTrigger = new Subject();
 	mostrar:boolean = false;
@@ -30,7 +30,8 @@ export class AdministrarEmpleadosComponent implements OnInit {
 				targets: [ 2 ],
 				// visible: false,
 				searchable: false
-			}]
+			}],
+			responsive: true
 		};
 	}
 

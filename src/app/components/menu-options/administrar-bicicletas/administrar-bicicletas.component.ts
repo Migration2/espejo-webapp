@@ -11,7 +11,7 @@ import { BicicletaModel } from '../../../models/bicicleta.model';
 	providers: [BiciService]
 })
 export class AdministrarBicicletasComponent implements OnInit {
-	dtOptions: DataTables.Settings = {};
+	dtOptions: any = {};
 	dataBicis: Array<any> = [];
 	dtTrigger = new Subject();
 	model = new BicicletaModel;
@@ -27,7 +27,7 @@ export class AdministrarBicicletasComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.dtOptions = {};
+		this.dtOptions = {responsive: true};
 	}
 
 	informacionBicicleta(id:number){

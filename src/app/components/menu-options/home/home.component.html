@@ -1,86 +1,86 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
-<div class="tituloPrincipal">
-  <h3>{{title}}</h3>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
-      <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
-        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-          <ng-template>
-            <strong>{{ estacion.name | uppercase}}</strong>
-            <br> Puntos de Contacto: {{ estacion.contactPointStates.length}}
-            <br> Bicicletas disponibles: {{ estacion.availableCycles}}
-            <br> Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}
-          </ng-template>
-        </agm-snazzy-info-window>
-      </agm-marker>
-    </agm-map>
-  </div>
-  <div style="margin-top: 40px;" class="col-md-10 offset-md-1">
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th style="text-align: center;">Puntos libres</th>
-          <th style="text-align: center;">Bicicletas Disponibles</th>
-          <th style="text-align: center;">Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
-          <td>{{estacion.name}}</td>
-          <td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
-          <td style="text-align: center;">{{estacion.availableCycles}}</td>
-          <td style="text-align: center;">{{estacion.statusName}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<br>
-<br>
-<div class="row">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Estaciones</h5>
-        <br>
-        <div class="card-text">
-          <canvas baseChart *ngIf="pieLabelsEstaciones.length > 0" [data]="pieDataEstaciones" [labels]="pieLabelsEstaciones" [chartType]="pieChartType"
-            [options]="pieChartTooltips">
-          </canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Contactos</h5>
-        <br>
-        <div class="card-text">
-          <canvas baseChart *ngIf="pieLabelsContactos.length > 0" [data]="pieDataContactos" [labels]="pieLabelsContactos" [chartType]="pieChartType"
-            [options]="pieChartTooltips">
-          </canvas>
-        </div>
-      </div>
-    </div>
+  <div class="tituloPrincipal">
+    <h3>{{title}}</h3>
   </div>
 
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Bicicletas</h5>
-        <br>
-        <div class="card-text">
-          <canvas baseChart *ngIf="pieLabelsBicicletas.length > 0" [data]="pieDataBicicletas" [labels]="pieLabelsBicicletas" [chartType]="pieChartType"
-            [options]="pieChartTooltips">
-          </canvas>
+  <div class="row">
+    <div class="col-md-12" style="margin-bottom: 40px;">
+      <agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14">
+        <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" icon="assets/imagenes/favicon.png">
+          <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+            <ng-template>
+              <strong>{{ estacion.name | uppercase}}</strong>
+              <br> Puntos de Contacto: {{ estacion.contactPointStates.length}}
+              <br> Bicicletas disponibles: {{ estacion.availableCycles}}
+              <br> Puntos libles: {{estacion.contactPointStates.length-estacion.availableCycles}}
+            </ng-template>
+          </agm-snazzy-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Estaciones</h5>
+          <br>
+          <div class="card-text">
+            <canvas baseChart *ngIf="pieLabelsEstaciones.length > 0" [data]="pieDataEstaciones" [labels]="pieLabelsEstaciones" [chartType]="pieChartType"
+              [options]="pieChartTooltips">
+            </canvas>
+          </div>
         </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Contactos</h5>
+          <br>
+          <div class="card-text">
+            <canvas baseChart *ngIf="pieLabelsContactos.length > 0" [data]="pieDataContactos" [labels]="pieLabelsContactos" [chartType]="pieChartType"
+              [options]="pieChartTooltips">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Bicicletas</h5>
+          <br>
+          <div class="card-text">
+            <canvas baseChart *ngIf="pieLabelsBicicletas.length > 0" [data]="pieDataBicicletas" [labels]="pieLabelsBicicletas" [chartType]="pieChartType"
+              [options]="pieChartTooltips">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;" class="col-md-10 offset-md-1">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th style="text-align: center;">Puntos libres</th>
+            <th style="text-align: center;">Bicicletas Disponibles</th>
+            <th style="text-align: center;">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
+            <td>{{estacion.name}}</td>
+            <td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
+            <td style="text-align: center;">{{estacion.availableCycles}}</td>
+            <td style="text-align: center;">{{estacion.statusName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+  <br>
+  <br>
 </div>

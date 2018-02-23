@@ -11,32 +11,32 @@ import { Subject } from 'rxjs/Rx';
 })
 export class AdministrarUsuariosComponent implements OnInit {
 
-	dtOptions: DataTables.Settings = {};
-	dataUsuarios: Array<any>=[];
+	dtOptions: any = {};
+	dataUsuarios: Array<any> = [];
 	dtTrigger = new Subject();
-	mostrar:boolean = false;
+	mostrar: boolean = false;
 
-	constructor(private router:Router, private userService:UserService) { 
+	constructor(private router: Router, private userService: UserService) {
 		this.userService.getUsers().subscribe(response => {
-			this.dataUsuarios = response;	
-			this.dtTrigger.next();	
-			this.mostrar = true;		
+			this.dataUsuarios = response;
+			this.dtTrigger.next();
+			this.mostrar = true;
 		});
 	}
 
 	ngOnInit() {
 		this.dtOptions = {
 			columnDefs: [
-			{
-				targets: [ 2 ],
-				// visible: false,
-				searchable: false
-			}]
+				{
+					targets: [2],
+					// visible: false,
+					searchable: false
+				}],
+			responsive: true
 		};
 	}
-
-	informacionUsuario(userName:any){
-		this.router.navigate(['usuario',userName]);
+	informacionUsuario(userName: any) {
+		this.router.navigate(['usuario', userName]);
 	}
 
 }

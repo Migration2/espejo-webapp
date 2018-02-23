@@ -21,10 +21,10 @@ export class UsuarioComponent implements OnInit {
 	roles:any;
 	private userId;
 	dtTrigger = new Subject();
-	dtOptions: DataTables.Settings = {};
+	dtOptions: any = {};
 	mostrar:boolean = false;
 	dtTriggerSanciones = new Subject();
-	dtOptionsSanciones: DataTables.Settings = {};
+	dtOptionsSanciones: any = {};
 	sanciones: Array<sancionesModel> = [];
 
 	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router, private sancionesService: SancionesService) { 
@@ -56,7 +56,8 @@ export class UsuarioComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.dtOptions = {};
+		this.dtOptions = {responsive: true};
+		this.dtOptionsSanciones = {responsive: true};
 	}
 	
 	updateRoles(){

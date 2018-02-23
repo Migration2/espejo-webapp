@@ -82,15 +82,15 @@
 									<th>Observación</th>
 									<th>Inicio Sanción</th>
 									<th>Fin Sanción</th>
-									<th>Estado</th>
+									<th style="text-align: center;">Estado</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let sancion of sanciones" data-toggle="modal" data-target="#habilitarUsuario" (click)="detalleSancion(sancion.id)">
+								<tr *ngFor="let sancion of sanciones">
 									<td>{{ sancion.idSancion.descripcion }}</td>
 									<td>{{ sancion.fechaSancion }}</td>
 									<td>{{ sancion.fechaLimiteSancion }}</td>
-									<td>{{ sancion.idEstado.estado }}</td>
+									<td style="text-align: center;">{{ sancion.idEstado.estado }}</td>
 								</tr>
 							</tbody>
 						</table>

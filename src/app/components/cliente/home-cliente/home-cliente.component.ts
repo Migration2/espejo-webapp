@@ -21,11 +21,11 @@ export class HomeClienteComponent implements OnInit {
 	dataSecurity = new UsuarioSecurityModel;
 	datosEstaciones: Array<EstacionModel> = [];
 	dtTrigger = new Subject();
-	dtOptions: DataTables.Settings = {};
+	dtOptions: any = {};
 	dtTriggerSanciones = new Subject();
-	dtOptionsSanciones: DataTables.Settings = {};
+	dtOptionsSanciones: any = {};
 	dtTriggerTransacciones = new Subject();
-	dtOptionsTransacciones: DataTables.Settings = {};
+	dtOptionsTransacciones: any = {};
 	securituyAccess = new UsuarioSecurityAccessModel;
 	dataUsuario = new UsuarioModel;
 	pin2 = "";
@@ -62,8 +62,9 @@ export class HomeClienteComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.dtOptions = {};
-		this.dtOptionsTransacciones = {};
+		this.dtOptions = {responsive: true};
+		this.dtOptionsTransacciones = {responsive: true};
+		this.dtOptionsSanciones = {responsive: true};
 	}
 
 	cambioPass() {

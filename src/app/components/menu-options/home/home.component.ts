@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 	Centerlng: number = -75.378276;
 	datosEstaciones: Array<EstacionModel> = [];
 	dtTrigger = new Subject();
-	dtOptions: DataTables.Settings = {};
+	dtOptions: any = {};
 	private subscription: any;
 	respuestas: Array<any> = [];
 	public pieLabelsEstaciones: string[] = [];
@@ -36,15 +36,14 @@ export class HomeComponent implements OnInit {
 		});
 
 		stomp.configure({
-			host: 'http://bici-rio.com:4547/bicirio-websocket',
-			// host: 'https://orion-bike.com:4443/bicirio-websocket',
+			host: 'http://bici-rio.com:4547/bicirio-websocket',//produccion
+			// host: 'https://orion-bike.com:4443/bicirio-websocket',//pruebas
 			// host: '/websocket/bicirio-websocket',
-			debug: true,
+			debug: false,
 			queue: { 'init': false, 'user': true }
 		});
 
 		stomp.startConnect().then(() => {
-			console.log('connected');
 			stomp.done('init');
 			this.subscription = stomp.subscribe('/topic/bikes', this.bicicletas);
 			this.subscription = stomp.subscribe('/topic/contacts ', this.contactos);
@@ -102,18 +101,21 @@ export class HomeComponent implements OnInit {
 
 
 	ngOnDestroy() {
-		console.log("chao ome");
-		//unsubscribe 
-		this.subscription.unsubscribe();
+		try {
+			//unsubscribe 
+			this.subscription.unsubscribe();
 
-		//disconnect 
-		this.stomp.disconnect().then(() => {
-			console.log('Connection closed')
-		})
+			//disconnect 
+			this.stomp.disconnect().then(() => {
+			});
+		} catch (error) {
+
+		}
+
 	}
 
 	ngOnInit() {
-		this.dtOptions = {};
+		this.dtOptions = { responsive: true };
 	}
 
 	informacionEstacion(id: number) {

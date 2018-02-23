@@ -21,10 +21,10 @@ export class EstacionComponent implements OnInit {
 	mantenimientoHistorial: Array<mantenimientoHistorial>;
 	puntosContacto: Array<any> = [];
 	dtTrigger = new Subject();
-	dtOptions: DataTables.Settings = {};
+	dtOptions: any = {};
 	options: Object;
 	dtTrigger2 = new Subject();
-	dtOptions2: DataTables.Settings = {};
+	dtOptions2: any = {};
 	mostrar: boolean = false;
 	partesEstacion: Array<any> = [];
 	typesMantto: Array<any> = [];
@@ -63,12 +63,14 @@ export class EstacionComponent implements OnInit {
 
 	ngOnInit() {
 		this.dtOptions = {
-			searching: false
+			searching: false,
+			responsive: true
 		};
 		this.dtOptions2 = {
 			columnDefs: [
 				{ "width": "50%", "targets": 1 }
-			]
+			],
+			responsive: true
 		};
 
 	}
