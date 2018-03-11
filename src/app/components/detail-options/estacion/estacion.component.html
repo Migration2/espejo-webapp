@@ -1,6 +1,6 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
 	<div class="row">
-		<div class="col-md-6 clearfix">
+		<div class="col-md-5 clearfix">
 			<div class="jumbotron">
 				<h4>{{ datosEstacion.name | uppercase}}</h4>
 				<p> Dirección: {{ datosEstacion.address}}
@@ -18,20 +18,30 @@
 					Finalizar Mantenimiento</button>
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-7">
 			<h4>Estadistica Puntos de Contacto</h4>
 			<canvas baseChart *ngIf="pieLabelsEstaciones.length > 0" [data]="pieDataEstaciones" [labels]="pieLabelsEstaciones" [chartType]="pieChartType"
 			 [options]="pieChartTooltips">
 			</canvas>
 		</div>
 	</div>
-
+	<br>
 	<br>
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-5">
 			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Transacciones</h5>
+				<div class="card-header">
+					<ul class="nav nav-tabs card-header-tabs">
+						<li class="nav-item" (click)='opcionCard="puntosContacto"'>
+							<a class="nav-link" [class.active]='opcionCard=="puntosContacto"'>Puntos de Contacto</a>
+						</li>
+						<li class="nav-item" (click)='opcionCard="transacciones"'>
+							<a class="nav-link" [class.active]='opcionCard=="transacciones"'>Historico Transacciones</a>
+						</li>
+					</ul>
+				</div>
+				<div class="card-body" [hidden]='opcionCard=="puntosContacto"'>
+					<h5 class="card-title">Historico de Transacciones</h5>
 					<br>
 					<div class="card-text">
 						<div class="row">
@@ -64,38 +74,7 @@
 						</table>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="col-sm-6">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Tendencia</h5>
-					<br>
-					<div class="card-text">
-						<div style="display: block">
-							<canvas baseChart *ngIf="barChartLabels.length>0" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-							 [legend]="barChartLegend" [chartType]="barChartType"></canvas>
-						</div>
-						<div class="row justify-content-md-center" *ngIf="barChartLabels.length<=0">
-							<div id="loadingGeneral" class="text-center">
-								<div id="bordeGeneral"></div>
-								<div id="TextLoading">Cargando...</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<br>
-	<br>
-	<div class="row">
-		<div class="col-sm-5">
-			<div class="card">
-				<div class="card-body">
+				<div class="card-body" [hidden]='opcionCard=="transacciones"'>
 					<h5 class="card-title">Estado Puntos de Contacto</h5>
 					<br>
 					<div class="card-text">
@@ -117,11 +96,22 @@
 						</table>
 					</div>
 				</div>
+
 			</div>
 		</div>
 		<div class="col-sm-7">
 			<div class="card">
-				<div class="card-body">
+				<div class="card-header">
+					<ul class="nav nav-tabs card-header-tabs">
+						<li class="nav-item" (click)='opcionCard2="tendencia"'>
+							<a class="nav-link" [class.active]='opcionCard2=="tendencia"'>Tendencia</a>
+						</li>
+						<li class="nav-item" (click)='opcionCard2="historicoMantenimiento"'>
+							<a class="nav-link" [class.active]='opcionCard2=="historicoMantenimiento"'>Historico Mantenimiento</a>
+						</li>
+					</ul>
+				</div>
+				<div class="card-body" [hidden]='opcionCard2=="tendencia"'>
 					<h5 class="card-title">Historico de Mantenimiento</h5>
 					<br>
 					<div class="card-text">
@@ -148,6 +138,23 @@
 								</tr>
 							</tbody>
 						</table>
+					</div>
+				</div>
+				<div class="card-body" [hidden]='opcionCard2=="historicoMantenimiento"'>
+					<h5 class="card-title">Tendencia</h5>
+					<br>
+					<div class="card-text">
+						<div style="display: block">
+							<canvas baseChart *ngIf="barChartLabels.length>0" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+							 [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+						</div>
+						<div class="row justify-content-md-center" *ngIf="barChartLabels.length<=0">
+							<div id="loadingGeneral" class="text-center">
+								<div id="bordeGeneral"></div>
+								<div id="TextLoading">Cargando...</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>

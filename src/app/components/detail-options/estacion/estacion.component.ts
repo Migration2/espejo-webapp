@@ -40,6 +40,8 @@ export class EstacionComponent implements OnInit {
 	fechaAnterior = new Date();
 	dtOptionsTransacciones: any = {};
 	dtTriggerTransacciones = new Subject();
+	opcionCard = "puntosContacto";
+	opcionCard2 = "tendencia";
 
 
 	constructor(private activedRoute: ActivatedRoute, private estacionservice: EstacionService, private mantenimientoService: MantenimientoService, private router: Router) {
@@ -164,15 +166,17 @@ export class EstacionComponent implements OnInit {
 
 	recuperarHistorial(anterior, actual) {
 		this.barChartLabels = [];
+		this.barChartData = [{ data: [] }];
 		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 			// Destroy the table first
+			dtInstance.table(document.getElementById('tablaTransacciones')).clear();
 			dtInstance.table(document.getElementById('tablaTransacciones')).destroy();
 			// Call the dtTrigger to rerender again
 			this.estacionservice.stationTransactions(this.idEstacion, anterior, actual).subscribe(res => {
 				this.transacciones = res;
 				this.contarDatos(res);
 				this.dtTriggerTransacciones.next();
-				
+
 			});
 		});
 	}
@@ -184,11 +188,11 @@ export class EstacionComponent implements OnInit {
 		scaleShowVerticalLines: false,
 		responsive: true
 	};
-	public barChartLabels: string[]=[];
+	public barChartLabels: string[] = [];
 	public barChartType: string = 'bar';
 	public barChartLegend: boolean = false;
 
-	public barChartData: any[] = [ {data: [0, 0, 0, 0, 0, 0, 0]}];
+	public barChartData: any[] = [{ data: [] }];
 
 
 	public updateDataTendencia(data): void {
@@ -216,11 +220,11 @@ export class EstacionComponent implements OnInit {
 				}
 			}
 		}
-let datas: Array<object> = [];
+		let datas: Array<object> = [];
 		for (const key in fecha) {
 			if (fecha.hasOwnProperty(key)) {
-				this.barChartLabels.push( fecha[key]['date']);
-				datas.push( fecha[key]['count']);
+				this.barChartLabels.push(fecha[key]['date']);
+				datas.push(fecha[key]['count']);
 			}
 		}
 		this.updateDataTendencia(datas);

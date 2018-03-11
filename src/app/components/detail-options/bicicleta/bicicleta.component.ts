@@ -105,6 +105,7 @@ export class BicicletaComponent implements OnInit {
 	recuperarHistorial(anterior, actual) {
 		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 			// Destroy the table first
+			dtInstance.table(document.getElementById('tablaTransacciones')).clear();
 			dtInstance.table(document.getElementById('tablaTransacciones')).destroy();
 			// Call the dtTrigger to rerender again
 			this.biciService.biciTransactions(this.datosBici.codigo, anterior, actual).subscribe(res => {
