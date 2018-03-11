@@ -27,4 +27,8 @@ export class BiciService {
 		return this.http.get('/rest/bike/'+id, {}).map(res => res.json());
 	}
 
+	biciTransactions(idBike:string, fechaInicio:string, fechaFin:string){
+		return this.http.get('/rest/reports/bike/'+idBike+'/'+fechaInicio+'/'+fechaFin, {}).map(res => res.json());
+	}
+
 }

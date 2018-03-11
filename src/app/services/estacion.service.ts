@@ -26,5 +26,9 @@ export class EstacionService {
 	getStationById(id:number){
 		return this.http.get('/rest/station/'+id, {}).map(res => res.json());	
 	}
+
+	stationTransactions(idStation:string, fechaInicio:string, fechaFin:string){
+		return this.http.get('/rest/reports/station/'+idStation+'/'+fechaInicio+'/'+fechaFin, {}).map(res => res.json());
+	}
 }
 

@@ -1,54 +1,106 @@
-<div class="animated fadeIn"  [style.display]="mostrar ? 'block' : 'none'">
+<div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
 	<div class="row justify-content-md-center">
-		<div class="col-md-5 clearfix"> 
-		<div class="jumbotron ">
-			<h4>{{ datosBici.codigo | uppercase}}</h4>
-			<p> Creada: {{ datosBici.creado}}<br>
-				Estado: {{ datosBici.idEstadoBicicleta.estado }}
-				<span *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO' && mantenimientoHistorial"><br>La Bicicleta se encuentra en mantenimiento desde {{ mantenimientoHistorial[numeroMantenimientos].inicio }}</span>
-			</p>
-			<button *ngIf="datosBici.idEstadoBicicleta.estado =='BODEGA'" class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#Mantenimiento">
-			Iniciar Mantenimiento</button>
-			<button *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO'" class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#finMantenimiento">
-			Finalizar Mantenimiento</button>
+		<div class="col-md-5 clearfix">
+			<div class="jumbotron ">
+				<h4>{{ datosBici.codigo | uppercase}}</h4>
+				<p> Creada: {{ datosBici.creado}}
+					<!-- <br>Prestamos Totales: {{transacciones.length}} -->
+					<br> Estado: {{ datosBici.idEstadoBicicleta.estado }}
+					<span *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO' && mantenimientoHistorial">
+						<br>La Bicicleta se encuentra en mantenimiento desde {{ mantenimientoHistorial[numeroMantenimientos].inicio }}</span>
+				</p>
+				<button *ngIf="datosBici.idEstadoBicicleta.estado =='BODEGA'" class="btn btn-outline-primary btn-lg bottonAction" role="button"
+				 data-toggle="modal" data-target="#Mantenimiento">
+					Iniciar Mantenimiento</button>
+				<button *ngIf="datosBici.idEstadoBicicleta.estado =='MANTENIMIENTO'" class="btn btn-outline-primary btn-lg bottonAction"
+				 role="button" data-toggle="modal" data-target="#finMantenimiento">
+					Finalizar Mantenimiento</button>
+			</div>
 		</div>
 	</div>
-		<br>
-		<div class="col-md-12">
-			<h4>Historico de Mantenimiento</h4>
-			<br>
-			<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-				<thead>
-					<tr>
-						<th>Inicio</th>
-						<th>Observaciones</th>
-						<th>Piezas</th>
-						<th>Fin</th>						
-					</tr>
-				</thead>
-				<tbody>
-					<tr  *ngFor="let historial of mantenimientoHistorial; let i=index">
-						<td>{{ historial.inicio }}</td>
-						<td>{{ historial.observation | observacionesMantenimiento}}</td>
-						<td>
-							<ul>
-								<li *ngFor="let item of mantenimientoHistorial[i].detailsMantto">{{ item.idMoTiposPartesBicicleta.name }}
-								</li>
-							</ul>
-						</td>
-						<td>{{ historial.fin }}</td>
-					</tr>				
-				</tbody>
-			</table>			
+	<br>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Transacciones</h5>
+					<br>
+					<div class="card-text">
+						<div class="row">
+							<div class="form-group mb-2 col-md-6">
+								<label for="staticEmail2">Inicio: </label>
+								<input type="date" class="form-control mx-sm-1" #fechaAnteriorReference [value]="fechaAnterior.toISOString().substring(0, 10)">
+							</div>
+							<div class="form-group mb-2 col-md-6">
+								<label for="inputPassword2">Fin: </label>
+								<input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
+							</div>
+							<div class="my-3 col">
+								<button type="submit" class="btn btn-primary" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
+							</div>
+						</div>
+
+						<table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover mt-2" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Fecha Prestamo</th>
+									<th>Usuario</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let transaccion of transacciones">
+									<td>{{ transaccion.loanDate }}</td>
+									<td>{{ transaccion.username }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>	
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Mantenimientos</h5>
+					<br>
+					<div class="card-text">
+						<table id="tablaMantenimientos" datatable [dtOptions]="dtOptionsMantenimiento" [dtTrigger]="dtTriggerMantenimiento" class="table row-border hover"
+						 cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Inicio</th>
+									<th>Observaciones</th>
+									<th>Piezas</th>
+									<th>Fin</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let historial of mantenimientoHistorial; let i=index">
+									<td>{{ historial.inicio }}</td>
+									<td>{{ historial.observation | observacionesMantenimiento}}</td>
+									<td>
+										<ul>
+											<li *ngFor="let item of mantenimientoHistorial[i].detailsMantto">{{ item.idMoTiposPartesBicicleta.name }}
+											</li>
+										</ul>
+									</td>
+									<td>{{ historial.fin }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
 	<div id="loadingGeneral" class="text-center">
 		<div id="bordeGeneral"></div>
 		<div id="TextLoading">Cargando...</div>
-	</div>	
+	</div>
 </div>
 
 <div class="modal fade" id="Mantenimiento" tabindex="-1" role="dialog" aria-labelledby="Mantenimiento" aria-hidden="true">
@@ -63,28 +115,32 @@
 			<div class="modal-body" style="width: 95%;">
 				<form #crearMantenimiento="ngForm">
 					<div class="form-group">
-						<label for="exampleFormControlSelect1"><em>Tipo de Mantenimiento</em></label>
+						<label for="exampleFormControlSelect1">
+							<em>Tipo de Mantenimiento</em>
+						</label>
 						<select class="form-control" id="idTypeMantto" name="idTypeMantto" [(ngModel)]="mantenimientoBikeModel.idTypeMantto" required>
 							<option *ngFor="let typeMantto of typesMantto" value="{{ typeMantto.id}}">{{ typeMantto.alias }}</option>
 						</select>
 					</div>
 					<div class="form-group">
-						<em>Piezas</em>	
-						<br>					
+						<em>Piezas</em>
+						<br>
 						<div class="form-check form-check-inline" *ngFor="let parteBike of partesBike">
 							<label class="form-check-label">
 								<input class="form-check-input" type="checkbox" value="{{ parteBike.id }}" (change)="eventoParteBike($event)"> {{ parteBike.parts }}
 							</label>
-						</div>	
-					</div>				
+						</div>
+					</div>
 					<div class="form-group">
-						<label for="desc"><em>Observaciones</em></label>
+						<label for="desc">
+							<em>Observaciones</em>
+						</label>
 						<textarea class="form-control" id="desc" name="desc" rows="3" [(ngModel)]="mantenimientoBikeModel.desc"></textarea>
 					</div>
 					<div class="row justify-content-end">
 						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
-						[disabled]="!crearMantenimiento.form.valid" (click)="onSubmit()" data-dismiss="modal">Enviar</button>
+						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!crearMantenimiento.form.valid"
+						 (click)="onSubmit()" data-dismiss="modal">Enviar</button>
 					</div>
 				</form>
 			</div>
@@ -105,13 +161,15 @@
 			<div class="modal-body" style="width: 95%;">
 				<form #finMantenimiento="ngForm">
 					<div class="form-group">
-						<label for="exampleFormControlTextarea1"><em>Observaciones</em></label>
+						<label for="exampleFormControlTextarea1">
+							<em>Observaciones</em>
+						</label>
 						<textarea class="form-control" id="desc" name="desc" rows="3" [(ngModel)]="finMantenimientoBikeModel.desc"></textarea>
 					</div>
 					<div class="row justify-content-end">
 						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction"
-						[disabled]="!finMantenimiento.form.valid" (click)="onSubmitFin()" data-dismiss="modal">Enviar</button>
+						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!finMantenimiento.form.valid"
+						 (click)="onSubmitFin()" data-dismiss="modal">Enviar</button>
 					</div>
 				</form>
 			</div>

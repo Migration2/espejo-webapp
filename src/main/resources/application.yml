@@ -3,13 +3,13 @@ security:
     password: none
   oauth2:
     client:
-      accessTokenUri: https://orion-bike.com:8443/oa/oauth/token
-      userAuthorizationUri: https://orion-bike.com:8443/oa/oauth/authorize
+      accessTokenUri: http://bici-rio.com:8080/oa/oauth/token
+      userAuthorizationUri: http://bici-rio.com:8080/oa/oauth/authorize
       clientId: web
       clientSecret: appweb
     resource:
       #user-info-uri: http://localhost:4444/rest/init/me
-      user-info-uri: https://orion-bike.com:8443/oa/rest/user/me
+      user-info-uri: http://bici-rio.com:8080/oa/rest/user/me
       #prefer-token-info: true
       #filter-order: 3
 server:
@@ -26,29 +26,29 @@ zuul:
     swagger-res:
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /swagger-resources/**
-      url: https://orion-bike.com:4443/swagger-resources/
+      url: http://bici-rio.com:4547/swagger-resources/
     swagger-api-docs:
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /v2/api-docs/**
-      url: https://orion-bike.com:4443/v2/api-docs/
+      url: http://bici-rio.com:4547/v2/api-docs/
     swagger-webjars:
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /webjars/springfox-swagger-ui/**
-      url: https://orion-bike.com:4443/webjars/springfox-swagger-ui/
+      url: http://bici-rio.com:4547/webjars/springfox-swagger-ui/
     swagger:
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /swagger-ui.html
-      url: https://orion-bike.com:4443/
+      url: http://bici-rio.com:4547/
     rest:
       path: /rest/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
-      url: https://orion-bike.com:4443/rest/
+      url: http://bici-rio.com:4547/rest/
     oa:
       path: /logout
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
-      url: https://orion-bike.com:8443/logout
+      url: http://bici-rio.com:8080/logout
     websocket:
       path: /websocket/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
-      url: https://orion-bike.com:4443/ 
+      url: http://bici-rio.com:4547/ 
         
