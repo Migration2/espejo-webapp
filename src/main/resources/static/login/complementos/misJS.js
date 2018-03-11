@@ -100,6 +100,11 @@ rules:{
 	},
 	email:{
 		required: true,
+		email: true,
+		equalTo:"#password"
+	},
+	email2:{
+		required: true,
 		email: true
 	},
 	phone:{
@@ -155,6 +160,10 @@ rules:{
 			minlength: ' (Invalido, demasiado corto)'
 		},
 		email:{
+			required:' (Requerido)',
+			email: ' (Invalido)'
+		},
+		email2:{
 			required:' (Requerido)',
 			email: ' (Invalido)'
 		},

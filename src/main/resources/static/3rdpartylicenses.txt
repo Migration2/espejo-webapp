@@ -95,6 +95,10 @@ datatables.net-responsive-dt@2.2.1
 MIT
 MIT
 
+datatables.net-buttons-dt@1.5.1
+MIT
+MIT
+
 datatables.net-dt@1.10.16
 MIT
 MIT

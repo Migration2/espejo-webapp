@@ -7,7 +7,6 @@ import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { Subject } from 'rxjs/Rx';
 import { DataTableDirective } from 'angular-datatables';
 
-
 @Component({
 	selector: 'app-estacion',
 	templateUrl: './estacion.component.html',
@@ -57,6 +56,49 @@ export class EstacionComponent implements OnInit {
 
 		this.estacionservice.getStationById(this.idEstacion).subscribe(response => {
 			this.datosEstacion = response;
+			let bonotes = [
+				{
+					extend: 'copy',
+					text: 'Copiar',
+					messageTop: `Datos de la Estación ${response.address}`,
+					messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+				},
+				{
+					extend: 'print',
+					text: 'Imprimir',
+					messageTop: `Datos de la Estación ${response.address}`,
+					messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+				},
+				{
+					extend: 'csv',
+					text: 'Exportar',
+					messageTop: `Datos de la Estación ${response.address}`,
+					messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+				}
+			];
+			this.dtOptionsTransacciones = {
+				responsive: true,
+				searching: false,
+				// Declare the use of the extension in the dom parameter
+				dom: 'Bfrtip',
+				buttons: bonotes
+			};
+			this.dtOptions = {
+				searching: false,
+				responsive: true,
+				// Declare the use of the extension in the dom parameter
+				dom: 'Bfrtip',
+				buttons: bonotes
+			};
+			this.dtOptions2 = {
+				columnDefs: [
+					{ "width": "50%", "targets": 1 }
+				],
+				responsive: true,
+				// Declare the use of the extension in the dom parameter
+				dom: 'Bfrtip',
+				buttons: bonotes
+			};
 			this.puntosContacto = response.contactPointStates;
 			this.estadoPuntosContacto(this.puntosContacto);
 			this.mantenimientoService.getManttosStation(this.datosEstacion.id).subscribe(response => {
@@ -77,23 +119,7 @@ export class EstacionComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {
-		this.dtOptionsTransacciones = {
-			responsive: true,
-			searching: false
-		};
-		this.dtOptions = {
-			searching: false,
-			responsive: true
-		};
-		this.dtOptions2 = {
-			columnDefs: [
-				{ "width": "50%", "targets": 1 }
-			],
-			responsive: true
-		};
-
-	}
+	ngOnInit() { }
 
 	estadoPuntosContacto(puntosContacto) {
 		let labels = [];
@@ -228,6 +254,10 @@ export class EstacionComponent implements OnInit {
 			}
 		}
 		this.updateDataTendencia(datas);
+	}
+
+	descargarDatos() {
+
 	}
 
 }

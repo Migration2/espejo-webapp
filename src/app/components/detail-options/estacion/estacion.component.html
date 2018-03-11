@@ -53,8 +53,8 @@
 								<label for="inputPassword2">Fin: </label>
 								<input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
 							</div>
-							<div class="my-3 col">
-								<button type="submit" class="btn btn-primary" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
+							<div class="my-3 mx-3 col-md-2">
+								<button class="btn btn-primary" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
 							</div>
 						</div>
 						<table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover mt-2"
@@ -63,12 +63,14 @@
 								<tr>
 									<th>Fecha Prestamo</th>
 									<th>Usuario</th>
+									<th>Bicicleta</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr *ngFor="let transaccion of transacciones">
 									<td>{{ transaccion.loanDate }}</td>
 									<td>{{ transaccion.username }}</td>
+									<td>{{ transaccion.codeBike }}</td>
 								</tr>
 							</tbody>
 						</table>

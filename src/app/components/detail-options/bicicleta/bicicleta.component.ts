@@ -41,6 +41,43 @@ export class BicicletaComponent implements OnInit {
 		});
 		this.biciService.getBiciById(this.idBici).subscribe(response => {
 			this.datosBici = response;
+			let bonotes = [
+				{
+					extend: 'copy',
+					text: 'Copiar',
+					messageTop: `Datos de la Bicicleta ${response.codigo}`,
+					messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+				},
+				{
+					extend: 'print',
+					text: 'Imprimir',
+					messageTop: `Datos de la Bicicleta ${response.codigo}`,
+					messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+				},
+				{
+					extend: 'csv',
+					text: 'Exportar',
+					messageTop: `Datos de la Bicicleta ${response.codigo}`,
+					messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+				}
+			];
+			
+		this.dtOptionsTransacciones = {
+			responsive: true,
+			searching: false,
+			// Declare the use of the extension in the dom parameter
+			dom: 'Bfrtip',
+			buttons: bonotes
+		};
+		this.dtOptionsMantenimiento = {
+			columnDefs: [
+				{ "width": "50%", "targets": 1 }
+			],
+			responsive: true,
+			// Declare the use of the extension in the dom parameter
+			dom: 'Bfrtip',
+			buttons: bonotes
+		};
 			this.mantenimientoService.getManttosBike(this.datosBici.id).subscribe(response => {
 				this.mantenimientoHistorial = response;
 				this.numeroMantenimientos = this.mantenimientoHistorial.length - 1;
@@ -63,18 +100,7 @@ export class BicicletaComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {
-		this.dtOptionsTransacciones = {
-			responsive: true,
-			searching: false
-		};
-		this.dtOptionsMantenimiento = {
-			columnDefs: [
-				{ "width": "50%", "targets": 1 }
-			],
-			responsive: true
-		};
-	}
+	ngOnInit() {}
 
 
 	onSubmit() {

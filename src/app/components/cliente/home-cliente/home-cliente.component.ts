@@ -33,7 +33,7 @@ export class HomeClienteComponent implements OnInit {
 	mostrar: boolean = false;
 	dataUsuarioUpdate = new usuarioDataUpdate;
 	prestamos: Array<any> = [{ 'idBikeCode': '' }];
-	opcionCard="transacciones";
+	opcionCard = "transacciones";
 	sanciones: Array<sancionesModel> = [];
 
 	constructor(private estacionservice: EstacionService, private userService: UserService, private router: Router, private sancionesService: SancionesService) {
@@ -44,6 +44,42 @@ export class HomeClienteComponent implements OnInit {
 				this.dataSecurity = response;
 				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
 					this.dataUsuario = responseUserName;
+					let bonotes = [
+						{
+							extend: 'copy',
+							text: 'Copiar',
+							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
+							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+						},
+						{
+							extend: 'print',
+							text: 'Imprimir',
+							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
+							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+						},
+						{
+							extend: 'csv',
+							text: 'Exportar',
+							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
+							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+						}
+					];
+
+					this.dtOptions = {
+						responsive: true
+					};
+					this.dtOptionsTransacciones = {
+						responsive: true,
+						// Declare the use of the extension in the dom parameter
+						dom: 'Bfrtip',
+						buttons: bonotes
+					};
+					this.dtOptionsSanciones = {
+						responsive: true,
+						// Declare the use of the extension in the dom parameter
+						dom: 'Bfrtip',
+						buttons: bonotes
+					};
 					this.dataUpdate(this.dataUsuario);
 					this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
 						this.prestamos = response;
@@ -52,7 +88,7 @@ export class HomeClienteComponent implements OnInit {
 							this.sanciones = response;
 							this.dtTriggerSanciones.next();
 							this.mostrar = true;
-						});						
+						});
 					});
 				});
 			});
@@ -61,11 +97,7 @@ export class HomeClienteComponent implements OnInit {
 
 	}
 
-	ngOnInit() {
-		this.dtOptions = {responsive: true};
-		this.dtOptionsTransacciones = {responsive: true};
-		this.dtOptionsSanciones = {responsive: true};
-	}
+	ngOnInit() { }
 
 	cambioPass() {
 		this.securituyAccess.idUser = this.dataSecurity.id;

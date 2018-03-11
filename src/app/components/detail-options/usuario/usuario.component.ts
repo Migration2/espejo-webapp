@@ -8,7 +8,7 @@ import { sancionesModel } from '../../../models/sanciones.model';
 
 
 @Component({
-	selector:'app-usuario',
+	selector: 'app-usuario',
 	templateUrl: './usuario.component.html',
 	styleUrls: ['./usuario.component.scss'],
 	providers: [UserService, SancionesService]
@@ -17,118 +17,148 @@ export class UsuarioComponent implements OnInit {
 	dataSecurity = new UsuarioSecurityModel;
 	dataUsuario = new UsuarioModel;
 	dataUsuarioUpdate = new usuarioDataUpdate;
-	prestamos:Array<any> = [{'idBikeCode':''}];
-	roles:any;
+	prestamos: Array<any> = [{ 'idBikeCode': '' }];
+	roles: any;
 	private userId;
 	dtTrigger = new Subject();
 	dtOptions: any = {};
-	mostrar:boolean = false;
+	mostrar: boolean = false;
 	dtTriggerSanciones = new Subject();
 	dtOptionsSanciones: any = {};
 	sanciones: Array<sancionesModel> = [];
 
-	constructor(private activedRoute:ActivatedRoute, private userService:UserService, private router:Router, private sancionesService: SancionesService) { 
-		this.activedRoute.params.subscribe(params=>{
+	constructor(private activedRoute: ActivatedRoute, private userService: UserService, private router: Router, private sancionesService: SancionesService) {
+		this.activedRoute.params.subscribe(params => {
 			this.userId = params.id;
-			this.userService.getSecurityUserById(this.userId).subscribe(responseSecurity=>{
+			this.userService.getSecurityUserById(this.userId).subscribe(responseSecurity => {
 				this.dataSecurity = responseSecurity;
 				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
 					this.dataUsuario = responseUserName;
+					let bonotes = [
+						{
+							extend: 'copy',
+							text: 'Copiar',
+							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
+							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+						},
+						{
+							extend: 'print',
+							text: 'Imprimir',
+							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
+							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+						},
+						{
+							extend: 'csv',
+							text: 'Exportar',
+							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
+							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+						}
+					];
+					this.dtOptions = {
+						responsive: true,
+						// Declare the use of the extension in the dom parameter
+						dom: 'Bfrtip',
+						buttons: bonotes
+					};
+					this.dtOptionsSanciones = {
+						responsive: true,
+						// Declare the use of the extension in the dom parameter
+						dom: 'Bfrtip',
+						buttons: bonotes
+					};
+
 					this.dataUpdate(this.dataUsuario);
 					this.sancionesService.getSancionesByUserDocument(this.dataUsuario.username).subscribe(response => {
 						this.sanciones = response;
 						this.dtTriggerSanciones.next();
-					});	
+					});
 					this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
-						this.prestamos=response;
+						this.prestamos = response;
 						this.dtTrigger.next();
-						this.userService.getRoles().subscribe(respuestaRoles =>{
+						this.userService.getRoles().subscribe(respuestaRoles => {
 							this.roles = respuestaRoles;
-							this.mostrar = true;	
-						});							
+							this.mostrar = true;
+						});
 					});
 				});
 			});
 		});
 
-		
+
 
 	}
 
-	ngOnInit() {
-		this.dtOptions = {responsive: true};
-		this.dtOptionsSanciones = {responsive: true};
-	}
-	
-	updateRoles(){
-		for (let i = 0; i < this.roles.length ; ++i) {
-			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
-			for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+	ngOnInit() { }
+
+	updateRoles() {
+		for (let i = 0; i < this.roles.length; ++i) {
+			let rol = (<HTMLInputElement>document.getElementById(this.roles[i].role));
+			for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
 				if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
-					if (!rol.checked){
-						this.userService.removeRol({'role':rol.value, 'user':this.dataSecurity.id});
+					if (!rol.checked) {
+						this.userService.removeRol({ 'role': rol.value, 'user': this.dataSecurity.id });
 					}
-				}											
+				}
 			}
-			if (rol.checked){
-				let a:boolean=false;
-				for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+			if (rol.checked) {
+				let a: boolean = false;
+				for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
 					if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
-						a=true;
+						a = true;
 					}
 				}
 				if (!a) {
-					this.userService.addRol({'role':rol.value, 'user':this.dataSecurity.id});
-				}				
-			}			
+					this.userService.addRol({ 'role': rol.value, 'user': this.dataSecurity.id });
+				}
+			}
 			this.router.navigate(['administrarUsuarios']);
 		}
 	}
 
-	disableUser(){
+	disableUser() {
 		this.userService.disableUser(this.dataSecurity.username);
 		this.router.navigate(['administrarUsuarios']);
 	}
-	enableUser (){
+	enableUser() {
 		this.userService.enableUser(this.dataSecurity.username);
 		this.router.navigate(['administrarUsuarios']);
 	}
 
-	activarRoles (){
-		for (let i = 0; i < this.roles.length ; ++i) {
-			let rol=(<HTMLInputElement>document.getElementById(this.roles[i].role));
-			for (var j = 0; j < this.dataSecurity.userRole.length ; j++) {
+	activarRoles() {
+		for (let i = 0; i < this.roles.length; ++i) {
+			let rol = (<HTMLInputElement>document.getElementById(this.roles[i].role));
+			for (var j = 0; j < this.dataSecurity.userRole.length; j++) {
 				if (this.roles[i].role == this.dataSecurity.userRole[j].authority) {
-					rol.checked=true;
+					rol.checked = true;
 				}
 			}
 		}
 	}
 
-	onSubmit() { 
-		let idCliente = this.userService.updateUser(this.dataUsuarioUpdate, this.dataSecurity.id); 
+	onSubmit() {
+		let idCliente = this.userService.updateUser(this.dataUsuarioUpdate, this.dataSecurity.id);
 		this.router.navigate(['administrarUsuarios']);
-	};	
+	};
 
-	dataUpdate(data){
-		this.dataUsuarioUpdate.id= data.id,
-		this.dataUsuarioUpdate.username =data.username,
-		this.dataUsuarioUpdate.name= data.nombre,
-		this.dataUsuarioUpdate.lastname= data.apellido,
-		this.dataUsuarioUpdate.nui= data.nui,
-		this.dataUsuarioUpdate.email= data.email,
-		this.dataUsuarioUpdate.phone= data.telefono,
-		this.dataUsuarioUpdate.celphone= data.celular,
-		this.dataUsuarioUpdate.address= data.direccion,
-		this.dataUsuarioUpdate.profession= data.profesion,
-		this.dataUsuarioUpdate.career= data.ocupacion,
-		this.dataUsuarioUpdate.created= data.creado,
-		this.dataUsuarioUpdate.birthday= data.fechaNacimiento,
-		this.dataUsuarioUpdate.gender= data.sexo,
-		this.dataUsuarioUpdate.idCity = data.idCiudad.id,
-		this.dataUsuarioUpdate.idKindId= data.idTipoIdentificacion.id,
-		this.dataUsuarioUpdate.modified = data.modificado,
-		this.dataUsuarioUpdate.network = data.network
+	dataUpdate(data) {
+		this.dataUsuarioUpdate.id = data.id,
+			this.dataUsuarioUpdate.username = data.username,
+			this.dataUsuarioUpdate.name = data.nombre,
+			this.dataUsuarioUpdate.lastname = data.apellido,
+			this.dataUsuarioUpdate.nui = data.nui,
+			this.dataUsuarioUpdate.email = data.email,
+			this.dataUsuarioUpdate.phone = data.telefono,
+			this.dataUsuarioUpdate.celphone = data.celular,
+			this.dataUsuarioUpdate.address = data.direccion,
+			this.dataUsuarioUpdate.profession = data.profesion,
+			this.dataUsuarioUpdate.career = data.ocupacion,
+			this.dataUsuarioUpdate.created = data.creado,
+			this.dataUsuarioUpdate.birthday = data.fechaNacimiento,
+			this.dataUsuarioUpdate.gender = data.sexo,
+			this.dataUsuarioUpdate.idCity = data.idCiudad.id,
+			this.dataUsuarioUpdate.idKindId = data.idTipoIdentificacion.id,
+			this.dataUsuarioUpdate.modified = data.modificado,
+			this.dataUsuarioUpdate.network = data.network
 	}
 
 }
