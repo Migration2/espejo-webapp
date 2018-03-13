@@ -100,12 +100,12 @@ rules:{
 	},
 	email:{
 		required: true,
-		email: true,
-		equalTo:"#password"
+		email: true
 	},
 	email2:{
 		required: true,
-		email: true
+		email: true,
+		equalTo:"#email"
 	},
 	phone:{
 		required: true,
@@ -165,7 +165,8 @@ rules:{
 		},
 		email2:{
 			required:' (Requerido)',
-			email: ' (Invalido)'
+			email: ' (Invalido)',
+			equalTo: '(Invalido, No coincide)'
 		},
 		password:{
 			required: ' (Requerido)',
@@ -174,7 +175,7 @@ rules:{
 		},
 		password2:{
 			required: ' (Requerido)',
-			equalTo: '(Invalido)'
+			equalTo: '(Invalido, No coincide)'
 		},
 		pin:{
 			required: ' (Requerido)',
