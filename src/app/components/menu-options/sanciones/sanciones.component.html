@@ -5,65 +5,104 @@
 		<h3>Sanciones</h3>
 	</div>
 
-	<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Documento</th>
-				<th>Codigo</th>
-				<th>Inicio Sanción</th>
-				<th>Fin Sanción</th>
-				<th>Estado</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let sancion of sanciones" data-toggle="modal" data-target="#habilitarUsuario" (click)="detalleSancion(sancion.id)">
-				<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
-				<td>{{ sancion.username }}</td>
-				<td>{{ sancion.idSancion.codigoSancion }}</td>
-				<td>{{ sancion.fechaSancion }}</td>
-				<td>{{ sancion.fechaLimiteSancion }}</td>
-				<td>{{ sancion.idEstado.estado }}</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<ul class="nav nav-tabs card-header-tabs">
+						<li class="nav-item" (click)='opcionCard="sancionesActivas"'>
+							<a class="nav-link" [class.active]='opcionCard=="sancionesActivas"'>Sanciones Activas</a>
+						</li>
+						<li class="nav-item" (click)='opcionCard="sancionesSaldadas"'>
+							<a class="nav-link" [class.active]='opcionCard=="sancionesSaldadas"'>Sanciones Saldadas</a>
+						</li>
+					</ul>
+				</div>
+				<div class="card-body" [hidden]='opcionCard=="sancionesSaldadas"'>
+					<h5 class="card-title">Sanciones Activas</h5>
+					<br>
+					<div class="card-text">
+						<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Documento</th>
+									<th>Inicio Sanción</th>
+									<th>Fin Sanción</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let sancion of sanciones2" data-toggle="modal" data-target="#habilitarUsuario">
+									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
+									<td>{{ sancion.username }}</td>
+									<td>{{ sancion.fechaSancion }}</td>
+									<td>{{ sancion.fechaLimiteSancion }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="card-body" [hidden]='opcionCard=="sancionesActivas"'>
+					<h5 class="card-title">Sansiones Saldadas</h5>
+					<br>
+					<div class="card-text">
+						<table datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="table row-border hover mt-2" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Documento</th>
+									<th>Inicio Sanción</th>
+									<th>Fin Sanción</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let sancion of sanciones1" data-toggle="modal" data-target="#habilitarUsuario">
+									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
+									<td>{{ sancion.username }}</td>
+									<td>{{ sancion.fechaSancion }}</td>
+									<td>{{ sancion.fechaLimiteSancion }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Sanciones Aplicadas</h5>
+					<br>
+					<div class="card-text">
+						<table datatable [dtOptions]="dtOptionsAplicadas" [dtTrigger]="dtTriggerAplicadas" class="table row-border hover mt-2" cellspacing="0"
+						 width="100%">
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Documento</th>
+									<th>Inicio Sanción</th>
+									<th>Fin Sanción</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let sancion of sancionesAplicadas" data-toggle="modal" data-target="#habilitarUsuario">
+									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
+									<td>{{ sancion.username }}</td>
+									<td>{{ sancion.fechaSancion }}</td>
+									<td>{{ sancion.fechaLimiteSancion }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
 	<div id="loadingGeneral" class="text-center">
 		<div id="bordeGeneral"></div>
 		<div id="TextLoading">Cargando...</div>
-	</div>
-</div>
-
-<div class="modal fade" id="habilitarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Detalle sanción Usuario</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<em>Usuario</em>: {{ sancion.firstName +' '+ sancion.lastName | uppercase}}
-				<br>
-				<em>Documento</em>: {{ sancion.username }}
-				<br>
-				<em>Codigo sanción</em>: {{ sancion.idSancion.codigoSancion }}
-				<br>
-				<em>Descripcion</em>: {{ sancion.idSancion.descripcion}}
-				<br>
-				<em>Fecha sanción</em>: {{ sancion.fechaSancion }}
-				<br>
-				<em>Fecha fin sanción</em>: {{ sancion.fechaLimiteSancion }}
-				<br>
-				<em>Estado sanción</em>: {{ sancion.idEstado.estado }}
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
-				<!-- <button type="button" class="btn btn-outline-primary bottonAction" (click)="informacionUsuario(sancion.idUser)" data-dismiss="modal">Ir a Usuario</button> -->
-			</div>
-		</div>
 	</div>
 </div>

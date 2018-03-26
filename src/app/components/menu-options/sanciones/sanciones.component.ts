@@ -12,42 +12,46 @@ import { sancionesModel } from '../../../models/sanciones.model';
 })
 export class SancionesComponent implements OnInit {
 
-	dtOptions: DataTables.Settings = {};
-	sanciones: Array<sancionesModel> = [];
-	dtTrigger = new Subject();
+	opcionCard = "sancionesActivas";
+	dtOptions1: any = {};
+	dtOptions2: any = {};
+	dtOptionsAplicadas: any = {};
+	sanciones1: Array<sancionesModel> = [];
+	sanciones2: Array<sancionesModel> = [];
+	sancionesAplicadas: Array<sancionesModel> = [];
+	dtTrigger1 = new Subject();
+	dtTrigger2 = new Subject();
+	dtTriggerAplicadas = new Subject();
 	mostrar: boolean = false;
 	sancion: sancionesModel = new sancionesModel;
 
 	constructor(private router: Router, private sancionesService: SancionesService) {
-		this.sancionesService.getSancionesHistory().subscribe(response => {
-			this.sanciones = response;
-			this.dtTrigger.next();
-			this.mostrar = true;
-		});
 	}
 
 	ngOnInit() {
-		this.dtOptions = {
-			// columnDefs: [
-			// {
-			// 	targets: [ 2 ],
-			// 	// visible: false,
-			// 	searchable: false
-			// }]
+		this.sancionesService.getSancionesEstado1().subscribe(response => {
+			this.sanciones1 = response;
+			this.dtTrigger1.next();
+		});
+		this.sancionesService.getSancionesEstado2().subscribe(response => {
+			this.sanciones2 = response;
+			this.dtTrigger2.next();
+		});
+		this.sancionesService.getSancionesHistory().subscribe(response => {
+			this.sancionesAplicadas = response;
+			this.dtTriggerAplicadas.next();
+			this.mostrar = true;
+		});
+		this.dtOptions1 = {
+			responsive: true
 		};
-	}
+		this.dtOptions2 = {
+			responsive: true
+		};
+		this.dtOptionsAplicadas = {
+			responsive: true
+		};
 
-	detalleSancion(idSancion: string) {
-		for (let i = 0; i < this.sanciones.length; i++) {
-			if (this.sanciones[i].id == idSancion) {
-				this.sancion = this.sanciones[i];
-			}
-		}
-	}
-
-
-	informacionUsuario(userName: any) {
-		this.router.navigate(['usuario', userName]);
 	}
 
 }

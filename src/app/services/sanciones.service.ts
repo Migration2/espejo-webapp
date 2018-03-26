@@ -20,4 +20,12 @@ export class SancionesService {
 	getSancionesByUserDocument(idUser) {
 		return this.http.get('/rest/penalties/history/username/' + idUser, {}).map(res => res.json());
 	}
+
+	getSancionesEstado1() {
+		return this.http.get('/rest/penalties/history/status/1', {}).map(res => res.json());
+	}
+
+	getSancionesEstado2() {
+		return this.http.get('/rest/penalties/history/status/2', {}).map(res => res.json());
+	}
 }
