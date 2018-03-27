@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PuntoAnclajeComponent } from './punto-anclaje.component';
+import { OperacionComponent } from './operacion.component';
 
-describe('PuntoAnclajeComponent', () => {
-  let component: PuntoAnclajeComponent;
-  let fixture: ComponentFixture<PuntoAnclajeComponent>;
+describe('OperacionComponent', () => {
+  let component: OperacionComponent;
+  let fixture: ComponentFixture<OperacionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PuntoAnclajeComponent ]
+      declarations: [ OperacionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PuntoAnclajeComponent);
+    fixture = TestBed.createComponent(OperacionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

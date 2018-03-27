@@ -10,7 +10,8 @@ import {AdministrarSancionesComponent} from './components/menu-options/administr
 import {AdministrarUsuariosComponent} from './components/menu-options/administrar-usuarios/administrar-usuarios.component';
 import {HistoricosComponent} from './components/menu-options/historicos/historicos.component';
 import {HomeComponent} from './components/menu-options/home/home.component';
-import {SancionesComponent} from './components/menu-options/sanciones/sanciones.component'
+import {SancionesComponent} from './components/menu-options/sanciones/sanciones.component';
+import {OperacionComponent} from './components/menu-options/operacion/operacion.component'
 
 // componentes de detalle
 import {UsuarioComponent} from './components/detail-options/usuario/usuario.component';
@@ -18,7 +19,6 @@ import {BicicletaComponent} from './components/detail-options/bicicleta/biciclet
 import {EmpleadoComponent} from './components/detail-options/empleado/empleado.component';
 import {EstacionComponent} from './components/detail-options/estacion/estacion.component';
 import {MantenimientoComponent} from './components/detail-options/mantenimiento/mantenimiento.component';
-import {PuntoAnclajeComponent} from './components/detail-options/punto-anclaje/punto-anclaje.component';
 
 
 //cliente
@@ -40,12 +40,12 @@ const APP_ROUTES: Routes = [
   {path: 'administrarUsuarios', component: AdministrarUsuariosComponent},
   {path: 'historicos', component: HistoricosComponent},
   {path: 'sanciones', component: SancionesComponent},
+  {path: 'operaciones', component: OperacionComponent},
   {path: 'usuario/:id', component: UsuarioComponent},
   {path: 'bicicleta/:id', component: BicicletaComponent},
   {path: 'empleado/:id', component: EmpleadoComponent},
   {path: 'estacion/:id', component: EstacionComponent},
   {path: 'mantenimiento/:id', component: MantenimientoComponent},
-  {path: 'puntoAnclaje/:id', component: PuntoAnclajeComponent},
   {path: 'cliente/home', component: HomeClienteComponent},
   {path: 'cliente/estadisticas', component: EstadisticasClienteComponent},
   {path: 'error', component: PaginaNoEncontradaComponent},

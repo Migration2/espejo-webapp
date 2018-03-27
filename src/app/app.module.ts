@@ -31,6 +31,7 @@ import { AdministrarInformacionGeneralComponent } from './components/menu-option
 import { HistoricosComponent } from './components/menu-options/historicos/historicos.component';
 import { HomeComponent } from './components/menu-options/home/home.component';
 import { SancionesComponent } from './components/menu-options/sanciones/sanciones.component';
+import { OperacionComponent } from './components/menu-options/operacion/operacion.component';
 
 // componentes de detalle
 import { UsuarioComponent } from './components/detail-options/usuario/usuario.component';
@@ -38,8 +39,6 @@ import { BicicletaComponent } from './components/detail-options/bicicleta/bicicl
 import { EmpleadoComponent } from './components/detail-options/empleado/empleado.component';
 import { EstacionComponent } from './components/detail-options/estacion/estacion.component';
 import { MantenimientoComponent } from './components/detail-options/mantenimiento/mantenimiento.component';
-import { PuntoAnclajeComponent } from './components/detail-options/punto-anclaje/punto-anclaje.component';
-import { SancionComponent } from './components/detail-options/sancion/sancion.component';
 import { AsignarTarjetaComponent } from './components/assets/asignar-tarjeta/asignar-tarjeta.component';
 
 
@@ -85,8 +84,6 @@ import { ChartsModule } from 'ng2-charts';
         EmpleadoComponent,
         EstacionComponent,
         MantenimientoComponent,
-        PuntoAnclajeComponent,
-        SancionComponent,
         UserName,
         ClientNavbarComponent,
         HomeClienteComponent,
@@ -95,7 +92,8 @@ import { ChartsModule } from 'ng2-charts';
         RolPipe,
         AsignarTarjetaComponent,
         ObservacionesMantenimientoPipe,
-        SancionesComponent
+        SancionesComponent,
+        OperacionComponent
     ],
     imports: [
         BrowserModule,
