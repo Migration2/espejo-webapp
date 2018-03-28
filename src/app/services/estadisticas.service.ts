@@ -22,4 +22,8 @@ export class EstadisticasService {
 		return this.http.get('/rest/bike/statistic', {}).map(res => res.json());
 	}
 
+	getTransacciones(fechaInicio, fechaFin){
+		return this.http.get('/rest/reports/'+fechaInicio+'/'+fechaFin, {}).map(res => res.json());
+	}
+
 }

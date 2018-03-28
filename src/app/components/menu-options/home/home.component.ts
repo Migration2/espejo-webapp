@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EstacionService } from '../../../services/estacion.service';
 import { Router } from '@angular/router';
 import { EstadisticasService } from '../../../services/estadisticas.service';
 import { EstacionModel } from '../../../models/estacion.model';
 import { Subject } from 'rxjs/Rx';
 import { StompService } from 'ng2-stomp-service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
 	selector: 'app-home',
@@ -13,54 +14,26 @@ import { StompService } from 'ng2-stomp-service';
 	providers: [EstacionService, EstadisticasService]
 })
 export class HomeComponent implements OnInit {
+	@ViewChild(DataTableDirective)
+	dtElement: DataTableDirective;
 	title: string = 'Estaciones BiciRío';
 	Centerlat: number = 6.142979;
 	Centerlng: number = -75.378276;
 	datosEstaciones: Array<EstacionModel> = [];
 	dtTrigger = new Subject();
+	dtTriggerTransacciones = new Subject();
 	dtOptions: any = {};
+	dtOptionsTransacciones: any = {};
 	private subscription: any;
 	respuestas: Array<any> = [];
-	public pieLabelsEstaciones: string[] = [];
-	public pieDataEstaciones: number[] = [];
-	public pieLabelsContactos: string[] = [];
-	public pieDataContactos: number[] = [];
 	public pieLabelsBicicletas: string[] = [];
 	public pieDataBicicletas: number[] = [];
 	mostrar: boolean = false;
+	activo: string = "estado";
+	fechaActual = new Date();
+	fechaAnterior = new Date();
+	transacciones = [];
 	constructor(private estacionservice: EstacionService, public stomp: StompService, private estadisticasService: EstadisticasService, private router: Router) {
-		this.estacionservice.getEstaciones().subscribe(response => {
-			this.datosEstaciones = response;
-			this.dtTrigger.next();
-			this.mostrar = true;
-		});
-
-		stomp.configure({
-			host: 'http://bici-rio.com:4547/bicirio-websocket',//produccion
-			// host: 'https://orion-bike.com:4443/bicirio-websocket',//pruebas
-			// host: '/websocket/bicirio-websocket',
-			debug: false,
-			queue: { 'init': false, 'user': true }
-		});
-
-		stomp.startConnect().then(() => {
-			stomp.done('init');
-			this.subscription = stomp.subscribe('/topic/bikes', this.bicicletas);
-			this.subscription = stomp.subscribe('/topic/contacts ', this.contactos);
-			this.subscription = stomp.subscribe('/topic/stations', this.estaciones);
-		});
-
-		this.estadisticasService.getEstadisticasEstaciones().subscribe(response => {
-			this.estadisticasEstaciones(response);
-		});
-
-		this.estadisticasService.getEstadisticasPuntoContacto().subscribe(response => {
-			this.estadisticasPuntoContacto(response);
-		});
-
-		this.estadisticasService.getEstadisticasBicicletas().subscribe(response => {
-			this.estadisticasBicicletas(response);
-		});
 	}
 
 
@@ -76,29 +49,6 @@ export class HomeComponent implements OnInit {
 		this.pieDataBicicletas = data;
 	}
 
-	//update contactos
-	public contactos = (response) => {
-		let data = [];
-		for (var i = Object.values(response).length - 1; i >= 0; i--) {
-			if (Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0) {
-				data.push(Object.values(response)[i]);
-			}
-		}
-		this.pieDataContactos = data;
-	}
-
-	//update estaciones
-	public estaciones = (response) => {
-		let data = [];
-		for (var i = Object.values(response).length - 1; i >= 0; i--) {
-			if (Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0) {
-				data.push(Object.values(response)[i]);
-			}
-		}
-		this.pieDataEstaciones = data;
-	}
-
-
 
 	ngOnDestroy() {
 		try {
@@ -111,41 +61,70 @@ export class HomeComponent implements OnInit {
 		} catch (error) {
 
 		}
-
 	}
 
 	ngOnInit() {
+		this.fechaAnterior.setDate(this.fechaActual.getDate() - 1);
+		this.estacionservice.getEstaciones().subscribe(response => {
+			this.datosEstaciones = response;
+			this.dtTrigger.next();
+			this.mostrar = true;
+		});
+
+		this.stomp.configure({
+			host: 'http://bici-rio.com:4547/bicirio-websocket',//produccion
+			// host: 'https://orion-bike.com:4443/bicirio-websocket',//pruebas
+			// host: '/websocket/bicirio-websocket',
+			debug: false,
+			queue: { 'init': false, 'user': true }
+		});
+
+		this.stomp.startConnect().then(() => {
+			this.stomp.done('init');
+			this.subscription = this.stomp.subscribe('/topic/bikes', this.bicicletas);
+		});
+
+		this.estadisticasService.getTransacciones(this.fechaAnterior.toISOString().substring(0, 10), this.fechaActual.toISOString().substring(0, 10)).subscribe(res => {
+			this.transacciones = res;
+			this.dtTriggerTransacciones.next();
+		});
+
+		this.estadisticasService.getEstadisticasBicicletas().subscribe(response => {
+			this.estadisticasBicicletas(response);
+		});
+
+		let bonotes = [
+			{
+				extend: 'copy',
+				text: 'Copiar',
+				messageTop: `Datos de transacciones`,
+				messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+			},
+			{
+				extend: 'print',
+				text: 'Imprimir',
+				messageTop: `Datos de transacciones`,
+				messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+			},
+			{
+				extend: 'csv',
+				text: 'Exportar',
+				messageTop: `Datos de transacciones`,
+				messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+			}
+		];
+
 		this.dtOptions = { responsive: true };
+		this.dtOptionsTransacciones = {
+			responsive: true,
+			// Declare the use of the extension in the dom parameter
+			dom: 'Bfrtip',
+			buttons: bonotes
+		};
 	}
 
 	informacionEstacion(id: number) {
 		this.router.navigate(['estacion', id]);
-	}
-
-	estadisticasEstaciones(response) {
-		let labels = [];
-		let data = [];
-		for (var i = Object.values(response).length - 1; i >= 0; i--) {
-			if (Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0) {
-				labels.push(Object.keys(response)[i]);
-				data.push(Object.values(response)[i]);
-			}
-		}
-		this.pieLabelsEstaciones = labels;
-		this.pieDataEstaciones = data;
-	}
-
-	estadisticasPuntoContacto(response) {
-		let labels = [];
-		let data = [];
-		for (var i = Object.values(response).length - 1; i >= 0; i--) {
-			if (Object.keys(response)[i] != 'total' && Object.values(response)[i] > 0) {
-				labels.push(Object.keys(response)[i]);
-				data.push(Object.values(response)[i]);
-			}
-		}
-		this.pieLabelsContactos = labels;
-		this.pieDataContactos = data;
 	}
 
 	estadisticasBicicletas(response) {
@@ -180,16 +159,31 @@ export class HomeComponent implements OnInit {
 			}
 		}
 	}
-	// events
-	// public chartClicked(e: any): void {
-	// 	console.log(e);
-	// 	// let data = [30, 5, 10];
-	// 	// let clone = JSON.parse(JSON.stringify(this.pieChartData));
-	// 	// // clone[0].data = data;
-	// 	// this.pieChartData = data;
-	// }
 
-	// public chartHovered(e: any): void {
-	// 	console.log(e);
-	// }
+
+	recuperarHistorial(anterior, actual) {
+		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+			// Destroy the table first
+			dtInstance.table(document.getElementById('tablaTransacciones')).clear();
+			dtInstance.table(document.getElementById('tablaTransacciones')).destroy();
+			// Call the dtTrigger to rerender again
+			this.estadisticasService.getTransacciones(anterior, actual).subscribe(res => {
+				this.transacciones = res;
+				this.dtTriggerTransacciones.next();
+			});
+		});
+	}
+
+	//line chart
+	public lineChartData: Array<any> = [
+		{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+		{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+		{ data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
+	];
+	public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+	public lineChartOptions: any = {
+		responsive: true
+	};
+	public lineChartLegend: boolean = true;
+	public lineChartType: string = 'line';
 }
