@@ -255,9 +255,4 @@ export class EstacionComponent implements OnInit {
 		}
 		this.updateDataTendencia(datas);
 	}
-
-	descargarDatos() {
-
-	}
-
 }

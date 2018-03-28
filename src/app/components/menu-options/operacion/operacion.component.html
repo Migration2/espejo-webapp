@@ -1,3 +1,59 @@
-<p>
-  operacion works!
-</p>
+<div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
+
+  <div class="tituloPrincipal">
+    <h3>Prestamos Activos</h3>
+  </div>
+
+  <table id="tablaPrestamos" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover mt-2" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Usuario</th>
+        <th>Estación Prestamo</th>
+        <th>Bicicleta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prestamo of prestamos" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">
+        <td>{{ prestamo.loanDate }}</td>
+        <td>{{ prestamo.username }}</td>
+        <td>{{ prestamo.loanStation }}</td>
+        <td>{{ prestamo.codeBike }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="modalPrestamo" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Información de Prestamo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="seleccionado">
+        <strong>Prestamo iniciado:</strong> {{ seleccionado.loanDate}}
+        <br>
+        <strong>Usuario: </strong>{{ seleccionado.username}}
+        <br>
+        <strong>Estación de retiro: </strong>{{ seleccionado.loanStation}}
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <button type="button" class="btn btn-outline-primary bottonAction col mx-2" data-dismiss="modal" (click)="finalizarRetiro(seleccionado)">Finalizar Prestamo</button>
+          <button type="button" class="btn btn-outline-primary bottonAction col mx-2" data-dismiss="modal">Cerrar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-md-center" *ngIf="!mostrar">
+  <div id="loadingGeneral" class="text-center">
+    <div id="bordeGeneral"></div>
+    <div id="TextLoading">Cargando...</div>
+  </div>
+</div>

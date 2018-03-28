@@ -41,7 +41,6 @@ export class AppComponent {
 				break;
 
 			default:
-				// this.router.navigate(['error']);	
 				window.location.href = 'http://bicirio.gov.co/site/';
 				break;
 		}
