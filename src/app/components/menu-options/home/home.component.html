@@ -25,12 +25,14 @@
           <h5 class="card-title">Transacciones</h5>
           <br>
           <div class="card-text">
-              <canvas baseChart width="400" height="200"
-              [datasets]="lineChartData"
-              [options]="lineChartOptions"
-              [labels]="lineChartLabels"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"></canvas>
+            <canvas *ngIf="lineChartLabels.length>0" baseChart width="400" height="200" [datasets]="lineChartData" [options]="lineChartOptions"
+              [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+            <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
+              <div id="load" class="text-center">
+								<div id="bord"></div>
+								<div id="Text">Cargando...</div>
+							</div>
+            </div>
           </div>
         </div>
       </div>
@@ -55,14 +57,50 @@
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item" (click)='activo="estado"'>
-              <a class="nav-link" [class.active]='activo=="estado"' >Estado Estaciones</a>
+              <a class="nav-link" [class.active]='activo=="estado"'>Estado Estaciones</a>
             </li>
             <li class="nav-item" (click)='activo="transacciones"'>
               <a class="nav-link" [class.active]='activo=="transacciones"'>Transacciones</a>
             </li>
           </ul>
         </div>
-        <div class="card-body" [hidden]='activo!="estado"' >
+        <div class="card-body" [hidden]='activo!="transacciones"'>
+          <div class="card-text">
+            <div class="row">
+              <div class="form-group mb-2 col-md-6">
+                <label for="staticEmail2">Inicio: </label>
+                <input type="date" class="form-control mx-sm-1" #fechaAnteriorReference [value]="fechaAnterior.toISOString().substring(0, 10)">
+              </div>
+              <div class="form-group mb-2 col-md-6">
+                <label for="inputPassword2">Fin: </label>
+                <input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
+              </div>
+              <div class="my-3 mx-3 col-md-2">
+                <button class="btn btn-primary" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
+              </div>
+            </div>
+            <table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover"
+              cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th style="text-align: center;">Fecha</th>
+                  <th style="text-align: center;">Usuario</th>
+                  <th style="text-align: center;">Estación Retiro</th>
+                  <th style="text-align: center;">Estación Entrega</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let transaccion of transacciones">
+                  <td>{{transaccion.loanDate}}</td>
+                  <td>{{transaccion.username}}</td>
+                  <td>{{transaccion.loanStation}}</td>
+                  <td>{{transaccion.returnStation}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-body" [hidden]='activo!="estado"'>
           <div class="card-text">
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
               <thead>
@@ -84,41 +122,6 @@
             </table>
           </div>
         </div>
-        <div class="card-body" [hidden]='activo!="transacciones"'>
-            <div class="card-text">
-                <div class="row">
-                    <div class="form-group mb-2 col-md-6">
-                      <label for="staticEmail2">Inicio: </label>
-                      <input type="date" class="form-control mx-sm-1" #fechaAnteriorReference [value]="fechaAnterior.toISOString().substring(0, 10)">
-                    </div>
-                    <div class="form-group mb-2 col-md-6">
-                      <label for="inputPassword2">Fin: </label>
-                      <input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
-                    </div>
-                    <div class="my-3 mx-3 col-md-2">
-                      <button class="btn btn-primary" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
-                    </div>
-                  </div>
-              <table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th style="text-align: center;">Fecha</th>
-                    <th style="text-align: center;">Usuario</th>
-                    <th style="text-align: center;">Estación Retiro</th>
-                    <th style="text-align: center;">EStación Entrega</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let transaccion of transacciones">
-                    <td>{{transaccion.loanDate}}</td>
-                    <td>{{transaccion.username}}</td>
-                    <td>{{transaccion.loanStation}}</td>
-                    <td>{{transaccion.returnStation}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
       </div>
     </div>
   </div>

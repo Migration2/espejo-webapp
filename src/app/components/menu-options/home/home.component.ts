@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.fechaAnterior.setDate(this.fechaActual.getDate() - 1);
+		this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);
 		this.estacionservice.getEstaciones().subscribe(response => {
 			this.datosEstaciones = response;
 			this.dtTrigger.next();
@@ -86,6 +86,7 @@ export class HomeComponent implements OnInit {
 
 		this.estadisticasService.getTransacciones(this.fechaAnterior.toISOString().substring(0, 10), this.fechaActual.toISOString().substring(0, 10)).subscribe(res => {
 			this.transacciones = res;
+			this.contarDatos(res);
 			this.dtTriggerTransacciones.next();
 		});
 
@@ -162,6 +163,8 @@ export class HomeComponent implements OnInit {
 
 
 	recuperarHistorial(anterior, actual) {
+		this.lineChartLabels = [];
+		this.lineChartData = [{ data: [] }];
 		this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
 			// Destroy the table first
 			dtInstance.table(document.getElementById('tablaTransacciones')).clear();
@@ -169,21 +172,64 @@ export class HomeComponent implements OnInit {
 			// Call the dtTrigger to rerender again
 			this.estadisticasService.getTransacciones(anterior, actual).subscribe(res => {
 				this.transacciones = res;
+				this.contarDatos(res);
 				this.dtTriggerTransacciones.next();
 			});
 		});
 	}
 
 	//line chart
-	public lineChartData: Array<any> = [
-		{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-		{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-		{ data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
-	];
-	public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+	public lineChartData: Array<any> = [];
+	public lineChartLabels: Array<any> = [];
 	public lineChartOptions: any = {
 		responsive: true
 	};
 	public lineChartLegend: boolean = true;
 	public lineChartType: string = 'line';
+
+	private contarDatos(transacciones) {
+		let fecha: Array<object> = [];
+		let datos: Array<object> = [];
+		let bandera: boolean = false;
+		let fechas = [];
+		for (let i = 0; i < transacciones.length; i++) {//obteniendo fechas
+			for (let x in fecha) {
+				bandera = false;
+				if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[x]) {
+					bandera = true;
+				}
+			}
+			if (bandera == false) {
+				let a = transacciones[i].loanDate.toString().substring(0, 10);
+				fecha.push(a);
+			}
+		}
+
+		for (const i in transacciones) {//obteniendo transaciones por estacion
+			bandera = false;
+			for (const x in datos) {
+				if (transacciones[i].loanStation == datos[x]['label'] || transacciones[i].returnStation == datos[x]['label']) {
+					bandera = true;
+					for (let j = 0; j < fecha.length; j++) {
+						if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[j]) {
+							let sss=fechas[x][j];				
+							fechas[x][j] = parseInt(sss)+1;
+						}
+					}					
+				}
+				datos[x]['data']= fechas[x];
+			}
+			
+			if (bandera == false) {
+				let b=[];
+				for (let j = 0; j < fecha.length; j++) {
+					b[j] = 0;
+				}
+				fechas.push(b);
+				datos.push({ 'label': transacciones[i].loanStation });
+			}
+		}
+		this.lineChartData = datos;
+		this.lineChartLabels = fecha;
+	}
 }
