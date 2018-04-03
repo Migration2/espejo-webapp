@@ -19,8 +19,8 @@ export class AdministrarUsuariosComponent implements OnInit {
 	constructor(private router: Router, private userService: UserService) {
 		this.userService.getUsers().subscribe(response => {
 			this.dataUsuarios = response;
-			this.dtTrigger.next();
-			this.mostrar = true;
+			this.dtTrigger.next();		
+			this.mostrar = true;	
 		});
 	}
 
