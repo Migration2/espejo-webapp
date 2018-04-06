@@ -7,17 +7,17 @@
   <table id="tablaPrestamos" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover mt-2" cellspacing="0" width="100%">
     <thead>
       <tr>
-        <th>Fecha</th>
-        <th>Usuario</th>
-        <th>Estación Prestamo</th>
-        <th>Bicicleta</th>
+          <th style="text-align: center;">Fecha y Hora</th>
+        <th style="text-align: center;">Estación</th>
+             <th style="text-align: center;">Usuario</th>
+             <th style="text-align: center;">Bicicleta</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let prestamo of prestamos" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">
-        <td>{{ prestamo.loanDate }}</td>
-        <td>{{ prestamo.username }}</td>
+        <td [class.alerta]="tiempoLimite(prestamo.loanDate)">{{ prestamo.loanDate }}</td>
         <td>{{ prestamo.loanStation }}</td>
+        <td>{{ prestamo.name }} <br><strong>Documento</strong> {{ prestamo.username }}<br><strong>Teléfono</strong> {{ prestamo.cellphone }}</td>
         <td>{{ prestamo.codeBike }}</td>
       </tr>
     </tbody>

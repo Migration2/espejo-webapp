@@ -1,4 +1,27 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
+	<div class="row justify-content-md-center">
+		<div class="col-md-8 my-4">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Transacciones</h5>
+					<br>
+					<div class="card-text">
+						<canvas *ngIf="lineChartLabels.length>0" baseChart width="400" height="200" [datasets]="lineChartData" [options]="lineChartOptions"
+						 [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+						<div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
+							<div id="load" class="text-center">
+								<div id="bord"></div>
+								<div id="Text">Cargando...</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<br>
 	<div class="tituloPrincipal">
 		<h3>Estaciones</h3>
 	</div>
@@ -9,7 +32,7 @@
 				<th>Nombre</th>
 				<th>Dirección</th>
 				<th style="text-align: center;">Capacidad</th>
-				<th style="text-align: center;">Bicicletas</th>					
+				<th style="text-align: center;">Bicicletas</th>
 				<th>Estado</th>
 			</tr>
 		</thead>
@@ -17,9 +40,9 @@
 			<tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
 				<td>{{estacion.name}}</td>
 				<td>{{estacion.address}}</td>
-				<td style="text-align: center;">{{estacion.contactPointStates.length}}</td>	
+				<td style="text-align: center;">{{estacion.contactPointStates.length}}</td>
 				<td style="text-align: center;">{{estacion.availableCycles}}</td>
-				<td>{{estacion.statusName}}</td>		
+				<td>{{estacion.statusName}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -30,5 +53,5 @@
 	<div id="loadingGeneral" class="text-center">
 		<div id="bordeGeneral"></div>
 		<div id="TextLoading">Cargando...</div>
-	</div>	
+	</div>
 </div>

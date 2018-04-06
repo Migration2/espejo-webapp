@@ -64,7 +64,8 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);
+		this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);		
+		this.fechaActual.setHours(this.fechaActual.getHours() - 5);
 		this.estacionservice.getEstaciones().subscribe(response => {
 			this.datosEstaciones = response;
 			this.dtTrigger.next();
@@ -193,8 +194,8 @@ export class HomeComponent implements OnInit {
 		let bandera: boolean = false;
 		let fechas = [];
 		for (let i = 0; i < transacciones.length; i++) {//obteniendo fechas
-			for (let x in fecha) {
-				bandera = false;
+			bandera = false;
+			for (let x in fecha) {				
 				if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[x]) {
 					bandera = true;
 				}
@@ -204,31 +205,19 @@ export class HomeComponent implements OnInit {
 				fecha.push(a);
 			}
 		}
-
-		for (const i in transacciones) {//obteniendo transaciones por estacion
-			bandera = false;
-			for (const x in datos) {
-				if (transacciones[i].loanStation == datos[x]['label'] || transacciones[i].returnStation == datos[x]['label']) {
-					bandera = true;
-					for (let j = 0; j < fecha.length; j++) {
-						if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[j]) {
-							let sss=fechas[x][j];				
-							fechas[x][j] = parseInt(sss)+1;
-						}
-					}					
-				}
-				datos[x]['data']= fechas[x];
-			}
-			
-			if (bandera == false) {
-				let b=[];
-				for (let j = 0; j < fecha.length; j++) {
-					b[j] = 0;
-				}
-				fechas.push(b);
-				datos.push({ 'label': transacciones[i].loanStation });
-			}
+		for (let j = 0; j < fecha.length; j++) {
+			fechas[j] = 0;
 		}
+
+		for (const i in transacciones) {//obteniendo transaciones por dia
+			for (let j = 0; j < fecha.length; j++) {
+				if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[j]) {
+					let sss = fechas[j];
+					fechas[j] = parseInt(sss) + 1;
+				}				
+			}			
+		}
+		datos.push({'data':fechas, 'label': 'Prestamos'});
 		this.lineChartData = datos;
 		this.lineChartLabels = fecha;
 	}
