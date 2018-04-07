@@ -28,4 +28,8 @@ export class SancionesService {
 	getSancionesEstado2() {
 		return this.http.get('/rest/penalties/history/status/2', {}).map(res => res.json());
 	}
+
+	finalizarSancion(idSancion){
+		return this.http.delete('/rest/penalties/'+idSancion, {});
+	}
 }

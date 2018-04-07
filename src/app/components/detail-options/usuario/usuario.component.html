@@ -188,14 +188,22 @@
 						<div class="form-group col-md-6">
 							<label for="lastname" class="col-form-label">Apellido*</label>
 							<input type="text" class="form-control" name="lastname" id="lastname" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}"
-							 title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastname"
-							 autofocus>
+							 title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastname">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="celphone" class="col-form-label">Celular*</label>
+							<input type="text" class="form-control" name="celphone" id="celphone" autocomplete="off" required pattern="[0-9]{10}" title="El celular solo puede contener numeros"
+							 [(ngModel)]="dataUsuarioUpdate.celphone">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="email" class="col-form-label">Email*</label>
+							<input type="text" class="form-control" name="email" id="email" autocomplete="off" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="El correo electrónico no es valido"
+							 [(ngModel)]="dataUsuarioUpdate.email">
 						</div>
 						<div class="form-group col-md-12">
 							<label for="address" class="col-form-label">Dirección*</label>
 							<input type="text" class="form-control" name="address" id="address" autocomplete="off" required pattern="[-0-9A-Za-z# ]{4,}"
-							 title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address"
-							 autofocus>
+							 title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address">
 						</div>
 					</div>
 					<div class="row justify-content-end">

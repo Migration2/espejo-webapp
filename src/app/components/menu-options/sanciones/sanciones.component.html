@@ -22,7 +22,7 @@
 					<h5 class="card-title">Sanciones Activas</h5>
 					<br>
 					<div class="card-text">
-						<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2" cellspacing="0" width="100%">
+						<table datatable id="sancionesActivas" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2" cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>Nombre</th>
@@ -34,7 +34,11 @@
 							<tbody>
 								<tr *ngFor="let sancion of sanciones2">
 									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
-									<td>{{ sancion.username }}</td>
+									<td>{{ sancion.username }}
+										<br>
+										<button class="btn btn-outline-primary bottonAction" data-toggle="modal" data-target=".modal" (click)="sancionSeleccionada=sancion">
+											Fin sanción</button>
+									</td>
 									<td>{{ sancion.fechaSancion }}</td>
 									<td>{{ sancion.fechaLimiteSancion }}</td>
 								</tr>
@@ -104,5 +108,21 @@
 	<div id="loadingGeneral" class="text-center">
 		<div id="bordeGeneral"></div>
 		<div id="TextLoading">Cargando...</div>
+	</div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="sancionSeleccionada">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<p>Realmente desea eliminar la sanción de
+					<strong>{{ sancionSeleccionada.firstName +' '+ sancionSeleccionada.lastName | uppercase}}</strong>
+				</p>
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-outline-primary bottonAction" (click)="finsancion(sancionSeleccionada.id)" data-dismiss="modal">Confirmar</button>				
+			</div>
+		</div>
 	</div>
 </div>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SancionesService } from '../../../services/sanciones.service';
 import { Subject } from 'rxjs/Rx';
 import { sancionesModel } from '../../../models/sanciones.model';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
 	selector: 'app-sanciones',
@@ -12,6 +13,8 @@ import { sancionesModel } from '../../../models/sanciones.model';
 })
 export class SancionesComponent implements OnInit {
 
+	@ViewChild(DataTableDirective)
+	dtElement: DataTableDirective;
 	opcionCard = "sancionesActivas";
 	dtOptions1: any = {};
 	dtOptions2: any = {};
@@ -24,6 +27,7 @@ export class SancionesComponent implements OnInit {
 	dtTriggerAplicadas = new Subject();
 	mostrar: boolean = false;
 	sancion: sancionesModel = new sancionesModel;
+	sancionSeleccionada: any;
 
 	constructor(private router: Router, private sancionesService: SancionesService) {
 	}
@@ -51,7 +55,23 @@ export class SancionesComponent implements OnInit {
 		this.dtOptionsAplicadas = {
 			responsive: true
 		};
+	}
 
+	finsancion(idSancion) {
+		this.sancionesService.finalizarSancion(idSancion).subscribe(
+			res => {
+				this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+					// Destroy the table first
+					dtInstance.table(document.getElementById('sancionesActivas')).clear();
+					dtInstance.table(document.getElementById('sancionesActivas')).destroy();
+					// Call the dtTrigger to rerender again
+					this.sancionesService.getSancionesEstado2().subscribe(response => {
+						this.sanciones2 = response;
+						this.dtTrigger2.next();
+					});
+				});
+			}
+		);
 	}
 
 }
