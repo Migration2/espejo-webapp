@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);		
+		this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);
 		this.fechaActual.setHours(this.fechaActual.getHours() - 5);
 		this.estacionservice.getEstaciones().subscribe(response => {
 			this.datosEstaciones = response;
@@ -180,6 +180,7 @@ export class HomeComponent implements OnInit {
 
 	//line chart
 	public lineChartData: Array<any> = [];
+	public lineChartDataEstation: Array<any> = [];
 	public lineChartLabels: Array<any> = [];
 	public lineChartOptions: any = {
 		responsive: true
@@ -188,36 +189,69 @@ export class HomeComponent implements OnInit {
 	public lineChartType: string = 'line';
 
 	private contarDatos(transacciones) {
-		let fecha: Array<object> = [];
-		let datos: Array<object> = [];
+		let fecha = [];
+		let datos = [];
+		let datosEstacion = [];
+		let estacion = [];
 		let bandera: boolean = false;
+		let estaciones = []
 		let fechas = [];
 		for (let i = 0; i < transacciones.length; i++) {//obteniendo fechas
 			bandera = false;
-			for (let x in fecha) {				
+			for (let x in fecha) {
 				if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[x]) {
 					bandera = true;
 				}
 			}
 			if (bandera == false) {
-				let a = transacciones[i].loanDate.toString().substring(0, 10);
-				fecha.push(a);
+				fecha.push(transacciones[i].loanDate.toString().substring(0, 10));
+			}
+			bandera = false;//obteniendo estaciones
+			for (let x in estacion) {
+				if (transacciones[i].loanStation == estacion[x] || transacciones[i].returnStation == estacion[x]) {
+					bandera = true;
+				}
+			}
+			if (bandera == false) {
+				estacion.push(transacciones[i].loanStation);
 			}
 		}
-		for (let j = 0; j < fecha.length; j++) {
+
+		for (let j = 0; j < fecha.length; j++) {//inicializando array de fechas para contarlas
 			fechas[j] = 0;
 		}
+
+		for (let j = 0; j < estacion.length; j++) {//inicializando array de fechas en estaciones			
+			let contadorFechas = []
+			for (let i = 0; i < fecha.length; i++) {
+				contadorFechas[i] = 0;
+			}
+			estaciones[j] = contadorFechas;
+		}
+
+
 
 		for (const i in transacciones) {//obteniendo transaciones por dia
 			for (let j = 0; j < fecha.length; j++) {
 				if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[j]) {
-					let sss = fechas[j];
-					fechas[j] = parseInt(sss) + 1;
-				}				
-			}			
+					fechas[j] = parseInt(fechas[j]) + 1;
+					for (let a = 0; a < estacion.length; a++) {
+						if (transacciones[i].loanStation == estacion[a] || transacciones[i].returnStation == estacion[a]) {
+							estaciones[a][j] = parseInt(estaciones[a][j]) + 1;
+						}
+					}
+				}
+			}
+		} 
+
+		//dando estructura a data estaciones
+		for(let i =0 ; i<estacion.length;i++){
+			datosEstacion.push({ 'data': estaciones[i], 'label': estacion[i] });
 		}
-		datos.push({'data':fechas, 'label': 'Prestamos'});
+		
+		datos.push({ 'data': fechas, 'label': 'Prestamos' });
 		this.lineChartData = datos;
 		this.lineChartLabels = fecha;
+		this.lineChartDataEstation = datosEstacion;
 	}
 }

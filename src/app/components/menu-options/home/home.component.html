@@ -4,7 +4,7 @@
   </div>
 
   <div class="row justify-content-md-center">
-    <div class="col-md-7 mb-sm-3">
+    <div class="col-md-7 my-2">
       <agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14" *ngIf="mostrar">
         <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" iconUrl="../../../../assets/images/iconMin.png">
           <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
@@ -19,7 +19,7 @@
       </agm-map>
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-5 my-2">
       <div class="card" style="height:350px;">
         <div class="card-body">
           <h5 class="card-title">Bicicletas</h5>
@@ -33,10 +33,10 @@
       </div>
     </div>
 
-    <div class="col-md-8 my-4">
+    <div class="col-md-6 my-2">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Transacciones</h5>
+          <h5 class="card-title">Transacciones General</h5>
           <br>
           <div class="card-text">
             <canvas *ngIf="lineChartLabels.length>0" baseChart width="400" height="220" [datasets]="lineChartData" [options]="lineChartOptions"
@@ -52,7 +52,26 @@
       </div>
     </div>
 
-    <div class="col-md-10 my-3">
+    <div class="col-md-6 my-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Transacciones por Estación</h5>
+          <br>
+          <div class="card-text">
+            <canvas *ngIf="lineChartLabels.length>0" baseChart width="400" height="220" [datasets]="lineChartDataEstation" [options]="lineChartOptions"
+              [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+            <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
+              <div class="text-center">
+                <div id="bord"></div>
+                <div id="Text">Cargando...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-10 my-2">
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%"
         data-page-length='25'>
         <thead>
