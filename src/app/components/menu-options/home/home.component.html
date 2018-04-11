@@ -4,15 +4,15 @@
   </div>
 
   <div class="row justify-content-md-center">
-    <div class="col-md-7">
+    <div class="col-md-7 mb-sm-3">
       <agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14" *ngIf="mostrar">
         <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" iconUrl="../../../../assets/images/iconMin.png">
           <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
             <ng-template>
               <strong>{{ estacion.name | uppercase}}</strong>
-              <br> Puntos de Contacto: {{ estacion.contactPointStates.length}}
+              <br> Puntos de Contacto: {{ estacion['contactPointStates'].length}}
               <br> Bicicletas disponibles: {{ estacion.availableCycles}}
-              <br> Puntos libres: {{estacion.contactPointStates.length-estacion.availableCycles}}
+              <br> Puntos libres: {{estacion['contactPointStates'].length-estacion.availableCycles}}
             </ng-template>
           </agm-snazzy-info-window>
         </agm-marker>
@@ -42,7 +42,7 @@
             <canvas *ngIf="lineChartLabels.length>0" baseChart width="400" height="220" [datasets]="lineChartData" [options]="lineChartOptions"
               [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
             <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
-              <div id="load" class="text-center">
+              <div class="text-center">
                 <div id="bord"></div>
                 <div id="Text">Cargando...</div>
               </div>
@@ -52,84 +52,28 @@
       </div>
     </div>
 
-
-    <div class="col-md-10 my-4">
-      <div class="card">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item" (click)='activo="estado"'>
-              <a class="nav-link" [class.active]='activo=="estado"'>Estado Estaciones</a>
-            </li>
-            <li class="nav-item" (click)='activo="transacciones"'>
-              <a class="nav-link" [class.active]='activo=="transacciones"'>Transacciones</a>
-            </li>
-          </ul>
-        </div>
-        <div class="card-body" [hidden]='activo!="transacciones"'>
-          <div class="card-text">
-            <div class="row">
-              <div class="form-group mb-2 col-md-6">
-                <label for="staticEmail2">Inicio: </label>
-                <input type="date" class="form-control mx-sm-1" #fechaAnteriorReference [value]="fechaAnterior.toISOString().substring(0, 10)">
-              </div>
-              <div class="form-group mb-2 col-md-6">
-                <label for="inputPassword2">Fin: </label>
-                <input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
-              </div>
-              <div class="my-3 mx-3 col-md-2">
-                <button class="btn btn-primary" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
-              </div>
-            </div>
-            <table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover"
-              cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th style="text-align: center;">Retiro</th>
-                  <th style="text-align: center;">Usuario</th>
-                  <th style="text-align: center;">Entrega</th>
-                  <th style="text-align: center;">Bicicleta</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let transaccion of transacciones">
-                  <td>{{transaccion.loanStation}}
-                    <br>{{transaccion.loanDate}}</td>
-                  <td>{{transaccion.name}}
-                    <br>
-                    <strong>Documento</strong> {{transaccion.username}}
-                    <br>
-                    <strong>Teléfono</strong> {{transaccion.cellphone}}</td>
-                  <td>{{transaccion.returnStation}}
-                    <br>{{transaccion.returnDate}}</td>
-                  <td>{{transaccion.codeBike}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="card-body" [hidden]='activo!="estado"'>
-          <div class="card-text">
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%" data-page-length='25'>
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th style="text-align: center;">Puntos libres</th>
-                  <th style="text-align: center;">Bicicletas Disponibles</th>
-                  <th style="text-align: center;">Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
-                  <td>{{estacion.name}}</td>
-                  <td style="text-align: center;">{{estacion.contactPointStates.length-estacion.availableCycles}}</td>
-                  <td style="text-align: center;">{{estacion.availableCycles}}</td>
-                  <td style="text-align: center;">{{estacion.statusName}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-10 my-3">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%"
+        data-page-length='25'>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th style="text-align: center;">Capacidad</th>
+            <th style="text-align: center;">Bicicletas</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
+            <td>{{estacion.name}}</td>
+            <td>{{estacion.address}}</td>
+            <td style="text-align: center;">{{estacion['contactPointStates'].length}}</td>
+            <td style="text-align: center;">{{estacion.availableCycles}}</td>
+            <td>{{estacion.statusName}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <br>

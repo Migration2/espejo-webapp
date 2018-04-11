@@ -25,6 +25,7 @@ export class AdministrarEstacionesComponent implements OnInit {
 	transacciones = [];
 	dtTriggerTransacciones = new Subject();
 	dtOptionsTransacciones: any = {};
+	activo: string = "estado";
 
 	constructor(private estacionservice: EstacionService, private router: Router, private estadisticasService: EstadisticasService) { }
 
@@ -65,6 +66,7 @@ export class AdministrarEstacionesComponent implements OnInit {
 			});
 		});
 	}
+
 	//line chart
 	public lineChartData: Array<any> = [];
 	public lineChartLabels: Array<any> = [];
@@ -81,7 +83,7 @@ export class AdministrarEstacionesComponent implements OnInit {
 		let fechas = [];
 		for (let i = 0; i < transacciones.length; i++) {//obteniendo fechas
 			bandera = false;
-			for (let x in fecha) {
+			for (let x in fecha) {				
 				if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[x]) {
 					bandera = true;
 				}
@@ -100,10 +102,10 @@ export class AdministrarEstacionesComponent implements OnInit {
 				if (transacciones[i].loanDate.toString().substring(0, 10) == fecha[j]) {
 					let sss = fechas[j];
 					fechas[j] = parseInt(sss) + 1;
-				}
-			}
+				}				
+			}			
 		}
-		datos.push({ 'data': fechas, 'label': 'Prestamos' });
+		datos.push({'data':fechas, 'label': 'Prestamos'});
 		this.lineChartData = datos;
 		this.lineChartLabels = fecha;
 	}

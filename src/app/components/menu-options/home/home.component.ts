@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
 	public pieLabelsBicicletas: string[] = [];
 	public pieDataBicicletas: number[] = [];
 	mostrar: boolean = false;
-	activo: string = "estado";
 	fechaActual = new Date();
 	fechaAnterior = new Date();
 	transacciones = [];
