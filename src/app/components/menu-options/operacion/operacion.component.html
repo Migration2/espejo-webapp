@@ -4,20 +4,31 @@
     <h3>Prestamos Activos</h3>
   </div>
 
-  <table id="tablaPrestamos" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover mt-2" cellspacing="0" width="100%">
+  <table id="tablaPrestamos" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover mt-2"
+    cellspacing="0" width="100%">
     <thead>
       <tr>
-          <th style="text-align: center;">Fecha y Hora</th>
+        <th style="text-align: center;">Fecha y Hora</th>
         <th style="text-align: center;">Estación</th>
-             <th style="text-align: center;">Usuario</th>
-             <th style="text-align: center;">Bicicleta</th>
+        <th style="text-align: center;">Usuario</th>
+        <th style="text-align: center;">Bicicleta</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let prestamo of prestamos" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">
-        <td [class.alerta]="tiempoLimite(prestamo.loanDate)">{{ prestamo.loanDate }}</td>
+      <tr *ngFor="let prestamo of prestamos">
+        <td [class.alerta]="tiempoLimite(prestamo.loanDate)">{{ prestamo.loanDate }}
+          <br>
+          <div class="my-2">
+            <button class="btn btn-outline-primary bottonAction" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">
+              Fin Prestamo</button>
+          </div>
+        </td>
         <td>{{ prestamo.loanStation }}</td>
-        <td>{{ prestamo.name }} <br><strong>Documento</strong> {{ prestamo.username }}<br><strong>Teléfono</strong> {{ prestamo.cellphone }}</td>
+        <td>{{ prestamo.name }}
+          <br>
+          <strong>Documento</strong> {{ prestamo.username }}
+          <br>
+          <strong>Teléfono</strong> {{ prestamo.cellphone }}</td>
         <td>{{ prestamo.codeBike }}</td>
       </tr>
     </tbody>
@@ -43,7 +54,7 @@
       <div class="modal-footer">
         <div class="row">
           <button type="button" class="btn btn-outline-primary bottonAction col mx-2" data-dismiss="modal" (click)="finalizarRetiro(seleccionado)">Finalizar Prestamo</button>
-          <button type="button" class="btn btn-outline-primary bottonAction col mx-2" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-outline-primary bottonAction col mx-2" data-dismiss="modal">Cancelar</button>
         </div>
 
       </div>

@@ -8,21 +8,12 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="card">
-				<div class="card-header">
-					<ul class="nav nav-tabs card-header-tabs">
-						<li class="nav-item" (click)='opcionCard="sancionesActivas"'>
-							<a class="nav-link" [class.active]='opcionCard=="sancionesActivas"'>Sanciones Activas</a>
-						</li>
-						<li class="nav-item" (click)='opcionCard="sancionesSaldadas"'>
-							<a class="nav-link" [class.active]='opcionCard=="sancionesSaldadas"'>Sanciones Saldadas</a>
-						</li>
-					</ul>
-				</div>
-				<div class="card-body" [hidden]='opcionCard=="sancionesSaldadas"'>
+				<div class="card-body">
 					<h5 class="card-title">Sanciones Activas</h5>
 					<br>
 					<div class="card-text">
-						<table datatable id="sancionesActivas" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2" cellspacing="0" width="100%">
+						<table datatable id="sancionesActivas" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2"
+						 cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>Nombre</th>
@@ -36,33 +27,11 @@
 									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
 									<td>{{ sancion.username }}
 										<br>
-										<button class="btn btn-outline-primary bottonAction" data-toggle="modal" data-target=".modal" (click)="sancionSeleccionada=sancion">
-											Fin sanción</button>
+										<div class="my-2">
+											<button class="btn btn-outline-primary bottonAction" data-toggle="modal" data-target=".modal" (click)="sancionSeleccionada=sancion">
+												Fin sanción</button>
+										</div>
 									</td>
-									<td>{{ sancion.fechaSancion }}</td>
-									<td>{{ sancion.fechaLimiteSancion }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="card-body" [hidden]='opcionCard=="sancionesActivas"'>
-					<h5 class="card-title">Sanciones Saldadas</h5>
-					<br>
-					<div class="card-text">
-						<table datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="table row-border hover mt-2" cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Documento</th>
-									<th>Inicio Sanción</th>
-									<th>Fin Sanción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let sancion of sanciones1">
-									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
-									<td>{{ sancion.username }}</td>
 									<td>{{ sancion.fechaSancion }}</td>
 									<td>{{ sancion.fechaLimiteSancion }}</td>
 								</tr>
@@ -78,8 +47,7 @@
 					<h5 class="card-title">Sanciones Aplicadas</h5>
 					<br>
 					<div class="card-text">
-						<table datatable [dtOptions]="dtOptionsAplicadas" [dtTrigger]="dtTriggerAplicadas" class="table row-border hover mt-2" cellspacing="0"
-						 width="100%">
+						<table datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="table row-border hover mt-2" cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>Nombre</th>
@@ -89,7 +57,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let sancion of sancionesAplicadas">
+								<tr *ngFor="let sancion of sanciones1">
 									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
 									<td>{{ sancion.username }}</td>
 									<td>{{ sancion.fechaSancion }}</td>
@@ -120,8 +88,8 @@
 				</p>
 			</div>
 			<div class="modal-footer">
-					<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cancelar</button>
-				<button type="button" class="btn btn-outline-primary bottonAction" (click)="finsancion(sancionSeleccionada.id)" data-dismiss="modal">Confirmar</button>				
+				<button type="button" class="btn btn-outline-primary bottonAction" (click)="finsancion(sancionSeleccionada.id)" data-dismiss="modal">Finalizar Sanción</button>
+				<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
 	</div>
