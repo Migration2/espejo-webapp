@@ -31,4 +31,10 @@ export class BiciService {
 		return this.http.get('/rest/reports/bike/'+idBike+'/'+fechaInicio+'/'+fechaFin, {}).map(res => res.json());
 	}
 
+	biciMissing(){
+		return this.http.get('/rest/bike/missing', {}).map(res => res.json());
+	}
+	returnBiciToBodega(idBike){
+		this.http.put('/rest/bike/returnWarehouse/'+idBike, {}, this.options).subscribe();
+	}
 }
