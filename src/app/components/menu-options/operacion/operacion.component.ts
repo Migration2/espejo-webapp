@@ -55,7 +55,8 @@ export class OperacionComponent implements OnInit {
 
   updatePrestamo(response) {
     console.log(response);
-    this.recargar();
+    this.prestamos = response;
+    this.recargar2();
   }
 
   private recargar() {
@@ -73,12 +74,34 @@ export class OperacionComponent implements OnInit {
         });
     });
   }
+  private recargar2() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.table(document.getElementById('tablaPrestamos')).clear();
+      dtInstance.table(document.getElementById('tablaPrestamos')).destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+      // this.mostrar = false;
+      // this.prestamoService.getPrestamosActivos().subscribe(
+      //   res => {
+      //     this.prestamos = res;
+      //     this.dtTrigger.next();
+      //     this.mostrar = true;
+      //   });
+    });
+  }
 
   tiempoLimite(prestamo) {
-    // this.fechaActual.setHours(this.fechaActual.getHours() - 5);
-    let fechaPrestamo = new Date(prestamo);console.log(this.fechaActual.setHours(this.fechaActual.getHours() - 5));
-
-    if (((fechaPrestamo.getTime()) - this.fechaActual.getTime()) > 3.6e6) {
+    let day =prestamo.slice(0,prestamo.indexOf('-'));
+    let month =prestamo.slice(prestamo.indexOf('-')+1,prestamo.lastIndexOf('-'));
+    let year = prestamo.slice(prestamo.lastIndexOf('-')+1,prestamo.indexOf(' '));
+    let hour = prestamo.slice(prestamo.indexOf(' ')+1,prestamo.indexOf(':'));
+    let minutes = prestamo.slice(prestamo.indexOf(':')+1,prestamo.lastIndexOf(':'));
+    let sec = prestamo.slice(prestamo.lastIndexOf(':')+1);
+    let fechaPrestamo = new Date();
+    fechaPrestamo.setFullYear(year,month-1,day);
+    fechaPrestamo.setHours(hour, minutes, sec);
+    if ((this.fechaActual.getTime() - fechaPrestamo.getTime()) > (3600000)) {
       return true;
     } else {
       return false;

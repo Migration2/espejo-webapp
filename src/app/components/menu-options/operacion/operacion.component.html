@@ -15,8 +15,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let prestamo of prestamos">
-        <td [class.alerta]="tiempoLimite(prestamo.loanDate)">{{ prestamo.loanDate }}
+      <tr *ngFor="let prestamo of prestamos"  [class.alerta]="tiempoLimite(prestamo.loanDate)">
+        <td>{{ prestamo.loanDate }}
           <br>
           <div class="my-2">
             <button class="btn btn-outline-primary bottonAction" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">
