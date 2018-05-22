@@ -55,8 +55,7 @@ export class OperacionComponent implements OnInit {
 
   updatePrestamo(response) {
     console.log(response);
-    this.prestamos = response;
-    this.recargar2();
+    // this.recargar();
   }
 
   private recargar() {
@@ -74,23 +73,7 @@ export class OperacionComponent implements OnInit {
         });
     });
   }
-  private recargar2() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.table(document.getElementById('tablaPrestamos')).clear();
-      dtInstance.table(document.getElementById('tablaPrestamos')).destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-      // this.mostrar = false;
-      // this.prestamoService.getPrestamosActivos().subscribe(
-      //   res => {
-      //     this.prestamos = res;
-      //     this.dtTrigger.next();
-      //     this.mostrar = true;
-      //   });
-    });
-  }
-
+ 
   tiempoLimite(prestamo) {
     let day =prestamo.slice(0,prestamo.indexOf('-'));
     let month =prestamo.slice(prestamo.indexOf('-')+1,prestamo.lastIndexOf('-'));

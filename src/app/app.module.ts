@@ -106,7 +106,7 @@ import { ChartsModule } from 'ng2-charts';
         MatButtonModule,
         MatCheckboxModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyBrf3wDF0sR5UJfUo_us3Ul8n6QQ7YBPYY'
+            apiKey: 'AIzaSyAzqNYs1MtHoGDvy8RYyjgCQSxiTyn8ONM'
         }),
         AgmSnazzyInfoWindowModule
     ],
