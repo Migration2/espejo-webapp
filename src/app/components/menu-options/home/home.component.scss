@@ -15,3 +15,9 @@ agm-map {
     font-size: 2.5em;
     color: #e3244b;
   }
+
+  tbody, thead th{
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+  }

@@ -71,30 +71,26 @@
       </div>
     </div>
 
-    <div class="col-md-10 my-4">
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%"
-        data-page-length='25'>
+    <div class="col-md-10 my-4 table-responsive">
+        <h5 class="card-title">Estado Estaciones</h5>
+      <table class="table row-border table-hover">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Dirección</th>
-            <th style="text-align: center;">Capacidad</th>
-            <th style="text-align: center;">Bicicletas</th>
+            <th>Estación</th>
+            <th style="text-align: center;">Bicicletas disponibles</th>
+            <th style="text-align: center;">Puntos de contacto libres</th>
             <th>Estado</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
             <td>{{estacion.name}}</td>
-            <td>{{estacion.address}}</td>
-            <td style="text-align: center;">{{estacion['contactPointStates'].length}}</td>
             <td style="text-align: center;">{{estacion.availableCycles}}</td>
+            <td style="text-align: center;">{{(estacion['contactPointStates'].length)-(estacion.availableCycles)}}</td>
             <td>{{estacion.statusName}}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <br>
-  <br>
 </div>

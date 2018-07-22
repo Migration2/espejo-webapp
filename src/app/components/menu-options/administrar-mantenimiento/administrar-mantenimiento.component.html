@@ -1,3 +1,33 @@
-<p>
-  administrar-mantenimiento works!
-</p>
+<div class="animated fadeIn my-3" [style.display]="mostrar ? 'block' : 'none'">
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item" (click)='opcionCard="estaciones"'>
+          <a class="nav-link" [class.active]='opcionCard=="estaciones"'>Mantenimiento Estaciones</a>
+        </li>
+        <li class="nav-item" (click)='opcionCard="bicis"'>
+          <a class="nav-link" [class.active]='opcionCard=="bicis"'>Mantenimiento Bicicletas</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body" [hidden]='opcionCard=="bicis"'>
+      <br>
+      <div class="card-text">
+        estaciones
+      </div>
+    </div>
+    <div class="card-body" [hidden]='opcionCard=="estaciones"'>
+      <br>
+      <div class="card-text">
+        bicis
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-md-center" *ngIf="!mostrar">
+  <div id="loadingGeneral" class="text-center">
+    <div id="bordeGeneral"></div>
+    <div id="TextLoading">Cargando...</div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AdministrarBicicletasComponent} from './components/menu-options/administrar-bicicletas/administrar-bicicletas.component';
 import {AdministrarEmpleadosComponent} from './components/menu-options/administrar-empleados/administrar-empleados.component';
 import {AdministrarEstacionesComponent} from './components/menu-options/administrar-estaciones/administrar-estaciones.component';
+// tslint:disable-next-line:max-line-length
 import {AdministrarInformacionGeneralComponent} from './components/menu-options/administrar-informacion-general/administrar-informacion-general.component';
 import {AdministrarMantenimientoComponent} from './components/menu-options/administrar-mantenimiento/administrar-mantenimiento.component';
 import {AdministrarSancionesComponent} from './components/menu-options/administrar-sanciones/administrar-sanciones.component';
@@ -11,7 +12,7 @@ import {AdministrarUsuariosComponent} from './components/menu-options/administra
 import {HistoricosComponent} from './components/menu-options/historicos/historicos.component';
 import {HomeComponent} from './components/menu-options/home/home.component';
 import {SancionesComponent} from './components/menu-options/sanciones/sanciones.component';
-import {OperacionComponent} from './components/menu-options/operacion/operacion.component'
+import {OperacionComponent} from './components/menu-options/operacion/operacion.component';
 
 // componentes de detalle
 import {UsuarioComponent} from './components/detail-options/usuario/usuario.component';
@@ -21,11 +22,11 @@ import {EstacionComponent} from './components/detail-options/estacion/estacion.c
 import {MantenimientoComponent} from './components/detail-options/mantenimiento/mantenimiento.component';
 
 
-//cliente
+// cliente
 import { HomeClienteComponent } from './components/cliente/home-cliente/home-cliente.component';
 import { EstadisticasClienteComponent } from './components/cliente/estadisticas-cliente/estadisticas-cliente.component';
 
-//pagina no encontrada
+// pagina no encontrada
 import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encontrada/pagina-no-encontrada.component';
 
 

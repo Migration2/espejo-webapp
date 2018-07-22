@@ -1,38 +1,50 @@
-<div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
+<div class="animated fadeIn my-3" [style.display]="mostrar ? 'block' : 'none'">
 
   <div class="tituloPrincipal">
     <h3>Prestamos Activos</h3>
   </div>
 
-  <table id="tablaPrestamos" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover mt-2"
-    cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th style="text-align: center;">Fecha y Hora</th>
-        <th style="text-align: center;">Estación</th>
-        <th style="text-align: center;">Usuario</th>
-        <th style="text-align: center;">Bicicleta</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let prestamo of prestamos"  [class.alerta]="tiempoLimite(prestamo.loanDate)">
-        <td>{{ prestamo.loanDate }}
-          <br>
-          <div class="my-2">
-            <button class="btn btn-outline-primary bottonAction" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">
-              Fin Prestamo</button>
-          </div>
-        </td>
-        <td>{{ prestamo.loanStation }}</td>
-        <td>{{ prestamo.name }}
-          <br>
-          <strong>Documento</strong> {{ prestamo.username }}
-          <br>
-          <strong>Teléfono</strong> {{ prestamo.cellphone }}</td>
-        <td>{{ prestamo.codeBike }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="text-right">
+    <label for="buscar">Buscar:</label>
+    <input name="buscar" type="text" #buscar (keyup)="busqueda(buscar.value)">
+  </div>
+
+  <div class="mt-1 table-responsive">
+    <table class="table row-border table-hover">
+      <thead>
+        <tr>
+          <th style="text-align: center;">Fecha y Hora</th>
+          <th style="text-align: center;">Estación</th>
+          <th style="text-align: center;">Usuario</th>
+          <th style="text-align: center;">Bicicleta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prestamo of prestamosFiltrados" [class.alerta]="tiempoLimite(prestamo.loanDate)">
+          <td>{{ prestamo.loanDate }}
+            <br>
+            <div class="my-2">
+              <button class="btn btn-outline-primary bottonAction" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">
+                Fin Prestamo</button>
+            </div>
+          </td>
+          <td>{{ prestamo.loanStation }}</td>
+          <td>{{ prestamo.name }}
+            <br>
+            <strong>Documento</strong> {{ prestamo.username }}
+            <br>
+            <strong>Teléfono</strong> {{ prestamo.cellphone }}</td>
+          <td>{{ prestamo.codeBike }}</td>          
+        </tr>
+        <tr *ngIf="prestamosFiltrados.length == 0">
+            <td colspan="4" class="text-center">No hay información disponible</td>
+        </tr>        
+      </tbody>
+    </table>
+  </div>
+  <div class="text-left mt-1" *ngIf="prestamos.length > 0">
+    Mostrando {{prestamosFiltrados.length}} de {{prestamos.length}} prestamos activos
+  </div>
 </div>
 
 <div class="modal fade" id="modalPrestamo" tabindex="-1" role="dialog" aria-hidden="true">
@@ -61,6 +73,8 @@
     </div>
   </div>
 </div>
+
+
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
   <div id="loadingGeneral" class="text-center">

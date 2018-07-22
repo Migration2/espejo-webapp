@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./administrar-mantenimiento.component.scss']
 })
 export class AdministrarMantenimientoComponent implements OnInit {
+  mostrar = true;
+  opcionCard = 'estaciones';
 
   constructor() { }
 

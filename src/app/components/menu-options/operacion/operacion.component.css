@@ -13,3 +13,8 @@
   .alerta {
     color: red;
   }
+tbody, thead th{
+  border-bottom-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
