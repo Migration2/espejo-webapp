@@ -29,6 +29,23 @@ export class SancionesComponent implements OnInit {
     }
 
     ngOnInit() {
+        const bonotes = [
+            {
+                extend: 'copy',
+                text: 'Copiar',
+                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+            },
+            {
+                extend: 'print',
+                text: 'Imprimir',
+                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+            },
+            {
+                extend: 'csv',
+                text: 'Exportar',
+                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+            }
+        ];
         this.sancionesService.getSancionesEstado1().subscribe(response => {
             this.sanciones1 = response;
             this.dtTrigger1.next();
@@ -39,10 +56,16 @@ export class SancionesComponent implements OnInit {
             this.dtTrigger2.next();
         });
         this.dtOptions1 = {
-            responsive: true
+            responsive: true,
+            // Declare the use of the extension in the dom parameter
+            dom: 'Bfrtip',
+            buttons: bonotes
         };
         this.dtOptions2 = {
-            responsive: true
+            responsive: true,
+            // Declare the use of the extension in the dom parameter
+            dom: 'Bfrtip',
+            buttons: bonotes
         };
     }
 
