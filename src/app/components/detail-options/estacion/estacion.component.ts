@@ -121,6 +121,9 @@ export class EstacionComponent implements OnInit {
             this.dtOptions = {
                 searching: false,
                 responsive: true,
+                language: {
+                    url:"//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
                 // Declare the use of the extension in the dom parameter
                 dom: 'Bfrtip',
                 buttons: bonotes

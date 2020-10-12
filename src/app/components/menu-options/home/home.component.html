@@ -1,96 +1,106 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
-  <div class="tituloPrincipal">
-    <h3>{{title}}</h3>
-  </div>
-
-  <div class="row justify-content-md-center">
-    <div class="col-md-7 my-2">
-      <agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14" *ngIf="mostrar">
-        <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" iconUrl="../../../../assets/images/iconMin.png">
-          <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-            <ng-template>
-              <strong>{{ estacion.name | uppercase}}</strong>
-              <br> Puntos de Contacto: {{ estacion['contactPointStates'].length}}
-              <br> Bicicletas disponibles: {{ estacion.availableCycles}}
-              <br> Puntos libres: {{estacion['contactPointStates'].length-estacion.availableCycles}}
-            </ng-template>
-          </agm-snazzy-info-window>
-        </agm-marker>
-      </agm-map>
+    <div class="tituloPrincipal">
+        <h3>{{title}}</h3>
+        <hr>
     </div>
 
-    <div class="col-md-5 my-2">
-      <div class="card" style="height:350px;">
-        <div class="card-body">
-          <h5 class="card-title">Bicicletas</h5>
-          <br>
-          <div class="card-text">
-            <canvas baseChart *ngIf="pieLabelsBicicletas.length > 0" [data]="pieDataBicicletas" [labels]="pieLabelsBicicletas" [chartType]="pieChartType"
-              [options]="pieChartTooltips">
-            </canvas>
-          </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-7 my-2">
+            <agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14" *ngIf="mostrar">
+                <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" iconUrl="../../../../assets/images/iconMin.png">
+                    <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+                        <ng-template>
+                            <strong>{{ estacion.name | uppercase}}</strong>
+                            <br> Puntos de Contacto: {{ estacion['contactPointStates'].length}}
+                            <br> Bicicletas disponibles: {{ estacion.availableCycles}}
+                            <br> Puntos libres: {{estacion['contactPointStates'].length-estacion.availableCycles}}
+                        </ng-template>
+                    </agm-snazzy-info-window>
+                </agm-marker>
+            </agm-map>
         </div>
-      </div>
-    </div>
 
-    <div class="col-md-6 my-2">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Transacciones General</h5>
-          <br>
-          <div class="card-text">
-            <canvas *ngIf="lineChartLabels.length>0" baseChart width="400" height="220" [datasets]="lineChartData" [options]="lineChartOptions"
-              [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
-            <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
-              <div class="text-center">
-                <div id="bord"></div>
-                <div id="Text">Cargando...</div>
-              </div>
+        <div class="col-md-5 my-2">
+            <div class="card" style="height:350px;">
+                <div class="card-body">
+                    <h5 class="card-title">Bicicletas</h5>
+                    <hr>
+                    <div class="card-text">
+                        <canvas baseChart *ngIf="pieLabelsBicicletas.length > 0" [data]="pieDataBicicletas" [labels]="pieLabelsBicicletas | bikesLabel" [chartType]="pieChartType" [options]="pieChartTooltips">
+                    </canvas>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-md-6 my-2">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Transacciones por Estación</h5>
-          <br>
-          <div class="card-text">
-            <canvas *ngIf="lineChartLabels.length>0" baseChart width="400" height="220" [datasets]="lineChartDataEstation" [options]="lineChartOptions"
-              [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
-            <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
-              <div class="text-center">
-                <div id="bord"></div>
-                <div id="Text">Cargando...</div>
-              </div>
+        <div class="col-md-7 my-2">
+            <div class="card" style="height:400px;">
+                <div class="card-body">
+                    <h5 class="card-title">Transacciones por Estación</h5>
+                    <hr>
+                    <div class="card-text">
+                        <canvas *ngIf="lineChartLabels.length>0" baseChart [datasets]="lineChartDataEstation" [options]="lineChartOptions" [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+                        <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
+                            <div class="text-center">
+                                <div id="bord"></div>
+                                <div id="Text">Cargando...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-md-10 my-4 table-responsive">
-        <h5 class="card-title">Estado Estaciones</h5>
-      <table class="table row-border table-hover">
-        <thead>
-          <tr>
-            <th>Estación</th>
-            <th style="text-align: center;">Bicicletas disponibles</th>
-            <th style="text-align: center;">Puntos de contacto libres</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let estacion of datosEstaciones" (click)="informacionEstacion(estacion.id)">
-            <td>{{estacion.name}}</td>
-            <td style="text-align: center;">{{estacion.availableCycles}}</td>
-            <td style="text-align: center;">{{(estacion['contactPointStates'].length)-(estacion.availableCycles)}}</td>
-            <td>{{estacion.statusName}}</td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="col-md-5 my-2">
+            <div class="card" style="height:400px;">
+                <div class="card-body">
+                    <h5 class="card-title">Transacciones General</h5>
+                    <hr>
+                    <div class="card-text">
+                        <canvas *ngIf="lineChartLabels.length>0" baseChart [datasets]="lineChartData" width="400" height="300" [options]="lineChartOptions" [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+                        <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
+                            <div class="text-center">
+                                <div id="bord"></div>
+                                <div id="Text">Cargando...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-4 pb-4 table-responsive">
+            <h5 class="card-title">Estado de las estaciones</h5>
+            <hr>
+            <div class="mat-elevation-z8">
+                <mat-table #table [dataSource]="dataSourceStation">
+                    <ng-container matColumnDef="Estacion">
+                        <mat-header-cell *matHeaderCellDef> Estación </mat-header-cell>
+                        <mat-cell *matCellDef="let station"> {{station.name}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Bicicletas disponibles" class="text-center">
+                        <mat-header-cell *matHeaderCellDef class="text-center"> Bicicletas disponibles </mat-header-cell>
+                        <mat-cell *matCellDef="let station" class="text-center"> {{station.availableCycles}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Puntos de contacto libres">
+                        <mat-header-cell *matHeaderCellDef class="text-center"> Puntos de contacto libre </mat-header-cell>
+                        <mat-cell *matCellDef="let station" class="text-center"> {{(station['contactPointStates'].length)-(station.availableCycles)}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Estado">
+                        <mat-header-cell *matHeaderCellDef class="text-center"> Estado </mat-header-cell>
+                        <mat-cell *matCellDef="let station" class="text-center"> {{station.statusName}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row (click)="informacionEstacion(row.id)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator [length]="lengthStations" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)">
+
+                </mat-paginator>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

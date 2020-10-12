@@ -1,0 +1,22 @@
+.mat-column-boolean-field {
+    flex: 0 0 8%;
+}
+
+.mat-column-name {
+    flex: 0 0 40%;
+}
+
+.mat-form-field {
+    width: 50%;
+}
+
+.filter-user-container {
+    width: 100%;
+    min-height: 64px;
+    padding: 4px 16px 0;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, RequestOptions,Headers} from '@angular/http';
+import {Http, RequestOptions,Headers, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class EstacionService {
 	
 
 	getEstaciones(){
-		return this.http.get('/rest/mobile/station', {}).map(res => res.json());
+		return this.http.get('/rest/mobile/station',{}).map(this.extractData);
 	}
 
 	getStatesStation(){
@@ -29,6 +29,10 @@ export class EstacionService {
 
 	stationTransactions(idStation:string, fechaInicio:string, fechaFin:string){
 		return this.http.get('/rest/reports/station/'+idStation+'/'+fechaInicio+'/'+fechaFin, {}).map(res => res.json());
+	}
+
+	extractData(response :Response){
+		return response.json();
 	}
 }
 

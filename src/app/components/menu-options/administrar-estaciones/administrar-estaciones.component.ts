@@ -72,12 +72,7 @@ export class AdministrarEstacionesComponent implements OnInit {
             this.mostrar = true;
         });
 
-        this.estadisticasService.getTransacciones(this.fechaAnterior.toISOString().substring(0, 10),
-            this.fechaActual.toISOString().substring(0, 10)).subscribe(res => {
-                this.transacciones = res;
-                this.contarDatos(res);
-                this.dtTriggerTransacciones.next();
-            });
+        this.loadTransactionStatisticsData(this.fechaAnterior.toISOString().substring(0, 10), this.fechaActual.toISOString().substring(0, 10))
     }
 
     informacionEstacion(id: number) {
@@ -93,11 +88,15 @@ export class AdministrarEstacionesComponent implements OnInit {
             dtInstance.table(document.getElementById('tablaTransacciones')).clear();
             dtInstance.table(document.getElementById('tablaTransacciones')).destroy();
             // Call the dtTrigger to rerender again
-            this.estadisticasService.getTransacciones(anterior, actual).subscribe(res => {
-                this.transacciones = res;
-                this.contarDatos(res);
-                this.dtTriggerTransacciones.next();
-            });
+            this.loadTransactionStatisticsData(anterior, actual);
+        });
+    }
+
+    loadTransactionStatisticsData(anterior, actual){
+        this.estadisticasService.getTransacciones(anterior, actual).subscribe(res => {
+            this.transacciones = res;
+            this.contarDatos(res);
+            this.dtTriggerTransacciones.next();
         });
     }
 

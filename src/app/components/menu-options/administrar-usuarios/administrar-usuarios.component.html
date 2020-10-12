@@ -1,37 +1,53 @@
-<div class="animated fadeIn"  [style.display]="mostrar ? 'block' : 'none'">
-	
+<div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
 
-	<div class="tituloPrincipal">
-		<h3>Usuarios</h3>
-	</div>
 
-	<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%" data-page-length='25'>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Documento</th>
-				<th>Fecha Registro</th>
-				<th style="text-align: center;">Validado</th>
-				<th style="text-align: center;">Habilitado</th>
-				<th style="text-align: center;">Tarjeta</th>				
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.id)">
-				<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
-				<td>{{ usuario.username }}</td>				
-				<td>{{ usuario.created }}</td>
-				<td style="text-align: center;"><span *ngIf="!usuario.validated" class="oi oi-x"></span><span *ngIf="usuario.validated" class="oi oi-check"></span></td>
-				<td style="text-align: center;"><span *ngIf="!usuario.enabled" class="oi oi-x"></span><span *ngIf="usuario.enabled" class="oi oi-check"></span></td>
-				<td style="text-align: center;"><span *ngIf="!usuario.code" class="oi oi-x"></span><span *ngIf="usuario.code" class="oi oi-check"></span></td>
-			</tr>
-		</tbody>
-	</table>
+    <div class="tituloPrincipal">
+        <h3>Usuarios</h3>
+        <hr>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <div class="filter-user-container text-right">
+            <mat-form-field>
+                <input matInput (keyup)="fillValueFilterUser($event.target.value)" (keyup.enter)="searchUser()" placeholder="Número de documento">
+            </mat-form-field>
+            <span class="oi oi-magnifying-glass" (click)="searchUser()"></span>
+        </div>
+        <mat-table #tableUsers [dataSource]="usersDataSource">
+            <ng-container matColumnDef="Nombre" class="mat-column-name">
+                <mat-header-cell *matHeaderCellDef class="mat-column-name"> Nombre </mat-header-cell>
+                <mat-cell *matCellDef="let user" class="mat-column-name"> {{user.firstName +' '+ user.lastName | uppercase}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Documento">
+                <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.username}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaRegistro">
+                <mat-header-cell *matHeaderCellDef> Fecha de registro </mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.created}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Validado">
+                <mat-header-cell *matHeaderCellDef class="text-center mat-column-boolean-field"> Validado </mat-header-cell>
+                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field"><span *ngIf="!user.validated" class="oi oi-x"></span><span *ngIf="user.validated" class="oi oi-check"></span> </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Habilitado">
+                <mat-header-cell *matHeaderCellDef class="text-center mat-column-boolean-field"> Habilitado </mat-header-cell>
+                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field"><span *ngIf="!user.enabled" class="oi oi-x"></span><span *ngIf="user.enabled" class="oi oi-check"></span> </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Tarjeta">
+                <mat-header-cell *matHeaderCellDef class="text-center mat-column-boolean-field"> Tarjeta </mat-header-cell>
+                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field"><span *ngIf="!user.code" class="oi oi-x"></span><span *ngIf="user.code" class="oi oi-check"></span> </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let user; columns: displayedColumns;" (click)="userInformation(user.id)"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [length]="lengthUsers" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)"></mat-paginator>
+    </div>
 </div>
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
-	<div id="loadingGeneral" class="text-center">
-		<div id="bordeGeneral"></div>
-		<div id="TextLoading">Cargando...</div>
-	</div>	
+    <div id="loadingGeneral" class="text-center">
+        <div id="bordeGeneral"></div>
+        <div id="TextLoading">Cargando...</div>
+    </div>
 </div>

@@ -5,6 +5,10 @@ import { EstadisticasService } from '../../../services/estadisticas.service';
 import { EstacionModel } from '../../../models/estacion.model';
 import { StompService } from 'ng2-stomp-service';
 import { DataTableDirective } from 'angular-datatables';
+import {DataSource} from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
+import { PageEvent } from '@angular/material';
+import { PaginatePipe } from '../../../pipes/paginate.pipe';
 
 @Component({
     selector: 'app-home',
@@ -19,6 +23,13 @@ export class HomeComponent implements OnInit {
     Centerlat = 6.142979;
     Centerlng = -75.378276;
     datosEstaciones: Array<EstacionModel> = [];
+    displayedColumns = ['Estacion', 'Bicicletas disponibles', 'Puntos de contacto libres', 'Estado'];
+    dataSourceStation : StationDataSource;
+    stationDataForView: Array<EstacionModel> = [];
+    private paginatorPipe: PaginatePipe;
+
+    dtOptionsTransacciones: any = {};
+
     private subscription: any;
     private subscriptionEstaciones: any;
     respuestas: Array<any> = [];
@@ -29,7 +40,7 @@ export class HomeComponent implements OnInit {
     fechaAnterior = new Date();
     transacciones = [];
     // General Pie
-    public pieChartType = 'pie';
+    public pieChartType = 'doughnut';
     public pieChartTooltips: any = {
         tooltips: {
             callbacks: {
@@ -145,8 +156,9 @@ export class HomeComponent implements OnInit {
     // update estaciones con websocket
     estaciones = (response) => {
         this.datosEstaciones = response;
+        this.lengthStations = this.datosEstaciones.length;
+        this.paginateStationData(this.datosEstaciones, this.pageSize, this.pageNumber);
     }
-
 
 
 
@@ -155,6 +167,7 @@ export class HomeComponent implements OnInit {
         try {
             // unsubscribe
             this.subscription.unsubscribe();
+            this.subscriptionEstaciones.unsubscribe();
 
             // disconnect
             this.stomp.disconnect().then(() => {
@@ -164,13 +177,12 @@ export class HomeComponent implements OnInit {
         }
     }
 
+
     ngOnInit() {
+        this.paginatorPipe = new PaginatePipe();
         this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);
         this.fechaActual.setHours(this.fechaActual.getHours() - 5);
-        this.estacionservice.getEstaciones().subscribe(response => { // estado inicial estaciones
-            this.datosEstaciones = response;
-            this.mostrar = true;
-        });
+        this.loadStationsData();
 
         this.stomp.configure({
             host: 'http://bici-rio.com:4547/bicirio-websocket', // produccion
@@ -192,10 +204,33 @@ export class HomeComponent implements OnInit {
                 this.contarDatos(res);
             });
         // consumiento recursos para obtener estado inicial bicicletas
+        this.loadBikesData();
+    }
+
+    loadStationsData(){
+        this.estacionservice.getEstaciones().subscribe(
+            response => {
+            this.datosEstaciones = response;
+            this.lengthStations = this.datosEstaciones.length;
+            this.paginateStationData(this.datosEstaciones, this.pageSize, this.pageNumber);
+            this.mostrar = true;
+        }, 
+        error => {
+            console.error("Error to retrieve data from server");
+        });
+    }
+
+    paginateStationData(stationData: Array<EstacionModel>, pageSize:number, pageNumber: number){
+        this.stationDataForView = this.paginatorPipe.transform(stationData, pageSize, pageNumber);
+        this.dataSourceStation = new StationDataSource(this.stationDataForView);
+    }
+
+    loadBikesData(){
         this.estadisticasService.getEstadisticasBicicletas().subscribe(response => {
             this.estadisticasBicicletas(response);
         });
     }
+
     // funcion que redirecciona cuando se selecciona una estacion en tabla estaciones
     informacionEstacion(id: number) {
         this.router.navigate(['estacion', id]);
@@ -214,5 +249,29 @@ export class HomeComponent implements OnInit {
         this.pieLabelsBicicletas = labels;
         this.pieDataBicicletas = data;
     }
+    
+    //PAGINATION
+    lengthStations : number = 0;
+    pageSize:number = 20;
+    pageNumber : number = 0;
+    pageSizeOptions = [5, 10, 20, 50, 100];
 
+    handlePage(pageEvent : PageEvent){
+        this.pageSize = pageEvent.pageSize;
+        this.pageNumber = pageEvent.pageIndex;
+        this.paginateStationData(this.datosEstaciones, this.pageSize, this.pageNumber);
+    }
 }
+
+export class StationDataSource extends DataSource<any> {
+
+    constructor(private stations: EstacionModel[]) {
+      super();
+    }
+  
+    connect(): Observable<EstacionModel[]> {
+      return Observable.of(this.stations);
+    }
+  
+    disconnect() {}
+  }

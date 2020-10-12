@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+
+//Material components
+import { MatButtonModule, MatCheckboxModule, MatTableModule, MatPaginatorModule, MatPaginatorIntl, MatInputModule } from '@angular/material';
 
 //websocket
 import { StompService } from 'ng2-stomp-service';
@@ -60,6 +62,9 @@ import { PaginaNoEncontradaComponent } from './components/assets/pagina-no-encon
 
 //charts
 import { ChartsModule } from 'ng2-charts';
+import { PaginatePipe } from './pipes/paginate.pipe';
+import { CustomMatPaginatorIntl } from './paginator-es';
+import { BikesLabelPipe } from './pipes/bikes-label.pipe';
 
 
 
@@ -93,7 +98,9 @@ import { ChartsModule } from 'ng2-charts';
         AsignarTarjetaComponent,
         ObservacionesMantenimientoPipe,
         SancionesComponent,
-        OperacionComponent
+        OperacionComponent,
+        PaginatePipe,
+        BikesLabelPipe
     ],
     imports: [
         BrowserModule,
@@ -105,13 +112,20 @@ import { ChartsModule } from 'ng2-charts';
         BrowserAnimationsModule,
         MatButtonModule,
         MatCheckboxModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatInputModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAzqNYs1MtHoGDvy8RYyjgCQSxiTyn8ONM'
         }),
         AgmSnazzyInfoWindowModule
     ],
+    exports: [
+        MatTableModule
+    ],
     providers: [
-        StompService
+        StompService,
+        {provide : MatPaginatorIntl, useClass: CustomMatPaginatorIntl}
     ],
     bootstrap: [AppComponent]
 })

@@ -1,34 +1,70 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
 
-	<div class="tituloPrincipal">
-		<h3>Empleados</h3>
-	</div>
+    <div class="tituloPrincipal">
+        <h3>Empleados</h3>
+        <hr>
+    </div>
 
-	<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%" data-page-length='25'>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Documento</th>
-				<th>Fecha Registro</th>
-				<th>Celular</th>
-				<th style="text-align: center;">Habilitado</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.id)">
-				<td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
-				<td>{{ usuario.username }}</td>
-				<td>{{ usuario.created }}</td>
-				<td>{{ usuario.celphone }}</td>
-				<td style="text-align: center;"><span *ngIf="!usuario.enabled" class="oi oi-x"></span><span *ngIf="usuario.enabled" class="oi oi-check"></span></td>			
-			</tr>
-		</tbody>
-	</table>
+    <!-- <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%" data-page-length='25'>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Documento</th>
+                <th>Fecha Registro</th>
+                <th>Celular</th>
+                <th style="text-align: center;">Habilitado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of dataUsuarios" (click)="informacionUsuario(usuario.id)">
+                <td>{{ usuario.firstName +' '+ usuario.lastName | uppercase}}</td>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.created }}</td>
+                <td>{{ usuario.celphone }}</td>
+                <td style="text-align: center;"><span *ngIf="!usuario.enabled" class="oi oi-x"></span><span *ngIf="usuario.enabled" class="oi oi-check"></span></td>
+            </tr>
+        </tbody>
+    </table> -->
+
+    <!-- ***tabla de angular material con componente de paginacion*** -->
+    <div class="mat-elevation-z8">
+        <mat-table #table [dataSource]="employeesDataSource">
+            <ng-container matColumnDef="Nombre">
+                <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                <mat-cell *matCellDef="let employee"> {{ employee.firstName +' '+ employee.lastName | uppercase }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Documento" class="text-center">
+                <mat-header-cell *matHeaderCellDef class="text-center"> Documento </mat-header-cell>
+                <mat-cell *matCellDef="let employee" class="text-center"> {{ employee.username }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Fecha Registro">
+                <mat-header-cell *matHeaderCellDef class="text-center"> Fecha de registro </mat-header-cell>
+                <mat-cell *matCellDef="let employee" class="text-center"> {{ employee.created }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Celular">
+                <mat-header-cell *matHeaderCellDef class="text-center"> Celular </mat-header-cell>
+                <mat-cell *matCellDef="let employee" class="text-center"> {{employee.celphone}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Habilitado">
+                <mat-header-cell *matHeaderCellDef class="text-center"> Habilitado </mat-header-cell>
+                <mat-cell *matCellDef="let employee" class="text-center"> <span *ngIf="!employee.enabled" class="oi oi-x"></span><span *ngIf="employee.enabled" class="oi oi-check"></span></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let employee; columns: displayedColumns;" (click)="informacionUsuario(employee.id)"></mat-row>
+        </mat-table>
+    </div>
+    <!-- <mat-paginator #paginator [length]="lenght" [pageSize]="pageSize" [pageIndex]="pageNumber" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)">
+    </mat-paginator> -->
 </div>
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
-	<div id="loadingGeneral" class="text-center">
-		<div id="bordeGeneral"></div>
-		<div id="TextLoading">Cargando...</div>
-	</div>	
+    <div id="loadingGeneral" class="text-center">
+        <div id="bordeGeneral"></div>
+        <div id="TextLoading">Cargando...</div>
+    </div>
 </div>

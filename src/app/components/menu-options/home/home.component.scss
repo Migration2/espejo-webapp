@@ -1,23 +1,24 @@
 agm-map {
-	width: 99%;
-	height: 350px;
+    width: 99%;
+    height: 350px;
 }
 
-.active{
-    font-weight: bold; 
+.active {
+    font-weight: bold;
     color: gray;
-  }
+}
 
-  #Text{
+#Text {
     position: absolute;
     top: 40%;
     left: 15%;
     font-size: 2.5em;
     color: #e3244b;
-  }
+}
 
-  tbody, thead th{
+tbody,
+thead th {
     border-bottom-color: black;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-  }
+}

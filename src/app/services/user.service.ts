@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Http,RequestOptions,Headers} from '@angular/http';
+import {Http,RequestOptions,Headers, Response} from '@angular/http';
 import 'rxjs/add/operator/map'
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -32,9 +33,17 @@ export class UserService {
 		return this.http.get('/rest/person/security/all', {}).map(res => res.json());
 	}
 
+	getUsersWithPagination(pageIndex:number, pageSize:number):Observable<any>{
+		return this.http.get(`/rest/person/security/all/${pageIndex}/${pageSize}`).map(this.extractData)
+	}
+
 	// devuelve empleados o administradores
 	getEmployees(){
 		return this.http.get('/rest/person/security/employees', {}).map(res =>  res.json());
+	}
+
+	getEmployeesWithPaginator(pageSize:number, pageNumber:number):Observable<any>{
+		return this.http.get(`rest/person/security/employees/${pageNumber}/${pageSize}`).map(this.extractData);
 	}
 
 	
@@ -42,6 +51,9 @@ export class UserService {
 		return this.http.get('/rest/person/security/'+id, {}).map(res => res.json());
 	}
 
+	findUsersByIdWithPagination(pageIndex:number, pageSize:number, userId:string):Observable<any>{
+		return this.http.get(`/rest/person/security/all/${pageIndex}/${pageSize}/${userId}`).map(this.extractData)
+	}
 
 	// buscar por username y id sin seguridad
 	getUserByUserName(username:string){
@@ -88,6 +100,10 @@ export class UserService {
 	//update Usuario
 	updateUser(data, securityID){
 	this.http.put('/rest/person/'+securityID, JSON.stringify(data), this.options).subscribe();	
+	}
+
+	extractData(response :Response){
+		return response.json();
 	}
 
 }
