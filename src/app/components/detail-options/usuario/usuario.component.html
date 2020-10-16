@@ -1,231 +1,274 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
 
 
-	<div class="row justify-content-md-center">
-		<div class="col-md-7 clearfix">
-			<div class="jumbotron">
-				<h4>{{ dataUsuario.nombre +' '+ dataUsuario.apellido | uppercase}}</h4>
-				<p> {{dataUsuario.idTipoIdentificacion.tipo}} {{dataUsuario.nui}}
-					<br> Registrado: {{ dataUsuario.creado }}
-					<br> Dirección: {{ dataUsuario.direccion }} - {{ dataUsuario.idCiudad.ciudad }}/{{ dataUsuario.idCiudad.moDepartamento.departamento
-					}}
-					<br> Celular: {{ dataUsuario.celular }} / Email: {{ dataUsuario.email }}
-					<br>
-					<span *ngIf=" !dataSecurity.code ">El usuario
-						<strong>No</strong> tiene una tarjeta asignada
-						<br>
-					</span>
-					<span *ngIf=" dataSecurity.code ">El usuario tiene una tarjeta asignada
-						<br>
-					</span>
-					<span *ngIf=" !dataSecurity.validated ">La cuenta
-						<strong>No</strong> se encuentra validada
-						<br>
-					</span>
-					<span *ngIf=" dataSecurity.idLoanActive ">El usuario tiene la bicicleta {{ prestamos[0].idBikeCode }} en prestamo</span>
-				</p>
+    <div class="row justify-content-md-center">
 
-				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf="dataSecurity.enabled && dataSecurity.validated "
-				 data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
-				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" *ngIf="!dataSecurity.enabled && dataSecurity.validated"
-				 data-toggle="modal" data-target="#habilitarUsuario">Habilitar</button>
-				<button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated " role="button" data-toggle="modal"
-				 data-target="#contenedorRoles" (click)="activarRoles()">
-					Roles</button>
-				<!-- <button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
-			Asignar Tarjeta</button> -->
-				<button class="btn btn-outline-primary btn-lg bottonAction" role="button" data-toggle="modal" data-target="#editarInformacion">
-					Editar</button>
-			</div>
-		</div>
-	</div>
+        <div class="col-md-12 clearfix pb-4">
+            <div class="card mat-elevation-z8">
+                <div class="card-header text-light bg-danger">
+                    <div class="d-flex flex-column justify-content-center align-content-center text-center w-10">
+                        <h4 class="card-title">{{ userDataModel.nombre +' '+ userDataModel.apellido | uppercase}}</h4>
+                        <h5 class="card-title">{{ userDataModel.idTipoIdentificacion.tipo }}. {{ userDataModel.username }}</h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12 py-4">
+                            <!-- <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100"> -->
+                            <div class="d-flex flex-column justify-content-start align-items-center w-100 h-100">
+                                <img src="../../assets/images/unknown-user.png" class="img-fluid rounded-circle image-header text-center my-2" alt="Imagen de usuario">
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-sm-4 text-center p-2">
+                            <p class="card-text">Celular: {{ userDataModel.celular }} / Teléono: {{ userDataModel.telefono }}</p>
+                            <p class="card-text">Correo electrónico: {{ userDataModel.email }}</p>
+                            <p class="card-text">Dirección: {{ userDataModel.direccion }} - {{ userDataModel.idCiudad.ciudad }} / {{ userDataModel.idCiudad.moDepartamento.departamento }}</p>
+                            <p class="card-text">Profesión - Ocupación: {{ userDataModel.profesion }} {{ userDataModel.ocupacion }}</p>
+                            <p class="card-text">Tarjeta asignada:
+                                <span *ngIf=" !userSecurityValidate.code " class="text-danger p-1 oi oi-x"></span>
+                                <span *ngIf="userSecurityValidate.code" class="text-success p-1 oi oi-check"></span>
+                            </p>
+                            <p class="card-text">Cuenta validada:
+                                <span *ngIf="!userSecurityValidate.validated" class="text-danger p-1 oi oi-x"></span>
+                                <span *ngIf="userSecurityValidate.validated" class="text-success p-1 oi oi-check"></span>
+                            </p>
+                            <p class="card-text" *ngIf=" userSecurityValidate.idLoanActive ">Con la bicicleta
+                                <span class="badge badge-danger">{{ prestamos[0].idBikeCode }}</span> en prestamo
+                            </p>
+                            <hr>
+                            <p class="card-text text-muted w-100 text-center">Fecha de registro: {{ userDataModel.creado }}</p>
+                        </div>
+                        <div class="col-md-3 d-flex flex-column justify-content-start text-center w-100 py-4">
+                            <button class="btn btn-outline-primary btn-lg bottonAction m-2" role="button" *ngIf="userSecurityValidate.enabled && userSecurityValidate.validated " data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
+                            <button class="btn btn-outline-primary btn-lg bottonAction m-2" role="button" *ngIf="!userSecurityValidate.enabled && userSecurityValidate.validated" data-toggle="modal" data-target="#habilitarUsuario">Habilitar</button>
+                            <button class="btn btn-outline-primary btn-lg bottonAction m-2" *ngIf=" userSecurityValidate.validated " role="button" data-toggle="modal" data-target="#contenedorRoles" (click)="activarRoles()">Roles</button>
+                            <button class="btn btn-outline-primary btn-lg bottonAction m-2" role="button" data-toggle="modal" data-target="#editarInformacion">Editar</button>
+                            <!-- <button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
+                                Asignar Tarjeta</button> -->
+                        </div>
 
-	<div class="row">
-		<div class="col-sm-6">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Transacciones</h5>
-					<br>
-					<div class="card-text">
-						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th>Estacion Retiro</th>
-									<th style="text-align: center;">Hora</th>
-									<th>Estacion Devolución</th>
-									<th style="text-align: center;">Hora</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let prestamo of prestamos">
-									<td>{{prestamo.stationLoan}}</td>
-									<td>{{prestamo.start}}</td>
-									<td>{{prestamo.stationReturn}}</td>
-									<td>{{prestamo.end}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Sanciones</h5>
-					<br>
-					<div class="card-text">
-						<table datatable [dtOptions]="dtOptionsSanciones" [dtTrigger]="dtTriggerSanciones" class="table row-border hover" cellspacing="0"
-						 width="100%">
-							<thead>
-								<tr>
-									<th>Observación</th>
-									<th>Inicio Sanción</th>
-									<th>Fin Sanción</th>
-									<th style="text-align: center;">Estado</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let sancion of sanciones">
-									<td>{{ sancion.idSancion.descripcion }}</td>
-									<td>{{ sancion.fechaSancion }}</td>
-									<td>{{ sancion.fechaLimiteSancion }}</td>
-									<td style="text-align: center;">{{ sancion.idEstado.estado }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Transacciones</h5>
+                    <br>
+                    <div class="card-text">
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Estacion Retiro</th>
+                                    <th style="text-align: center;">Hora</th>
+                                    <th>Estacion Devolución</th>
+                                    <th style="text-align: center;">Hora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let prestamo of prestamos">
+                                    <td>{{prestamo.stationLoan}}</td>
+                                    <td>{{prestamo.start}}</td>
+                                    <td>{{prestamo.stationReturn}}</td>
+                                    <td>{{prestamo.end}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sanciones</h5>
+                    <br>
+                    <div class="card-text">
+                        <table datatable [dtOptions]="dtOptionsSanciones" [dtTrigger]="dtTriggerSanciones" class="table row-border hover" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Observación</th>
+                                    <th>Inicio Sanción</th>
+                                    <th>Fin Sanción</th>
+                                    <th style="text-align: center;">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sancion of sanciones">
+                                    <td>{{ sancion.idSancion.descripcion }}</td>
+                                    <td>{{ sancion.fechaSancion }}</td>
+                                    <td>{{ sancion.fechaLimiteSancion }}</td>
+                                    <td style="text-align: center;">{{ sancion.idEstado.estado }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
 <div class="modal fade" id="contenedorRoles" tabindex="-1" role="dialog" aria-labelledby="contenedorRoles" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="contenedorRoles">Administrar Roles</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contenedorRoles">Administrar Roles</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-			<div class="modal-body">
-				<div class="form-check form-check-inline col-md-12">
-					<label class="form-check-label" *ngFor="let rol of roles" style="padding-right: 5px;">
+            </div>
+            <div class="modal-body">
+                <div class="form-check form-check-inline col-md-12">
+                    <label class="form-check-label" *ngFor="let rol of roles" style="padding-right: 5px;">
 						<input class="form-check-input" type="checkbox" id="{{ rol.role }}" value="{{ rol.id }}"> {{ rol.role | rol }}
 					</label>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-outline-primary bottonAction" (click)="updateRoles()" data-dismiss="modal">Enviar</button>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-primary bottonAction" (click)="updateRoles()" data-dismiss="modal">Enviar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="habilitarUsuario" tabindex="-1" role="dialog" aria-labelledby="habilitarUsuario" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="habilitarUsuario">Habilitar Usuario</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="habilitarUsuario">Habilitar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-			<div class="modal-body">
-				Estas seguro deseas habilitar el usuario?
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-outline-primary bottonAction" (click)="enableUser()" data-dismiss="modal">Aceptar</button>
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro, deseas habilitar el usuario?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-primary bottonAction" (click)="enableUser()" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <div class="modal fade" id="deshabilitarUsuario" tabindex="-1" role="dialog" aria-labelledby="deshabilitarUsuario" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="deshabilitarUsuario">Deshabilitar Usuario</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deshabilitarUsuario">Deshabilitar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-			<div class="modal-body">
-				Estas seguro deseas deshabilitar el usuario?
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-outline-primary bottonAction" (click)="disableUser()" data-dismiss="modal">Aceptar</button>
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro, deseas deshabilitar el usuario?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-primary bottonAction" (click)="disableUser()" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="editarInformacion" tabindex="-1" role="dialog" aria-labelledby="editarInformacion" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="editarInformacion">Editar Información</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarInformacion">Editar Información</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-			<div class="modal-body" style="width: 95%;">
-				<form #editarInformacionUsuario="ngForm">
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="name" class="col-form-label">Nombre*</label>
-							<input type="text" class="form-control" name="name" id="name" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}"
-							 title="El nombre no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.name"
-							 autofocus>
-						</div>
-						<div class="form-group col-md-6">
-							<label for="lastname" class="col-form-label">Apellido*</label>
-							<input type="text" class="form-control" name="lastname" id="lastname" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}"
-							 title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastname">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="celphone" class="col-form-label">Celular*</label>
-							<input type="text" class="form-control" name="celphone" id="celphone" autocomplete="off" required pattern="[0-9]{10}" title="El celular solo puede contener numeros"
-							 [(ngModel)]="dataUsuarioUpdate.celphone">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="email" class="col-form-label">Email*</label>
-							<input type="text" class="form-control" name="email" id="email" autocomplete="off" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="El correo electrónico no es valido"
-							 [(ngModel)]="dataUsuarioUpdate.email">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="address" class="col-form-label">Dirección*</label>
-							<input type="text" class="form-control" name="address" id="address" autocomplete="off" required pattern="[-0-9A-Za-z# ]{4,}"
-							 title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address">
-						</div>
-					</div>
-					<div class="row justify-content-end">
-						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!editarInformacionUsuario.form.valid"
-						 (click)="onSubmit()" data-dismiss="modal">Enviar</button>
-					</div>
-				</form>
-				<p>
-					<small>
+            </div>
+            <div class="modal-body" style="width: 95%;">
+                <form #editarInformacionUsuario="ngForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name" class="col-form-label">Nombres*</label>
+                            <input type="text" class="form-control" name="name" id="name" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" title="El nombre no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.firstName"
+                                autofocus>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname" class="col-form-label">Apellidos*</label>
+                            <input type="text" class="form-control" name="lastname" id="lastname" autocomplete="off" required pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{4,}" title="El apellido no debe contener caracteres especiales ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.lastName">
+                        </div>
+                        <!-- <div class="form-group col-md-4">
+                            <label for="typeUUID" class="col-form-label">Tipo Doc.*</label>
+                            <select type="typeUUID" class="form-control" name="typeUUID" id="typeUUID" [(ngModel)]="dataUsuarioUpdate.idKindUUID">
+								<option *ngFor="let kindID of kindUUIds" [value]="kindID.id" [selected]="kindID.id == dataUsuarioUpdate.idKindUUID">{{ kindID.tipo | uppercase }}</option>
+							</select>
+                        </div> -->
+                        <div class="form-group col-md-6">
+                            <label for="document" class="col-form-label">Número de documento</label>
+                            <label for="document" class="form-control"><strong>{{  dataUsuarioUpdate.username }}</strong></label>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="genre" class="col-form-label">Género*</label>
+                            <select type="gender" class="form-control" name="gender" id="gender" [(ngModel)]="dataUsuarioUpdate.gender">
+								<option [value]="dataUsuarioUpdate.gender" selected>{{ dataUsuarioUpdate.gender | uppercase }}</option>
+								<option *ngIf="dataUsuarioUpdate.gender != 'femenino'" value="femenino">FEMENINO</option>
+								<option *ngIf="dataUsuarioUpdate.gender != 'masculino'" value="masculino">MASCULINO</option>
+							</select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone" class="col-form-label">Teléfono</label>
+                            <input type="text" class="form-control" name="phone" id="phone" autocomplete="off" pattern="[0-9]{6,10}" title="El Teléfono solo puede contener números" [(ngModel)]="dataUsuarioUpdate.phone">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="celphone" class="col-form-label">Celular*</label>
+                            <input type="text" class="form-control" name="celphone" id="celphone" autocomplete="off" required pattern="[0-9]{10}" title="El celular solo puede contener números" [(ngModel)]="dataUsuarioUpdate.cellphone">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="email" class="col-form-label">Correo electrónico</label>
+                            <!-- <input type="text" class="form-control" name="email" id="email" autocomplete="off" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="El correo electrónico no es valido" [(ngModel)]="dataUsuarioUpdate.email"> -->
+                            <label for="email" class="form-control">{{ dataUsuarioUpdate.email }}</label>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="ocupacion" class="col-form-label">Ocupación</label>
+                            <input type="text" class="form-control" name="ocupacion" id="ocupacion" autocomplete="off" pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{0,}" title="La ocupacíon no es valida" [(ngModel)]="dataUsuarioUpdate.job">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="profession" class="col-form-label">Profesión</label>
+                            <input type="text" class="form-control" name="profession" id="profession" style="text-transform: uppercase" autocomplete="off" pattern="[a-zA-ZñáéíóúÁÉÍÓÚñÑ ]{0,}" title="La profesión no es valida" [(ngModel)]="dataUsuarioUpdate.profession">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="address" class="col-form-label">Dirección*</label>
+                            <input type="text" class="form-control" name="address" id="address" autocomplete="off" required pattern="[-0-9A-Za-z# ]{4,}" title="El Dirección no debe contener caracteres especiales (a excepción de #) ni simbolos de puntuación" [(ngModel)]="dataUsuarioUpdate.address">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="city" class="col-form-label">Ciudad*</label>
+                            <select type="city" class="form-control" name="city" id="city" [(ngModel)]="dataUsuarioUpdate.idCity">
+								<option *ngFor="let city of citiesData" [value]="city.id" [selected]="city.id == dataUsuarioUpdate.idCity">{{ city.ciudad | uppercase }}</option>
+							</select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!editarInformacionUsuario.form.valid" (click)="onSubmit()" data-dismiss="modal">Enviar</button>
+                    </div>
+                </form>
+                <p>
+                    <small>
 						<strong>* Campo requerido</strong>
 					</small>
-				</p>
-			</div>
-		</div>
-	</div>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
-	<div id="loadingGeneral" class="text-center">
-		<div id="bordeGeneral"></div>
-		<div id="TextLoading">Cargando...</div>
-	</div>
+    <div id="loadingGeneral" class="text-center">
+        <div id="bordeGeneral"></div>
+        <div id="TextLoading">Cargando...</div>
+    </div>
 </div>

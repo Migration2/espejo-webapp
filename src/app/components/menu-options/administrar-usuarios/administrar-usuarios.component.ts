@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs/Rx';
 import { DataSource } from '@angular/cdk/table';
 import { CollectionViewer } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material';
+import { UserSecurityValidateInfo } from '../../../models/usuario.model';
 
 @Component({
 	selector: 'app-administrar-usuarios',
@@ -33,7 +34,16 @@ export class AdministrarUsuariosComponent implements OnInit {
 		this.getUsersData(this.pageNumber, this.pageSize);
 	}
 
-	userInformation(userName: any) {
+	userInformation(userName:string, enabled:boolean=false, validated:boolean=false, code:string="", idLoanActive:string="", userSecId:number){
+		if(!enabled){
+			enabled =false;
+		}
+		if(!validated){
+			validated = false;
+		}
+		let userSecurityInfo:UserSecurityValidateInfo = new UserSecurityValidateInfo(enabled,validated, code, idLoanActive, userSecId);	
+		
+		this.userService.setDataUserSecurity(userSecurityInfo);
 		this.router.navigate(['usuario', userName]);
 	}
 

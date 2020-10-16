@@ -2,11 +2,13 @@ import {Injectable} from '@angular/core';
 import {Http,RequestOptions,Headers, Response} from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs';
+import { UserDataToUpdate, UserSecurityValidateInfo } from '../models/usuario.model';
 
 @Injectable()
 export class UserService {
 	private headers = new Headers({ 'Content-Type': 'application/json', 'charset':'UTF-8' });
 	private options = new RequestOptions({ headers: this.headers });
+	private static userSecurityInfo:UserSecurityValidateInfo;
 
 	constructor(public http: Http) {
 	}
@@ -51,6 +53,10 @@ export class UserService {
 		return this.http.get('/rest/person/security/'+id, {}).map(res => res.json());
 	}
 
+	getUserUserNameMoreDetail(userName:string){
+		return this.http.get(`/rest/person/user/${userName}`).map(this.extractData);
+	}
+
 	findUsersByIdWithPagination(pageIndex:number, pageSize:number, userId:string):Observable<any>{
 		return this.http.get(`/rest/person/security/all/${pageIndex}/${pageSize}/${userId}`).map(this.extractData)
 	}
@@ -63,12 +69,6 @@ export class UserService {
 		return this.http.get('/rest/lend/statistic/user/'+id, {}).map(res => res.json());
 	}
 
-
-	// lista de roles
-	getRoles() {
-		return this.http.get('/rest/username/roles', {}).map(res => res.json());
-	}
-
 	//habilitar desabilitar usuarios
 
 	enableUser(data){
@@ -77,6 +77,15 @@ export class UserService {
 
 	disableUser(data){
 		this.http.put('/rest/username/disable/'+data, JSON.stringify(data)).subscribe();
+	}
+
+	// lista de roles
+	getRoles() {
+		return this.http.get('/rest/username/roles', {}).map(res => res.json());
+	}
+
+	getRolesByUserName(userName:string){
+		return this.http.get(`/rest/person/user/${userName}/roles`).map(this.extractData);
 	}
 
 	// roles
@@ -102,8 +111,20 @@ export class UserService {
 	this.http.put('/rest/person/'+securityID, JSON.stringify(data), this.options).subscribe();	
 	}
 
+	updateUserDataV2(userData:UserDataToUpdate):Observable<any>{
+		return this.http.put('/rest/person/user', JSON.stringify(userData), this.options).map(this.extractData);
+	}
+
 	extractData(response :Response){
 		return response.json();
+	}
+
+	setDataUserSecurity(userSecurityInfo:UserSecurityValidateInfo){
+		UserService.userSecurityInfo = userSecurityInfo;		
+	}
+
+	getDataUserSecurity(){
+		return UserService.userSecurityInfo;
 	}
 
 }
