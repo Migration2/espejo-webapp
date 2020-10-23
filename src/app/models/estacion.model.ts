@@ -10,7 +10,7 @@ export class EstacionModel {
 		public latitude: string = "",
 		public longitude: string = "",
 		public statusName: string = "",
-		public statusTotem:string ="",
+		public statusTotem:string ="UNLOCK_STATION",
 		public modelName : string ="",
 		public availableCycles:number =0,
 		public contactPointStates:Array<contactPointState> =

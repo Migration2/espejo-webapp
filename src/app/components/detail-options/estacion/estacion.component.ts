@@ -44,6 +44,7 @@ export class EstacionComponent implements OnInit {
     stationOperationTime: StationOperationTime;
     stationStatictics:StatisticContactPoints = new StatisticContactPoints();
     datePipe:DatePipe = new DatePipe('en-US');
+    lockStation:boolean = false;
 
     // chart
 
@@ -70,6 +71,7 @@ export class EstacionComponent implements OnInit {
             this.datosEstacion = response;
             this.stationStatictics = this.getStatisticsContactPoints(this.datosEstacion);
             this.loadStationOperationTime(this.datosEstacion.code);
+            this.loadLockStation(this.datosEstacion.statusTotem);
 
             const bonotes = this.getReportButtons(this.datosEstacion);
             this.dtOptionsTransacciones = {
@@ -146,6 +148,16 @@ export class EstacionComponent implements OnInit {
             }
         });
         return numBikesMaintenance;
+     }
+
+     private loadLockStation(statusTotem:string){
+        if(statusTotem){
+            if(statusTotem != "UNLOCK_STATION"){
+                this.lockStation = true; 
+            }
+        }else{
+            this.lockStation = false;
+        }
      }
 
     private loadStationOperationTime(stationCode: string) {
@@ -314,6 +326,7 @@ export class EstacionComponent implements OnInit {
             if(response.status == 202){
                 this.datosEstacion.statusName = "SERVICIO";
                 this.datosEstacion.statusTotem = "UNLOCK_STATION";
+                this.lockStation = false;
             }
         },
         error => console.log("Error al acceder al recurso"));
@@ -324,6 +337,7 @@ export class EstacionComponent implements OnInit {
             if(response.status == 202){
                 this.datosEstacion.statusName = "BLOQUEADA";
                 this.datosEstacion.statusTotem = "LOCK_STATION";
+                this.lockStation = true;
             }
         },
         error => console.log("Error al acceder al recurso"));
