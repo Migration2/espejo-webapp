@@ -176,8 +176,6 @@ export class UsuarioComponent implements OnInit {
 
 	onSubmit() {
 		this.userService.updateUserDataV2(this.dataUsuarioUpdate).subscribe(response=>{
-			console.log(response);
-			
 			this.router.navigate(['administrarUsuarios']);
 		});
 		// let idCliente = this.userService.updateUser(this.dataUsuarioUpdate, this.dataSecurity.id);

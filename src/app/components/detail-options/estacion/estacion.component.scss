@@ -1,16 +1,25 @@
-.bottonAction{
-  color: #E3244B;
-  border-color: #E3244B;
-  cursor: pointer;  
+.bottonAction {
+    color: #E3244B;
+    border-color: #E3244B;
+    cursor: pointer;
 }
 
-.bottonAction:hover{
-  background-color: #E3244B;
-  border-color: #E3244B;
-  color: white;
+.bottonAction:hover {
+    background-color: #E3244B;
+    border-color: #E3244B;
+    color: white;
 }
 
-.active{
-  font-weight: bold; 
-  color: gray;
+.active {
+    font-weight: bold;
+    color: gray;
+}
+
+.btn-pencil {
+    padding-left: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-mto {
+    white-space: normal !important;
 }

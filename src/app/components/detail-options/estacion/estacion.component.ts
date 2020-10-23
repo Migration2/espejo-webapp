@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EstacionService } from '../../../services/estacion.service';
-import { EstacionModel } from '../../../models/estacion.model';
+import { EstacionModel, StationOperationTime, StatisticContactPoints } from '../../../models/estacion.model';
 import { mantenimientoEstacionModel, finMantenimientoEstacionModel, mantenimientoHistorial } from '../../../models/mantenimiento.model';
 import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { Subject } from 'rxjs/Rx';
 import { DataTableDirective } from 'angular-datatables';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-estacion',
@@ -32,8 +33,6 @@ export class EstacionComponent implements OnInit {
     typesMantto: Array<any> = [];
     idParts: Array<any> = [];
     numeroMantenimientos = 0;
-    public pieLabelsEstaciones: string[] = [];
-    public pieDataEstaciones: number[] = [];
     transacciones: Array<any> = [];
     fechaActual = new Date();
     fechaAnterior = new Date();
@@ -42,38 +41,20 @@ export class EstacionComponent implements OnInit {
     opcionCard = 'puntosContacto';
     opcionCard2 = 'tendencia';
 
-    // General Pie
-    public pieChartType = 'pie';
-    public pieChartTooltips: any = {
-        tooltips: {
-            callbacks: {
-                label: function (tooltipItem, data) {
-                    const allData = data.datasets[tooltipItem.datasetIndex].data;
-                    const tooltipLabel = data.labels[tooltipItem.index];
-                    const tooltipData = allData[tooltipItem.index];
-                    let total = 0;
-                    for (const i in allData) {
-                        if ( allData.hasOwnProperty (i)) {
-                            total += allData[i];
-                        }
-                    }
-                    const tooltipPercentage = Math.round((tooltipData / total) * 100);
-                    return tooltipLabel + ': ' + tooltipData + ' (' + tooltipPercentage + '%)';
-                }
-            }
-        }
+    stationOperationTime: StationOperationTime;
+    stationStatictics:StatisticContactPoints = new StatisticContactPoints();
+    datePipe:DatePipe = new DatePipe('en-US');
+
+    // chart
+
+    public barChartOptions: any = {
+        scaleShowVerticalLines: false,
+        responsive: true
     };
-
-        // chart
-
-        public barChartOptions: any = {
-            scaleShowVerticalLines: false,
-            responsive: true
-        };
-        public barChartLabels: string[] = [];
-        public barChartType = 'bar';
-        public barChartLegend = false;
-        public barChartData: any[] = [{ data: [] }];
+    public barChartLabels: string[] = [];
+    public barChartType = 'bar';
+    public barChartLegend = false;
+    public barChartData: any[] = [{ data: [] }];
 
 
     constructor(private activedRoute: ActivatedRoute, private estacionservice: EstacionService,
@@ -82,38 +63,21 @@ export class EstacionComponent implements OnInit {
         this.activedRoute.params.subscribe(params => {
             this.idEstacion = params.id;
         });
-        this.estacionservice.stationTransactions(this.idEstacion, this.fechaAnterior.toISOString().substring(0, 10),
-            this.fechaActual.toISOString().substring(0, 10)).subscribe(res => {
-                this.transacciones = res;
-                this.contarDatos(res);
-                this.dtTriggerTransacciones.next();
-            });
+        this.loadStationTransactionsData(this.idEstacion, this.fechaAnterior, this.fechaActual);
+        this.stationOperationTime = this.newInstanceStationOperationTime();
 
         this.estacionservice.getStationById(this.idEstacion).subscribe(response => {
             this.datosEstacion = response;
-            const bonotes = [
-                {
-                    extend: 'copy',
-                    text: 'Copiar',
-                    messageTop: `Datos de la Estación ${response.address}`,
-                    messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-                },
-                {
-                    extend: 'print',
-                    text: 'Imprimir',
-                    messageTop: `Datos de la Estación ${response.address}`,
-                    messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-                },
-                {
-                    extend: 'csv',
-                    text: 'Exportar',
-                    messageTop: `Datos de la Estación ${response.address}`,
-                    messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-                }
-            ];
+            this.stationStatictics = this.getStatisticsContactPoints(this.datosEstacion);
+            this.loadStationOperationTime(this.datosEstacion.code);
+
+            const bonotes = this.getReportButtons(this.datosEstacion);
             this.dtOptionsTransacciones = {
                 responsive: true,
                 searching: false,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
                 // Declare the use of the extension in the dom parameter
                 dom: 'Bfrtip',
                 buttons: bonotes
@@ -122,7 +86,7 @@ export class EstacionComponent implements OnInit {
                 searching: false,
                 responsive: true,
                 language: {
-                    url:"//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                    url: "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
                 },
                 // Declare the use of the extension in the dom parameter
                 dom: 'Bfrtip',
@@ -133,19 +97,15 @@ export class EstacionComponent implements OnInit {
                     { 'width': '50%', 'targets': 1 }
                 ],
                 responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+                },
                 // Declare the use of the extension in the dom parameter
                 dom: 'Bfrtip',
                 buttons: bonotes
             };
             this.puntosContacto = response.contactPointStates;
-            this.estadoPuntosContacto(this.puntosContacto);
-            this.mantenimientoService.getManttosStation(this.datosEstacion.id).subscribe(responseMan => {
-                this.mantenimientoHistorial = responseMan;
-                this.numeroMantenimientos = this.mantenimientoHistorial.length - 1;
-                this.dtTrigger2.next();
-                this.dtTrigger.next();
-                this.mostrar = true;
-            });
+            this.loadStationMaintenanceData(this.datosEstacion.id);
         });
 
         this.mantenimientoService.getStationParts().subscribe(respose => {
@@ -157,26 +117,96 @@ export class EstacionComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        
+     }
 
-    estadoPuntosContacto(puntosContacto) {
-        const labels = [];
-        const data = [];
+     private getStatisticsContactPoints(datosEstacion:EstacionModel):StatisticContactPoints{
+        let puntosContacto: Array<any> = datosEstacion.contactPointStates;
+        let contactPoints:number = puntosContacto.length;
+        let availableBikes:number = datosEstacion.availableCycles;
+        let availableBikesPercentage:number = this.computePercentage(contactPoints, availableBikes);        
+        let looseContactPoints:number = contactPoints - availableBikes;
+        let looseContactPointsPercentage:number = this.computePercentage(contactPoints, looseContactPoints);        
+        let contactPointsInMto:number = this.getCountBikesInMaintenance(puntosContacto);
+        let contactPointsInMtoPercentage:number = this.computePercentage(contactPoints, contactPointsInMto);
+        return new StatisticContactPoints(contactPoints,looseContactPoints, availableBikes, contactPointsInMto, 
+            availableBikesPercentage, looseContactPointsPercentage, contactPointsInMtoPercentage);
+     }
 
-        const matriz = {};
+     private computePercentage(total:number, cantidadActual:number){
+         return Math.round((cantidadActual * 100) / total);
+     }
 
-        if (puntosContacto.length > 0) {
-            puntosContacto.forEach(function (registro) {
-                const estado = registro['status'];
-                matriz[estado] = matriz[estado] ? (matriz[estado] + 1) : 1;
-            });
-            for (let i = Object.values(matriz).length - 1; i >= 0; i--) {
-                data.push(Object.values(matriz)[i]);
-                labels.push(Object.keys(matriz)[i]);
+     private getCountBikesInMaintenance(contactPointStates:Array<any>):number{
+         let numBikesMaintenance:number = 0;
+        contactPointStates.forEach(function (contactPoint) {
+            if("MANTENIMIENTO" == contactPoint['status']){
+                numBikesMaintenance ++;
             }
-        }
-        this.pieLabelsEstaciones = labels;
-        this.pieDataEstaciones = data;
+        });
+        return numBikesMaintenance;
+     }
+
+    private loadStationOperationTime(stationCode: string) {
+        this.estacionservice.getStationOperationTimeByCode(stationCode).subscribe(operationResponse => {
+            this.stationOperationTime = operationResponse;
+            let hourStartOp = this.stationOperationTime.startOp.substring(11,16);
+            let hourLoansOp = this.stationOperationTime.loansOp.substring(11,16);
+            let hourReturnOp = this.stationOperationTime.returnOp.substring(11,16);
+            
+            this.stationOperationTime.startOp = hourStartOp;
+            this.stationOperationTime.loansOp = hourLoansOp;
+            this.stationOperationTime.returnOp = hourReturnOp;
+        });
+    }
+
+    private newInstanceStationOperationTime(): StationOperationTime {
+        return { code: "", name: "", startOp: "", loansOp: "", returnOp: "" };
+    }
+
+    private loadStationTransactionsData(idStation: string, initialDate: Date, endDate: Date) {
+        let initialDateString: string = initialDate.toISOString().substring(0, 10);
+        let endDateString: string = endDate.toISOString().substring(0, 10);
+        this.estacionservice.stationTransactions(idStation, initialDateString, endDateString).subscribe(res => {
+            this.transacciones = res;
+            this.contarDatos(res);
+            this.dtTriggerTransacciones.next();
+        });
+    }
+
+    private loadStationMaintenanceData(stationId: string) {
+        this.mantenimientoService.getManttosStation(stationId).subscribe(responseMan => {
+            this.mantenimientoHistorial = responseMan;
+            this.numeroMantenimientos = this.mantenimientoHistorial.length - 1;
+            this.dtTrigger2.next();
+            this.dtTrigger.next();
+            this.mostrar = true;
+        });
+    }
+
+    private getReportButtons(stationData: EstacionModel) {
+        let reportButtons = [
+            {
+                extend: 'copy',
+                text: 'Copiar',
+                messageTop: `Datos de la Estación ${stationData.address}`,
+                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+            },
+            {
+                extend: 'print',
+                text: 'Imprimir',
+                messageTop: `Datos de la Estación ${stationData.address}`,
+                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+            },
+            {
+                extend: 'csv',
+                text: 'Exportar',
+                messageTop: `Datos de la Estación ${stationData.address}`,
+                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+            }
+        ];
+        return reportButtons;
     }
 
 
@@ -191,6 +221,23 @@ export class EstacionComponent implements OnInit {
         this.finMantenimientoEstacionModel.id = this.mantenimientoHistorial[this.numeroMantenimientos].id;
         this.mantenimientoService.setManttoStationFin(this.finMantenimientoEstacionModel);
         this.router.navigate(['administrarEstaciones']);
+    }
+
+    updateOperationData() {
+        let actualDate:string = this.datePipe.transform(new Date(), "dd-MM-yyyy");
+        let newStationOperationTime = this.newInstanceStationOperationTime();
+        newStationOperationTime.code = this.stationOperationTime.code;
+        newStationOperationTime.name = this.stationOperationTime.name;
+        newStationOperationTime.startOp = `${actualDate} ${this.stationOperationTime.startOp}:00`;
+        newStationOperationTime.loansOp = `${actualDate} ${this.stationOperationTime.loansOp}:00`;
+        newStationOperationTime.returnOp = `${actualDate} ${this.stationOperationTime.returnOp}:00`;
+        
+        this.estacionservice.updateOperationTime(newStationOperationTime).subscribe(response => {
+            if(response.status == 202){
+                console.log("updated operation time...");
+            }
+        }, 
+        error => console.log(error));
     }
 
     eventoParteEstacion(evento) {
@@ -261,4 +308,52 @@ export class EstacionComponent implements OnInit {
         }
         this.updateDataTendencia(datas);
     }
+
+    enableStation(){
+        this.estacionservice.enableStation(this.datosEstacion.code).subscribe(response => {
+            if(response.status == 202){
+                this.datosEstacion.statusName = "SERVICIO";
+                this.datosEstacion.statusTotem = "UNLOCK_STATION";
+            }
+        },
+        error => console.log("Error al acceder al recurso"));
+    }
+
+    disableStation(){
+        this.estacionservice.disableStation(this.datosEstacion.code).subscribe(response => {
+            if(response.status == 202){
+                this.datosEstacion.statusName = "BLOQUEADA";
+                this.datosEstacion.statusTotem = "LOCK_STATION";
+            }
+        },
+        error => console.log("Error al acceder al recurso"));
+    }
+
+    HOUR_DATA: Array<string> = [
+        "00:00", "00:30",
+        "01:00", "01:30",
+        "02:00", "02:30",
+        "03:00", "03:30",
+        "04:00", "04:30",
+        "05:00", "05:30",
+        "06:00", "06:30",
+        "07:00", "07:30",
+        "08:00", "08:30",
+        "09:00", "09:30",
+        "10:00", "10:30",
+        "11:00", "11:30",
+        "12:00", "12:30",
+        "13:00", "13:30",
+        "14:00", "14:30",
+        "15:00", "15:30",
+        "16:00", "16:30",
+        "17:00", "17:30",
+        "18:00", "18:30",
+        "19:00", "19:30",
+        "10:00", "10:30",
+        "21:00", "21:30",
+        "22:00", "22:30",
+        "23:00", "23:30",
+    ];
+
 }

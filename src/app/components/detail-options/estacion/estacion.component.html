@@ -1,245 +1,367 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
-	<div class="row">
-		<div class="col-md-5 clearfix">
-			<div class="jumbotron">
-				<h4>{{ datosEstacion.name | uppercase}}</h4>
-				<p> Dirección: {{ datosEstacion.address}}
-					<br> Estado: {{ datosEstacion.statusName }}
-					<br> Puntos de Contacto: {{puntosContacto.length}}
-					<br> Bicicletas Disponibles: {{datosEstacion.availableCycles}}
-					<span *ngIf="datosEstacion.statusName=='MANTENIMIENTO' && mantenimientoHistorial">
-						<br>La estación se encuentra en mantenimiento desde {{ mantenimientoHistorial[numeroMantenimientos].inicio }}</span>
-				</p>
-				<button *ngIf="datosEstacion.statusName!='MANTENIMIENTO' && datosEstacion.availableCycles == 0" class="btn btn-outline-primary btn-lg bottonAction"
-				 role="button" data-toggle="modal" data-target="#Mantenimiento">
-					Iniciar Mantenimiento</button>
-				<button *ngIf="datosEstacion.statusName=='MANTENIMIENTO' && datosEstacion.availableCycles == 0" class="btn btn-outline-primary btn-lg bottonAction"
-				 role="button" data-toggle="modal" data-target="#finMantenimiento">
-					Finalizar Mantenimiento</button>
-			</div>
-		</div>
-		<div class="col-md-7">
-			<h4>Estadistica Puntos de Contacto</h4>
-			<canvas baseChart *ngIf="pieLabelsEstaciones.length > 0" [data]="pieDataEstaciones" [labels]="pieLabelsEstaciones" [chartType]="pieChartType"
-			 [options]="pieChartTooltips">
-			</canvas>
-		</div>
-	</div>
-	<br>
-	<br>
-	<div class="row">
-		<div class="col-sm-5">
-			<div class="card">
-				<div class="card-header">
-					<ul class="nav nav-tabs card-header-tabs">
-						<li class="nav-item" (click)='opcionCard="puntosContacto"'>
-							<a class="nav-link" [class.active]='opcionCard=="puntosContacto"'>Puntos de Contacto</a>
-						</li>
-						<li class="nav-item" (click)='opcionCard="transacciones"'>
-							<a class="nav-link" [class.active]='opcionCard=="transacciones"'>Historico Transacciones</a>
-						</li>
-					</ul>
-				</div>
-				<div class="card-body" [hidden]='opcionCard=="puntosContacto"'>
-					<br>
-					<div class="card-text">
-						<div class="row">
-							<div class="form-group mb-2 col-md-6">
-								<label for="staticEmail2">Inicio: </label>
-								<input type="date" class="form-control mx-sm-1" #fechaAnteriorReference [value]="fechaAnterior.toISOString().substring(0, 10)">
-							</div>
-							<div class="form-group mb-2 col-md-6">
-								<label for="inputPassword2">Fin: </label>
-								<input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
-							</div>
-							<div class="my-3 mx-3 col-md-2">
-								<button class="btn btn-primary" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
-							</div>
-						</div>
-						<table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover mt-2"
-						 cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th>Fecha Prestamo</th>
-									<th>Usuario</th>
-									<th>Bicicleta</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let transaccion of transacciones">
-									<td>{{ transaccion.loanDate }}</td>
-									<td>{{ transaccion.username }}</td>
-									<td>{{ transaccion.codeBike }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="card-body" [hidden]='opcionCard=="transacciones"'>
-					<br>
-					<div class="card-text">
-						<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th>Punto</th>
-									<th>Estado</th>
-									<th>Bicicleta</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let puntoContacto of puntosContacto">
-									<td>{{puntoContacto.alias}}</td>
-									<td>{{puntoContacto.status}}</td>
-									<td>{{(puntoContacto.bikeCode) ? puntoContacto.bikeCode : "N/A"}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+    <div class="mat-elevation-z2 mb-4">
+        <section>
+            <div class="card border-bottom-0 animated fadeIn">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-9 text-center">
+                            <h2 class="font-weight-bold text-danger">{{ datosEstacion.name | uppercase}}</h2>
+                            <p class="text-muted mb-0">Horarios de operación: {{stationOperationTime.startOp}} hasta {{stationOperationTime.loansOp}}, hora maxima retorno de prestamos: {{ stationOperationTime.returnOp }}
+                                <span class="oi oi-pencil text-danger btn-pencil" role="button" data-toggle="modal" data-target="#editStationInfo" title="Editar"></span>
+                            </p>
+                            <p class="text-success mb-0" *ngIf="datosEstacion.statusName == 'SERVICIO'">{{ datosEstacion.statusName }}
+                                <span class="oi oi-lock-unlocked text-success p-2" *ngIf="datosEstacion.statusTotem == 'UNLOCK_STATION'"></span>
+                                <span class="oi oi-lock-locked text-danger p-2" *ngIf="datosEstacion.statusTotem != 'UNLOCK_STATION'"></span>
+                            </p>
+                            <p class="text-danger mb-0" *ngIf="datosEstacion.statusName != 'SERVICIO'">{{ datosEstacion.statusName }}
+                                <span class="oi oi-lock-unlocked text-success p-2" *ngIf="datosEstacion.statusTotem == 'UNLOCK_STATION'"></span>
+                                <span class="oi oi-lock-locked text-danger p-2" *ngIf="datosEstacion.statusTotem != 'UNLOCK_STATION'"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-3 d-flex flex-column align-self-start">
+                            <button *ngIf="datosEstacion.statusTotem == 'UNLOCK_STATION'" class="btn btn-outline-danger w-100 my-2" role="button" data-toggle="modal" data-target="#disableStation">Bloquear</button>
+                            <button *ngIf="datosEstacion.statusTotem != 'UNLOCK_STATION'" class="btn btn-outline-danger w-100 my-2" role="button" data-toggle="modal" data-target="#enableStation">Desbloquear</button>
+                            <button *ngIf="datosEstacion.statusTotem!='MANTENIMIENTO' && datosEstacion.availableCycles == 0" class="btn btn-outline-danger btn-mto" role="button" data-toggle="modal" data-target="#Mantenimiento">
+                            Iniciar Mantenimiento</button>
+                            <button *ngIf="datosEstacion.statusName=='MANTENIMIENTO' && datosEstacion.availableCycles == 0" class="btn btn-outline-danger w-100 btn-mto" role="button" data-toggle="modal" data-target="#finMantenimiento">
+                            Finalizar Mantenimiento</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-3 text-center">
+                                <h6 class="text-muted">Puntos de contacto</h6>
+                                <h3 class="font-weight-bold">{{ stationStatictics.contactPoints }}</h3>
+                                <h6 class="text-danger">100%</h6>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h6 class="text-muted">Puntos de contacto libres</h6>
+                                <h3 class="font-weight-bold">{{ stationStatictics.looseContactPoints}}</h3>
+                                <h6 class="text-danger">{{ stationStatictics.looseContactPointsPercentage}}%</h6>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h6 class="text-muted">Bicicletas disponibles</h6>
+                                <h3 class="font-weight-bold">{{ stationStatictics.availableBikes }}</h3>
+                                <h6 class="text-danger">{{ stationStatictics.availableBikesPercentage }}%</h6>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <h6 class="text-muted">Puntos de contacto en Mto.</h6>
+                                <h3 class="font-weight-bold">{{ stationStatictics.contactPointsInMto }}</h3>
+                                <h6 class="text-danger">{{ stationStatictics.contactPointsInMtoPercentage }}%</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-			</div>
-		</div>
-		<div class="col-sm-7">
-			<div class="card">
-				<div class="card-header">
-					<ul class="nav nav-tabs card-header-tabs">
-						<li class="nav-item" (click)='opcionCard2="tendencia"'>
-							<a class="nav-link" [class.active]='opcionCard2=="tendencia"'>Tendencia</a>
-						</li>
-						<li class="nav-item" (click)='opcionCard2="historicoMantenimiento"'>
-							<a class="nav-link" [class.active]='opcionCard2=="historicoMantenimiento"'>Historico Mantenimiento</a>
-						</li>
-					</ul>
-				</div>
-				<div class="card-body" [hidden]='opcionCard2=="tendencia"'>
-					<br>
-					<div class="card-text">
-						<table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover" cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th>Inicio</th>
-									<th>Observaciones</th>
-									<th>Piezas</th>
-									<th>Fin</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let historial of mantenimientoHistorial; let i=index">
-									<td>{{ historial.inicio }}</td>
-									<td>{{ historial.observation | observacionesMantenimiento }}</td>
-									<td>
-										<ul>
-											<li *ngFor="let item of mantenimientoHistorial[i].detailsMantto">{{ item.idMoTiposPartesEstacion.name }}
-											</li>
-										</ul>
-									</td>
-									<td>{{ historial.fin }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="card-body" [hidden]='opcionCard2=="historicoMantenimiento"'>
-					<br>
-					<div class="card-text">
-						<div style="display: block">
-							<canvas baseChart *ngIf="barChartLabels.length>0" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-							 [legend]="barChartLegend" [chartType]="barChartType"></canvas>
-						</div>
-						<div class="row justify-content-md-center" *ngIf="barChartLabels.length<=0">
-							<div id="loadingGeneral" class="text-center">
-								<div id="bordeGeneral"></div>
-								<div id="TextLoading">Cargando...</div>
-							</div>
-						</div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item" (click)='opcionCard="puntosContacto"'>
+                            <a class="nav-link" [class.active]='opcionCard=="puntosContacto"'>Puntos de Contacto</a>
+                        </li>
+                        <li class="nav-item" (click)='opcionCard="transacciones"'>
+                            <a class="nav-link" [class.active]='opcionCard=="transacciones"'>Historico Transacciones</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body" [hidden]='opcionCard=="puntosContacto"'>
+                    <br>
+                    <div class="card-text">
+                        <div class="row">
+                            <div class="form-group mb-2 col-md-6">
+                                <label for="staticEmail2">Inicio: </label>
+                                <input type="date" class="form-control mx-sm-1" #fechaAnteriorReference [value]="fechaAnterior.toISOString().substring(0, 10)">
+                            </div>
+                            <div class="form-group mb-2 col-md-6">
+                                <label for="inputPassword2">Fin: </label>
+                                <input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
+                            </div>
+                            <div class="my-3 mx-3 col-md-2">
+                                <button class="btn btn-danger" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
+                            </div>
+                        </div>
+                        <table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover mt-2" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Prestamo</th>
+                                    <th>Usuario</th>
+                                    <th>Bicicleta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let transaccion of transacciones">
+                                    <td>{{ transaccion.loanDate }}</td>
+                                    <td>{{ transaccion.username }}</td>
+                                    <td>{{ transaccion.codeBike }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-body" [hidden]='opcionCard=="transacciones"'>
+                    <br>
+                    <div class="card-text">
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Punto</th>
+                                    <th>Estado</th>
+                                    <th>Bicicleta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let puntoContacto of puntosContacto">
+                                    <td>{{puntoContacto.alias}}</td>
+                                    <td>{{puntoContacto.status}}</td>
+                                    <td>{{(puntoContacto.bikeCode) ? puntoContacto.bikeCode : "N/A"}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item" (click)='opcionCard2="tendencia"'>
+                            <a class="nav-link" [class.active]='opcionCard2=="tendencia"'>Tendencia</a>
+                        </li>
+                        <li class="nav-item" (click)='opcionCard2="historicoMantenimiento"'>
+                            <a class="nav-link" [class.active]='opcionCard2=="historicoMantenimiento"'>Historico Mantenimiento</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body" [hidden]='opcionCard2=="tendencia"'>
+                    <br>
+                    <div class="card-text">
+                        <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Inicio</th>
+                                    <th>Observaciones</th>
+                                    <th>Piezas</th>
+                                    <th>Fin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let historial of mantenimientoHistorial; let i=index">
+                                    <td>{{ historial.inicio }}</td>
+                                    <td>{{ historial.observation | observacionesMantenimiento }}</td>
+                                    <td>
+                                        <ul>
+                                            <li *ngFor="let item of mantenimientoHistorial[i].detailsMantto">{{ item.idMoTiposPartesEstacion.name }}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>{{ historial.fin }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-body" [hidden]='opcionCard2=="historicoMantenimiento"'>
+                    <br>
+                    <div class="card-text">
+                        <div style="display: block">
+                            <canvas baseChart *ngIf="barChartLabels.length>0" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+                        </div>
+                        <div class="row justify-content-md-center" *ngIf="barChartLabels.length<=0">
+                            <div class="col-md-12 text-center">
+                                <p class="text-muted font-weight-bold"> No hay tendencia disponible para la estacion...</p>
+                            </div>
+
+                            <!-- <div id="loadingGeneral" class="text-center">
+                                <div id="bordeGeneral"></div>
+                                <div id="TextLoading">Cargando...</div>
+                            </div> -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
-	<div id="loadingGeneral" class="text-center">
-		<div id="bordeGeneral"></div>
-		<div id="TextLoading">Cargando...</div>
-	</div>
+    <div id="loadingGeneral" class="text-center">
+        <div id="bordeGeneral"></div>
+        <div id="TextLoading">Cargando...</div>
+    </div>
 </div>
 
 <div class="modal fade" id="Mantenimiento" tabindex="-1" role="dialog" aria-labelledby="Mantenimiento" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="Mantenimiento">Iniciar Mantenimiento</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Mantenimiento">Iniciar Mantenimiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-			<div class="modal-body" style="width: 95%;">
-				<form #crearMantenimiento="ngForm">
-					<div class="form-group">
-						<label for="exampleFormControlSelect1">
+            </div>
+            <div class="modal-body" style="width: 95%;">
+                <form #crearMantenimiento="ngForm">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">
 							<em>Tipo de Mantenimiento</em>
 						</label>
-						<select class="form-control" id="idTypeMantto" name="idTypeMantto" [(ngModel)]="mantenimientoEstacionModel.idTypeMantto"
-						 required>
+                        <select class="form-control" id="idTypeMantto" name="idTypeMantto" [(ngModel)]="mantenimientoEstacionModel.idTypeMantto" required>
 							<option *ngFor="let typeMantto of typesMantto" value="{{ typeMantto.id}}">{{ typeMantto.alias }}</option>
 						</select>
-					</div>
-					<div class="form-group">
-						<em>Piezas</em>
-						<br>
-						<div class="form-check form-check-inline" *ngFor="let parteEstacion of partesEstacion">
-							<label class="form-check-label">
+                    </div>
+                    <div class="form-group">
+                        <em>Piezas</em>
+                        <br>
+                        <div class="form-check form-check-inline" *ngFor="let parteEstacion of partesEstacion">
+                            <label class="form-check-label">
 								<input class="form-check-input" type="checkbox" value="{{ parteEstacion.id }}" (change)="eventoParteEstacion($event)"> {{ parteEstacion.parts }}
 							</label>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="desc">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">
 							<em>Observaciones</em>
 						</label>
-						<textarea class="form-control" id="desc" name="desc" rows="3" [(ngModel)]="mantenimientoEstacionModel.desc"></textarea>
-					</div>
-					<div class="row justify-content-end">
-						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!crearMantenimiento.form.valid"
-						 (click)="onSubmit()" data-dismiss="modal">Enviar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                        <textarea class="form-control" id="desc" name="desc" rows="3" [(ngModel)]="mantenimientoEstacionModel.desc"></textarea>
+                    </div>
+                    <div class="row justify-content-end">
+                        <button id="cancelInitMto" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!crearMantenimiento.form.valid" (click)="onSubmit()" data-dismiss="modal">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <div class="modal fade" id="finMantenimiento" tabindex="-1" role="dialog" aria-labelledby="finMantenimiento" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="finMantenimiento">Finalizar Mantenimiento</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="finMantenimiento">Finalizar Mantenimiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-			<div class="modal-body" style="width: 95%;">
-				<form #finMantenimiento="ngForm">
-					<div class="form-group">
-						<label for="exampleFormControlTextarea1">
+            </div>
+            <div class="modal-body" style="width: 95%;">
+                <form #finMantenimiento="ngForm">
+                    <div class="form-group">
+                        <label for="descriptionFinMto">
 							<em>Observaciones</em>
 						</label>
-						<textarea class="form-control" id="desc" name="desc" rows="3" [(ngModel)]="finMantenimientoEstacionModel.desc"></textarea>
-					</div>
-					<div class="row justify-content-end">
-						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!finMantenimiento.form.valid"
-						 (click)="onSubmitFin()" data-dismiss="modal">Enviar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                        <textarea class="form-control" id="descriptionFinMto" name="descriptionFinMto" rows="3" [(ngModel)]="finMantenimientoEstacionModel.desc"></textarea>
+                    </div>
+                    <div class="row justify-content-end">
+                        <button id="cancelEndMto" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" id="enviarFinMto" class="btn btn-outline-primary bottonAction" [disabled]="!finMantenimiento.form.valid" (click)="onSubmitFin()" data-dismiss="modal">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editStationInfo" role="dialog" tabindex="-1" aria-labelledby="editStationInfo" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="editStationInfo">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <div class="modal-title text-light text-center">
+                    <h5 class="modal-title text-light" id="editStationInfo">Horarios de operación</h5>
+                    <p class="text-light pt-2">{{ datosEstacion.name | uppercase}}</p>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="text-light" aria-hidden="true">&times;</span>
+		  		</button>
+            </div>
+            <div class="modal-body" style="width: 95%;">
+                <form #editStationInfo="ngForm">
+                    <div class="form form-row">
+                        <div class="col-md-12">
+                            <div class="form-group text-center">
+                                <label for="hourStartOperation">Hora inicio operación</label>
+                                <select class="form-control" [(ngModel)]="stationOperationTime.startOp" name="startOpTime" id="startOpTime" required>
+                                    <option *ngFor="let hour of HOUR_DATA" [value]="hour" [selected] ="hour == stationOperationTime.startOp">{{ hour }}</option>
+                                </select>
+                                <!-- <input type="text" class="form-control-sm" name="startOp" id="startOp" required pattern="[0-9]{1,2}[:][0-9]{1,2}" [(ngModel)]="stationOperationTime.startOp"> -->
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="hourStartOperation">Hora fin prestamos</label>
+                                <select class="form-control" name="loansOp" id="loansOp" [(ngModel)]="stationOperationTime.loansOp" required>
+                                    <option *ngFor="let hour of HOUR_DATA" [value]="hour" [selected] ="hour == stationOperationTime.loansOp">{{ hour }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="hourStartOperation">Hora fin operación</label>
+                                <select class="form-control" name="returnOp" id="returnOp" [(ngModel)]="stationOperationTime.returnOp" required>
+                                    <option  *ngFor="let hour of HOUR_DATA" [value]="hour" [selected]="hour == stationOperationTime.returnOp">{{ hour }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelEditStation" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cancelar</button>
+                <button type="submit" id="sendOperation" class="btn btn-outline-primary bottonAction" (click)="updateOperationData()" data-dismiss="modal" [disabled]="!editStationInfo.form.valid">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal disable and power station -->
+<div class="modal fade" id="disableStation" tabindex="-1" role="dialog" aria-labelledby="disableStation" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="disableStation">Deshabilitar estación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro, deseas BLOQUEAR la estación?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-danger" (click)="disableStation()" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="enableStation" tabindex="-1" role="dialog" aria-labelledby="enableStation" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="enableStation">Habilitar estación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro, deseas DESBLOQUEAR la estación?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-primary bottonAction" (click)="enableStation()" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
 </div>

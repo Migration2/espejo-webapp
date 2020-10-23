@@ -65,6 +65,7 @@ import { ChartsModule } from 'ng2-charts';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import { CustomMatPaginatorIntl } from './paginator-es';
 import { BikesLabelPipe } from './pipes/bikes-label.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -115,6 +116,7 @@ import { BikesLabelPipe } from './pipes/bikes-label.pipe';
         MatTableModule,
         MatPaginatorModule,
         MatInputModule,
+        HttpClientModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAzqNYs1MtHoGDvy8RYyjgCQSxiTyn8ONM'
         }),
