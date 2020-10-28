@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import { DataSource } from '@angular/cdk/table';
-import { CollectionViewer } from '@angular/cdk/collections';
 import { PageEvent } from '@angular/material';
-import { UserSecurityValidateInfo } from '../../../models/usuario.model';
+import { UserSecurityModel, UserSecurityValidateInfo } from '../../../models/usuario.model';
 
 @Component({
 	selector: 'app-administrar-usuarios',
@@ -14,6 +13,9 @@ import { UserSecurityValidateInfo } from '../../../models/usuario.model';
 	providers: [UserService]
 })
 export class AdministrarUsuariosComponent implements OnInit {
+
+	@Input() isCallOtherComponent = false;
+	@Output() userSelected : EventEmitter<any>;
 
 	
 	mostrar: boolean = false;
@@ -28,13 +30,14 @@ export class AdministrarUsuariosComponent implements OnInit {
 	filterValue:string = "";
 
 	constructor(private router: Router, private userService: UserService) {
+		this.userSelected = new EventEmitter();
 	}
 
 	ngOnInit() {
 		this.getUsersData(this.pageNumber, this.pageSize);
 	}
 
-	userInformation(userName:string, enabled:boolean=false, validated:boolean=false, code:string="", idLoanActive:string="", userSecId:number){
+	userInformation(userName:string, enabled:boolean=false, validated:boolean=false, code:string="", idLoanActive:string="", userSecId:number | string){
 		if(!enabled){
 			enabled =false;
 		}
@@ -45,6 +48,17 @@ export class AdministrarUsuariosComponent implements OnInit {
 		
 		this.userService.setDataUserSecurity(userSecurityInfo);
 		this.router.navigate(['usuario', userName]);
+	}
+
+	handleUserSelected(userSelected:UserSecurityModel){
+		if(this.isCallOtherComponent){
+			this.userService.getUserByUserName(userSelected.username).subscribe(userResponse => {
+				this.userSelected.emit(userResponse);
+			}, 
+			error => console.log(error));
+		}else{
+			this.userInformation(userSelected.username, userSelected.enabled, userSelected.validated, userSelected.code, userSelected.idLoanActive, userSelected.id)
+		}	
 	}
 
 	handlePage(pageEvent: PageEvent) {

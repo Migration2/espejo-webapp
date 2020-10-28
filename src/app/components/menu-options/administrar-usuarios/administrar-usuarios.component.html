@@ -2,7 +2,7 @@
 
 
     <div class="tituloPrincipal">
-        <h3>Usuarios</h3>
+        <h3 class="text-danger font-weight-bold">Usuarios</h3>
         <hr>
     </div>
 
@@ -39,7 +39,8 @@
                 <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field"><span *ngIf="!user.code" class="oi oi-x"></span><span *ngIf="user.code" class="oi oi-check"></span> </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let user; columns: displayedColumns;" (click)="userInformation(user.username, user.enabled, user.validated, user.code, user.idLoanActive, user.id)">
+            <!-- <mat-row *matRowDef="let user; columns: displayedColumns;" (click)="userInformation(user.username, user.enabled, user.validated, user.code, user.idLoanActive, user.id)"> -->
+            <mat-row *matRowDef="let user; columns: displayedColumns;" (click)="handleUserSelected(user)">
             </mat-row>
         </mat-table>
         <mat-paginator #paginator [length]="lengthUsers" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)"></mat-paginator>

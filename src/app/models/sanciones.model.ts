@@ -23,3 +23,23 @@ export class sancionesModel {
         }
     ) { }
 }
+
+export class PenaltyModel{
+    constructor(
+        public id:string=null, 
+        public code:string = "",
+        public description:string = "",
+        public penaltyInDays:number = 0
+        ){}
+}
+
+export class ApplySanctionModel{
+    constructor(
+        public idUser:number=null,
+        public idPenalty:number=null,
+        public observation:string = ""
+    ){
+
+    }
+
+}

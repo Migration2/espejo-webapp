@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map'
+import { ApplySanctionModel, PenaltyModel } from '../models/sanciones.model';
 
 @Injectable()
 export class SancionesService {
@@ -31,5 +32,21 @@ export class SancionesService {
 
 	finalizarSancion(idSancion){
 		return this.http.delete('/rest/penalties/'+idSancion, {});
+	}
+
+	createPenality(penality:PenaltyModel){
+		return this.http.post('/rest/penalties', penality);
+	}
+
+	getAllManualPenalities(){
+		return this.http.get('/rest/penalties/manual').map(this.extractData);
+	}
+
+	extractData(response :Response){
+		return response.json();
+	}
+	applySanction(applySanctionData:ApplySanctionModel){
+
+		return this.http.post('/rest/penalties/apply/to/user', JSON.stringify(applySanctionData), this.options);
 	}
 }

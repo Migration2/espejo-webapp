@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SancionesService } from '../../../services/sanciones.service';
 import { Subject } from 'rxjs/Rx';
-import { sancionesModel } from '../../../models/sanciones.model';
+import { ApplySanctionModel, PenaltyModel, sancionesModel } from '../../../models/sanciones.model';
 import { DataTableDirective } from 'angular-datatables';
+import { UserSecurityModel, UsuarioModel } from '../../../models/usuario.model';
+import { error } from 'protractor';
 
 @Component({
     selector: 'app-sanciones',
@@ -24,6 +26,10 @@ export class SancionesComponent implements OnInit {
     mostrar = false;
     sancion: sancionesModel = new sancionesModel;
     sancionSeleccionada: any;
+    listPenalityData:Array<PenaltyModel> = [];
+    userSelectedData:UsuarioModel = new UsuarioModel();
+    applySanctionData:ApplySanctionModel = new ApplySanctionModel();
+    userNameToValidateForm:string = "";
 
     constructor(private router: Router, private sancionesService: SancionesService) {
     }
@@ -67,6 +73,8 @@ export class SancionesComponent implements OnInit {
             dom: 'Bfrtip',
             buttons: bonotes
         };
+
+        this.loadListPenalties();
     }
 
     finsancion(idSancion) {
@@ -84,6 +92,40 @@ export class SancionesComponent implements OnInit {
                 });
             }
         );
+    }
+
+    loadDataUSerSelected(userSelected:UsuarioModel){
+        this.userSelectedData = userSelected;
+        this.userNameToValidateForm = `${this.userSelectedData.nombre} ${this.userSelectedData.apellido}`;
+        this.applySanctionData.idUser = Number(this.userSelectedData.id);
+        this.hideListUsersModal();
+    }
+
+    private hideListUsersModal(){
+        document.getElementById("listUserModal").click();
+    }
+
+    loadListPenalties(){
+        this.sancionesService.getAllManualPenalities().subscribe(penalitiesResponse => {
+            this.listPenalityData = penalitiesResponse;
+        }, 
+        error => console.log(error));
+    }
+
+    applySanction(){
+        this.applySanctionData.idPenalty = Number(this.applySanctionData.idPenalty);
+        this.sancionesService.applySanction(this.applySanctionData).subscribe(response => {
+            if(response.status == 202){
+              this.clearFieldsApplySanctions();
+            }
+        }, error => console.log(error));
+    }
+
+    private clearFieldsApplySanctions(){
+        this.applySanctionData.idUser = null;
+        this.applySanctionData.idPenalty =null;
+        this.applySanctionData.observation ="";
+        this.userSelectedData = new UsuarioModel();
     }
 
 }

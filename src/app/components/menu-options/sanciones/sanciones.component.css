@@ -1,11 +1,15 @@
-.bottonAction{
+.bottonAction {
     color: #E3244B;
     border-color: #E3244B;
-    cursor: pointer;  
-  }
-  
-  .bottonAction:hover{
+    cursor: pointer;
+}
+
+.bottonAction:hover {
     background-color: #E3244B;
     border-color: #E3244B;
     color: white;
-  }
+}
+
+.btn-search :hover {
+    color: white;
+}

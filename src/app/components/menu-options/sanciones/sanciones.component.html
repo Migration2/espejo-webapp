@@ -1,96 +1,183 @@
-<div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
+<div class="animated fadeIn b1" [style.display]="mostrar ? 'block' : 'none'">
 
 
-	<div class="tituloPrincipal">
-		<h3>Sanciones</h3>
-	</div>
+    <div class="tituloPrincipal mb-0">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="text-danger font-weight-bold w-100">Sanciones</h2>
+            <button type="button" class="btn btn-danger mx-2" data-toggle="modal" data-target="#adminSanctionModal">Administrar</button>
+        </div>
+        <hr>
+    </div>
 
-	<div class="row">
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Sanciones Activas</h5>
-					<br>
-					<div class="card-text">
-						<table datatable id="sancionesActivas" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2"
-						 cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Documento</th>
-									<th>Inicio Sanción</th>
-									<th>Fin Sanción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let sancion of sanciones2">
-									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
-									<td>{{ sancion.username }}
-										<br>
-										<div class="my-2">
-											<button class="btn btn-outline-primary bottonAction" data-toggle="modal" data-target=".modal" (click)="sancionSeleccionada=sancion">
+    <div class="row">
+        <div class="col-md-12 mb-3" id="accordion">
+            <div class="card">
+                <div class="card-header bg-danger" id="headingApplySanction">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed text-light" type="button" data-toggle="collapse" data-target="#applySanctionCollapse" aria-expanded="false" aria-controls="applySanctionCollapse">
+							Aplicar sanción manual <span class="oi oi-caret-bottom small px-2"></span>
+						</button>
+                    </h2>
+                </div>
+                <div id="applySanctionCollapse" class="collapse" aria-labelledby="headingApplySanction" data-parent="#accordion">
+                    <div class="card-body">
+                        <form #applySanctionForm="ngForm">
+                            <div class="form-row">
+                                <div class="form-group col-md-7">
+                                    <label for="userInput">Usuario*</label>
+                                    <div class="d-flex justify-content-between">
+                                        <input type="text" id="idUserInput" name="idUserInput" required hidden [(ngModel)]="applySanctionData.idUser">
+                                        <input type="text" class="form-control" id="userInput" [value]="userSelectedData.nombre + ' ' + userSelectedData.apellido" disabled>
+                                        <button type="button" class="btn btn-outline-danger mx-2 btn-search" data-toggle="modal" data-target="#listUserModal ">
+                                            <span class="oi oi-magnifying-glass"></span>
+                                        </button>
+                                    </div>
+                                    <small id="userHelp" class="form-text text-muted">Busque la persona a la cual se le quiere realizar la sanción.</small>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="sanctionSelect">Tipo de sanción*</label>
+                                    <select class="form-control" id="sanctionSelect" name="sanctionSelect" required [(ngModel)]="applySanctionData.idPenalty">
+										<option selected disabled value=""> Seleccione sanción</option>
+										<option *ngFor="let penality of listPenalityData" [value]="penality.id">{{ penality.description }} - {{ penality.penaltyInDays }}</option>
+									</select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="descriptionInput">Observación*</label>
+                                    <textarea type="text" class="form-control" id="descriptionInput" name="descriptionInput" required pattern=".{5,}" [(ngModel)]="applySanctionData.observation"></textarea>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-danger mx-2" data-toggle="collapse" data-target="#applySanctionCollapse">Cancelar</button>
+                                    <button type="button" class="btn btn-danger ml-2" data-toggle="collapse" data-target="#applySanctionCollapse" [disabled]="!applySanctionForm.form.valid" (click)="applySanction()">Sancionar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="card-footer">
+                        <button type="button" class="btn btn-outline-danger" data-toggle="collapse" data-dismiss="collapse" data-target="#applySanctionCollapse">Cancelar</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sanciones Activas</h5>
+                    <br>
+                    <div class="card-text">
+                        <table datatable id="sancionesActivas" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Documento</th>
+                                    <th>Inicio Sanción</th>
+                                    <th>Fin Sanción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sancion of sanciones2">
+                                    <td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
+                                    <td>{{ sancion.username }}
+                                        <br>
+                                        <div class="my-2">
+                                            <button class="btn btn-outline-primary bottonAction" data-toggle="modal" data-target=".modal" (click)="sancionSeleccionada=sancion">
 												Fin sanción</button>
-										</div>
-									</td>
-									<td>{{ sancion.fechaSancion }}</td>
-									<td>{{ sancion.fechaLimiteSancion }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Sanciones Aplicadas</h5>
-					<br>
-					<div class="card-text">
-						<table datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="table row-border hover mt-2" cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Documento</th>
-									<th>Inicio Sanción</th>
-									<th>Fin Sanción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let sancion of sanciones1">
-									<td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
-									<td>{{ sancion.username }}</td>
-									<td>{{ sancion.fechaSancion }}</td>
-									<td>{{ sancion.fechaLimiteSancion }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                        </div>
+                                    </td>
+                                    <td>{{ sancion.fechaSancion }}</td>
+                                    <td>{{ sancion.fechaLimiteSancion }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sanciones Aplicadas</h5>
+                    <br>
+                    <div class="card-text">
+                        <table datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="table row-border hover mt-2" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Documento</th>
+                                    <th>Inicio Sanción</th>
+                                    <th>Fin Sanción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sancion of sanciones1">
+                                    <td>{{ sancion.firstName +' '+ sancion.lastName | uppercase}}</td>
+                                    <td>{{ sancion.username }}</td>
+                                    <td>{{ sancion.fechaSancion }}</td>
+                                    <td>{{ sancion.fechaLimiteSancion }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
-	<div id="loadingGeneral" class="text-center">
-		<div id="bordeGeneral"></div>
-		<div id="TextLoading">Cargando...</div>
-	</div>
+    <div id="loadingGeneral" class="text-center">
+        <div id="bordeGeneral"></div>
+        <div id="TextLoading">Cargando...</div>
+    </div>
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" *ngIf="sancionSeleccionada">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-body">
-				<p>Realmente desea eliminar la sanción de
-					<strong>{{ sancionSeleccionada.firstName +' '+ sancionSeleccionada.lastName | uppercase}}</strong>
-				</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-primary bottonAction" (click)="finsancion(sancionSeleccionada.id)" data-dismiss="modal">Finalizar Sanción</button>
-				<button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cancelar</button>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Realmente desea eliminar la sanción de
+                    <strong>{{ sancionSeleccionada.firstName +' '+ sancionSeleccionada.lastName | uppercase}}</strong>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-danger" (click)="finsancion(sancionSeleccionada.id)" data-dismiss="modal">Finalizar Sanción</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="adminSanctionModal" role="dialog" tabindex="-1" aria-labelledby="adminSanctionModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h4 class="text-light text-center w-100">Soporte!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true" class="text-light">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted">Estamos trabajando en esta funcionalidad, con el fin de brindarte un mejor servicio.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-danger" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="listUserModal" role="dialog" tabindex="-1" aria-labelledby="listUserModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <app-administrar-usuarios [isCallOtherComponent]="true" (userSelected)="loadDataUSerSelected($event)"></app-administrar-usuarios>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-danger" type="button" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
 </div>

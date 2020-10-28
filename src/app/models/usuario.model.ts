@@ -55,6 +55,33 @@ export class UsuarioSecurityModel {
 	) { }
 }
 
+export class UserSecurityModel{
+	constructor(
+		public id: string = '',
+		public username: string = " ",
+		public enabled: boolean = false,
+		public firstName: string = "",
+		public lastName: string = "",
+		public email: string = "",
+		public celphone: string = "",
+		public userRole: Array<UserRoleModel> = [],
+		public created: string = "",
+		public validated: boolean = false,
+		public pin: string = "",
+		public idCard: string = null,
+		public code: string = null,
+		public idLoanActive: string = null
+	) { }
+}
+
+export class UserRoleModel{
+	constructor(
+		public authority:string = ""
+	){
+
+	}
+}
+
 
 export class UsuarioSecurityAccessModel {
 
@@ -142,7 +169,7 @@ export class UserSecurityValidateInfo{
 		public validated:boolean=false,
 		public code:string="",
 		public idLoanActive: string = null,
-		public id:number=0){
+		public id: number | string=0){
 
 	}
 }
