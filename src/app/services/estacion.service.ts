@@ -21,7 +21,7 @@ export class EstacionService {
 		return this.http.get('/rest/mobile/station',{}).map(this.extractData);
 	}
 
-	getEstacionesV2(){
+	public getStationsData(){
 		return this.http.get('/rest/station',{}).map(this.extractData);
 	}
 

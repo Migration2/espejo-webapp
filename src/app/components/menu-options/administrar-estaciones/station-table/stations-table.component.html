@@ -1,0 +1,29 @@
+<div class="table-responsive">
+    <mat-table #table [dataSource]="dataSourceStation">
+        <ng-container matColumnDef="Estacion">
+            <mat-header-cell *matHeaderCellDef> Estación </mat-header-cell>
+            <mat-cell *matCellDef="let station"> {{station.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Bicicletas disponibles" class="text-center">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Bicicletas disponibles </mat-header-cell>
+            <mat-cell *matCellDef="let station" class="text-center"> {{station.availableCycles}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Puntos de contacto libres">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Puntos de contacto libre </mat-header-cell>
+            <mat-cell *matCellDef="let station" class="text-center"> {{(station['contactPointStates'].length)-(station.availableCycles)}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Estado">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let station" class="text-center"> {{station.statusName}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row (click)="informacionEstacion(station.id)" *matRowDef="let station; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [length]="lengthStations" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)">
+
+    </mat-paginator>
+</div>

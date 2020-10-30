@@ -39,13 +39,7 @@
                     <h5 class="card-title">Transacciones por Estación</h5>
                     <hr>
                     <div class="card-text">
-                        <canvas *ngIf="lineChartLabels.length>0" baseChart [datasets]="lineChartDataEstation" [options]="lineChartOptions" [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
-                        <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
-                            <div class="text-center">
-                                <div id="bord"></div>
-                                <div id="Text">Cargando...</div>
-                            </div>
-                        </div>
+                        <app-transactions-per-station-chart></app-transactions-per-station-chart>
                     </div>
                 </div>
             </div>
@@ -57,49 +51,20 @@
                     <h5 class="card-title">Transacciones General</h5>
                     <hr>
                     <div class="card-text">
-                        <canvas *ngIf="lineChartLabels.length>0" baseChart [datasets]="lineChartData" width="400" height="300" [options]="lineChartOptions" [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
-                        <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
-                            <div class="text-center">
-                                <div id="bord"></div>
-                                <div id="Text">Cargando...</div>
-                            </div>
-                        </div>
+                        <app-general-transactions-chart></app-general-transactions-chart>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-12 mt-3 pb-4 table-responsive">
-            <h5 class="card-title">Estado de las estaciones</h5>
-            <hr>
-            <div class="mat-elevation-z8">
-                <mat-table #table [dataSource]="dataSourceStation">
-                    <ng-container matColumnDef="Estacion">
-                        <mat-header-cell *matHeaderCellDef> Estación </mat-header-cell>
-                        <mat-cell *matCellDef="let station"> {{station.name}} </mat-cell>
-                    </ng-container>
-
-                    <ng-container matColumnDef="Bicicletas disponibles" class="text-center">
-                        <mat-header-cell *matHeaderCellDef class="text-center"> Bicicletas disponibles </mat-header-cell>
-                        <mat-cell *matCellDef="let station" class="text-center"> {{station.availableCycles}} </mat-cell>
-                    </ng-container>
-
-                    <ng-container matColumnDef="Puntos de contacto libres">
-                        <mat-header-cell *matHeaderCellDef class="text-center"> Puntos de contacto libre </mat-header-cell>
-                        <mat-cell *matCellDef="let station" class="text-center"> {{(station['contactPointStates'].length)-(station.availableCycles)}} </mat-cell>
-                    </ng-container>
-
-                    <ng-container matColumnDef="Estado">
-                        <mat-header-cell *matHeaderCellDef class="text-center"> Estado </mat-header-cell>
-                        <mat-cell *matCellDef="let station" class="text-center"> {{station.statusName}} </mat-cell>
-                    </ng-container>
-
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row (click)="informacionEstacion(row.id)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
-                <mat-paginator #paginator [length]="lengthStations" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)">
-
-                </mat-paginator>
+        <div class="col-md-12 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Estado estaciones</h5>
+                    <hr>
+                    <div class="card-text">
+                        <app-stations-table></app-stations-table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
