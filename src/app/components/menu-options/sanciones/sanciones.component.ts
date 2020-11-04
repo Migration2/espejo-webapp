@@ -5,7 +5,11 @@ import { Subject } from 'rxjs/Rx';
 import { ApplySanctionModel, PenaltyModel, sancionesModel } from '../../../models/sanciones.model';
 import { DataTableDirective } from 'angular-datatables';
 import { UserSecurityModel, UsuarioModel } from '../../../models/usuario.model';
-import { error } from 'protractor';
+import { DataSource } from '@angular/cdk/table';
+import { Observable } from 'rxjs';
+import { PaginatePipe } from '../../../pipes/paginate.pipe';
+import { PageEvent } from '@angular/material';
+
 
 @Component({
     selector: 'app-sanciones',
@@ -19,19 +23,42 @@ export class SancionesComponent implements OnInit {
     dtElement: DataTableDirective;
     dtOptions1: any = {};
     dtOptions2: any = {};
-    sanciones1: Array<sancionesModel> = [];
-    sanciones2: Array<sancionesModel> = [];
+    appliedSanctionsData: Array<sancionesModel> = [];
+    activeSanctionsData: Array<sancionesModel> = [];
+
+    sanciones1DataForView: Array<sancionesModel> = [];
+    sanciones2DataForView: Array<sancionesModel> = [];
+
+    activeSanctionDataSource: ActiveSanctionDataSource;
+    appliedPenaltiesDataSource:AppliedPenaltiesDataSource;
+    displayedColumns:Array<string> = [ "name","document","initSanction","endSanction"];
+
     dtTrigger1 = new Subject();
     dtTrigger2 = new Subject();
     mostrar = false;
-    sancion: sancionesModel = new sancionesModel;
-    sancionSeleccionada: any;
+    selectedSanction: sancionesModel = new sancionesModel;
     listPenalityData:Array<PenaltyModel> = [];
     userSelectedData:UsuarioModel = new UsuarioModel();
     applySanctionData:ApplySanctionModel = new ApplySanctionModel();
     userNameToValidateForm:string = "";
 
+    //pagination
+    private paginatorPipe: PaginatePipe;
+    public pageSizeOptions = [5, 10, 20, 50, 100];
+   
+    //active sanctions paginator
+    lengthData: number = 0;
+    pageSize: number = 10;
+    pageNumber: number = 0;
+
+    //applied sanctions paginator
+    lengthAppliedSanctions: number = 0;
+    pageSizeAppliedSanctions: number = 10;
+    pageNumberAppliedSanctions: number = 0;
+
+
     constructor(private router: Router, private sancionesService: SancionesService) {
+        this.paginatorPipe = new PaginatePipe();
     }
 
     ngOnInit() {
@@ -52,15 +79,9 @@ export class SancionesComponent implements OnInit {
                 messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
             }
         ];
-        this.sancionesService.getSancionesEstado1().subscribe(response => {
-            this.sanciones1 = response;
-            this.dtTrigger1.next();
-            this.mostrar = true;
-        });
-        this.sancionesService.getSancionesEstado2().subscribe(response => {
-            this.sanciones2 = response;
-            this.dtTrigger2.next();
-        });
+
+        this.loadAppliedSanctionsData();
+        this.loadActiveSanctionsData();
         this.dtOptions1 = {
             responsive: true,
             // Declare the use of the extension in the dom parameter
@@ -77,19 +98,32 @@ export class SancionesComponent implements OnInit {
         this.loadListPenalties();
     }
 
+    private loadActiveSanctionsData(){
+        this.sancionesService.getSancionesEstado2().subscribe(response => {
+            this.activeSanctionsData = response;
+            this.paginateActiveSantions(this.activeSanctionsData,this.pageNumber, this.pageNumber);
+            // this.dtTrigger2.next();
+        });
+    }
+
+    private loadAppliedSanctionsData(){
+        this.sancionesService.getSancionesEstado1().subscribe(response => {
+            this.appliedSanctionsData = response;
+            this.paginateAppliedSanctions(this.appliedSanctionsData,this.pageNumberAppliedSanctions, this.pageNumberAppliedSanctions);
+            // this.dtTrigger1.next();
+            this.mostrar = true;
+        });
+    }
+
     finsancion(idSancion) {
         this.sancionesService.finalizarSancion(idSancion).subscribe(
             res => {
-                this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-                    // Destroy the table first
-                    dtInstance.table(document.getElementById('sancionesActivas')).clear();
-                    dtInstance.table(document.getElementById('sancionesActivas')).destroy();
-                    // Call the dtTrigger to rerender again
-                    this.sancionesService.getSancionesEstado2().subscribe(response => {
-                        this.sanciones2 = response;
-                        this.dtTrigger2.next();
-                    });
-                });
+                this.loadActiveSanctionsData();
+                // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                //     // Destroy the table first
+                //     dtInstance.table(document.getElementById('sancionesActivas')).clear();
+                //     dtInstance.table(document.getElementById('sancionesActivas')).destroy();  
+                // });
             }
         );
     }
@@ -117,6 +151,7 @@ export class SancionesComponent implements OnInit {
         this.sancionesService.applySanction(this.applySanctionData).subscribe(response => {
             if(response.status == 202){
               this.clearFieldsApplySanctions();
+              this.loadActiveSanctionsData();
             }
         }, error => console.log(error));
     }
@@ -128,4 +163,60 @@ export class SancionesComponent implements OnInit {
         this.userSelectedData = new UsuarioModel();
     }
 
+    public sanctionDetails(sanction:sancionesModel){
+        this.selectedSanction = sanction;
+        console.log(sanction);
+    }
+
+    //pagination methods
+    public handlePageActiveSantions(pageEvent: PageEvent) {
+        this.pageSize = pageEvent.pageSize;
+        this.pageNumber = pageEvent.pageIndex;
+        this.paginateActiveSantions(this.activeSanctionsData, this.pageSize, this.pageNumber);
+    }
+
+    public handlePageAppliedSanctions(pageEvent: PageEvent) {
+        this.pageSizeAppliedSanctions = pageEvent.pageSize;
+        this.pageNumberAppliedSanctions = pageEvent.pageIndex;
+        this.paginateAppliedSanctions(this.appliedSanctionsData, this.pageSizeAppliedSanctions, this.pageNumberAppliedSanctions);
+    }
+    
+      private paginateActiveSantions(sanctionsData: Array<sancionesModel>, pageSize: number, pageNumber: number) {
+          this.lengthData = sanctionsData.length;
+          this.sanciones1DataForView = this.paginatorPipe.transform(sanctionsData, pageSize, pageNumber);
+          this.activeSanctionDataSource = new ActiveSanctionDataSource(this.sanciones1DataForView);
+      }
+
+      private paginateAppliedSanctions(sanctionsData: Array<sancionesModel>, pageSize: number, pageNumber: number) {
+          this.lengthAppliedSanctions = sanctionsData.length;
+          this.sanciones2DataForView = this.paginatorPipe.transform(sanctionsData, pageSize, pageNumber);
+          this.appliedPenaltiesDataSource = new AppliedPenaltiesDataSource(this.sanciones2DataForView);
+      }
+
 }
+
+export class ActiveSanctionDataSource extends DataSource<any> {
+
+    constructor(private alivePenalties: sancionesModel[]) {
+      super();
+    }
+  
+    connect(): Observable<sancionesModel[]> {
+      return Observable.of(this.alivePenalties);
+    }
+  
+    disconnect() { }
+  }
+
+  export class AppliedPenaltiesDataSource extends DataSource<any> {
+
+    constructor(private stations: sancionesModel[]) {
+      super();
+    }
+  
+    connect(): Observable<sancionesModel[]> {
+      return Observable.of(this.stations);
+    }
+  
+    disconnect() { }
+  }

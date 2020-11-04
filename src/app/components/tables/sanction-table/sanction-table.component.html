@@ -1,0 +1,28 @@
+<div class="table-responsive">
+    <mat-table #table [dataSource]="sanctionsDataSource">
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+            <mat-cell *matCellDef="let sanction"> {{ sanction.firstName +' '+ sanction.lastName | uppercase}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="document" class="text-center">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Documento </mat-header-cell>
+            <mat-cell *matCellDef="let sanction" class="text-center"> {{sanction.username}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="initSanction">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Inicio Sanción </mat-header-cell>
+            <mat-cell *matCellDef="let sanction" class="text-center"> {{ sanction.fechaSancion }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="endSanction">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Fin Sanción </mat-header-cell>
+            <mat-cell *matCellDef="let sanction" class="text-center"> {{ sanction.fechaLimiteSancion }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row (click)="sanctionDetails(sanction)" *matRowDef="let sanction; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [length]="lengthStations" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)">
+    </mat-paginator>
+</div>

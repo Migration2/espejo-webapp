@@ -4,7 +4,7 @@
     <div class="tituloPrincipal mb-0">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="text-danger font-weight-bold w-100">Sanciones</h2>
-            <button type="button" class="btn btn-danger mx-2" data-toggle="modal" data-target="#adminSanctionModal">Administrar</button>
+            <button type="button" class="btn btn-danger mx-2" data-toggle="modal" data-target="#adminSanctionModal" (click)="administrar()">Administrar</button>
         </div>
         <hr>
     </div>
@@ -52,9 +52,6 @@
                             </div>
                         </form>
                     </div>
-                    <!-- <div class="card-footer">
-                        <button type="button" class="btn btn-outline-danger" data-toggle="collapse" data-dismiss="collapse" data-target="#applySanctionCollapse">Cancelar</button>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -62,12 +59,43 @@
 
 
         <div class="col-md-6">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Sanciones Activas</h5>
-                    <br>
+                    <h5 class="card-title secondary-title">Sanciones Activas</h5>
+                    <hr>
                     <div class="card-text">
-                        <table datatable id="sancionesActivas" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2" cellspacing="0" width="100%">
+
+                        <!-- //empieza la tabla de material -->
+                        <div class="table-responsive">
+                            <mat-table #table [dataSource]="activeSanctionDataSource">
+                                <ng-container matColumnDef="name">
+                                    <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                                    <mat-cell *matCellDef="let sanction"> {{ sanction.firstName +' '+ sanction.lastName | uppercase}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="document" class="text-center">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"> Documento </mat-header-cell>
+                                    <mat-cell *matCellDef="let sanction" class="text-center"> {{sanction.username}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="initSanction">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"> Inicio Sanción </mat-header-cell>
+                                    <mat-cell *matCellDef="let sanction" class="text-center"> {{ sanction.fechaSancion }} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="endSanction">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"> Fin Sanción </mat-header-cell>
+                                    <mat-cell *matCellDef="let sanction" class="text-center"> {{ sanction.fechaLimiteSancion }} </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row (click)="sanctionDetails(sanction)" *matRowDef="let sanction; columns: displayedColumns;" data-toggle="modal" data-target="#detailSanctionModal"></mat-row>
+                            </mat-table>
+                            <mat-paginator #paginator [length]="lengthData" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePageActiveSantions($event)">
+                            </mat-paginator>
+                        </div>
+
+                        <!-- <table datatable id="sancionesActivas" [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover mt-2" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
@@ -82,7 +110,7 @@
                                     <td>{{ sancion.username }}
                                         <br>
                                         <div class="my-2">
-                                            <button class="btn btn-outline-primary bottonAction" data-toggle="modal" data-target=".modal" (click)="sancionSeleccionada=sancion">
+                                            <button class="btn btn-outline-primary bottonAction" data-toggle="modal" data-target=".modal" (click)="selectedSanction=sancion">
 												Fin sanción</button>
                                         </div>
                                     </td>
@@ -90,18 +118,51 @@
                                     <td>{{ sancion.fechaLimiteSancion }}</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Sanciones Aplicadas</h5>
-                    <br>
+                    <h5 class="card-title secondary-title">Sanciones Aplicadas</h5>
+                    <hr>
                     <div class="card-text">
-                        <table datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="table row-border hover mt-2" cellspacing="0" width="100%">
+
+                        <!-- <app-sanction-table [sanctionsData]="sanciones2"></app-sanction-table> -->
+                        <!-- //empieza la tabla de material -->
+                        <div class="table-responsive">
+                            <mat-table #table [dataSource]="appliedPenaltiesDataSource">
+                                <ng-container matColumnDef="name">
+                                    <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                                    <mat-cell *matCellDef="let sanction"> {{ sanction.firstName +' '+ sanction.lastName | uppercase}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="document" class="text-center">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"> Documento </mat-header-cell>
+                                    <mat-cell *matCellDef="let sanction" class="text-center"> {{sanction.username}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="initSanction">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"> Inicio Sanción </mat-header-cell>
+                                    <mat-cell *matCellDef="let sanction" class="text-center"> {{ sanction.fechaSancion }} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="endSanction">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"> Fin Sanción </mat-header-cell>
+                                    <mat-cell *matCellDef="let sanction" class="text-center"> {{ sanction.fechaLimiteSancion }} </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row (click)="sanctionDetails(sanction)" *matRowDef="let sanction; columns: displayedColumns;" data-toggle="modal" data-target="#detailSanctionModal"></mat-row>
+                            </mat-table>
+                            <mat-paginator #paginator [length]="lengthAppliedSanctions" [pageIndex]="pageNumberAppliedSanctions" [pageSize]="pageSizeAppliedSanctions" [pageSizeOptions]="pageSizeOptions" (page)="handlePageAppliedSanctions($event)">
+                            </mat-paginator>
+                        </div>
+
+
+                        <!-- <table datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="table row-border hover mt-2" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
@@ -118,7 +179,7 @@
                                     <td>{{ sancion.fechaLimiteSancion }}</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
                     </div>
                 </div>
             </div>
@@ -133,23 +194,25 @@
     </div>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" *ngIf="sancionSeleccionada">
+<div class="modal" tabindex="-1" role="dialog" *ngIf="selectedSanction" id="endSanctionModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h6 class="text-light text-center w-100">ELIMINAR SANCIÓN</h6>
+            </div>
             <div class="modal-body">
-                <p>Realmente desea eliminar la sanción de
-                    <strong>{{ sancionSeleccionada.firstName +' '+ sancionSeleccionada.lastName | uppercase}}</strong>
-                </p>
+                <p class="text-center text-mutted mb-0">Realmente desea eliminar la sanción de la persona</p>
+                <p class="text-center font-weight-bold mb-0">{{ selectedSanction.firstName +' '+ selectedSanction.lastName | uppercase}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-outline-danger" (click)="finsancion(sancionSeleccionada.id)" data-dismiss="modal">Finalizar Sanción</button>
+                <button type="button" class="btn btn-danger" (click)="finsancion(selectedSanction.id)" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="adminSanctionModal" role="dialog" tabindex="-1" aria-labelledby="adminSanctionModal" aria-hidden="true">
+<div #adminSanctionModal class="modal fade" id="adminSanctionModal" role="dialog" tabindex="-1" aria-labelledby="adminSanctionModal" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -179,5 +242,30 @@
             </div>
         </div>
     </div>
+</div>
 
+<div #detailSanctionModal class="modal fade" id="detailSanctionModal" role="dialog" tabindex="-1" aria-labelledby="detailSanctionModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-block bg-danger">
+                <div class="d-flex justify-content-center align-items-center">
+                    <h5 class="text-light text-center w-100">{{ selectedSanction.firstName | uppercase}} {{ selectedSanction.lastName |uppercase }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="text-light">&times;</span>
+                    </button>
+                </div>
+                <p class="text-light small text-center mb-0">ESTADO SANCIÓN: {{ selectedSanction.idEstado.estado }}</p>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-muted">Observación: {{ selectedSanction.idSancion.descripcion }}</p>
+                <h5 class="font-weight-bold text-center">Dias de sanción: {{ selectedSanction.idSancion.penalidadEnDias }}</h5>
+                <p class="text-muted small text-center mb-0">Fecha inicio: {{ selectedSanction.fechaSancion }}</p>
+                <p class="text-muted small text-center mb-0">Fecha fin: {{ selectedSanction.fechaLimiteSancion }}</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-danger" type="button" data-dismiss="modal">Cerrar</button>
+                <button class="btn btn-danger" *ngIf="selectedSanction.idEstado.estado == 'ACTIVA'" type="button" data-toggle="modal" data-dismiss="modal" data-target="#endSanctionModal">Fin sanción</button>
+            </div>
+        </div>
+    </div>
 </div>

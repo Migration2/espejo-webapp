@@ -23,7 +23,7 @@
         <div class="col-md-5 my-2">
             <div class="card" style="height:350px;">
                 <div class="card-body">
-                    <h5 class="card-title">Bicicletas</h5>
+                    <h5 class="card-title secondary-title">Bicicletas</h5>
                     <hr>
                     <div class="card-text">
                         <canvas baseChart *ngIf="pieLabelsBicicletas.length > 0" [data]="pieDataBicicletas" [labels]="pieLabelsBicicletas | bikesLabel" [chartType]="pieChartType" [options]="pieChartTooltips">
@@ -36,7 +36,7 @@
         <div class="col-md-7 my-4">
             <div class="card" style="height:400px;">
                 <div class="card-body">
-                    <h5 class="card-title">Transacciones por Estación</h5>
+                    <h5 class="card-title secondary-title">Transacciones por Estación</h5>
                     <hr>
                     <div class="card-text">
                         <app-transactions-per-station-chart></app-transactions-per-station-chart>
@@ -48,7 +48,7 @@
         <div class="col-md-5 my-4">
             <div class="card" style="height:400px;">
                 <div class="card-body">
-                    <h5 class="card-title">Transacciones General</h5>
+                    <h5 class="card-title secondary-title">Transacciones General</h5>
                     <hr>
                     <div class="card-text">
                         <app-general-transactions-chart></app-general-transactions-chart>
@@ -59,7 +59,7 @@
         <div class="col-md-12 mt-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Estado estaciones</h5>
+                    <h5 class="card-title secondary-title">Estado estaciones</h5>
                     <hr>
                     <div class="card-text">
                         <app-stations-table></app-stations-table>

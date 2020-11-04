@@ -69,6 +69,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StationsTableComponent } from './components/menu-options/administrar-estaciones/station-table/stations-table.component';
 import { GeneralTransactionsChartComponent } from './components/charts/general-transactions-chart/general-transactions-chart.component';
 import { TransactionsPerStationChartComponent } from './components/charts/transactions-per-station-chart/transactions-per-station-chart.component';
+import { SanctionTableComponent } from './components/tables/sanction-table/sanction-table.component';
 
 
 
@@ -107,7 +108,8 @@ import { TransactionsPerStationChartComponent } from './components/charts/transa
         BikesLabelPipe,
         StationsTableComponent,
         GeneralTransactionsChartComponent,
-        TransactionsPerStationChartComponent
+        TransactionsPerStationChartComponent,
+        SanctionTableComponent
     ],
     imports: [
         BrowserModule,
