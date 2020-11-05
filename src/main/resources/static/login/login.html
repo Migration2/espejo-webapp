@@ -1,104 +1,122 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<title>BiciRío</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/x-icon" href="./complementos/imagenes/favicon.png">
-	<link rel="stylesheet" type="text/css" href="./complementos/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./complementos/estilos.css">
+    <meta charset="utf-8">
+    <title>BiciRío</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="./complementos/imagenes/favicon.png">
+    <link rel="stylesheet" type="text/css" href="./complementos/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./complementos/estilos.css">
 
 </head>
+
 <body>
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 container-img-station">
+                    <p class="h-100 mb-0" style="background-image: url('./complementos/imagenes/station_bicirio.jpg');"></p>
+                </div>
+                <div class="col-lg-6 col-md-12 d-flex align-items-center">
+                    <div id=" contenedorPrincipal ">
+                        <div id="alerta " class=" row justify-content-md-center " hidden>
+                            <div class="col-md-5 alert alert-danger text-center " role="alert " style="margin-bottom: 30px; ">
+                                El Usuario o Contraseña ingresados son incorrectos
+                            </div>
+                        </div>
+                        <a href="https://somosmovilidad.gov.co/sistema-de-bicicletas-bicirio/">
+                            <div class="text-center ">
+                                <img src="./complementos/imagenes/favicon.png " class="rounded logo-encabezado " alt="BiciRío ">
+                            </div>
+                        </a>
 
-	<div id="contenedorPrincipal"  style="display: none;">
-		<div id="alerta" class=" row justify-content-md-center" hidden>
-			<div class="col-md-5 alert alert-danger text-center" role="alert" style="margin-bottom: 30px;">
-				El Usuario o Contraseña ingresados son incorrectos
-			</div>			
-		</div>
+                        <form name="f " action="/oa/login " method="POST ">
+                            <div class="form-row justify-content-center ">
+                                <div class="form-group col-8 ">
+                                    <label for="username ">Usuario<span class="text-danger ">*</span></label>
+                                    <input type="text " class="form-control " id="username " name="username " autofocus autocomplete="off ">
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-center ">
+                                <div class="form-group col-8 ">
+                                    <label for="password ">Contraseña <span class="text-danger ">*</label>
+                                    <input type="password " class="form-control " id="password " name="password ">
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-center text-center ">
 
-		<a href="http://bicirio.gov.co/site/">
-			<div class="text-center">
-				<img src="./complementos/imagenes/favicon.png" class="rounded" alt="BiciRío">
-			</div>
-		</a>
+                                <button name="submit " type="submit " class="btn btn-danger btn-w-200">Entrar</button>
 
-		<form name="f" action="/oa/login" method="POST">
-			<div class="form-row justify-content-md-center">
-				<div class="form-group col-md-4">
-					<label for="username">Usuario</label>
-					<input type="text" class="form-control" id="username" name="username" autofocus autocomplete="off">
-				</div>
-			</div>
-			<div class="form-row justify-content-md-center">
-				<div class="form-group col-md-4">
-					<label for="password" >Contraseña</label>
-					<input type="password" class="form-control" id="password" name="password" >
-				</div>
-			</div>
-			<div class="form-row justify-content-md-center">
-				<div>					
-					<button name="submit" type="submit" class="btn btn-outline-primary">Entrar</button>		
-				</div>				
-			</div>			
-		</form>
-		<div style="text-align: center; margin-top: 20px;">
-			<p style="font-size: 0.9em; color: gray;">Si aún no eres usuario de BiciRío puedes <a  href="http://www.bici-rio.com/login/signup.html" style="color: gray;" pattern="[0-9]{3}" title="El documento solo debe contener números"><strong>Crear tu cuenta</strong></a>
-				<br>	
-				Si no recuerdas tu contraseña o PIN de acceso a BiciRío puedes <a  data-toggle="modal" data-target="#recuperarCredenciales" style="color: gray;" id="botonRecuperarCredenciales"><strong>Recuperar Credenciales</strong></a>
-			</p>
+                            </div>
+                        </form>
+                        <div style="text-align: center; margin-top: 20px; ">
+                            <p class="text-muted mb-0 ">Si aún no eres usuario de BiciRío puedes -
+                                <a href="http://www.bici-rio.com/login/signup.html " class="text-muted ">
+                                    <strong>Crear tu cuenta</strong></a>
+                            </p>
+                            <p class="text-muted "> Si no recuerdas tu contraseña o PIN de acceso a BiciRío puedes -
+                                <a data-toggle="modal " data-target="#recuperarCredenciales " id="botonRecuperarCredenciales ">
+                                    <strong>Recuperar Credenciales</strong></a>
+                            </p>
 
-		</div>	
-		<div class="text-center">
-			<img src="./complementos/imagenes/alcaldia_rionegro.png" class="rounded" alt="BiciRío">
-		</div>
-	</div>	
-
-	<script src="./complementos/jquery-3.2.1.min.js"></script>
-	<script src="./complementos/popper.js"></script>
-	<script src="./complementos/bootstrap/js/bootstrap.min.js"></script>
+                        </div>
+                        <div class="text-center ">
+                            <img src="./complementos/imagenes/logo-administracion.png " class="rounded logo-admon " alt="BiciRío ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-	<script>
-		$("#contenedorPrincipal").fadeIn(2000);
-	</script>
+    <script src="./complementos/jquery-3.2.1.min.js "></script>
+    <script src="./complementos/popper.js "></script>
+    <script src="./complementos/bootstrap/js/bootstrap.min.js "></script>
 
-	<script>
-		if((window.location.href).indexOf('?') != -1) {
-			$("#alerta").removeAttr('hidden');
-		}
-		function enviarRecuperarCredenciales(){
-			NumeroDocumento=document.getElementById('documento').value;
-			if(!isNaN(NumeroDocumento) && NumeroDocumento!="" && NumeroDocumento!=null){
-				$.get("http://bici-rio.com/rest/recovery/credential/"+NumeroDocumento);
-				$('#recuperarCredenciales').modal('toggle');
-			}
-		}
-	</script>
 
-	<!-- Modal -->
-	<div class="modal fade" id="recuperarCredenciales" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Recuperar Credenciales</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+    <script>
+        $("#contenedorPrincipal ").fadeIn(2000);
+    </script>
+
+    <script>
+        if ((window.location.href).indexOf('?') != -1) {
+            $("#alerta ").removeAttr('hidden');
+        }
+
+        function enviarRecuperarCredenciales() {
+            NumeroDocumento = document.getElementById('documento').value;
+            if (!isNaN(NumeroDocumento) && NumeroDocumento != " " && NumeroDocumento != null) {
+                $.get("http://bici-rio.com/rest/recovery/credential/ " + NumeroDocumento);
+                $('#recuperarCredenciales').modal('toggle');
+            }
+        }
+    </script>
+
+    <!-- Modal -->
+    <div class="modal fade " id="recuperarCredenciales " tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel " aria-hidden="true ">
+        <div class="modal-dialog " role="document ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <h5 class="modal-title ">Recuperar Credenciales</h5>
+                    <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
+						<span aria-hidden="true ">&times;</span>
 					</button>
-				</div>
-				<div class="modal-body">
-					<p style="text-align: justify;">Si deseas recuperar tu contraseña y PIN de acceso a BiciRío ingresa tu número de documento, y en breves momentos te enviaremos la información solicitada al correo electrónico registrado.</p>		
-					<div style="margin-top: 15px;">
-						<input class="form-control" style="width: 60%; margin:0 auto;" type="text" id="documento" required autocomplete="off" autofocus placeholder="Número de documento">
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn btn-outline-primary" onclick="enviarRecuperarCredenciales()">Enviar</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+                <div class="modal-body ">
+                    <p style="text-align: justify; ">Si deseas recuperar tu contraseña y PIN de acceso a BiciRío ingresa tu número de documento, y en breves momentos te enviaremos la información solicitada al correo electrónico registrado.</p>
+                    <div style="margin-top: 15px; ">
+                        <input class="form-control " style="width: 60%; margin:0 auto; " type="text " id="documento " required autocomplete="off " autofocus placeholder="Número de documento ">
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-outline-primary " data-dismiss="modal ">Cancelar</button>
+                    <button type="button " class="btn btn-outline-primary " onclick="enviarRecuperarCredenciales() ">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -1,84 +1,155 @@
-#contenedorPrincipal{
-	margin:20px 30px;
+#contenedorPrincipal {
+    /* margin: 20px 30px; */
+    padding: 10px 20px;
+    /* height: 100vh; */
 }
 
-img{
-	width: 20%;
-	padding-bottom:40px;
+img.logo-encabezado {
+    width: 38%;
+    padding-bottom: 40px;
 }
 
-#messageContent{
-	width: 70%;
-	margin:0 auto;
+img.logo-admon {
+    padding-top: 30px;
+    width: 40%;
 }
 
-@media(max-width:780px){
-	img{
-		width: 70%;
-	}
-	#messageContent{
-		width: 190%;
-	}
+img.logo-encabezado-w-100 {
+    width: 20%;
+    padding-bottom: 20px;
 }
 
-.btn-outline-primary:hover{
-	background-color: #E3244B;
-	border-color: #E3244B;
+img.logo-admon-w-100 {
+    padding-top: 30px;
+    width: 20%;
 }
 
-.btn-outline-primary{
-	color: #E3244B;
-	border-color: #E3244B;
-	cursor: pointer;
+img.img-station {
+    /* background-image: url('./complementos/imagenes/station_bicirio.jpg') !important; */
+    background-repeat: no-repeat;
+}
+
+#messageContent {
+    width: 70%;
+    margin: 0 auto;
+}
+
+@media(max-width:991px) {
+    .container-img-station {
+        display: none;
+    }
+}
+
+@media(max-width:778px) {
+    img.logo-encabezado-w-100 {
+        width: 50%;
+    }
+    img.logo-admon-w-100 {
+        width: 50%;
+    }
+}
+
+@media (max-width: 576px) {
+    img.logo-encabezado-w-100 {
+        width: 60%;
+    }
+    img.logo-admon-w-100 {
+        width: 60%;
+    }
 }
 
 input:invalid {
-	border-color: red;
+    border-color: red;
 }
 
-input, input:valid {
-	border-color: #ccc;
+input,
+input:valid {
+    border-color: #ccc;
 }
 
-
-#loading{
-	width: 300px;
-	height: 300px;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin:auto;
-}
-#borde{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height:100%;
-	border:2px solid #f3f3f3;
-	border-top: 3px solid #e3244b;
-	border-radius: 100%;
-	animation: spin 1s  infinite linear;
+#loading {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
-#loading img{
-	position: absolute;
-	top: 15%;
-	left: 5%;
-	width: 90%;
-	z-index: -2;
+#borde {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #f3f3f3;
+    border-top: 3px solid #e3244b;
+    border-radius: 100%;
+    animation: spin 1s infinite linear;
 }
 
-@keyframes spin{
-	from{
-		transform:  rotate(0deg);
-		}to{
-			transform: rotate(360deg)
-		}
-	}
+#loading img {
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: 90%;
+    z-index: -2;
+}
 
-	#botonRecuperarCredenciales :hover{
-		cursor: pointer;
-	}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+#botonRecuperarCredenciales :hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+body {
+    min-width: 200px;
+}
+
+.container-img-station {
+    height: 100vh;
+}
+
+.text-danger {
+    color: #b51f29 !important;
+}
+
+.text-primary {
+    color: #0c304c !important;
+}
+
+.btn-danger:hover {
+    color: whitesmoke;
+    border-color: #b51f29;
+    background-color: #b6363e;
+}
+
+.btn-danger {
+    background-color: #b51f29;
+    border-color: #b51f29;
+    cursor: pointer;
+}
+
+.btn-outline-danger {
+    border-color: #b51f29;
+    color: #b51f29;
+}
+
+.btn-outline-danger:hover {
+    background-color: #b51f29;
+    border-color: #b51f29;
+}
+
+.btn-w-200 {
+    width: 200px;
+}
