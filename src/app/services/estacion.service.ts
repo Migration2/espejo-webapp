@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, RequestOptions,Headers, Response} from '@angular/http';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import { StationOperationTime } from '../models/estacion.model';
+import { ContactPointBikeModel, StationOperationTime } from '../models/estacion.model';
 import {map, catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -81,6 +81,14 @@ export class EstacionService {
 
 	disableStation(stationCode:string){
 		return this.http.patch(`/rest/remote/station/lock/${stationCode}`,{}, this.options);
+	}
+
+	putBikeInContactPoint(data: ContactPointBikeModel){
+		return this.http.post('/rest/contactPoint/put/bike', data);
+	}
+
+	removeBikeOfContactPoint(data: ContactPointBikeModel){
+		return this.http.post('/rest/contactPoint/remove/bike', data);
 	}
 
 	extractData(response :Response){

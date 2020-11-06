@@ -110,9 +110,42 @@
                     </div>
                 </div>
                 <div class="card-body" [hidden]='opcionCard=="transacciones"'>
-                    <br>
                     <div class="card-text">
-                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
+                        <div class="table-responsive mt-1">
+                            <mat-table #tableContactPoints [dataSource]="contactPointsDataSouce">
+                                <ng-container matColumnDef="pointCol">
+                                    <mat-header-cell *matHeaderCellDef> Punto </mat-header-cell>
+                                    <mat-cell *matCellDef="let contactPoint"> {{ contactPoint.alias }} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="stateCol" class="text-center">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"> Estado </mat-header-cell>
+                                    <mat-cell *matCellDef="let contactPoint" class="text-center"> {{contactPoint.status}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="bikeCol">
+                                    <mat-header-cell *matHeaderCellDef class="text-right"> Bicicleta </mat-header-cell>
+                                    <mat-cell *matCellDef="let contactPoint" class="text-right">
+                                        {{ (contactPoint.bikeCode) ? contactPoint.bikeCode : "-----" }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="actionCol">
+                                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell *matCellDef="let contactPoint" class="text-right">
+                                        <span *ngIf="!contactPoint.bikeCode" class="text-danger oi oi-plus" title="Anclar bicicleta" data-toggle="modal" data-target="#addBikeModal" (click)="selectContactPoint(contactPoint)"></span>
+                                        <span *ngIf="contactPoint.bikeCode" class="text-danger oi oi-x" title="Remover bicicleta" data-toggle="modal" data-target="#removeBikeModal" (click)="selectContactPoint(contactPoint)"></span>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let contacPoint; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                            <mat-paginator #paginator (page)="handlePage($event)" [length]=" puntosContacto.length" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+                            </mat-paginator>
+                        </div>
+
+
+                        <!-- <table datatable [dtOptions]="dtOptions " [dtTrigger]="dtTrigger " class="table row-border hover " cellspacing="0 " width="100% ">
                             <thead>
                                 <tr>
                                     <th>Punto</th>
@@ -121,13 +154,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let puntoContacto of puntosContacto">
+                                <tr *ngFor="let puntoContacto of puntosContacto ">
                                     <td>{{puntoContacto.alias}}</td>
                                     <td>{{puntoContacto.status}}</td>
-                                    <td>{{(puntoContacto.bikeCode) ? puntoContacto.bikeCode : "N/A"}}</td>
+                                    <td>{{(puntoContacto.bikeCode) ? puntoContacto.bikeCode : "N/A "}}</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
                     </div>
                 </div>
 
@@ -361,6 +394,68 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-outline-primary bottonAction" (click)="enableStation()" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addBikeModal" role="dialog" tabindex="-1" aria-labelledby="addBikeModal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-light text-center w-100">Anclar bicicleta en el punto: <span class="font-weight-bold">{{ selectedContactPoint.alias }}</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="text-light" aria-hidden="true">&times;</span>
+		  		</button>
+            </div>
+            <div class="modal-body">
+                <form #addBikeForm="ngForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-12 px-4 mb-0">
+                            <label for="txtBikeCode">Bicicleta*</label>
+                            <div class="d-flex justify-content-between">
+                                <input type="text" class="form-control" name="txtBikeCode" id="txtBikeCode" required pattern="[a-zA-Z]{1}[0-9]{4}" [(ngModel)]="selectedAvaBike.alias" hidden>
+                                <label class="form-control mb-0" title="Busque y seleccione la bicicleta">{{ selectedAvaBike.alias }}</label>
+                                <button type="button" class="btn btn-outline-danger mx-2" data-toggle="collapse" data-target="#searchBikeCollapse" aria-expanded="false" aria-controls="searchBikeCollapse">
+                                    <span class="oi oi-magnifying-glass"></span>
+                                </button>
+                            </div>
+                            <small id="userHelp" class="form-text text-muted">Busque la bicicleta que se quiere anclar.</small>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div #searchBikeCollapse id="searchBikeCollapse" class="collapse">
+                                <div class="card-body">
+                                    <app-available-bikes-table (selectedRow)="bikeSelected($event)"></app-available-bikes-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-danger" data-dismiss="modal" (click)="cancel()">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" [disabled]="!addBikeForm.form.valid" (click)="putBike()">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal remove bike of station -->
+<div class="modal fade" id="removeBikeModal" tabindex="-1" role="dialog" aria-labelledby="removeBikeModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="text-light text-center w-100">Remover bicicleta del punto: <span class="font-weight-bold">{{ selectedContactPoint.alias }}</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="text-light" aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro, deseas REMOVER la bicicleta <span class="font-weight-bold text-danger">{{ selectedContactPoint.bikeCode }}</span> de la estación?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="removeBike()" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>

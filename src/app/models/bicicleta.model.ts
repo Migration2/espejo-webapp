@@ -22,3 +22,12 @@ export class detalleBicicletaModel {
 		}
 		) {}
 }
+
+export class AvailableBikeModel{
+	constructor(
+		public id: string = '',
+		public status: string = "",
+		public alias: string = "") 
+		{}
+}
+

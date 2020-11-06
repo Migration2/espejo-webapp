@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, RequestOptions,Headers} from '@angular/http';
+import {Http, RequestOptions,Headers, Response} from '@angular/http';
 import 'rxjs/add/operator/map'
 
 @Injectable()
@@ -36,5 +36,13 @@ export class BiciService {
 	}
 	returnBiciToBodega(idBike){
 		this.http.put('/rest/bike/returnWarehouse/'+idBike, {}, this.options).subscribe();
+	}
+
+	getAvailableBikes(){
+		return this.http.get('/rest/bike/totem/bikes/available').map(this.extractData);
+	}
+	
+	private extractData(response :Response){
+		return response.json();
 	}
 }

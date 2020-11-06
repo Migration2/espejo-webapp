@@ -12,17 +12,8 @@ export class EstacionModel {
 		public statusName: string = "",
 		public statusTotem:string ="UNLOCK_STATION",
 		public modelName : string ="",
-		public availableCycles:number =0,
-		public contactPointStates:Array<contactPointState> =
-		[
-			{
-			alias :"",
-			bikeCode : null,
-			id:"",
-			status:"",
-			statusTotem:""
-			}
-		]		
+		public availableCycles:number = 0,
+		public contactPointStates:Array<ContactPointStateModel> = [new ContactPointStateModel()]		
 		) {}
 }
 
@@ -45,10 +36,24 @@ export class StatisticContactPoints{
 		public contactPointsInMtoPercentage:number = 0){}
 }
 
-export interface contactPointState{
-	alias :"";
-	bikeCode : null;
-	id:"";
-	status:"";
-	statusTotem:"";
+export class ContactPointStateModel{
+	constructor(
+		public alias: string= '',
+		public bikeCode: string= "",
+		public id: string="",
+		public status: string="",
+		public statusTotem: string=""
+	){
+
+	}
+	
+}
+
+export class ContactPointBikeModel{
+	constructor(
+		public codeStation: string = "",
+		public idContactPoint: string = "",
+		public idBike: string = ""
+	)
+	{}
 }

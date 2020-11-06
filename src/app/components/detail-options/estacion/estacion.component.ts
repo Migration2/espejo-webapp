@@ -1,12 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EstacionService } from '../../../services/estacion.service';
-import { EstacionModel, StationOperationTime, StatisticContactPoints } from '../../../models/estacion.model';
+import { ContactPointBikeModel, ContactPointStateModel, EstacionModel, StationOperationTime, StatisticContactPoints } from '../../../models/estacion.model';
 import { mantenimientoEstacionModel, finMantenimientoEstacionModel, mantenimientoHistorial } from '../../../models/mantenimiento.model';
 import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { Subject } from 'rxjs/Rx';
 import { DataTableDirective } from 'angular-datatables';
 import { DatePipe } from '@angular/common';
+import { PaginatePipe } from '../../../pipes/paginate.pipe';
+import { PageEvent } from '@angular/material';
+import {DataSource} from '@angular/cdk/collections'
+import { Observable } from 'rxjs';
+import { AvailableBikeModel } from '../../../models/bicicleta.model';
 
 @Component({
     selector: 'app-estacion',
@@ -18,6 +23,7 @@ export class EstacionComponent implements OnInit {
     private idEstacion;
     @ViewChild(DataTableDirective)
     dtElement: DataTableDirective;
+    @ViewChild('searchBikeCollapse') searchBikeCollapse;
     datosEstacion = new EstacionModel;
     mantenimientoEstacionModel = new mantenimientoEstacionModel;
     finMantenimientoEstacionModel = new finMantenimientoEstacionModel;
@@ -41,6 +47,20 @@ export class EstacionComponent implements OnInit {
     opcionCard = 'puntosContacto';
     opcionCard2 = 'tendencia';
 
+    //contact points
+    public contactPointsData:Array<any> = [];
+    public contactPointsDataForView:Array<any> = [];
+    public contactPointsDataSouce: ContactPointsDataSource;
+    public displayedColumns:Array<string> = [ "pointCol","stateCol","bikeCol", "actionCol"];
+    //pagination
+    private paginator: PaginatePipe;
+    public pageSize: number = 10;
+    public pageNumber: number = 0;
+    public pageSizeOptions = [5, 10, 20, 50, 100];
+
+    public selectedAvaBike:AvailableBikeModel = new AvailableBikeModel();
+    
+
     stationOperationTime: StationOperationTime;
     stationStatictics:StatisticContactPoints = new StatisticContactPoints();
     datePipe:DatePipe = new DatePipe('en-US');
@@ -60,8 +80,9 @@ export class EstacionComponent implements OnInit {
 
     constructor(private activedRoute: ActivatedRoute, private estacionservice: EstacionService,
         private mantenimientoService: MantenimientoService, private router: Router) {
-        this.fechaAnterior.setDate(this.fechaActual.getDate() - 5);
-        this.activedRoute.params.subscribe(params => {
+            this.paginator = new PaginatePipe();
+            this.fechaAnterior.setDate(this.fechaActual.getDate() - 5);
+            this.activedRoute.params.subscribe(params => {
             this.idEstacion = params.id;
         });
         this.loadStationTransactionsData(this.idEstacion, this.fechaAnterior, this.fechaActual);
@@ -107,6 +128,7 @@ export class EstacionComponent implements OnInit {
                 buttons: bonotes
             };
             this.puntosContacto = response.contactPointStates;
+            this.loadContactPointData(this.puntosContacto);
             this.loadStationMaintenanceData(this.datosEstacion.id);
         });
 
@@ -119,9 +141,40 @@ export class EstacionComponent implements OnInit {
         });
     }
 
+    loadStationData(idStation:number){
+        this.estacionservice.getStationById(idStation).subscribe(response => {
+            this.datosEstacion = response;
+            this.stationStatictics = this.getStatisticsContactPoints(this.datosEstacion);
+            this.puntosContacto = response.contactPointStates;
+            this.loadContactPointData(this.puntosContacto);
+
+        });
+    }
+
+    private loadContactPointData(contactPoints:Array<any>){
+        this.sortContactPointList(contactPoints);
+        this.paginateContactPointsData(contactPoints, this.pageSize, this.pageNumber);
+    }
+
+    private sortContactPointList(contactPoints:Array<any>){
+        contactPoints.sort((item1,item2) => {
+            let it1Num:number =Number(item1.alias); 
+            let it2Num:number =Number(item2.alias); 
+            if(it1Num > it2Num){
+                return 1;
+            }
+        
+            if (it1Num < it2Num) {
+                return -1;
+            }
+        
+            return 0;
+        });
+    }
+
     ngOnInit() {
         
-     }
+    }
 
      private getStatisticsContactPoints(datosEstacion:EstacionModel):StatisticContactPoints{
         let puntosContacto: Array<any> = datosEstacion.contactPointStates;
@@ -343,6 +396,68 @@ export class EstacionComponent implements OnInit {
         error => console.log("Error al acceder al recurso"));
     }
 
+    public handlePage(pageEvent: PageEvent) {
+        this.pageSize = pageEvent.pageSize;
+        this.pageNumber = pageEvent.pageIndex;
+        this.paginateContactPointsData(this.puntosContacto, this.pageSize, this.pageNumber);
+      }
+    
+      private paginateContactPointsData(stationsData: Array<any>, pageSize: number, pageNumber: number) {
+        this.contactPointsDataForView = this.paginator.transform(stationsData, pageSize, pageNumber);
+        this.contactPointsDataSouce = new ContactPointsDataSource(this.contactPointsDataForView);
+      }
+
+      public selectedContactPoint:ContactPointStateModel = new ContactPointStateModel();
+      public selectContactPoint(contactPoint:any){
+        this.selectedContactPoint = contactPoint;
+      }
+    
+      bikeSelected(data:AvailableBikeModel){
+        this.selectedAvaBike = data;
+        this.searchBikeCollapse.nativeElement.className = "collapse";
+      }
+
+      cancel(){
+        this.clearFiedsPutBike();
+      }
+
+      putBike(){
+
+        let codeStation: string = this.datosEstacion.code;
+		let idContactPoint: string = this.selectedContactPoint.id;
+		let idBike: string = this.selectedAvaBike.alias;        
+        let contactPointBike = new ContactPointBikeModel(codeStation, idContactPoint, idBike);
+        console.log(contactPointBike);
+        this.estacionservice.putBikeInContactPoint(contactPointBike).subscribe(
+            res=>{
+                this.clearFiedsPutBike;
+                this.loadStationData(this.idEstacion);
+           }, 
+            error=> {console.log("errro")});
+      }
+
+      removeBike(){
+        let codeStation: string = this.datosEstacion.code;
+		let idContactPoint: string = this.selectedContactPoint.id;
+		let idBike: string = this.selectedContactPoint.bikeCode;        
+        let contactPointBike = new ContactPointBikeModel(codeStation, idContactPoint, idBike);
+        console.log("must remove bike");
+        console.log(contactPointBike);
+        this.estacionservice.removeBikeOfContactPoint(contactPointBike).subscribe(
+            res=>{
+                this.clearFiedsPutBike;
+                this.loadStationData(this.idEstacion);
+           }, 
+            error=> {console.log(error)});
+      }
+
+      private clearFiedsPutBike(){
+          this.selectedAvaBike.id = '';
+          this.selectedAvaBike.status = "";
+          this.selectedAvaBike.alias = "";
+          this.selectedContactPoint = new ContactPointStateModel();
+      }
+
     HOUR_DATA: Array<string> = [
         "00:00", "00:30",
         "01:00", "01:30",
@@ -371,3 +486,16 @@ export class EstacionComponent implements OnInit {
     ];
 
 }
+
+export class ContactPointsDataSource extends DataSource<any> {
+
+    constructor(private sanctions: any[]) {
+      super();
+    }
+  
+    connect(): Observable<any[]> {
+      return Observable.of(this.sanctions);
+    }
+  
+    disconnect() { }
+  }

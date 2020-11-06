@@ -70,6 +70,7 @@ import { StationsTableComponent } from './components/menu-options/administrar-es
 import { GeneralTransactionsChartComponent } from './components/charts/general-transactions-chart/general-transactions-chart.component';
 import { TransactionsPerStationChartComponent } from './components/charts/transactions-per-station-chart/transactions-per-station-chart.component';
 import { SanctionTableComponent } from './components/tables/sanction-table/sanction-table.component';
+import { AvailableBikesTableComponent } from './components/tables/available-bikes-table/available-bikes-table.component';
 
 
 
@@ -109,7 +110,8 @@ import { SanctionTableComponent } from './components/tables/sanction-table/sanct
         StationsTableComponent,
         GeneralTransactionsChartComponent,
         TransactionsPerStationChartComponent,
-        SanctionTableComponent
+        SanctionTableComponent,
+        AvailableBikesTableComponent
     ],
     imports: [
         BrowserModule,
