@@ -1,0 +1,23 @@
+<div class="table-responsive">
+    <div class="form-row flex-row-reverse m-auto">
+        <div class="form-group col-md-6 mb-0">
+            <input type="text" class="form-control txt-search" id="txtSearch" name="txtSearch" placeholder="Buscar" (keyup)="searchBike()" [(ngModel)]="textToSearch">
+        </div>
+    </div>
+    <mat-table #tableAvailableBikes [dataSource]="bikesDataSouce">
+        <ng-container matColumnDef="codeCol">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Codigo </mat-header-cell>
+            <mat-cell *matCellDef="let bike" class="text-center"> {{ bike.alias }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="stateCol" class="text-center">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let bike" class="text-center"> {{ bike.status }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let bike; columns: displayedColumns;" (click)="selectBike(bike)"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator (page)="handlePage($event)" [length]="lengthBikes" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+</div>
