@@ -4,7 +4,7 @@
     <div class="tituloPrincipal mb-0">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="text-danger font-weight-bold w-100">Sanciones</h2>
-            <button type="button" class="btn btn-danger mx-2" data-toggle="modal" data-target="#adminSanctionModal">Administrar</button>
+            <button type="button" class="btn btn-danger mx-2" (click)="navigateAdminSanctions()">Administrar</button>
         </div>
         <hr>
     </div>
@@ -207,25 +207,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-danger" (click)="finsancion(selectedSanction.id)" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div #adminSanctionModal class="modal fade" id="adminSanctionModal" role="dialog" tabindex="-1" aria-labelledby="adminSanctionModal" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h4 class="text-light text-center w-100">Soporte!</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true" class="text-light">&times;</span>
-				</button>
-            </div>
-            <div class="modal-body">
-                <p class="text-muted">Estamos trabajando en esta funcionalidad, con el fin de brindarte un mejor servicio.</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline-danger" type="button" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

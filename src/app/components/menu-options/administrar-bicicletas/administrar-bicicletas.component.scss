@@ -1,11 +1,15 @@
-.bottonAction{
-  color: #E3244B;
-  border-color: #E3244B;
-  cursor: pointer;  
+.bottonAction {
+    color: #E3244B;
+    border-color: #E3244B;
+    cursor: pointer;
 }
 
-.bottonAction:hover{
-  background-color: #E3244B;
-  border-color: #E3244B;
-  color: white;
+.bottonAction:hover {
+    background-color: #E3244B;
+    border-color: #E3244B;
+    color: white;
+}
+
+table.dataTable thead th {
+    border-bottom: 1px solid #dee2e6 !important;
 }

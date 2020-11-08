@@ -5,26 +5,41 @@ import { SancionesService } from '../../../services/sanciones.service';
 @Component({
   selector: 'app-administrar-sanciones',
   templateUrl: './administrar-sanciones.component.html',
-  styleUrls: ['./administrar-sanciones.component.scss']
+  styleUrls: ['./administrar-sanciones.component.scss'],
+  providers: [SancionesService]
 })
 export class AdministrarSancionesComponent implements OnInit {
 
-  penaltyData:PenaltyModel = new PenaltyModel();
+  public manualSanctionsData: Array<PenaltyModel> = [];
+  public automaticSanctionsData: Array<PenaltyModel> = [];
+  public penaltyData: PenaltyModel = new PenaltyModel();
+  public isShow: boolean = false;
 
-  constructor(private penaltyService:SancionesService) { }
-
-  ngOnInit() {
+  constructor(public sanctionsService: SancionesService) {
+    this.loadManualSanctionsData();
   }
 
-  public createSanction(){
-    console.log("Must create sanction");
-    this.penaltyService.createPenality(this.penaltyData).subscribe(
-        penalityResponse => penalityResponse, 
-        error => console.log(error)
-    ); 
-}
+  ngOnInit() {
+    this.isShow = true;
+  }
 
-  NUM_DAYS_DATA: Array<number> =[
-    1,2,3,4,5,6,7,8,9,10,12,14,16,18,20,25,30
-];
+  loadManualSanctionsData() {
+    this.sanctionsService.getAllManualPenalties().subscribe(manualSanctions => {
+      this.manualSanctionsData = manualSanctions;
+      this.sanctionsService.manualSanctionData$.emit(manualSanctions);
+    },
+      error => console.error(error));
+  }
+
+  public createSanction() {
+    this.sanctionsService.createPenality(this.penaltyData).subscribe(
+      penalityResponse => {
+        this.loadManualSanctionsData();
+      },
+      error => console.log(error)
+    );
+  }
+
+  NUM_DAYS_DATA: Array<number> = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16, 18, 20, 25, 30];
 }

@@ -1,81 +1,87 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
 
-	<div class="row  justify-content-center">
-		<div class="col-md-10">
-			<div class="tituloPrincipal">
-				<h3>Bicicletas</h3>
-			</div>
-			<div class="btnAgregar">
-				<button class="btn btn-outline-primary bottonAction" role="button" data-toggle="modal" data-target="#formularioAgregar">
-					<span class="oi oi-plus"></span> Agregar Bicicleta</button>
-			</div>
-			<table id="bicis" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0"
-			 width="100%" data-page-length='25'>
-				<thead>
-					<tr class="text-center">
-						<th>Codigo</th>
-						<th>Fecha Registro</th>
-						<th>Estado</th>
+    <div class="tituloPrincipal">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="text-danger font-weight-bold w-100">Bicicletas</h2>
+            <button type="button" class="btn btn-danger mx-2" role="button" data-toggle="modal" data-target="#formularioAgregar">
+				<span class="oi oi-plus small"></span> Agregar Bicicleta
+			</button>
+        </div>
+        <hr>
+    </div>
 
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let bici of dataBicis">
-						<td (click)="informacionBicicleta(bici.id)">{{ bici.codigo }}</td>
-						<td (click)="informacionBicicleta(bici.id)">{{ bici.creado }}</td>
-						<td *ngIf="bici.missing" class="text-center">
-							<button class="btn btn-outline-primary bottonAction" (click)="retornarBodega(bici.codigo)">
-								Retornar a Bodega</button>
-						</td>
-						<td *ngIf="!bici.missing" (click)="informacionBicicleta(bici.id)" class="text-center">
-							{{ bici.idEstadoBicicleta.estado }}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <div class="row  justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+
+
+                <div class="card-body">
+                    <table id="bicis" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%" data-page-length='25'>
+                        <thead>
+                            <tr class="text-center">
+                                <th class="text-muted small">Codigo</th>
+                                <th class="text-muted small">Fecha Registro</th>
+                                <th class="text-muted small">Estado</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let bici of dataBicis">
+                                <td (click)="informacionBicicleta(bici.id)" class="text-center">{{ bici.codigo }}</td>
+                                <td (click)="informacionBicicleta(bici.id)" class="text-center">{{ bici.creado }}</td>
+                                <td *ngIf="bici.missing" class="text-center">
+                                    <button class="btn btn-outline-primary bottonAction" (click)="retornarBodega(bici.codigo)">
+									Retornar a Bodega</button>
+                                </td>
+                                <td *ngIf="!bici.missing" (click)="informacionBicicleta(bici.id)" class="text-center">
+                                    {{ bici.idEstadoBicicleta.estado }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row justify-content-md-center" *ngIf="!mostrar">
-	<div id="loadingGeneral" class="text-center">
-		<div id="bordeGeneral"></div>
-		<div id="TextLoading">Cargando...</div>
-	</div>
+    <div id="loadingGeneral" class="text-center">
+        <div id="bordeGeneral"></div>
+        <div id="TextLoading">Cargando...</div>
+    </div>
 </div>
 
 
 <div class="modal fade" id="formularioAgregar" tabindex="-1" role="dialog" aria-labelledby="formularioAgregar" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="formularioAgregar">Nueva Bicicleta</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formularioAgregar">Nueva Bicicleta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-			<div class="modal-body" style="width: 95%;">
-				<form #nuevaBicicleta="ngForm">
-					<div class="form-row">
-						<div class="form-group col-md-4">
-							<label for="code" class="col-form-label">Código*</label>
-							<input type="text" class="form-control" name="code" id="code" autocomplete="off" required pattern="[0-9]{4}" [(ngModel)]="model.code"
-							 autofocus title="El código es un numero de cuatro dígitos">
-						</div>
-					</div>
-					<div class="row justify-content-end">
-						<button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!nuevaBicicleta.form.valid" (click)="onSubmit()"
-						 data-dismiss="modal">Enviar</button>
-					</div>
-				</form>
-				<p>
-					<small>
+            </div>
+            <div class="modal-body" style="width: 95%;">
+                <form #nuevaBicicleta="ngForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="code" class="col-form-label">Código*</label>
+                            <input type="text" class="form-control" name="code" id="code" autocomplete="off" required pattern="[0-9]{4}" [(ngModel)]="model.code" autofocus title="El código es un numero de cuatro dígitos">
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <button id="cancelar" class="btn btn-outline-primary bottonAction" style="margin-right: 5px;" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" id="enviar" class="btn btn-outline-primary bottonAction" [disabled]="!nuevaBicicleta.form.valid" (click)="onSubmit()" data-dismiss="modal">Enviar</button>
+                    </div>
+                </form>
+                <p>
+                    <small>
 						<strong>* Campo requerido</strong>
 					</small>
-				</p>
-			</div>
+                </p>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>

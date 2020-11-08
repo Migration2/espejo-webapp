@@ -1,0 +1,23 @@
+<div class="table-responsive">
+    <mat-table #tableAdminSanction [dataSource]="dataSouce">
+        <ng-container matColumnDef="codeCol">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Codigo </mat-header-cell>
+            <mat-cell *matCellDef="let data" class="text-center"> {{ data.code }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="stateCol" class="text-center">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Duracion en días </mat-header-cell>
+            <mat-cell *matCellDef="let data" class="text-center"> {{ data.penaltyInDays }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="descriptionCol">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Descripción </mat-header-cell>
+            <mat-cell *matCellDef="let data"> {{ data.description }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let bike; columns: displayedColumns;" (click)="selectRow(bike)"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator (page)="handlePage($event)" [length]="lengthData" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+</div>

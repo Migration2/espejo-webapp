@@ -115,6 +115,10 @@ export class SancionesComponent implements OnInit {
         });
     }
 
+    navigateAdminSanctions(){
+        this.router.navigate(['administrarSanciones']);
+    }
+
     finsancion(idSancion) {
         this.sancionesService.finalizarSancion(idSancion).subscribe(
             res => {
@@ -140,7 +144,7 @@ export class SancionesComponent implements OnInit {
     }
 
     loadListPenalties(){
-        this.sancionesService.getAllManualPenalities().subscribe(penalitiesResponse => {
+        this.sancionesService.getAllManualPenalties().subscribe(penalitiesResponse => {
             this.listPenalityData = penalitiesResponse;
         }, 
         error => console.log(error));

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { ApplySanctionModel, PenaltyModel } from '../models/sanciones.model';
@@ -38,8 +38,13 @@ export class SancionesService {
 		return this.http.post('/rest/penalties', penality);
 	}
 
-	getAllManualPenalities(){
+	getAllManualPenalties(){
 		return this.http.get('/rest/penalties/manual').map(this.extractData);
+	}
+
+	getAllAutomaticSanctios(){
+		// return this.http.get('/rest/penalties/automatic').map(this.extractData);
+		return [];
 	}
 
 	extractData(response :Response){
@@ -49,4 +54,7 @@ export class SancionesService {
 
 		return this.http.post('/rest/penalties/apply/to/user', JSON.stringify(applySanctionData), this.options);
 	}
+
+	automaticSanctionsData$: EventEmitter<any> = new EventEmitter();
+	manualSanctionData$: EventEmitter<any> = new EventEmitter();
 }
