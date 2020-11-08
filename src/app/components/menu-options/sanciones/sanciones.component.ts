@@ -9,13 +9,14 @@ import { DataSource } from '@angular/cdk/table';
 import { Observable } from 'rxjs';
 import { PaginatePipe } from '../../../pipes/paginate.pipe';
 import { PageEvent } from '@angular/material';
+import { UserService } from '../../../services/user.service';
 
 
 @Component({
     selector: 'app-sanciones',
     templateUrl: './sanciones.component.html',
     styleUrls: ['./sanciones.component.css'],
-    providers: [SancionesService]
+    providers: [SancionesService, UserService]
 })
 export class SancionesComponent implements OnInit {
 
@@ -41,6 +42,7 @@ export class SancionesComponent implements OnInit {
     userSelectedData:UsuarioModel = new UsuarioModel();
     applySanctionData:ApplySanctionModel = new ApplySanctionModel();
     userNameToValidateForm:string = "";
+    private meCredentials:UserSecurityModel = new UserSecurityModel();
 
     //pagination
     private paginatorPipe: PaginatePipe;
@@ -57,7 +59,7 @@ export class SancionesComponent implements OnInit {
     pageNumberAppliedSanctions: number = 0;
 
 
-    constructor(private router: Router, private sancionesService: SancionesService) {
+    constructor(private router: Router, private sancionesService: SancionesService, private userService:UserService) {
         this.paginatorPipe = new PaginatePipe();
     }
 
@@ -96,6 +98,7 @@ export class SancionesComponent implements OnInit {
         };
 
         this.loadListPenalties();
+        this.loadUserMe();
     }
 
     private loadActiveSanctionsData(){
@@ -150,8 +153,16 @@ export class SancionesComponent implements OnInit {
         error => console.log(error));
     }
 
+    private loadUserMe(){
+        this.userService.getInformationMe().subscribe(meCredentResponse => {
+            this.meCredentials = meCredentResponse;
+        });
+    }
+
     applySanction(){
+        let meDataDescription = " /Sancionado por: " + this.meCredentials.username + " - " + this.meCredentials.firstName;
         this.applySanctionData.idPenalty = Number(this.applySanctionData.idPenalty);
+        this.applySanctionData.observation.concat(meDataDescription);
         this.sancionesService.applySanction(this.applySanctionData).subscribe(response => {
             if(response.status == 202){
               this.clearFieldsApplySanctions();
@@ -169,7 +180,6 @@ export class SancionesComponent implements OnInit {
 
     public sanctionDetails(sanction:sancionesModel){
         this.selectedSanction = sanction;
-        console.log(sanction);
     }
 
     //pagination methods

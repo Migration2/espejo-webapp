@@ -1,20 +1,30 @@
-.bottonAction{
+.bottonAction {
     color: #E3244B;
     border-color: #E3244B;
-    cursor: pointer;  
-  }
-  
-  .bottonAction:hover{
+    cursor: pointer;
+}
+
+.bottonAction:hover {
     background-color: #E3244B;
     border-color: #E3244B;
     color: white;
-  }
+}
 
-  .alerta {
+.alerta {
     color: red;
-  }
-tbody, thead th{
-  border-bottom-color: black;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+}
+
+.txt-search {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    box-shadow: none;
+    border-radius: 0px;
+}
+
+tbody,
+thead th {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
 }
