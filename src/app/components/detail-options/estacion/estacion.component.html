@@ -123,15 +123,15 @@
                                     <mat-cell *matCellDef="let contactPoint" class="text-center"> {{contactPoint.status}} </mat-cell>
                                 </ng-container>
 
-                                <ng-container matColumnDef="bikeCol">
-                                    <mat-header-cell *matHeaderCellDef class="text-right"> Bicicleta </mat-header-cell>
-                                    <mat-cell *matCellDef="let contactPoint" class="text-right">
-                                        {{ (contactPoint.bikeCode) ? contactPoint.bikeCode : "-----" }}
+                                <ng-container matColumnDef="bikeCol" class="text-center">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"> Bicicleta </mat-header-cell>
+                                    <mat-cell *matCellDef="let contactPoint" class="text-center">
+                                        {{ (contactPoint.bikeCode) ? contactPoint.bikeCode : "-" }}
                                     </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="actionCol">
-                                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                                    <mat-cell *matCellDef="let contactPoint" class="text-right">
+                                    <mat-header-cell *matHeaderCellDef class="mat-column-boolean-field"></mat-header-cell>
+                                    <mat-cell *matCellDef="let contactPoint" class="text-center mat-column-boolean-field">
                                         <span *ngIf="!contactPoint.bikeCode" class="text-danger oi oi-plus" title="Anclar bicicleta" data-toggle="modal" data-target="#addBikeModal" (click)="selectContactPoint(contactPoint)"></span>
                                         <span *ngIf="contactPoint.bikeCode" class="text-danger oi oi-x" title="Remover bicicleta" data-toggle="modal" data-target="#removeBikeModal" (click)="selectContactPoint(contactPoint)"></span>
                                     </mat-cell>

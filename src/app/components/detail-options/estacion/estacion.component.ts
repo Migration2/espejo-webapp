@@ -418,40 +418,38 @@ export class EstacionComponent implements OnInit {
       }
 
       cancel(){
-        this.clearFiedsPutBike();
+        this.clearFieldsPutBike();
       }
 
       putBike(){
 
         let codeStation: string = this.datosEstacion.code;
-		let idContactPoint: string = this.selectedContactPoint.id;
+		let idContactPoint: string = this.selectedContactPoint.alias;
 		let idBike: string = this.selectedAvaBike.alias;        
         let contactPointBike = new ContactPointBikeModel(codeStation, idContactPoint, idBike);
         console.log(contactPointBike);
         this.estacionservice.putBikeInContactPoint(contactPointBike).subscribe(
             res=>{
-                this.clearFiedsPutBike;
-                this.loadStationData(this.idEstacion);
-           }, 
-            error=> {console.log("errro")});
-      }
-
-      removeBike(){
-        let codeStation: string = this.datosEstacion.code;
-		let idContactPoint: string = this.selectedContactPoint.id;
-		let idBike: string = this.selectedContactPoint.bikeCode;        
-        let contactPointBike = new ContactPointBikeModel(codeStation, idContactPoint, idBike);
-        console.log("must remove bike");
-        console.log(contactPointBike);
-        this.estacionservice.removeBikeOfContactPoint(contactPointBike).subscribe(
-            res=>{
-                this.clearFiedsPutBike;
+                this.clearFieldsPutBike;
                 this.loadStationData(this.idEstacion);
            }, 
             error=> {console.log(error)});
       }
 
-      private clearFiedsPutBike(){
+      removeBike(){
+        let codeStation: string = this.datosEstacion.code;
+		let idContactPoint: string = this.selectedContactPoint.alias;
+		let idBike: string = this.selectedContactPoint.bikeCode;        
+        let contactPointBike = new ContactPointBikeModel(codeStation, idContactPoint, idBike);
+        this.estacionservice.removeBikeOfContactPoint(contactPointBike).subscribe(
+            res=>{
+                this.clearFieldsPutBike;
+                this.loadStationData(this.idEstacion);
+           }, 
+            error=> {console.log(error)});
+      }
+
+      private clearFieldsPutBike(){
           this.selectedAvaBike.id = '';
           this.selectedAvaBike.status = "";
           this.selectedAvaBike.alias = "";
