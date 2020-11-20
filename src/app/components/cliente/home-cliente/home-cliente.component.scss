@@ -1,22 +1,26 @@
 agm-map {
-	width: 99%;
-	height: 300px;
+    width: 99%;
+    height: 300px;
 }
 
 @media (max-width:780px) {
-	#tablaestaciones{
-		margin-top: 30px;
-	}	
+    #tablaestaciones {
+        margin-top: 30px;
+    }
 }
 
-.bottonAction{
-  color: #E3244B;
-  border-color: #E3244B;
-  cursor: pointer;  
+.bottonAction {
+    color: #E3244B;
+    border-color: #E3244B;
+    cursor: pointer;
 }
 
-.bottonAction:hover{
-  background-color: #E3244B;
-  border-color: #E3244B;
-  color: white;
+.bottonAction:hover {
+    background-color: #E3244B;
+    border-color: #E3244B;
+    color: white;
+}
+
+.secondary-title {
+    color: #003249;
 }

@@ -72,6 +72,7 @@ import { TransactionsPerStationChartComponent } from './components/charts/transa
 import { SanctionTableComponent } from './components/tables/sanction-table/sanction-table.component';
 import { AvailableBikesTableComponent } from './components/tables/available-bikes-table/available-bikes-table.component';
 import { AdminSanctionTableComponent } from './components/tables/admin-sanction-table/admin-sanction-table.component';
+import { StationsMapComponent } from './components/maps/stations-map/stations-map.component';
 
 
 
@@ -113,7 +114,8 @@ import { AdminSanctionTableComponent } from './components/tables/admin-sanction-
         TransactionsPerStationChartComponent,
         SanctionTableComponent,
         AvailableBikesTableComponent,
-        AdminSanctionTableComponent
+        AdminSanctionTableComponent,
+        StationsMapComponent
     ],
     imports: [
         BrowserModule,

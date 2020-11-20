@@ -37,22 +37,22 @@
                         <div class="row align-items-center">
                             <div class="col-md-3 text-center">
                                 <h6 class="text-muted">Puntos de contacto</h6>
-                                <h3 class="font-weight-bold">{{ stationStatictics.contactPoints }}</h3>
+                                <h3 class="font-weight-bold text-primary">{{ stationStatictics.contactPoints }}</h3>
                                 <h6 class="text-danger">100%</h6>
                             </div>
                             <div class="col-md-3 text-center">
                                 <h6 class="text-muted">Puntos de contacto libres</h6>
-                                <h3 class="font-weight-bold">{{ stationStatictics.looseContactPoints}}</h3>
+                                <h3 class="font-weight-bold text-primary">{{ stationStatictics.looseContactPoints}}</h3>
                                 <h6 class="text-danger">{{ stationStatictics.looseContactPointsPercentage}}%</h6>
                             </div>
                             <div class="col-md-3 text-center">
                                 <h6 class="text-muted">Bicicletas disponibles</h6>
-                                <h3 class="font-weight-bold">{{ stationStatictics.availableBikes }}</h3>
+                                <h3 class="font-weight-bold text-primary">{{ stationStatictics.availableBikes }}</h3>
                                 <h6 class="text-danger">{{ stationStatictics.availableBikesPercentage }}%</h6>
                             </div>
                             <div class="col-md-3 text-center">
                                 <h6 class="text-muted">Puntos de contacto en Mto.</h6>
-                                <h3 class="font-weight-bold">{{ stationStatictics.contactPointsInMto }}</h3>
+                                <h3 class="font-weight-bold text-primary">{{ stationStatictics.contactPointsInMto }}</h3>
                                 <h6 class="text-danger">{{ stationStatictics.contactPointsInMtoPercentage }}%</h6>
                             </div>
                         </div>
@@ -63,15 +63,15 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item" (click)='opcionCard="puntosContacto"'>
-                            <a class="nav-link" [class.active]='opcionCard=="puntosContacto"'>Puntos de Contacto</a>
+                            <a class="nav-link text-primary" [class.active]='opcionCard=="puntosContacto"'>Puntos de Contacto</a>
                         </li>
                         <li class="nav-item" (click)='opcionCard="transacciones"'>
-                            <a class="nav-link" [class.active]='opcionCard=="transacciones"'>Historico Transacciones</a>
+                            <a class="nav-link text-primary" [class.active]='opcionCard=="transacciones"'>Historico Transacciones</a>
                         </li>
                     </ul>
                 </div>
@@ -137,44 +137,37 @@
                                     </mat-cell>
                                 </ng-container>
 
+
+                                <ng-container matColumnDef="actionContactPoinCol">
+                                    <mat-header-cell *matHeaderCellDef class="text-center"></mat-header-cell>
+                                    <mat-cell *matCellDef="let contactPoint" class="text-right">
+                                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#openContPointModal" (click)="selectContactPoint(contactPoint)" (click)="buttonCancelMod1Focused()">Abrir</button>
+                                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#closeContPointModal" (click)="selectContactPoint(contactPoint)" (click)="buttonCancelMod2Focused()">Cerrar</button>
+                                    </mat-cell>
+                                </ng-container>
+
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                                 <mat-row *matRowDef="let contacPoint; columns: displayedColumns;"></mat-row>
                             </mat-table>
                             <mat-paginator #paginator (page)="handlePage($event)" [length]=" puntosContacto.length" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
                             </mat-paginator>
                         </div>
-
-
-                        <!-- <table datatable [dtOptions]="dtOptions " [dtTrigger]="dtTrigger " class="table row-border hover " cellspacing="0 " width="100% ">
-                            <thead>
-                                <tr>
-                                    <th>Punto</th>
-                                    <th>Estado</th>
-                                    <th>Bicicleta</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let puntoContacto of puntosContacto ">
-                                    <td>{{puntoContacto.alias}}</td>
-                                    <td>{{puntoContacto.status}}</td>
-                                    <td>{{(puntoContacto.bikeCode) ? puntoContacto.bikeCode : "N/A "}}</td>
-                                </tr>
-                            </tbody>
-                        </table> -->
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="col-md-6">
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
             <div class="card ">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item" (click)='opcionCard2="tendencia"'>
-                            <a class="nav-link" [class.active]='opcionCard2=="tendencia"'>Tendencia</a>
+                            <a class="nav-link text-primary" [class.active]='opcionCard2=="tendencia"'>Tendencia</a>
                         </li>
                         <li class="nav-item" (click)='opcionCard2="historicoMantenimiento"'>
-                            <a class="nav-link" [class.active]='opcionCard2=="historicoMantenimiento"'>Historico Mantenimiento</a>
+                            <a class="nav-link text-primary" [class.active]='opcionCard2=="historicoMantenimiento"'>Historico Mantenimiento</a>
                         </li>
                     </ul>
                 </div>
@@ -210,7 +203,7 @@
                     <br>
                     <div class="card-text">
                         <div style="display: block">
-                            <canvas baseChart *ngIf="barChartLabels.length>0" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+                            <canvas baseChart *ngIf="barChartLabels.length>0" height="40%" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
                         </div>
                         <div class="row justify-content-md-center" *ngIf="barChartLabels.length<=0">
                             <div class="col-md-12 text-center">
@@ -454,8 +447,50 @@
                 ¿Estas seguro, deseas REMOVER la bicicleta <span class="font-weight-bold text-danger">{{ selectedContactPoint.bikeCode }}</span> de la estación?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-danger" (click)="removeBike()" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal open contact point of station -->
+<div class="modal fade" id="openContPointModal" tabindex="-1" role="dialog" aria-labelledby="openContPointModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="text-light text-center w-100">Abrir punto de contacto: <span class="font-weight-bold">{{ selectedContactPoint.alias }}</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="text-light" aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro, deseas ABRIR el punto de contacto <span class="font-weight-bold text-danger">{{ selectedContactPoint.alias }}</span> de la estación?
+            </div>
+            <div class="modal-footer">
+                <button #btnCancelOpenMod type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" (click)="openContactPoint()" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal close contact point of station -->
+<div class="modal fade" id="closeContPointModal" tabindex="-1" role="dialog" aria-labelledby="closeContPointModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="text-light text-center w-100">Cerrar punto de contacto:<span class="font-weight-bold">{{ selectedContactPoint.alias }}</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="text-light" aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro, deseas CERRAR el punto de contacto <span class="font-weight-bold text-danger">{{ selectedContactPoint.alias }}</span> de la estación?
+            </div>
+            <div class="modal-footer">
+                <button #btnCancelCloseMod id="btnCancel" type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" (click)="closeContactPoint()" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>

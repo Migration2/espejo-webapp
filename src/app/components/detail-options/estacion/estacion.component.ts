@@ -12,18 +12,21 @@ import { PageEvent } from '@angular/material';
 import {DataSource} from '@angular/cdk/collections'
 import { Observable } from 'rxjs';
 import { AvailableBikeModel } from '../../../models/bicicleta.model';
+import { UserService } from '../../../services/user.service';
 
 @Component({
     selector: 'app-estacion',
     templateUrl: './estacion.component.html',
     styleUrls: ['./estacion.component.scss'],
-    providers: [EstacionService, MantenimientoService]
+    providers: [EstacionService, MantenimientoService, UserService]
 })
 export class EstacionComponent implements OnInit {
     private idEstacion;
     @ViewChild(DataTableDirective)
     dtElement: DataTableDirective;
     @ViewChild('searchBikeCollapse') searchBikeCollapse;
+    @ViewChild('btnCancelCloseMod') btnCancelCloseMod;
+    @ViewChild('btnCancelOpenMod') btnCancelOpenMod;
     datosEstacion = new EstacionModel;
     mantenimientoEstacionModel = new mantenimientoEstacionModel;
     finMantenimientoEstacionModel = new finMantenimientoEstacionModel;
@@ -51,7 +54,8 @@ export class EstacionComponent implements OnInit {
     public contactPointsData:Array<any> = [];
     public contactPointsDataForView:Array<any> = [];
     public contactPointsDataSouce: ContactPointsDataSource;
-    public displayedColumns:Array<string> = [ "pointCol","stateCol","bikeCol", "actionCol"];
+    public displayedColumns:Array<string> = [ "pointCol","stateCol","bikeCol", "actionCol" ];
+    public isColShow = false;
     //pagination
     private paginator: PaginatePipe;
     public pageSize: number = 10;
@@ -79,12 +83,13 @@ export class EstacionComponent implements OnInit {
 
 
     constructor(private activedRoute: ActivatedRoute, private estacionservice: EstacionService,
-        private mantenimientoService: MantenimientoService, private router: Router) {
+        private mantenimientoService: MantenimientoService, private userService: UserService, private router: Router) {
             this.paginator = new PaginatePipe();
             this.fechaAnterior.setDate(this.fechaActual.getDate() - 5);
             this.activedRoute.params.subscribe(params => {
             this.idEstacion = params.id;
         });
+        this.loadUserLoggedIn();
         this.loadStationTransactionsData(this.idEstacion, this.fechaAnterior, this.fechaActual);
         this.stationOperationTime = this.newInstanceStationOperationTime();
 
@@ -139,6 +144,16 @@ export class EstacionComponent implements OnInit {
         this.mantenimientoService.getManttoTypes().subscribe(respose => {
             this.typesMantto = respose;
         });
+    }
+
+    loadUserLoggedIn(){
+        this.userService.getInformationMe().subscribe(
+            response => {
+                if(response.username.toLowerCase().startsWith("super")){
+                    this.displayedColumns.push("actionContactPoinCol");
+                }
+            },
+            error => console.error(error));
     }
 
     loadStationData(idStation:number){
@@ -449,10 +464,48 @@ export class EstacionComponent implements OnInit {
             error=> {console.log(error)});
       }
 
+      public buttonCancelMod1Focused(){
+        setTimeout(()=>{ // this will make the execution after the above boolean has changed
+            this.btnCancelOpenMod.nativeElement.focus();
+          },400);  
+      }
+
+      public buttonCancelMod2Focused(){
+        setTimeout(()=>{ // this will make the execution after the above boolean has changed
+            this.btnCancelCloseMod.nativeElement.focus();
+          },400);  
+      }
+
+      public openContactPoint(){
+        let codeStation: string = this.datosEstacion.code;
+        let contactPoint: string = this.selectedContactPoint.alias;
+        this.estacionservice.openContactPoint(codeStation, contactPoint).subscribe(res => {
+            if(res.status == 202){
+                console.log("Open contact point.");
+            }
+          });
+        this.clearSelectedContactPoint();
+      }
+
+      public closeContactPoint(){
+        let codeStation: string = this.datosEstacion.code;
+        let contactPoint: string = this.selectedContactPoint.alias;
+          this.estacionservice.closeContactPoint(codeStation, contactPoint).subscribe(res => {
+              if(res.status == 202){
+                  console.log("Closed contact point.");
+              }
+            });
+          this.clearSelectedContactPoint();
+      }
+
       private clearFieldsPutBike(){
           this.selectedAvaBike.id = '';
           this.selectedAvaBike.status = "";
           this.selectedAvaBike.alias = "";
+          this.clearSelectedContactPoint();
+      }
+
+      private clearSelectedContactPoint(){
           this.selectedContactPoint = new ContactPointStateModel();
       }
 

@@ -14,6 +14,14 @@ export class EstadisticasService {
         return this.http.get('/rest/station/statistic', {}).map(res => res.json());
     }
 
+    /**
+     * Obtain statistics for total transactions of all stations
+     * return Array<any> with data transactions per station
+     */
+    getStatisticsStations(){
+		return this.http.get('/rest/statistic/station').map(res => res.json());
+	}
+
     getEstadisticasPuntoContacto() {
         return this.http.get('/rest/contactPoint/statistic', {}).map(res => res.json());
     }

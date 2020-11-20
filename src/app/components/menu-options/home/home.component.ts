@@ -97,6 +97,7 @@ export class HomeComponent implements OnInit {
         this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);
         this.fechaActual.setHours(this.fechaActual.getHours() - 5);
         this.loadStationsData();
+        // this.loadLoansStatisticStation();
 
         this.stomp.configure({
             host: 'http://bici-rio.com:4547/bicirio-websocket', // produccion
@@ -118,6 +119,12 @@ export class HomeComponent implements OnInit {
             });
         
         this.loadBikesData();
+    }
+
+    private loadLoansStatisticStation() {
+        this.estadisticasService.getStatisticsStations().subscribe(response => {
+            console.log(response);
+        }, error => console.error(error));
     }
 
     loadStationsData(){

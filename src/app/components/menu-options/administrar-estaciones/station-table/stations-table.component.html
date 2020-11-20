@@ -17,7 +17,10 @@
 
         <ng-container matColumnDef="Estado">
             <mat-header-cell *matHeaderCellDef class="text-center"> Estado </mat-header-cell>
-            <mat-cell *matCellDef="let station" class="text-center"> {{station.statusName}} </mat-cell>
+            <mat-cell *matCellDef="let station" class="text-center">
+                <span class="oi oi-circle-check text-success" *ngIf="station.statusName == 'SERVICIO'"></span>
+                <span class="oi oi-circle-x text-danger" *ngIf="station.statusName != 'SERVICIO'"></span>
+            </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

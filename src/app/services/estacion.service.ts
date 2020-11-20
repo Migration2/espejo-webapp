@@ -15,7 +15,7 @@ export class EstacionService {
 	constructor(private http : Http, private httpClient : HttpClient) { }
 	
 	/**
-	 * @deprecated deprecated since fenix versión 19/10/2020 enchange use getStationsV2
+	 * @deprecated deprecated since fenix versión 19/10/2020 enchange use getStationsData
 	 */
 	getEstaciones(){
 		return this.http.get('/rest/mobile/station',{}).map(this.extractData);
@@ -69,7 +69,7 @@ export class EstacionService {
 
 		console.log(errorMessage)
         return Observable.of(errorMessage);
-    }
+	}
 
 	stationTransactions(idStation:string, fechaInicio:string, fechaFin:string){
 		return this.http.get('/rest/reports/station/'+idStation+'/'+fechaInicio+'/'+fechaFin, {}).map(res => res.json());
@@ -89,6 +89,14 @@ export class EstacionService {
 
 	removeBikeOfContactPoint(data: ContactPointBikeModel){
 		return this.http.post('/rest/contactPoint/remove/bike', data);
+	}
+
+	openContactPoint(stationCode: string, contactPoint: string){
+		return this.http.patch(`/rest/station/${stationCode}/open/${contactPoint}`, {});
+	}
+
+	closeContactPoint(stationCode: string, contactPoint: string){
+		return this.http.patch(`/rest/station/${stationCode}/close/${contactPoint}`,{});
 	}
 
 	extractData(response :Response){

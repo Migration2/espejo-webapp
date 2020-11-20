@@ -2,14 +2,14 @@
 
 
     <div class="tituloPrincipal">
-        <h3 class="text-danger font-weight-bold">Usuarios</h3>
+        <h2 class="text-danger font-weight-bold">Usuarios</h2>
         <hr>
     </div>
 
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z2">
         <div class="filter-user-container text-right">
             <mat-form-field>
-                <input matInput (keyup)="fillValueFilterUser($event.target.value)" (keyup.enter)="searchUser()" placeholder="Número de documento">
+                <input matInput (keyup)="fillValueFilterUser($event.target.value)" (keyup.enter)="searchUser()" placeholder="Buscar (Número de documento, Nombre, Apellido)">
             </mat-form-field>
             <span class="oi oi-magnifying-glass" (click)="searchUser()"></span>
         </div>
