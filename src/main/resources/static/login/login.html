@@ -13,56 +13,56 @@
 
 <body>
     <section>
-        <div class="container-fluid">
+        <div id="loginContainer" class="container-fluid animated" hidden>
             <div class="row">
-                <div class="col-lg-6 col-md-12 container-img-station pl-0">
-                    <p class="h-100 mb-0" style="background-image: url('./complementos/imagenes/station_bicirio.jpg');"></p>
+                <div id="containerImgStation" class="col-lg-6 col-md-12 container-img-station pl-0">
+                    <p id="imageLogin" class="h-100 mb-0" style="background-image: url('./complementos/imagenes/station_bicirio.jpg');"></p>
                 </div>
                 <div class="col-lg-6 col-md-12 d-flex align-items-center">
-                    <div id=" contenedorPrincipal ">
-                        <div id="alerta " class=" row justify-content-md-center " hidden>
-                            <div class="col-md-5 alert alert-danger text-center " role="alert " style="margin-bottom: 30px; ">
+                    <div id="contenedorPrincipal">
+                        <div id="alerta" class=" row justify-content-md-center" hidden>
+                            <div class="col-md-5 alert alert-danger text-center" role="alert" style="margin-bottom: 30px;">
                                 El Usuario o Contraseña ingresados son incorrectos
                             </div>
                         </div>
                         <a href="https://somosmovilidad.gov.co/sistema-de-bicicletas-bicirio/">
-                            <div class="text-center ">
-                                <img src="./complementos/imagenes/favicon.png " class="rounded logo-encabezado " alt="BiciRío ">
+                            <div class="text-center">
+                                <img src="./complementos/imagenes/favicon.png" class="rounded logo-encabezado" alt="BiciRío">
                             </div>
                         </a>
 
-                        <form name="f " action="/oa/login " method="POST ">
-                            <div class="form-row justify-content-center ">
-                                <div class="form-group col-8 ">
-                                    <label for="username ">Usuario<span class="text-danger ">*</span></label>
-                                    <input type="text " class="form-control " id="username " name="username " autofocus autocomplete="off ">
+                        <form name="f" action="/oa/login" method="POST">
+                            <div class="form-row justify-content-center">
+                                <div class="form-group col-8">
+                                    <label for="username">Usuario<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="username" name="username" autofocus autocomplete="off">
                                 </div>
                             </div>
-                            <div class="form-row justify-content-center ">
-                                <div class="form-group col-8 ">
-                                    <label for="password ">Contraseña <span class="text-danger ">*</label>
-                                    <input type="password " class="form-control " id="password " name="password ">
+                            <div class="form-row justify-content-center">
+                                <div class="form-group col-8">
+                                    <label for="password">Contraseña <span class="text-danger">*</label>
+                                    <input type="password" class="form-control" id="password" name="password">
                                 </div>
                             </div>
-                            <div class="form-row justify-content-center text-center ">
+                            <div class="form-row justify-content-center text-center">
 
-                                <button name="submit " type="submit " class="btn btn-danger btn-w-200">Entrar</button>
+                                <button name="submit" type="submit" class="btn btn-danger btn-w-200">Entrar</button>
 
                             </div>
                         </form>
-                        <div style="text-align: center; margin-top: 20px; ">
-                            <p class="text-muted mb-0 ">Si aún no eres usuario de BiciRío puedes -
-                                <a href="http://www.bici-rio.com/login/signup.html " class="text-muted ">
+                        <div style="text-align: center; margin-top: 20px;">
+                            <p class="text-muted mb-0">Si aún no eres usuario de BiciRío puedes -
+                                <a href="http://www.bici-rio.com/login/signup.html" class="text-muted">
                                     <strong>Crear tu cuenta</strong></a>
                             </p>
-                            <p class="text-muted "> Si no recuerdas tu contraseña o PIN de acceso a BiciRío puedes -
-                                <a data-toggle="modal " data-target="#recuperarCredenciales " id="botonRecuperarCredenciales ">
+                            <p class="text-muted"> Si no recuerdas tu contraseña o PIN de acceso a BiciRío puedes -
+                                <a data-toggle="modal" data-target="#recuperarCredenciales" id="botonRecuperarCredenciales">
                                     <strong>Recuperar Credenciales</strong></a>
                             </p>
 
                         </div>
-                        <div class="text-center ">
-                            <img src="./complementos/imagenes/logo-administracion.png " class="rounded logo-admon " alt="BiciRío ">
+                        <div class="text-center">
+                            <img src="./complementos/imagenes/logo-administracion.png" class="rounded logo-admon" alt="BiciRío">
                         </div>
                     </div>
                 </div>
@@ -71,48 +71,138 @@
     </section>
 
 
-    <script src="./complementos/jquery-3.2.1.min.js "></script>
-    <script src="./complementos/popper.js "></script>
-    <script src="./complementos/bootstrap/js/bootstrap.min.js "></script>
+    <script src="./complementos/jquery-3.2.1.min.js"></script>
+    <script src="./complementos/popper.js"></script>
+    <script src="./complementos/bootstrap/js/bootstrap.min.js"></script>
 
 
     <script>
-        $("#contenedorPrincipal ").fadeIn(2000);
+        var container = $("#loginContainer");
+        $("#imageLogin").ready(function() {
+            console.log("ready....")
+            container.removeAttr("hidden");
+            container.fadeIn(2000);
+        });
     </script>
 
     <script>
         if ((window.location.href).indexOf('?') != -1) {
-            $("#alerta ").removeAttr('hidden');
+            $("#alerta").removeAttr('hidden');
         }
 
         function enviarRecuperarCredenciales() {
             NumeroDocumento = document.getElementById('documento').value;
-            if (!isNaN(NumeroDocumento) && NumeroDocumento != " " && NumeroDocumento != null) {
-                $.get("http://bici-rio.com/rest/recovery/credential/ " + NumeroDocumento);
-                $('#recuperarCredenciales').modal('toggle');
+            if (!isNaN(NumeroDocumento) && NumeroDocumento != "" && NumeroDocumento != null) {
+                //$.get("http://bici-rio.com/rest/recovery/credential/" + NumeroDocumento);
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://bici-rio.com/rest/recovery/credential/" + NumeroDocumento,
+                    // dataType: 'json',
+                    contentType: 'application/json',
+                    success: function(response) {
+                        console.log(response);
+                        if (response.status == 200) {
+                            $('#recuperarCredenciales').modal('toggle');
+                            $('#successretrieveCredential').modal('toggle');
+                        } else if (response.status == 500 || response.status != 200) {
+                            $('#recuperarCredenciales').modal('toggle');
+                            $('#errorRetrieveCredentials').modal('toggle');
+                        }
+                        console.log(response);
+                    },
+                    error: function(response, status) {
+                        console.error(error);
+                        $('#recuperarCredenciales').modal('toggle');
+                        $('#errorRetrieveCredentials').modal('toggle');
+                    }
+                });
             }
         }
     </script>
 
     <!-- Modal -->
-    <div class="modal fade " id="recuperarCredenciales " tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel " aria-hidden="true ">
-        <div class="modal-dialog " role="document ">
-            <div class="modal-content ">
-                <div class="modal-header ">
-                    <h5 class="modal-title ">Recuperar Credenciales</h5>
-                    <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
-						<span aria-hidden="true ">&times;</span>
+    <div class="modal fade" id="recuperarCredenciales" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-light">Recuperar Credenciales</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
 					</button>
                 </div>
-                <div class="modal-body ">
-                    <p style="text-align: justify; ">Si deseas recuperar tu contraseña y PIN de acceso a BiciRío ingresa tu número de documento, y en breves momentos te enviaremos la información solicitada al correo electrónico registrado.</p>
-                    <div style="margin-top: 15px; ">
-                        <input class="form-control " style="width: 60%; margin:0 auto; " type="text " id="documento " required autocomplete="off " autofocus placeholder="Número de documento ">
+                <div class="modal-body">
+                    <div class="card-text">
+                        <p class="text-justify text-muted">Si deseas recuperar tu <strong>contraseña y PIN de acceso a BiciRío</strong>, ingresa tu <strong>Número de documento</strong>, y en breves momentos te enviaremos la información solicitada al correo electrónico registrado.</p>
+                        <div style="margin-top: 15px;">
+                            <input class="form-control" style="width: 70%; margin:0 auto;" type="text" id="documento" required autocomplete="off" autofocus placeholder="Número de documento">
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer ">
-                    <button type="button " class="btn btn-outline-primary " data-dismiss="modal ">Cancelar</button>
-                    <button type="button " class="btn btn-outline-primary " onclick="enviarRecuperarCredenciales() ">Enviar</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="enviarRecuperarCredenciales()">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successretrieveCredential" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-light">Evío de Credenciales</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-text text-center">
+                        <h6 class="text-center text-muted font-weight-bold">Tu información ha sido enviada</h6>
+                        <p class="text-center text-muted">
+                            En los proximos minutos recibirás un mensaje al correo registrado en la plataforma <strong>BiciRío</strong> para recuperar sus credenciales.
+                        </p>
+                        <hr>
+                        <p class="text-muted small font-weight-bold">
+                            En caso de no recibir el correo, por favor comunicarte con el centro de operaciones y logística.
+                        </p>
+                        <p class="mb-0 small">Teléfono fijo: <span class="text-danger">3018661</span></p>
+                        <p class="mb-0 small">Teléfonos Celulares: <span class="text-danger">3102208524 - 3102208500</span></p>
+                        <P class=" small">ó a través del correo electrónico: <span class="text-danger">bicirio@somosmovilidad.gov.co</span></P>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="errorRetrieveCredentials" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-light">Evío de Credenciales</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-text text-center">
+                        <div class="alert alert-danger" role="alert">
+                            <h6 class="text-center text-muted font-weight-bold">No pudimos enviar tus credenciales</h6>
+                        </div>
+                        <hr>
+                        <p class="text-muted small font-weight-bold">
+                            Por favor comunicarte con el centro de operaciones y logística <strong>BiciRío</strong>.
+                        </p>
+                        <p class="mb-0 small">Teléfono fijo: <span class="text-danger">3018661</span></p>
+                        <p class="mb-0 small">Teléfonos Celulares: <span class="text-danger">3102208524 - 3102208500</span></p>
+                        <P class=" small">ó a través del correo electrónico: <span class="text-danger">bicirio@somosmovilidad.gov.co</span></P>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
                 </div>
             </div>
         </div>
