@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EstacionModel } from '../../../../models/estacion.model';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import { StompService } from 'ng2-stomp-service';
 })
 export class StationsTableComponent implements OnInit {
 
+  @Input('isClientUser') isClientUser: boolean = false;
   displayedColumns = ['Estacion', 'Bicicletas disponibles', 'Puntos de contacto libres', 'Estado'];
   dataSourceStation: StationsDataSource;
   stationsDataForView: Array<EstacionModel> = [];
@@ -97,7 +98,9 @@ export class StationsTableComponent implements OnInit {
   }
 
   informacionEstacion(id: number) {
-    this.router.navigate(['estacion', id]);
+    if(!this.isClientUser){
+      this.router.navigate(['estacion', id]);
+    }
   }
 
 
