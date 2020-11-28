@@ -27,37 +27,44 @@
     </table> -->
 
     <!-- ***tabla de angular material con componente de paginacion*** -->
-    <div class="mat-elevation-z8">
-        <mat-table #table [dataSource]="employeesDataSource">
-            <ng-container matColumnDef="Nombre">
-                <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-                <mat-cell *matCellDef="let employee"> {{ employee.firstName +' '+ employee.lastName | uppercase }} </mat-cell>
-            </ng-container>
+    <div class="card">
+        <div class="card-body">
 
-            <ng-container matColumnDef="Documento" class="text-center">
-                <mat-header-cell *matHeaderCellDef class="text-center"> Documento </mat-header-cell>
-                <mat-cell *matCellDef="let employee" class="text-center"> {{ employee.username }} </mat-cell>
-            </ng-container>
 
-            <ng-container matColumnDef="Fecha Registro">
-                <mat-header-cell *matHeaderCellDef class="text-center"> Fecha de registro </mat-header-cell>
-                <mat-cell *matCellDef="let employee" class="text-center"> {{ employee.created }} </mat-cell>
-            </ng-container>
+            <mat-table #table [dataSource]="employeesDataSource">
+                <ng-container matColumnDef="Nombre">
+                    <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                    <mat-cell *matCellDef="let employee"> {{ employee.firstName +' '+ employee.lastName | uppercase }} </mat-cell>
+                </ng-container>
 
-            <ng-container matColumnDef="Celular">
-                <mat-header-cell *matHeaderCellDef class="text-center"> Celular </mat-header-cell>
-                <mat-cell *matCellDef="let employee" class="text-center"> {{employee.celphone}} </mat-cell>
-            </ng-container>
+                <ng-container matColumnDef="Documento" class="text-center">
+                    <mat-header-cell *matHeaderCellDef class="text-center"> Documento </mat-header-cell>
+                    <mat-cell *matCellDef="let employee" class="text-center"> {{ employee.username }} </mat-cell>
+                </ng-container>
 
-            <ng-container matColumnDef="Habilitado">
-                <mat-header-cell *matHeaderCellDef class="text-center"> Habilitado </mat-header-cell>
-                <mat-cell *matCellDef="let employee" class="text-center"> <span *ngIf="!employee.enabled" class="oi oi-x"></span><span *ngIf="employee.enabled" class="oi oi-check"></span></mat-cell>
-            </ng-container>
+                <ng-container matColumnDef="Fecha Registro">
+                    <mat-header-cell *matHeaderCellDef class="text-center"> Fecha de registro </mat-header-cell>
+                    <mat-cell *matCellDef="let employee" class="text-center"> {{ employee.created }} </mat-cell>
+                </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let employee; columns: displayedColumns;" (click)="informacionUsuario(employee.id)"></mat-row>
-        </mat-table>
-        <mat-paginator #paginator [length]="length" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)"></mat-paginator>
+                <ng-container matColumnDef="Celular">
+                    <mat-header-cell *matHeaderCellDef class="text-center"> Celular </mat-header-cell>
+                    <mat-cell *matCellDef="let employee" class="text-center"> {{employee.celphone}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Habilitado">
+                    <mat-header-cell *matHeaderCellDef class="text-center"> Habilitado </mat-header-cell>
+                    <mat-cell *matCellDef="let employee" class="text-center">
+                        <span *ngIf="!employee.enabled" class="oi oi-circle-x text-danger"></span>
+                        <span *ngIf="employee.enabled" class="oi oi-circle-check text-success"></span>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let employee; columns: displayedColumns;" (click)="informacionUsuario(employee.id)"></mat-row>
+            </mat-table>
+            <mat-paginator #paginator [length]="length" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)"></mat-paginator>
+        </div>
     </div>
     <!-- <mat-paginator #paginator [length]="lenght" [pageSize]="pageSize" [pageIndex]="pageNumber" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)">
     </mat-paginator> -->

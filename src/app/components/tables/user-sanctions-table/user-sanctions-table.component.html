@@ -1,0 +1,33 @@
+<div class="table-responsive">
+    <mat-table #table [dataSource]="sanctionsDataSource">
+        <ng-container matColumnDef="observation">
+            <mat-header-cell *matHeaderCellDef> Observación </mat-header-cell>
+            <mat-cell *matCellDef="let sanction"> {{ sanction.idSancion.descripcion}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="initDate" class="text-center">
+            <mat-header-cell *matHeaderCellDef class="text-center">Inincio Sanción</mat-header-cell>
+            <mat-cell *matCellDef="let sanction" class="text-center small"> {{sanction.fechaSancion}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+            <mat-header-cell *matHeaderCellDef class="text-center"> Fin Sanción </mat-header-cell>
+            <mat-cell *matCellDef="let sanction" class="text-center small"> {{ sanction.fechaLimiteSancion }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+            <mat-header-cell *matHeaderCellDef class="text-right"> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let sanction" class="text-right">
+                <span class="badge badge-success small">{{ sanction.idEstado.estado | lowercase }}</span>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let sanction; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <div class="card-text text-muted p-2 bb-1" *ngIf="!sanctionsData.length">
+        <p class="text-center mb-0">¡No hay datos disponibles para mostrar!</p>
+    </div>
+    <mat-paginator #paginator [length]="lengthStations" [pageIndex]="pageNumber" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)">
+    </mat-paginator>
+</div>

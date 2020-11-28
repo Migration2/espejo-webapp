@@ -4,33 +4,32 @@
     <div class="row justify-content-md-center">
 
         <div class="col-md-12 clearfix pb-4">
-            <div class="card mat-elevation-z8">
+            <div class="card">
                 <div class="card-header text-light bg-danger">
                     <div class="d-flex flex-column justify-content-center align-content-center text-center w-10">
-                        <h4 class="card-title">{{ userDataModel.nombre +' '+ userDataModel.apellido | uppercase}}</h4>
-                        <h5 class="card-title">{{ userDataModel.idTipoIdentificacion.tipo }}. {{ userDataModel.username }}</h5>
+                        <h4 class="card-title font-weight-bold">{{ userDataModel.nombre +' '+ userDataModel.apellido | uppercase}}</h4>
+                        <h5 class="card-title mb-0">{{ userDataModel.idTipoIdentificacion.tipo }}. {{ userDataModel.username }}</h5>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3 col-sm-12 py-4">
-                            <!-- <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100"> -->
                             <div class="d-flex flex-column justify-content-start align-items-center w-100 h-100">
                                 <img src="../../assets/images/unknown-user.png" class="img-fluid rounded-circle image-header text-center my-2" alt="Imagen de usuario">
                             </div>
                         </div>
-                        <div class="col-md-6 p-sm-4 text-center p-2">
-                            <p class="card-text">Celular: {{ userDataModel.celular }} / Teléono: {{ userDataModel.telefono }}</p>
-                            <p class="card-text">Correo electrónico: {{ userDataModel.email }}</p>
-                            <p class="card-text">Dirección: {{ userDataModel.direccion }} - {{ userDataModel.idCiudad.ciudad }} / {{ userDataModel.idCiudad.moDepartamento.departamento }}</p>
-                            <p class="card-text">Profesión - Ocupación: {{ userDataModel.profesion }} {{ userDataModel.ocupacion }}</p>
-                            <p class="card-text">Tarjeta asignada:
-                                <span *ngIf=" !userSecurityValidate.code " class="text-danger p-1 oi oi-x"></span>
-                                <span *ngIf="userSecurityValidate.code" class="text-success p-1 oi oi-check"></span>
+                        <div class="col-md-6 p-sm-4 text-center p-2 text-muted">
+                            <p class="card-text mb-0"><span class="font-weight-bold">Celular:</span> {{ userDataModel.celular }}, <span class="font-weight-bold">Teléono:</span> {{ userDataModel.telefono }}</p>
+                            <p class="card-text mb-0"><span class="font-weight-bold">Correo electrónico:</span> {{ userDataModel.email | lowercase}}</p>
+                            <p class="card-text mb-0"><span class="font-weight-bold">Dirección:</span> {{ userDataModel.direccion | lowercase }} - {{ userDataModel.idCiudad.ciudad }} ({{ userDataModel.idCiudad.moDepartamento.departamento }})</p>
+                            <p class="card-text"><span class="font-weight-bold">Profesión:</span> {{ userDataModel.profesion | lowercase }}, <span class="font-weight-bold">Ocupación:</span> {{ userDataModel.ocupacion | lowercase }}</p>
+                            <p class="card-text small font-weight-bold mb-0">Tarjeta asignada:
+                                <span *ngIf=" !userSecurityValidate.code " class="text-danger p-1 oi oi-circle-x"></span>
+                                <span *ngIf="userSecurityValidate.code" class="text-success p-1 oi oi-circle-check"></span>
                             </p>
-                            <p class="card-text">Cuenta validada:
-                                <span *ngIf="!userSecurityValidate.validated" class="text-danger p-1 oi oi-x"></span>
-                                <span *ngIf="userSecurityValidate.validated" class="text-success p-1 oi oi-check"></span>
+                            <p class="card-text small font-weight-bold">Cuenta validada:
+                                <span *ngIf="!userSecurityValidate.validated" class="text-danger p-1 oi oi-circle-x"></span>
+                                <span *ngIf="userSecurityValidate.validated" class="text-success p-1 oi oi-circle-check"></span>
                             </p>
                             <p class="card-text" *ngIf=" userSecurityValidate.idLoanActive ">Con la bicicleta
                                 <span class="badge badge-danger">{{ prestamos[0].idBikeCode }}</span> en prestamo
@@ -54,58 +53,26 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-lg-6">
             <div class="card">
+                <div class="card-header bg-white">
+                    <h5 class="card-title text-primary text-center">Transacciones</h5>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Transacciones</h5>
-                    <br>
                     <div class="card-text">
-                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table row-border hover" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Estacion Retiro</th>
-                                    <th style="text-align: center;">Hora</th>
-                                    <th>Estacion Devolución</th>
-                                    <th style="text-align: center;">Hora</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let prestamo of prestamos">
-                                    <td>{{prestamo.stationLoan}}</td>
-                                    <td>{{prestamo.start}}</td>
-                                    <td>{{prestamo.stationReturn}}</td>
-                                    <td>{{prestamo.end}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <app-user-transactions-table [transactionsData]="prestamos"></app-user-transactions-table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-lg-6">
             <div class="card">
+                <div class="card-header bg-white">
+                    <h5 class="card-title text-primary text-center">Sanciones</h5>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Sanciones</h5>
-                    <br>
                     <div class="card-text">
-                        <table datatable [dtOptions]="dtOptionsSanciones" [dtTrigger]="dtTriggerSanciones" class="table row-border hover" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Observación</th>
-                                    <th>Inicio Sanción</th>
-                                    <th>Fin Sanción</th>
-                                    <th style="text-align: center;">Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let sancion of sanciones">
-                                    <td>{{ sancion.idSancion.descripcion }}</td>
-                                    <td>{{ sancion.fechaSancion }}</td>
-                                    <td>{{ sancion.fechaLimiteSancion }}</td>
-                                    <td style="text-align: center;">{{ sancion.idEstado.estado }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <app-user-sanctions-table [sanctionsData]="sanciones"></app-user-sanctions-table>
                     </div>
                 </div>
             </div>

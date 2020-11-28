@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EstacionService } from '../../../services/estacion.service';
-import { EstacionModel } from '../../../models/estacion.model';
 import { Subject } from 'rxjs/Rx';
 import { UserService } from '../../../services/user.service';
 import { UsuarioSecurityModel, UsuarioSecurityAccessModel, UsuarioModel, usuarioDataUpdate } from '../../../models/usuario.model';
 import { SancionesService } from '../../../services/sanciones.service';
 import { sancionesModel } from '../../../models/sanciones.model';
+import { EstacionService } from '../../../services/estacion.service';
 
 @Component({
 	selector: 'app-home-cliente',
@@ -19,7 +18,6 @@ export class HomeClienteComponent implements OnInit {
 	Centerlat: number = 6.142979;
 	Centerlng: number = -75.378276;
 	dataSecurity = new UsuarioSecurityModel;
-	datosEstaciones: Array<EstacionModel> = [];
 	dtTrigger = new Subject();
 	dtOptions: any = {};
 	dtTriggerSanciones = new Subject();
@@ -32,39 +30,17 @@ export class HomeClienteComponent implements OnInit {
 	password2 = "";
 	mostrar: boolean = false;
 	dataUsuarioUpdate = new usuarioDataUpdate;
-	prestamos: Array<any> = [{ 'idBikeCode': '' }];
+	prestamos: Array<any> = [];
 	opcionCard = "transacciones";
 	sanciones: Array<sancionesModel> = [];
 
-	constructor(private estacionservice: EstacionService, private userService: UserService, private router: Router, private sancionesService: SancionesService) {
-		this.estacionservice.getEstaciones().subscribe(response => {
-			this.datosEstaciones = response;
-			this.dtTrigger.next();
+	constructor(private userService: UserService, private router: Router, private sancionesService: SancionesService) {
+
 			this.userService.getInformationMe().subscribe(response => {
 				this.dataSecurity = response;
 				this.userService.getUserByUserName(this.dataSecurity.username).subscribe(responseUserName => {
 					this.dataUsuario = responseUserName;
-					let bonotes = [
-						{
-							extend: 'copy',
-							text: 'Copiar',
-							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
-							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-						},
-						{
-							extend: 'print',
-							text: 'Imprimir',
-							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
-							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-						},
-						{
-							extend: 'csv',
-							text: 'Exportar',
-							messageTop: `Datos del usuario ${responseUserName.nombre} ${responseUserName.apellido} identificación ${responseUserName.username}`,
-							messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-						}
-					];
-
+					let bonotes = this.getReportButtons(this.dataUsuario);
 					this.dtOptions = {
 						responsive: true
 					};
@@ -81,20 +57,48 @@ export class HomeClienteComponent implements OnInit {
 						buttons: bonotes
 					};
 					this.dataUpdate(this.dataUsuario);
-					this.userService.getUserLends(Number(this.dataUsuario.id)).subscribe(response => {
-						this.prestamos = response;
-						this.dtTriggerTransacciones.next();
-						this.sancionesService.getSancionesByUserDocument(this.dataUsuario.username).subscribe(response => {
-							this.sanciones = response;
-							this.dtTriggerSanciones.next();
-							this.mostrar = true;
-						});
-					});
+					this.mostrar = true;
+					this.loadUSersLendsData(Number(this.dataUsuario.id));
+					this.loadUserSanctionsData(this.dataUsuario.username);
 				});
 			});
+
+
+
+	}
+	private loadUserSanctionsData(username: string) {
+		this.sancionesService.getSancionesByUserDocument(username).subscribe(response => {
+			this.sanciones = response;
 		});
-
-
+	}
+	
+	private loadUSersLendsData(userId: number) {
+		this.userService.getUserLends(userId).subscribe(response => {
+			this.prestamos = response;
+		});
+	}
+	
+	private getReportButtons(userData) {
+		return [
+			{
+				extend: 'copy',
+				text: 'Copiar',
+				messageTop: `Datos del usuario ${userData.nombre} ${userData.apellido} identificación ${userData.username}`,
+				messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+			},
+			{
+				extend: 'print',
+				text: 'Imprimir',
+				messageTop: `Datos del usuario ${userData.nombre} ${userData.apellido} identificación ${userData.username}`,
+				messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+			},
+			{
+				extend: 'csv',
+				text: 'Exportar',
+				messageTop: `Datos del usuario ${userData.nombre} ${userData.apellido} identificación ${userData.username}`,
+				messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
+			}
+		];
 	}
 
 	ngOnInit() { }

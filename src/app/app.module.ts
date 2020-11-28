@@ -73,6 +73,8 @@ import { SanctionTableComponent } from './components/tables/sanction-table/sanct
 import { AvailableBikesTableComponent } from './components/tables/available-bikes-table/available-bikes-table.component';
 import { AdminSanctionTableComponent } from './components/tables/admin-sanction-table/admin-sanction-table.component';
 import { StationsMapComponent } from './components/maps/stations-map/stations-map.component';
+import { UserTransactionsTableComponent } from './components/tables/user-transactions-table/user-transactions-table.component';
+import { UserSanctionsTableComponent } from './components/tables/user-sanctions-table/user-sanctions-table.component';
 
 
 
@@ -115,7 +117,9 @@ import { StationsMapComponent } from './components/maps/stations-map/stations-ma
         SanctionTableComponent,
         AvailableBikesTableComponent,
         AdminSanctionTableComponent,
-        StationsMapComponent
+        StationsMapComponent,
+        UserTransactionsTableComponent,
+        UserSanctionsTableComponent
     ],
     imports: [
         BrowserModule,

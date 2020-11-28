@@ -41,7 +41,8 @@ export class AppComponent {
 				break;
 
 			default:
-				window.location.href = 'http://bicirio.gov.co/site/';
+				// window.location.href = 'http://bicirio.gov.co/site/';
+				window.location.href = 'http://bici-rio.com';
 				break;
 		}
 	}

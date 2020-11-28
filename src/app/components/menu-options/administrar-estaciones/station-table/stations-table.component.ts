@@ -15,15 +15,16 @@ import { StompService } from 'ng2-stomp-service';
 })
 export class StationsTableComponent implements OnInit {
 
-  @Input('isClientUser') isClientUser: boolean = false;
+  @Input() isClientUser: boolean = false;
+  @Input() pageSize: number = 20;
+
   displayedColumns = ['Estacion', 'Bicicletas disponibles', 'Puntos de contacto libres', 'Estado'];
   dataSourceStation: StationsDataSource;
   stationsDataForView: Array<EstacionModel> = [];
   stationsData: Array<EstacionModel> = [];
   isShow: boolean = false;
   //PAGINATION
-  lengthStations: number = 0;
-  pageSize: number = 20;
+  lengthStations: number = 0;  
   pageNumber: number = 0;
   pageSizeOptions = [5, 10, 20, 50, 100];
   private paginatorPipe: PaginatePipe;

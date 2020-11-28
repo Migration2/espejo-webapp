@@ -10,7 +10,7 @@ export class TransactionsPerStationChartComponent implements OnInit {
   public lineChartLabels: Array<any> = [];
   public lineChartDataEstation: Array<any> = [];
   public lineChartLegend = true;
-  public lineChartType = 'line';
+  public lineChartType = 'bar';
   public lineChartOptions: any = {
     responsive: true
   };

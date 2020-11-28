@@ -11,7 +11,7 @@
             <mat-form-field>
                 <input matInput (keyup)="fillValueFilterUser($event.target.value)" (keyup.enter)="searchUser()" placeholder="Buscar (Número de documento, Nombre, Apellido)">
             </mat-form-field>
-            <span class="oi oi-magnifying-glass" (click)="searchUser()"></span>
+            <span class="oi oi-magnifying-glass text-muted" (click)="searchUser()"></span>
         </div>
         <mat-table #tableUsers [dataSource]="usersDataSource">
             <ng-container matColumnDef="Nombre" class="mat-column-name">
@@ -28,15 +28,21 @@
             </ng-container>
             <ng-container matColumnDef="Validado">
                 <mat-header-cell *matHeaderCellDef class="text-center mat-column-boolean-field"> Validado </mat-header-cell>
-                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field"><span *ngIf="!user.validated" class="oi oi-x"></span><span *ngIf="user.validated" class="oi oi-check"></span> </mat-cell>
+                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field">
+                    <span *ngIf="!user.validated" class="oi oi-circle-x text-danger"></span>
+                    <span *ngIf="user.validated" class="oi oi-circle-check text-success"></span> </mat-cell>
             </ng-container>
             <ng-container matColumnDef="Habilitado">
                 <mat-header-cell *matHeaderCellDef class="text-center mat-column-boolean-field"> Habilitado </mat-header-cell>
-                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field"><span *ngIf="!user.enabled" class="oi oi-x"></span><span *ngIf="user.enabled" class="oi oi-check"></span> </mat-cell>
+                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field">
+                    <span *ngIf="!user.enabled" class="oi oi-circle-x text-danger"></span>
+                    <span *ngIf="user.enabled" class="oi oi-circle-check text-success"></span> </mat-cell>
             </ng-container>
             <ng-container matColumnDef="Tarjeta">
                 <mat-header-cell *matHeaderCellDef class="text-center mat-column-boolean-field"> Tarjeta </mat-header-cell>
-                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field"><span *ngIf="!user.code" class="oi oi-x"></span><span *ngIf="user.code" class="oi oi-check"></span> </mat-cell>
+                <mat-cell *matCellDef="let user" class="text-center mat-column-boolean-field">
+                    <span *ngIf="!user.code" class="oi oi-circle-x text-danger"></span>
+                    <span *ngIf="user.code" class="oi oi-circle-check text-success"></span> </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <!-- <mat-row *matRowDef="let user; columns: displayedColumns;" (click)="userInformation(user.username, user.enabled, user.validated, user.code, user.idLoanActive, user.id)"> -->

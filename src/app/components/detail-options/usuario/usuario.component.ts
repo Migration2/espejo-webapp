@@ -20,7 +20,7 @@ export class UsuarioComponent implements OnInit {
 	userDataModel = new UsuarioModel;
 	userRoles:Array<string>;
 	dataUsuarioUpdate = new UserDataToUpdate;
-	prestamos: Array<any> = [{ 'idBikeCode': '' }];
+	prestamos: Array<any> = [];
 	roles: any;
 	citiesData:any;
 	dtTrigger = new Subject();

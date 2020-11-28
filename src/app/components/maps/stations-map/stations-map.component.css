@@ -59,3 +59,17 @@
 .ol-popup-closer:after {
     content: "X";
 }
+
+.border-left-primary {
+    border-left: .25rem solid var(--red-bicirio);
+}
+
+.secondary-title {
+    color: var(--blue-bicirio);
+}
+
+.icon-md {
+    font-size: 25px;
+    opacity: 90%;
+    color: var(--blue-bicirio);
+}

@@ -119,46 +119,58 @@ export class StationsMapComponent implements OnInit {
   
 
   initPoupEvent(map:Map, stationsData: Array<any>){
-    var container = document.getElementById('popup');
-    var content = document.getElementById('popup-content');
+    let dangerColor:string = "#B51F29";
+    let succesColor:string = "#28a745";
+    let warningColor:string = "#ffc107";
+
+    let dangerIconClass:string ="oi oi-circle-x text-danger icon-md";
+    let succesIconClass:string ="oi oi-circle-check text-success icon-md";
+    let warningIconClass:string ="oi oi-warning text-warning icon-md";
+    
+    let container: HTMLElement = document.getElementById('popup');
+    let iconStatusContainer: HTMLElement = document.getElementById('iconStatus');
+    var nameStationContent = document.getElementById('nameStation');
     var closer = document.getElementById('popup-closer');
-   
-    var overlay = new Overlay({
-        element: container,
-        autoPan: true,
-        autoPanAnimation: {
-            duration: 250
-        }
-    });
+    let overlay: Overlay = this.createOverlay(container);
+    
     map.addOverlay(overlay);
-   
-    closer.onclick = function() {
-        overlay.setPosition(undefined);
-        closer.blur();
-        return false;
-    };
+    this.setupCloserButton(closer, overlay);
 
     //click Event 
-    map.on('singleclick', function (event) {
-      overlay.setPosition(undefined);
-      closer.blur();
+    map.on('singleclick', (event) => {
+      this.hidePoup(closer, overlay);
       map.forEachFeatureAtPixel(event.pixel,(feature, layer) => {
         let indexStation:number = Number(feature.get("name"));
         let stationData = stationsData[indexStation];
         let coordinate = event.coordinate;
-        content.innerHTML = `<b>${stationData.name}</b>`;
+        nameStationContent.innerHTML= `${stationData.name}`;
+        iconStatusContainer.className = succesIconClass;
+        container.style.borderLeftColor = succesColor;
         overlay.setPosition(coordinate);
       });
-      // if (map.hasFeatureAtPixel(event.pixel) === true) {
-      //   var coordinate = event.coordinate;
- 
-      //   content.innerHTML = '<b>Hello world!</b><br />I am a popup.';
-      //   overlay.setPosition(coordinate);
-      // } else {
-      //   overlay.setPosition(undefined);
-      //   closer.blur();
-      // }
     });
+  }
+
+  private createOverlay(container: HTMLElement): Overlay{
+    return new Overlay({
+      element: container,
+      autoPan: true,
+      autoPanAnimation: {
+          duration: 250
+      }
+    });
+  }
+
+  private setupCloserButton(closerButton: HTMLElement, overlay:Overlay){
+    closerButton.onclick = ()=> {
+      this.hidePoup(closerButton, overlay);
+      return false;
+    };
+  }
+
+  private hidePoup(closerButton: HTMLElement, overlay:Overlay){
+    overlay.setPosition(undefined);
+    closerButton.blur();
   }
 
 

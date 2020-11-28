@@ -7,10 +7,12 @@
 :root {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /* background-color: #D0D3D4; */
+    --blue-bicirio: #003249;
+    --red-bicirio: #B51F29;
 }
 
 body {
-    background-color: #F7F7F7 !important;
+    background-color: #fcfcfc !important;
 }
 
 .btnAgregar {
