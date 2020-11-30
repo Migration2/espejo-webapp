@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, RequestOptions, Headers} from '@angular/http';
+import {Http, RequestOptions, Headers, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -10,8 +10,8 @@ export class EstadisticasService {
 
     constructor(private http: Http) { }
 
-    getEstadisticasEstaciones() {
-        return this.http.get('/rest/station/statistic', {}).map(res => res.json());
+    public getEstadisticasEstaciones() {
+        return this.http.get('/rest/station/statistic', {}).map(this.extractData);
     }
 
     /**
@@ -19,7 +19,7 @@ export class EstadisticasService {
      * return Array<any> with data transactions per station
      */
     getStatisticsStations(){
-		return this.http.get('/rest/statistic/station').map(res => res.json());
+		return this.http.get('/rest/statistic').map(res => res.json());
 	}
 
     getEstadisticasPuntoContacto() {
@@ -32,6 +32,10 @@ export class EstadisticasService {
 
     getTransacciones(fechaInicio, fechaFin) {
         return this.http.get('/rest/reports/' + fechaInicio + '/' + fechaFin, {}).map(res => res.json());
+    }
+    
+    private extractData(response :Response){
+        return response.json();
     }
 
 }

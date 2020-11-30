@@ -5,6 +5,7 @@ import { EstadisticasService } from '../../../services/estadisticas.service';
 import { EstacionModel } from '../../../models/estacion.model';
 import { StompService } from 'ng2-stomp-service';
 import { DataTableDirective } from 'angular-datatables';
+import { StatisticsByPeriodModel } from '../../../models/statistics.model';
 
 @Component({
     selector: 'app-home',
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
     fechaActual = new Date();
     fechaAnterior = new Date();
     transacciones = [];
+    transactionsByPeriod:StatisticsByPeriodModel = new StatisticsByPeriodModel();
     // General Pie
     public pieChartType = 'doughnut';
     public pieChartTooltips: any = {
@@ -97,7 +99,7 @@ export class HomeComponent implements OnInit {
         this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);
         this.fechaActual.setHours(this.fechaActual.getHours() - 5);
         this.loadStationsData();
-        // this.loadLoansStatisticStation();
+        this.loadLoansStatisticStation();
 
         this.stomp.configure({
             host: 'http://bici-rio.com:4547/bicirio-websocket', // produccion
@@ -123,7 +125,7 @@ export class HomeComponent implements OnInit {
 
     private loadLoansStatisticStation() {
         this.estadisticasService.getStatisticsStations().subscribe(response => {
-            console.log(response);
+            this.transactionsByPeriod = response;
         }, error => console.error(error));
     }
 
