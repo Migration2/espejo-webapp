@@ -12,17 +12,27 @@ import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
 import Overlay from 'ol/Overlay';
 
+import { StompService } from 'ng2-stomp-service';
+
 import { EstacionService } from '../../../services/estacion.service';
+import { StationKeepAliveModel } from '../../../models/estacion.model';
 
 
 export const DEFAULT_ANCHOR = [0.5, 1];
 export const DEFAULT_ICON = '../../../../assets/images/iconMin.png';
 
+const DANGER_COLOR:string = "#B51F29";
+const SUCCES_COLOR:string = "#28a745";
+const WARNING_COLOR:string = "#ffc107";
+const DANGER_ICON_CLASS:string ="oi oi-circle-x text-danger icon-md";
+const SUCCES_ICON_CLASS:string ="oi oi-circle-check text-success icon-md";
+const WARNING_ICON_CLASS:string ="oi oi-warning text-warning icon-md";
+
 @Component({
   selector: 'app-stations-map',
   templateUrl: './stations-map.component.html',
   styleUrls: ['./stations-map.component.css'],
-  providers: [EstacionService]
+  providers: [EstacionService, StompService]
 })
 export class StationsMapComponent implements OnInit {
 
@@ -30,14 +40,54 @@ export class StationsMapComponent implements OnInit {
   anchor: number[] = DEFAULT_ANCHOR;
   icon: string = DEFAULT_ICON;
   public stationsData: Array<any> = [];
+  private subscriptionStationKeepAlive: any;
 
-  constructor(private stationsService: EstacionService) {
+  constructor(private stationsService: EstacionService, public stompService: StompService) {
     
   }
 
   ngOnInit() {
     this.map = this.createOpenLayerMap();
-    this.loadStationsData();
+    // this.loadStationsData();
+    this.configureStomp();
+  }
+
+  ngOnDestroy(): void {
+    try {
+      this.subscriptionStationKeepAlive.unsubscribe();
+      // disconnect
+      this.stompService.disconnect().then(() => {
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  private configureStomp(){
+    this.stompService.configure({
+      host: 'http://bici-rio.com:4547/bicirio-websocket', // production
+      debug: false,
+      queue: { 'init': false, 'user': false }
+    });
+    this.stompService.startConnect().then(() => { // susbscrition to websocket
+      this.stompService.done('init');
+      this.subscriptionStationKeepAlive = this.stompService.subscribe('/topic/station', (responseData)=>{
+        this.stationKeepAliveData(responseData);
+      });
+    });
+  }
+
+  private stationKeepAliveData(responseData: any){
+    if(this.stationsData.length < 1){
+      this.stationsData = responseData;
+      if(this.stationsData){
+        let stationsMarks = this.createStationsMarkers(this.stationsData);
+        this.addMarksInMap(stationsMarks, this.map);
+        this.initPoupEvent(this.map, this.stationsData);
+      }
+    }else{
+      this.stationsData = responseData;
+    }
   }
 
   private loadStationsData(){
@@ -118,18 +168,14 @@ export class StationsMapComponent implements OnInit {
 
   
 
-  initPoupEvent(map:Map, stationsData: Array<any>){
-    let dangerColor:string = "#B51F29";
-    let succesColor:string = "#28a745";
-    let warningColor:string = "#ffc107";
-
-    let dangerIconClass:string ="oi oi-circle-x text-danger icon-md";
-    let succesIconClass:string ="oi oi-circle-check text-success icon-md";
-    let warningIconClass:string ="oi oi-warning text-warning icon-md";
+  private initPoupEvent(map:Map, stationsData: Array<any>){
     
     let container: HTMLElement = document.getElementById('popup');
+    container.hidden = false;
     let iconStatusContainer: HTMLElement = document.getElementById('iconStatus');
-    var nameStationContent = document.getElementById('nameStation');
+    let nameStationContent: HTMLElement = document.getElementById('nameStation');
+    let hourLastUpdateContent: HTMLElement = document.getElementById('hourLastUpdate');
+    
     var closer = document.getElementById('popup-closer');
     let overlay: Overlay = this.createOverlay(container);
     
@@ -141,14 +187,42 @@ export class StationsMapComponent implements OnInit {
       this.hidePoup(closer, overlay);
       map.forEachFeatureAtPixel(event.pixel,(feature, layer) => {
         let indexStation:number = Number(feature.get("name"));
-        let stationData = stationsData[indexStation];
+        let stationData = this.stationsData[indexStation];
         let coordinate = event.coordinate;
-        nameStationContent.innerHTML= `${stationData.name}`;
-        iconStatusContainer.className = succesIconClass;
-        container.style.borderLeftColor = succesColor;
+        this.refreshCardsInfo(stationData, iconStatusContainer, nameStationContent, container, hourLastUpdateContent);
         overlay.setPosition(coordinate);
       });
     });
+  }
+
+  private refreshCardsInfo(stationKeepAliveData:StationKeepAliveModel, 
+    iconStatusContainer: HTMLElement, nameStationContent: HTMLElement, container: HTMLElement, hourLastUpdateContent: HTMLElement){
+    nameStationContent.innerHTML= `${stationKeepAliveData.stationName}`;
+    iconStatusContainer.className = this.chooseIconClass(stationKeepAliveData);
+    container.style.borderLeftColor = this.chooseCardBorderColor(stationKeepAliveData);
+    let hourReport = stationKeepAliveData.lastReport.slice(11, 19);
+    let dateReport = stationKeepAliveData.lastReport.slice(0, 10);
+    hourLastUpdateContent.innerHTML = `${dateReport} ${hourReport}`;
+  }
+
+  private chooseIconClass(stationData:any):string {
+    if(stationData.timeWithoutReport <= 2){
+      return SUCCES_ICON_CLASS;
+    }else if(stationData.timeWithoutReport > 2 && stationData.timeWithoutReport <= 5){
+      return WARNING_ICON_CLASS;
+    }else{
+      return DANGER_ICON_CLASS;
+    }
+  }
+
+  private chooseCardBorderColor(stationData:any){
+    if(stationData.timeWithoutReport <= 2){
+      return SUCCES_COLOR;
+    }else if(stationData.timeWithoutReport > 2 && stationData.timeWithoutReport <= 5){
+      return WARNING_COLOR;
+    }else{
+      return DANGER_COLOR;
+    }
   }
 
   private createOverlay(container: HTMLElement): Overlay{

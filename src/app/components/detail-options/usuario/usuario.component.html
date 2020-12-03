@@ -38,10 +38,11 @@
                             <p class="card-text text-muted w-100 text-center">Fecha de registro: {{ userDataModel.creado }}</p>
                         </div>
                         <div class="col-md-3 d-flex flex-column justify-content-start text-center w-100 py-4">
-                            <button class="btn btn-outline-primary btn-lg bottonAction m-2" role="button" *ngIf="userSecurityValidate.enabled && userSecurityValidate.validated " data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
-                            <button class="btn btn-outline-primary btn-lg bottonAction m-2" role="button" *ngIf="!userSecurityValidate.enabled && userSecurityValidate.validated" data-toggle="modal" data-target="#habilitarUsuario">Habilitar</button>
-                            <button class="btn btn-outline-primary btn-lg bottonAction m-2" *ngIf=" userSecurityValidate.validated " role="button" data-toggle="modal" data-target="#contenedorRoles" (click)="activarRoles()">Roles</button>
-                            <button class="btn btn-outline-primary btn-lg bottonAction m-2" role="button" data-toggle="modal" data-target="#editarInformacion">Editar</button>
+                            <button class="btn btn-outline-danger btn-lg m-2" role="button" *ngIf="userSecurityValidate.enabled && userSecurityValidate.validated" data-toggle="modal" data-target="#deshabilitarUsuario">Deshabilitar</button>
+                            <button class="btn btn-outline-danger btn-lg m-2" role="button" *ngIf="!userSecurityValidate.enabled && userSecurityValidate.validated" data-toggle="modal" data-target="#habilitarUsuario">Habilitar</button>
+                            <button class="btn btn-outline-danger btn-lg m-2" *ngIf=" userSecurityValidate.validated " role="button" data-toggle="modal" data-target="#contenedorRoles" (click)="activarRoles()">Roles</button>
+                            <button class="btn btn-outline-danger btn-lg m-2" role="button" data-toggle="modal" data-target="#editarInformacion">Editar</button>
+                            <button *ngIf="!userSecurityValidate.enabled && !userSecurityValidate.validated && !userSecurityValidate.code" class="btn btn-outline-danger btn-lg m-2" role="button" data-toggle="modal" data-target="#deleteUser">Eliminar Usuario</button>
                             <!-- <button class="btn btn-outline-primary btn-lg bottonAction" *ngIf=" dataSecurity.validated && (dataSecurity.idCard == null) " role="button" >
                                 Asignar Tarjeta</button> -->
                         </div>
@@ -84,9 +85,9 @@
 <div class="modal fade" id="contenedorRoles" tabindex="-1" role="dialog" aria-labelledby="contenedorRoles" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="contenedorRoles">Administrar Roles</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-white text-center w-100" id="contenedorRoles">Administrar Roles</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
             </div>
@@ -98,8 +99,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-outline-primary bottonAction" (click)="updateRoles()" data-dismiss="modal">Enviar</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="updateRoles()" data-dismiss="modal">Enviar</button>
             </div>
         </div>
     </div>
@@ -108,18 +109,18 @@
 <div class="modal fade" id="habilitarUsuario" tabindex="-1" role="dialog" aria-labelledby="habilitarUsuario" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="habilitarUsuario">Habilitar Usuario</h5>
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-light w-100 text-center" id="habilitarUsuario">Habilitar Usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 ¿Estas seguro, deseas habilitar el usuario?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-outline-primary bottonAction" (click)="enableUser()" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="enableUser()" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>
@@ -129,18 +130,38 @@
 <div class="modal fade" id="deshabilitarUsuario" tabindex="-1" role="dialog" aria-labelledby="deshabilitarUsuario" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deshabilitarUsuario">Deshabilitar Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-light text-center w-100" id="deshabilitarUsuario">Deshabilitar Usuario</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 ¿Estas seguro, deseas deshabilitar el usuario?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary bottonAction" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-outline-primary bottonAction" (click)="disableUser()" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="deleteUser" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-light text-center w-100" id="deleteUserTitle">Eliminar Usuario</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body text-center">
+                ¿Estas seguro, deseas ELIMINAR el usuario?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="deleteUser()" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>

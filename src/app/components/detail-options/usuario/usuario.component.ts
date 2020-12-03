@@ -163,6 +163,19 @@ export class UsuarioComponent implements OnInit {
 		this.router.navigate(['administrarUsuarios']);
 	}
 
+	public deleteUser(){
+		let userId:number = Number(this.userDataModel.username);
+		this.userService.deleteUser(userId).subscribe(
+			response => {
+				if(response.status == 202){
+					this.router.navigate(['administrarUsuarios']);
+				}else{
+					console.error("Error al eliminar usuario");
+				}
+			},
+			error => console.error(error));
+	}
+
 	activarRoles() {
 		for (let i = 0; i < this.roles.length; ++i) {
 			let rol = (<HTMLInputElement>document.getElementById(this.roles[i].role));

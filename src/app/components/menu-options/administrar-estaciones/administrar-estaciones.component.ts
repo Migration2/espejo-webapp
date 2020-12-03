@@ -42,6 +42,9 @@ export class AdministrarEstacionesComponent implements OnInit {
         };
         this.dtOptionsTransacciones = {
             responsive: true,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+            },
             // Declare the use of the extension in the dom parameter
             dom: 'Bfrtip',
             buttons: bonotes
@@ -51,7 +54,6 @@ export class AdministrarEstacionesComponent implements OnInit {
         this.estacionservice.getStationsData().subscribe(response => {
             this.datosEstaciones = response;
             this.dtTrigger.next();
-            this.mostrar = true;
         });
 
         this.loadTransactionStatisticsData(this.fechaAnterior.toISOString().substring(0, 10), this.fechaActual.toISOString().substring(0, 10));
@@ -87,6 +89,7 @@ export class AdministrarEstacionesComponent implements OnInit {
 
 
     recuperarHistorial(anterior, actual) {
+        this.transacciones = [];
         this.lineChartLabels = [];
         this.lineChartData = [{ data: [] }];
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -103,6 +106,7 @@ export class AdministrarEstacionesComponent implements OnInit {
             this.transacciones = res;
             // this.contarDatos(res);
             this.dtTriggerTransacciones.next();
+            this.mostrar = true;
         });
     }
 }

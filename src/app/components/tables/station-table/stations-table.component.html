@@ -18,8 +18,9 @@
         <ng-container matColumnDef="Estado">
             <mat-header-cell *matHeaderCellDef class="text-center"> Estado </mat-header-cell>
             <mat-cell *matCellDef="let station" class="text-center">
-                <span class="oi oi-circle-check text-success" *ngIf="station.statusName == 'SERVICIO'"></span>
-                <span class="oi oi-circle-x text-danger" *ngIf="station.statusName != 'SERVICIO'"></span>
+                <span class="oi oi-circle-check text-success" *ngIf="station.statusName == IN_SERVICE_STATUS" title="Reportando estado correctamente"></span>
+                <span class="oi oi-warning text-warning" *ngIf="station.statusName == WARNING_STATUS" title="Sin reportar estado por mas de 2 minutos"></span>
+                <span class="oi oi-circle-x text-danger" *ngIf="station.statusName == OFF_SERVICE_STATUS" title="Sin reportar estado por mas de 5 minutos"></span>
             </mat-cell>
         </ng-container>
 

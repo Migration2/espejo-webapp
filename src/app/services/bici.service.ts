@@ -14,6 +14,10 @@ export class BiciService {
 		return this.http.get('/rest/bike', {}).map(res => res.json());
 	}
 
+	public getBikesV2(){
+		return this.http.get('/rest/bike/v2/list').map(this.extractData);
+	}
+
 	getStatesBike(){
 		return this.http.get('/rest/state/bike', {}).map(res => res.json());
 	}

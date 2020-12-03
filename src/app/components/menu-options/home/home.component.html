@@ -14,7 +14,7 @@
                         </div>
                         <div class="d-flex flex-column justify-content-center align-items-center mx-2">
                             <h6 class="text-muted text-center">Transacciones del día</h6>
-                            <h3 class="font-weight-bold secondary-title">{{ transactionsByPeriod.today }}</h3>
+                            <h3 class="font-weight-bold text-primary">{{ transactionsByPeriod.today }}</h3>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="d-flex flex-column justify-content-center align-items-center mx-2">
                             <h6 class="text-muted text-center">Transacciones del mes</h6>
-                            <h3 class="font-weight-bold secondary-title">{{ transactionsByPeriod.thisMonth }}</h3>
+                            <h3 class="font-weight-bold text-primary">{{ transactionsByPeriod.thisMonth }}</h3>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="d-flex flex-column justify-content-center align-items-center mx-2">
                             <h6 class="text-muted text-center">Transacciones del año</h6>
-                            <h3 class="font-weight-bold secondary-title">{{ transactionsByPeriod.thisYear }}</h3>
+                            <h3 class="font-weight-bold text-primary">{{ transactionsByPeriod.thisYear }}</h3>
                         </div>
                     </div>
                 </div>
@@ -50,18 +50,6 @@
 
     <div class="row justify-content-md-center">
         <div class="col-md-7 my-2">
-            <!-- <agm-map [latitude]="Centerlat" [longitude]="Centerlng" [zoom]="14" *ngIf="mostrar">
-                <agm-marker *ngFor="let estacion of datosEstaciones" [latitude]="estacion.latitude" [longitude]="estacion.longitude" iconUrl="../../../../assets/images/iconMin.png">
-                    <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
-                        <ng-template>
-                            <strong>{{ estacion.name | uppercase}}</strong>
-                            <br> Puntos de Contacto: {{ estacion['contactPointStates'].length}}
-                            <br> Bicicletas disponibles: {{ estacion.availableCycles}}
-                            <br> Puntos libres: {{estacion['contactPointStates'].length-estacion.availableCycles}}
-                        </ng-template>
-                    </agm-snazzy-info-window>
-                </agm-marker>
-            </agm-map> -->
             <div class="card">
                 <div class="card-body p-2">
                     <app-stations-map></app-stations-map>
@@ -73,7 +61,7 @@
         <div class="col-md-5 my-2">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title secondary-title">Bicicletas</h5>
+                    <h5 class="card-title text-primary">Bicicletas</h5>
                     <hr>
                     <div class="card-text d-flex align-items-center justify-content-center h-75">
                         <canvas baseChart *ngIf="pieLabelsBicicletas.length > 0" [data]="pieDataBicicletas" [labels]="pieLabelsBicicletas | bikesLabel" [chartType]="pieChartType" [options]="pieChartTooltips">
@@ -87,7 +75,7 @@
         <div class="col-md-7 my-4">
             <div class="card" style="height:420px;">
                 <div class="card-body">
-                    <h5 class="card-title secondary-title">Transacciones por Estación</h5>
+                    <h5 class="card-title text-primary">Transacciones por Estación</h5>
                     <hr>
                     <div class="card-text">
                         <app-transactions-per-station-chart></app-transactions-per-station-chart>
@@ -99,7 +87,7 @@
         <div class="col-md-5 my-4">
             <div class="card" style="height:420px;">
                 <div class="card-body">
-                    <h5 class="card-title secondary-title">Transacciones General</h5>
+                    <h5 class="card-title text-primary">Transacciones General</h5>
                     <hr>
                     <div class="card-text">
                         <app-general-transactions-chart></app-general-transactions-chart>
@@ -110,7 +98,7 @@
         <div class="col-md-12 mt-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title secondary-title">Estado estaciones</h5>
+                    <h5 class="card-title text-primary">Estado estaciones</h5>
                     <hr>
                     <div class="card-text">
                         <app-stations-table></app-stations-table>

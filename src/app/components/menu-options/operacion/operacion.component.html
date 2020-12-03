@@ -17,27 +17,28 @@
                 <table class="table row-border table-hover">
                     <thead>
                         <tr>
-                            <th style="text-align: center;">Fecha y Hora</th>
-                            <th style="text-align: center;">Estación</th>
-                            <th style="text-align: center;">Usuario</th>
-                            <th style="text-align: center;">Bicicleta</th>
+                            <th class="text-center text-muted font-weight-normal small">Fecha y Hora</th>
+                            <th class="text-center text-muted font-weight-normal small">Estación</th>
+                            <th class="text-center text-muted font-weight-normal small">Usuario</th>
+                            <th class="text-center text-muted font-weight-normal small">Bicicleta</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let prestamo of prestamosFiltrados" [class.alerta]="tiempoLimite(prestamo.loanDate)">
-                            <td>{{ prestamo.loanDate }}
+                            <td class="text-center">
+                                <span class="small">{{ prestamo.loanDate }}</span>
                                 <br>
                                 <div class="my-2">
-                                    <button class="btn btn-outline-primary bottonAction" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">
-                  Fin Prestamo</button>
+                                    <button class="btn btn-outline-primary bottonAction" data-toggle="modal" (click)="seleccionado =  prestamo" data-target="#modalPrestamo">Fin Prestamo</button>
                                 </div>
                             </td>
                             <td>{{ prestamo.loanStation }}</td>
-                            <td>{{ prestamo.name }}
+                            <td class="text-center text-muted">{{ prestamo.name }}
                                 <br>
-                                <strong>Documento</strong> {{ prestamo.username }}
+                                <span class="small"><strong>Documento: </strong> {{ prestamo.username }}</span>
                                 <br>
-                                <strong>Teléfono</strong> {{ prestamo.cellphone }}</td>
+                                <span class="small"><strong>Teléfono: </strong> {{ prestamo.cellphone }}</span>
+                            </td>
                             <td>{{ prestamo.codeBike }}</td>
                         </tr>
                         <tr *ngIf="prestamosFiltrados.length == 0">

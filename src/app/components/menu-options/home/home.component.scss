@@ -23,12 +23,8 @@ thead th {
     border-bottom-width: 1px;
 }
 
-.secondary-title {
-    color: #003249;
-}
-
 .border-left-primary {
-    border-left: .25rem solid #e3244b!important;
+    border-left: .25rem solid var(--red-bicirio) !important;
 }
 
 .icon-lg {

@@ -57,3 +57,15 @@ export class ContactPointBikeModel{
 	)
 	{}
 }
+
+export class StationKeepAliveModel{
+	public constructor(
+		public code:string = '',
+		public lastQls:string = '',
+		public lastReport:string = '',
+		public latitude:number = 0,
+		public longitude:number = 0,
+		public stationName:string = '',
+		public timeWithoutReport:number = 0		
+	){}
+}

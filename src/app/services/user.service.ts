@@ -79,6 +79,10 @@ export class UserService {
 		this.http.put('/rest/username/disable/'+data, JSON.stringify(data)).subscribe();
 	}
 
+	public deleteUser(userId:number){
+		return this.http.delete(`rest/person/user/${userId}`);
+	}
+
 	// lista de roles
 	getRoles() {
 		return this.http.get('/rest/username/roles', {}).map(res => res.json());

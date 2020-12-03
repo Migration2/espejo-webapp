@@ -66,7 +66,7 @@ import { PaginatePipe } from './pipes/paginate.pipe';
 import { CustomMatPaginatorIntl } from './paginator-es';
 import { BikesLabelPipe } from './pipes/bikes-label.pipe';
 import { HttpClientModule } from '@angular/common/http';
-import { StationsTableComponent } from './components/menu-options/administrar-estaciones/station-table/stations-table.component';
+import { StationsTableComponent } from './components/tables/station-table/stations-table.component';
 import { GeneralTransactionsChartComponent } from './components/charts/general-transactions-chart/general-transactions-chart.component';
 import { TransactionsPerStationChartComponent } from './components/charts/transactions-per-station-chart/transactions-per-station-chart.component';
 import { SanctionTableComponent } from './components/tables/sanction-table/sanction-table.component';

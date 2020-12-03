@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BiciService } from '../../../services/bici.service';
 import { Subject } from 'rxjs/Rx';
-import { BicicletaModel } from '../../../models/bicicleta.model';
+import { BicicletaModel, BikeModel } from '../../../models/bicicleta.model';
 import { DataTableDirective } from 'angular-datatables';
 
 @Component({
@@ -20,38 +20,70 @@ export class AdministrarBicicletasComponent implements OnInit {
 	model = new BicicletaModel;
 	mostrar: boolean = false;
 	missingBike = [];
+	public bikesData:Array<BikeModel> = [];
 
 
 	constructor(private router: Router, private biciService: BiciService) { }
 
 	ngOnInit() {
+		this.loadBikesData();
 		this.dtOptions = { 
-			// columnDefs: [
-			// {
-			// 	targets: [2],
-			// 	// visible: false,
-			// }],
+			language: {
+				url: "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+			},
 			responsive: true };
-		this.biciService.getBicis().subscribe(response => {
-			this.dataBicis = response;
-			this.dtTrigger.next();
-			this.biciService.biciMissing().subscribe(response => {
-				this.missingBike = response;
-				for (let j = 0; j < this.dataBicis.length; j++) {
-					this.dataBicis[j]['missing'] = false;
-					for (let i = 0; i < this.missingBike.length; i++) {
-						if (this.dataBicis[j]['codigo'] == this.missingBike[i]['codigo']) {
-							this.dataBicis[j]['missing'] = true;
-						}
-					}
-				}
-				this.mostrar = true;
-			});
-		});
+		// this.biciService.getBicis().subscribe(response => {
+		// 	this.dataBicis = response;
+		// 	console.log(this.dataBicis[0]);
+		// 	this.dtTrigger.next();
+		// 	this.biciService.biciMissing().subscribe(response => {
+		// 		this.missingBike = response;
+		// 		for (let j = 0; j < this.dataBicis.length; j++) {
+		// 			this.dataBicis[j]['missing'] = false;
+		// 			this.setMissingBikes(this.missingBike, this.dataBicis, j);
+		// 		}
+		// 		this.mostrar = true;
+		// 	});
+		// });
 
 	}
 
-	informacionBicicleta(id: number) {
+	private loadBikesData(){
+		this.biciService.getBikesV2().subscribe(
+			response => {
+				this.bikesData = response;
+				this.dtTrigger.next();
+				this.loadMissingBikes(this.bikesData);
+				this.mostrar = true;
+			}, 
+			error => console.error(error)
+		);
+	}
+
+	private loadMissingBikes(bikesData:Array<BikeModel>){
+		this.biciService.biciMissing().subscribe(response => {
+			 this.missingBike = response;
+			 if(this.missingBike.length > 0){
+				this.findMissingBikes(bikesData, this.missingBike);
+			 }
+		});
+	}
+
+	/**
+	 * 
+	 */
+	private findMissingBikes(bikesData:Array<BikeModel>, missingBikes:Array<any>){
+		for (let j = 0; j < missingBikes.length; j++) {
+			let indexBike = bikesData.findIndex((bike, idx, bikeArray) => {
+				return (bike.code == missingBikes[j]['codigo']);
+			});
+			if(indexBike != -1){
+				bikesData[indexBike].missing = true;
+			}
+	   	}
+	}
+
+	public informacionBicicleta(id: number) {
 		this.router.navigate(['bicicleta', id]);
 	}
 

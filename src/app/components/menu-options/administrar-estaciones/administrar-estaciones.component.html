@@ -5,7 +5,7 @@
         <div class="col-md-7 my-2">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Transacciones por estación</h5>
+                    <h5 class="card-title text-primary">Transacciones por estación</h5>
                     <hr>
                     <div class="card-text">
                         <app-transactions-per-station-chart></app-transactions-per-station-chart>
@@ -16,7 +16,7 @@
         <div class="col-md-5 my-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Prestamos</h5>
+                    <h5 class="card-title text-primary">Prestamos</h5>
                     <hr>
                     <div class="card-text">
                         <app-general-transactions-chart></app-general-transactions-chart>
@@ -29,7 +29,7 @@
         <div class="col-md-12 my-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Estado estaciones</h5>
+                    <h5 class="card-title text-primary">Estado estaciones</h5>
                     <hr>
                     <div class="card-text">
                         <app-stations-table></app-stations-table>
@@ -39,12 +39,12 @@
         </div>
 
         <div class="col-md-12 mt-4">
-            <h3>Transaciones</h3>
-            <hr>
-            <div class="card mat-elevation-z2">
+            <div class="card">
                 <div class="card-body">
+                    <h5 class=" card-title text-primary">Transaciones</h5>
+                    <hr>
                     <div class="card-text">
-                        <div class="row">
+                        <div class="row mb-2">
                             <div class="form-group mb-2 col-md-5 col-sm-6">
                                 <label for="staticEmail2">Fecha inicio: </label>
                                 <input type="date" class="form-control mx-sm-1" #fechaAnteriorReference [value]="fechaAnterior.toISOString().substring(0, 10)">
@@ -60,24 +60,39 @@
                         <table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover mt-2" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center;">Retiro</th>
-                                    <th style="text-align: center;">Usuario</th>
-                                    <th style="text-align: center;">Entrega</th>
-                                    <th style="text-align: center;">Bicicleta</th>
+                                    <th class="text-center text-muted font-weight-normal small">Retiro</th>
+                                    <th class="text-center text-muted font-weight-normal small">Usuario</th>
+                                    <th class="text-center text-muted font-weight-normal small">Entrega</th>
+                                    <th class="text-center text-muted font-weight-normal small">Bicicleta</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let transaccion of transacciones">
-                                    <td>{{transaccion.loanStation}}
-                                        <br>{{transaccion.loanDate}}</td>
-                                    <td>{{transaccion.name}}
+                                    <td class="text-center">
+                                        {{transaccion.loanStation}}
                                         <br>
-                                        <strong>Documento</strong> {{transaccion.username}}
+                                        <span class="small">{{transaccion.loanDate}}</span>
+                                    </td>
+                                    <td class="text-center text-muted">
+                                        {{transaccion.name}}
                                         <br>
-                                        <strong>Teléfono</strong> {{transaccion.cellphone}}</td>
-                                    <td>{{transaccion.returnStation}}
-                                        <br>{{transaccion.returnDate}}</td>
-                                    <td>{{transaccion.codeBike}}</td>
+                                        <span class="small"><strong>Documento: </strong> {{transaccion.username}}</span>
+                                        <br>
+                                        <span class="small"><strong>Teléfono: </strong> {{transaccion.cellphone}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        {{transaccion.returnStation}}
+                                        <br>
+                                        <span class="small">{{transaccion.returnDate}}</span>
+                                    </td>
+                                    <td class="text-center">{{transaccion.codeBike}}</td>
+                                </tr>
+                                <tr *ngIf="transacciones.length<1">
+                                    <td class="text-center" colspan="4">
+                                        <div class="lds-ring">
+                                            <div></div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

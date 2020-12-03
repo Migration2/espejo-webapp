@@ -31,3 +31,15 @@ export class AvailableBikeModel{
 		{}
 }
 
+export class BikeModel{
+	constructor(
+		public id: number = 0,
+		public code: string = "",
+		public created: string = "",
+		public status: string = "",
+		public station: string = "",
+		public person: string = "",
+		public missing: boolean = false
+	){}
+}
+
