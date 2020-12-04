@@ -206,9 +206,9 @@ export class StationsMapComponent implements OnInit {
   }
 
   private chooseIconClass(stationData:any):string {
-    if(stationData.timeWithoutReport <= 2){
+    if(stationData.timeWithoutReport <= 5){
       return SUCCES_ICON_CLASS;
-    }else if(stationData.timeWithoutReport > 2 && stationData.timeWithoutReport <= 5){
+    }else if(stationData.timeWithoutReport > 5 && stationData.timeWithoutReport <= 10){
       return WARNING_ICON_CLASS;
     }else{
       return DANGER_ICON_CLASS;
@@ -216,9 +216,9 @@ export class StationsMapComponent implements OnInit {
   }
 
   private chooseCardBorderColor(stationData:any){
-    if(stationData.timeWithoutReport <= 2){
+    if(stationData.timeWithoutReport <= 5){
       return SUCCES_COLOR;
-    }else if(stationData.timeWithoutReport > 2 && stationData.timeWithoutReport <= 5){
+    }else if(stationData.timeWithoutReport > 5 && stationData.timeWithoutReport <= 10){
       return WARNING_COLOR;
     }else{
       return DANGER_COLOR;

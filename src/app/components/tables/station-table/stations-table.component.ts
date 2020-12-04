@@ -153,9 +153,9 @@ export class StationsTableComponent implements OnInit {
 
   private computeStatusStation(stationReport:StationKeepAliveModel):string{
 
-    if(stationReport.timeWithoutReport <= 2){
+    if(stationReport.timeWithoutReport <= 5){
       return this.IN_SERVICE_STATUS;
-    }else if(stationReport.timeWithoutReport > 2 && stationReport.timeWithoutReport <= 5){
+    }else if(stationReport.timeWithoutReport > 5 && stationReport.timeWithoutReport <= 10){
       return this.WARNING_STATUS;
     }else{
       return this.OFF_SERVICE_STATUS;
