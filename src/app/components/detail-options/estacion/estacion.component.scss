@@ -16,12 +16,22 @@
 }
 
 .btn-pencil {
-    padding-left: 0.9rem;
+    margin-left: 0.5rem;
     cursor: pointer;
+    padding: 8px;
+    background-color: #b51f2921;
+    border-radius: 50%;
 }
 
 .btn-mto {
     white-space: normal !important;
+}
+
+.icon-title {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 20px;
+    cursor: help;
 }
 
 .mat-column-boolean-field {

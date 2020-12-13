@@ -5,22 +5,23 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-9 text-center">
-                            <h2 class="font-weight-bold text-danger">{{ datosEstacion.name | uppercase}}</h2>
+                            <div class="d-flex flex-sm-column flex-md-row justify-content-center mb-2">
+                                <h2 class="font-weight-bold text-danger mb-0">{{ datosEstacion.name | uppercase}}</h2>
+                                <div class="d-flex justify-content-center">
+                                    <span class="oi oi-circle-check text-success p-2 icon-title" *ngIf="datosEstacion.statusName == IN_SERVICE_STATUS" title="Estación activa"></span>
+                                    <span class="oi oi-warning text-warning p-2 icon-title" *ngIf="datosEstacion.statusName == WARNING_STATUS" title="Estación con novedad"></span>
+                                    <span class="oi oi-circle-x text-danger p-2 icon-title" *ngIf="datosEstacion.statusName == OFF_SERVICE_STATUS" title="Estación sin reportar estado"></span>
+                                    <span class="oi oi-lock-unlocked text-success p-2 icon-title" *ngIf="!lockStation" title="Estación desbloqueada"></span>
+                                    <span class="oi oi-lock-locked text-danger p-2 icon-title" *ngIf="lockStation" title="Estación bloqueada"></span>
+                                </div>
+                            </div>
                             <p class="text-muted mb-0">Horarios de operación: {{stationOperationTime.startOp}} hasta {{stationOperationTime.loansOp}}, hora maxima retorno de prestamos: {{ stationOperationTime.returnOp }}
                                 <span class="oi oi-pencil text-danger btn-pencil" role="button" data-toggle="modal" data-target="#editStationInfo" title="Editar"></span>
                             </p>
-                            <p class="text-success mb-0" *ngIf="datosEstacion.statusName == 'SERVICIO'">{{ datosEstacion.statusName }}
-                                <span class="oi oi-lock-unlocked text-success p-2" *ngIf="!lockStation"></span>
-                                <span class="oi oi-lock-locked text-danger p-2" *ngIf="lockStation"></span>
-                            </p>
-                            <p class="text-danger mb-0" *ngIf="datosEstacion.statusName != 'SERVICIO'">{{ datosEstacion.statusName }}
-                                <span class="oi oi-lock-unlocked text-success p-2" *ngIf="!lockStation"></span>
-                                <span class="oi oi-lock-locked text-danger p-2" *ngIf="lockStation"></span>
-                            </p>
                         </div>
                         <div class="col-md-3 d-flex flex-column align-self-start">
-                            <button *ngIf="!lockStation" class="btn btn-outline-danger w-100 my-2" role="button" data-toggle="modal" data-target="#disableStation">Bloquear</button>
-                            <button *ngIf="lockStation" class="btn btn-outline-danger w-100 my-2" role="button" data-toggle="modal" data-target="#enableStation">Desbloquear</button>
+                            <button *ngIf="!lockStation" class="btn btn-outline-danger w-100 my-2" role="button" data-toggle="modal" data-target="#disableStation" [disabled]="isDisableLockButton">Bloquear</button>
+                            <button *ngIf="lockStation" class="btn btn-outline-danger w-100 my-2" role="button" data-toggle="modal" data-target="#enableStation" [disabled]="isDisableLockButton">Desbloquear</button>
                             <button *ngIf="datosEstacion.statusTotem!='MANTENIMIENTO' && datosEstacion.availableCycles == 0" class="btn btn-outline-danger btn-mto" role="button" data-toggle="modal" data-target="#Mantenimiento">
                             Iniciar Mantenimiento</button>
                             <button *ngIf="datosEstacion.statusName=='MANTENIMIENTO' && datosEstacion.availableCycles == 0" class="btn btn-outline-danger w-100 btn-mto" role="button" data-toggle="modal" data-target="#finMantenimiento">
@@ -79,29 +80,32 @@
                     <br>
                     <div class="card-text">
                         <div class="row">
-                            <div class="form-group mb-2 col-md-6">
+                            <div class="form-group mb-2 col-md-5">
                                 <label for="staticEmail2">Inicio: </label>
                                 <input type="date" class="form-control mx-sm-1" #fechaAnteriorReference [value]="fechaAnterior.toISOString().substring(0, 10)">
                             </div>
-                            <div class="form-group mb-2 col-md-6">
+                            <div class="form-group mb-2 col-md-5">
                                 <label for="inputPassword2">Fin: </label>
                                 <input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
                             </div>
-                            <div class="my-3 mx-3 col-md-2">
-                                <button class="btn btn-danger" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
+                            <div class="col-md-2 w-100 mb-2 d-flex justify-content-end align-content-end align-items-end">
+                                <button class="btn btn-outline-danger" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
                             </div>
+                            <!-- <div class="my-3 mx-3 col-md-2">
+                                <button class="btn btn-danger" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
+                            </div> -->
                         </div>
                         <table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover mt-2" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Fecha Prestamo</th>
-                                    <th>Usuario</th>
-                                    <th>Bicicleta</th>
+                                    <th class="small font-weight-normal">Fecha Prestamo</th>
+                                    <th class="small font-weight-normal">Usuario</th>
+                                    <th class="small font-weight-normal">Bicicleta</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let transaccion of transacciones">
-                                    <td>{{ transaccion.loanDate }}</td>
+                                    <td class="small">{{ transaccion.loanDate }}</td>
                                     <td>{{ transaccion.username }}</td>
                                     <td>{{ transaccion.codeBike }}</td>
                                 </tr>
@@ -132,8 +136,8 @@
                                 <ng-container matColumnDef="actionCol">
                                     <mat-header-cell *matHeaderCellDef class="mat-column-boolean-field"></mat-header-cell>
                                     <mat-cell *matCellDef="let contactPoint" class="text-center mat-column-boolean-field">
-                                        <span *ngIf="!contactPoint.bikeCode" class="text-danger oi oi-plus" title="Anclar bicicleta" data-toggle="modal" data-target="#addBikeModal" (click)="selectContactPoint(contactPoint)"></span>
-                                        <span *ngIf="contactPoint.bikeCode" class="text-danger oi oi-x" title="Remover bicicleta" data-toggle="modal" data-target="#removeBikeModal" (click)="selectContactPoint(contactPoint)"></span>
+                                        <span *ngIf="!contactPoint.bikeCode" class="text-danger oi oi-plus btn-pencil" title="Anclar bicicleta" data-toggle="modal" data-target="#addBikeModal" (click)="selectContactPoint(contactPoint)"></span>
+                                        <span *ngIf="contactPoint.bikeCode" class="text-danger oi oi-x btn-pencil" title="Remover bicicleta" data-toggle="modal" data-target="#removeBikeModal" (click)="selectContactPoint(contactPoint)"></span>
                                     </mat-cell>
                                 </ng-container>
 
@@ -177,15 +181,15 @@
                         <table datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="table row-border hover" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Inicio</th>
-                                    <th>Observaciones</th>
-                                    <th>Piezas</th>
-                                    <th>Fin</th>
+                                    <th class="small font-weight-normal">Inicio</th>
+                                    <th class="small font-weight-normal">Observaciones</th>
+                                    <th class="small font-weight-normal">Piezas</th>
+                                    <th class="small font-weight-normal">Fin</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let historial of mantenimientoHistorial; let i=index">
-                                    <td>{{ historial.inicio }}</td>
+                                    <td class="small">{{ historial.inicio }}</td>
                                     <td>{{ historial.observation | observacionesMantenimiento }}</td>
                                     <td>
                                         <ul>
@@ -193,7 +197,7 @@
                                             </li>
                                         </ul>
                                     </td>
-                                    <td>{{ historial.fin }}</td>
+                                    <td class="small">{{ historial.fin }}</td>
                                 </tr>
                             </tbody>
                         </table>

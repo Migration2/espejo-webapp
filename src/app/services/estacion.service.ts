@@ -25,6 +25,17 @@ export class EstacionService {
 		return this.http.get('/rest/station',{}).map(this.extractData);
 	}
 
+	/**
+	 * retrieve last keep alive of station, 
+	 * contains time in minutes from last report, date time last report, 
+	 * code station and last  action execute in station.
+	 * @param stationCode code of station for retrieve data
+	 * @returns data last report station
+	 */
+	public getStationKeepAlive(stationCode:string){
+		return this.http.get(`/rest/statistic/station/report/${stationCode}`).map(this.extractData);
+	}
+
 	getStatesStation(){
 		return this.http.get('/rest/state/station', {}).map(res => res.json());
 	}
@@ -47,6 +58,10 @@ export class EstacionService {
 
 	updateOperationTime(operationTime){		
 		return this.http.put('/rest/station/operation/time', JSON.stringify(operationTime), this.options);
+	}
+
+	updateOperationTimeAllStations(operationTime:StationOperationTime){
+		return this.http.put('/rest/station/operation/time/all', JSON.stringify(operationTime), this.options);
 	}
 
 	updateOperationTimeV2(operationTime:StationOperationTime){

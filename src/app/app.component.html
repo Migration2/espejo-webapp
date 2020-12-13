@@ -9,7 +9,7 @@
 <!-- Metodo para salir facil -->
 <div *ngIf="rolPrincipal==rolAdministrador">
     <app-navbar *ngIf="rolPrincipal==rolAdministrador"></app-navbar>
-    <div id="contenedorPrincipal" *ngIf=" rolPrincipal==rolusuario || rolPrincipal==rolAdministrador ">
+    <div id="contenedorPrincipal" class="admin-container" *ngIf=" rolPrincipal==rolusuario || rolPrincipal==rolAdministrador ">
         <router-outlet></router-outlet>
         <app-footer></app-footer>
     </div>

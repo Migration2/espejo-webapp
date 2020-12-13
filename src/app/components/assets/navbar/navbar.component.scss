@@ -26,6 +26,9 @@
     left: 0;
     width: 200px;
     height: 100%;
+    transition: 00.5s;
+    transition-property: left;
+    z-index: 1;
 }
 
 .sidebar a {
@@ -62,6 +65,32 @@
 
 #check:checked~.sidebar {
     left: -190px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        left: -140px;
+        // background: var(--blue-bicirio);
+    }
+    .sidebar a {
+        font-size: 20px;
+        margin-left: 120px;
+        width: 80px;
+    }
+    .sidebar a span {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    #navbarNavAltMarkup {
+        text-align: right;
+        background: #fcfcfc;
+        margin-right: 0.5rem;
+    }
+    .ml-70 {
+        margin-left: 70px;
+    }
 }
 
 .navbar-border {

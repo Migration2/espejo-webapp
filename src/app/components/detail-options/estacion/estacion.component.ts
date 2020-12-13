@@ -1,26 +1,33 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EstacionService } from '../../../services/estacion.service';
-import { ContactPointBikeModel, ContactPointStateModel, EstacionModel, StationOperationTime, StatisticContactPoints } from '../../../models/estacion.model';
-import { mantenimientoEstacionModel, finMantenimientoEstacionModel, mantenimientoHistorial } from '../../../models/mantenimiento.model';
-import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { Subject } from 'rxjs/Rx';
 import { DataTableDirective } from 'angular-datatables';
 import { DatePipe } from '@angular/common';
-import { PaginatePipe } from '../../../pipes/paginate.pipe';
 import { PageEvent } from '@angular/material';
 import {DataSource} from '@angular/cdk/collections'
 import { Observable } from 'rxjs';
+import { StompService } from 'ng2-stomp-service';
+
+import { ContactPointBikeModel, ContactPointStateModel, EstacionModel, StationKeepAliveModel, StationOperationTime, StatisticContactPoints } from '../../../models/estacion.model';
+import { mantenimientoEstacionModel, finMantenimientoEstacionModel, mantenimientoHistorial } from '../../../models/mantenimiento.model';
+import { EstacionService } from '../../../services/estacion.service';
+import { MantenimientoService } from '../../../services/mantenimiento.service';
+import { PaginatePipe } from '../../../pipes/paginate.pipe';
 import { AvailableBikeModel } from '../../../models/bicicleta.model';
 import { UserService } from '../../../services/user.service';
+
 
 @Component({
     selector: 'app-estacion',
     templateUrl: './estacion.component.html',
     styleUrls: ['./estacion.component.scss'],
-    providers: [EstacionService, MantenimientoService, UserService]
+    providers: [EstacionService, MantenimientoService, UserService, StompService]
 })
 export class EstacionComponent implements OnInit {
+    public IN_SERVICE_STATUS:string = "SERVICIO";
+    public OFF_SERVICE_STATUS:string = "SIN_SERVICIO";
+    public WARNING_STATUS:string = "NOVEDAD";
+
     private idEstacion;
     @ViewChild(DataTableDirective)
     dtElement: DataTableDirective;
@@ -28,6 +35,7 @@ export class EstacionComponent implements OnInit {
     @ViewChild('btnCancelCloseMod') btnCancelCloseMod;
     @ViewChild('btnCancelOpenMod') btnCancelOpenMod;
     datosEstacion = new EstacionModel;
+    private stationKeepAliveData: StationKeepAliveModel = new StationKeepAliveModel();
     mantenimientoEstacionModel = new mantenimientoEstacionModel;
     finMantenimientoEstacionModel = new finMantenimientoEstacionModel;
     mantenimientoHistorial: Array<mantenimientoHistorial>;
@@ -49,6 +57,10 @@ export class EstacionComponent implements OnInit {
     dtTriggerTransacciones = new Subject();
     opcionCard = 'puntosContacto';
     opcionCard2 = 'tendencia';
+
+    //WebSocket
+    private subcriptionStationsKeepAlive:any;
+    public isDisableLockButton: boolean = false;
 
     //contact points
     public contactPointsData:Array<any> = [];
@@ -83,7 +95,7 @@ export class EstacionComponent implements OnInit {
 
 
     constructor(private activedRoute: ActivatedRoute, private estacionservice: EstacionService,
-        private mantenimientoService: MantenimientoService, private userService: UserService, private router: Router) {
+        private mantenimientoService: MantenimientoService, private userService: UserService, private router: Router, private stomp: StompService) {
             this.paginator = new PaginatePipe();
             this.fechaAnterior.setDate(this.fechaActual.getDate() - 5);
             this.activedRoute.params.subscribe(params => {
@@ -95,6 +107,7 @@ export class EstacionComponent implements OnInit {
 
         this.estacionservice.getStationById(this.idEstacion).subscribe(response => {
             this.datosEstacion = response;
+            this.loadStationKeepAlive(this.datosEstacion.code);
             this.stationStatictics = this.getStatisticsContactPoints(this.datosEstacion);
             this.loadStationOperationTime(this.datosEstacion.code);
             this.loadLockStation(this.datosEstacion.statusTotem);
@@ -146,6 +159,31 @@ export class EstacionComponent implements OnInit {
         });
     }
 
+    private loadStationKeepAlive(stationCode:string){
+        this.estacionservice.getStationKeepAlive(stationCode).subscribe(response => {
+            
+            console.log(response);
+
+            this.stationKeepAliveData = response;
+            this.matchStationKeepAliveData(this.datosEstacion, this.stationKeepAliveData);
+        }, error=> console.error(error));
+    }
+
+    private matchStationKeepAliveData(stationData: EstacionModel, stationKeepAliveData: StationKeepAliveModel){
+        let statusStation = this.getStatusStation(stationKeepAliveData);
+        stationData.statusName = statusStation;
+    }
+
+    private getStatusStation(stationKeepAliveData: StationKeepAliveModel):string{
+        if(stationKeepAliveData.timeWithoutReport <= 5){
+            return this.IN_SERVICE_STATUS;
+        }else if(stationKeepAliveData.timeWithoutReport > 5 && stationKeepAliveData.timeWithoutReport <= 10){
+            return this.WARNING_STATUS;
+        }else{
+            return this.OFF_SERVICE_STATUS;
+        }
+    }
+
     loadUserLoggedIn(){
         this.userService.getInformationMe().subscribe(
             response => {
@@ -188,8 +226,20 @@ export class EstacionComponent implements OnInit {
     }
 
     ngOnInit() {
-        
+        this.configureWebSocket();
     }
+
+    ngOnDestroy(): void {
+        try {
+          // unsubscribe
+          this.subcriptionStationsKeepAlive.unsubscribe();
+    
+          // disconnect
+          this.stomp.disconnect().then(() => {});
+        } catch (error) {
+          console.error(`Error to disconnect web socket, ${error}`);
+        }
+      }
 
      private getStatisticsContactPoints(datosEstacion:EstacionModel):StatisticContactPoints{
         let puntosContacto: Array<any> = datosEstacion.contactPointStates;
@@ -392,9 +442,8 @@ export class EstacionComponent implements OnInit {
     enableStation(){
         this.estacionservice.enableStation(this.datosEstacion.code).subscribe(response => {
             if(response.status == 202){
-                this.datosEstacion.statusName = "SERVICIO";
-                this.datosEstacion.statusTotem = "UNLOCK_STATION";
-                this.lockStation = false;
+                this.subscribeTopicsWebSocket(false);
+                this.isDisableLockButton = true;
             }
         },
         error => console.log("Error al acceder al recurso"));
@@ -403,12 +452,60 @@ export class EstacionComponent implements OnInit {
     disableStation(){
         this.estacionservice.disableStation(this.datosEstacion.code).subscribe(response => {
             if(response.status == 202){
-                this.datosEstacion.statusName = "BLOQUEADA";
-                this.datosEstacion.statusTotem = "LOCK_STATION";
-                this.lockStation = true;
+                this.subscribeTopicsWebSocket(true);
+                this.isDisableLockButton = true;
             }
         },
         error => console.log("Error al acceder al recurso"));
+    }
+
+    /**
+     * configure websocket, setting host, debug and queue
+     */
+    private configureWebSocket(){
+        this.stomp.configure({
+          host: 'http://bici-rio.com:4547/bicirio-websocket', // produccion
+          debug: false,
+          queue: { 'init': false, 'user': true }
+        });
+    }
+    
+    /**
+     * susbscription at topics(station topic) by websocket
+    */
+    private subscribeTopicsWebSocket(isPetitionlockStation: boolean){
+        this.stomp.startConnect().then(() => {
+          this.stomp.done('init');
+          this.subcriptionStationsKeepAlive = this.stomp.subscribe('/topic/station', (stationsKeepAliveData)=>{
+            this.loadStationsKeepAliveData(stationsKeepAliveData, isPetitionlockStation);
+          });
+      });
+    }
+
+    private loadStationsKeepAliveData(stationsKeepAliveData: StationKeepAliveModel, isLockStation: boolean){
+        if(isLockStation){
+            if(stationsKeepAliveData.lastQls == "LOCK_STATION"){
+                this.setLockStationData();
+            }
+        }else{
+            if(stationsKeepAliveData.lastQls == "UNLOCK_STATION"){
+                this.setUnlockStationData();
+            }
+        }
+    }
+
+    private setLockStationData(){
+        this.datosEstacion.statusName = "BLOQUEADA";
+        this.datosEstacion.statusTotem = "LOCK_STATION";
+        this.lockStation = true;
+        this.isDisableLockButton = false;
+    }
+
+    private setUnlockStationData(){
+        this.datosEstacion.statusName = "SERVICIO";
+        this.datosEstacion.statusTotem = "UNLOCK_STATION";
+        this.lockStation = false;
+        this.isDisableLockButton = false;
     }
 
     public handlePage(pageEvent: PageEvent) {

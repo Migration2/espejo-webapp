@@ -1,5 +1,11 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
-    <h3 class="text-danger font-weight-bold">Estaciones</h3>
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="text-danger font-weight-bold w-100">Estaciones</h2>
+        <button class="btn btn-danger" type="button" role="button" data-toggle="modal" data-target="#editStationInfo" title="Editar horarios de operación">
+            <i class="oi oi-pencil small mr-2"></i>Horarios de operación
+        </button>
+    </div>
+
     <hr>
     <div class="row">
         <div class="col-md-7 my-2">
@@ -107,5 +113,50 @@
     <div id="loadingGeneral" class="text-center">
         <div id="bordeGeneral"></div>
         <div id="TextLoading">Cargando...</div>
+    </div>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="editStationInfo" role="dialog" tabindex="-1" aria-labelledby="editStationInfo" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="editStationInfo">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <div class="modal-title text-light text-center">
+                    <h5 class="modal-title text-light" id="editStationInfo">Editar horarios de operación</h5>
+                </div>
+            </div>
+            <div class="modal-body" style="width: 95%;">
+                <form #editStationInfo="ngForm">
+                    <div class="form form-row">
+                        <div class="col-md-12">
+                            <p class="text-center text-danger small">¡Los cambios realizados en los horarios de operación, se apicaran para todas las estaciones!</p>
+                            <div class="form-group text-center">
+                                <label for="hourStartOperation">Hora inicio operación</label>
+                                <select class="form-control" [(ngModel)]="stationOperationTime.startOp" name="startOpTime" id="startOpTime" required>
+                                    <option *ngFor="let hour of HOUR_DATA" [value]="hour" [selected] ="hour == stationOperationTime.startOp">{{ hour }}</option>
+                                </select>
+                                <!-- <input type="text" class="form-control-sm" name="startOp" id="startOp" required pattern="[0-9]{1,2}[:][0-9]{1,2}" [(ngModel)]="stationOperationTime.startOp"> -->
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="hourStartOperation">Hora fin prestamos</label>
+                                <select class="form-control" name="loansOp" id="loansOp" [(ngModel)]="stationOperationTime.loansOp" required>
+                                    <option *ngFor="let hour of HOUR_DATA" [value]="hour" [selected] ="hour == stationOperationTime.loansOp">{{ hour }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="hourStartOperation">Hora fin operación</label>
+                                <select class="form-control" name="returnOp" id="returnOp" [(ngModel)]="stationOperationTime.returnOp" required>
+                                    <option  *ngFor="let hour of HOUR_DATA" [value]="hour" [selected]="hour == stationOperationTime.returnOp">{{ hour }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelEditStation" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" id="sendOperation" class="btn btn-danger" (click)="updateOperationData()" data-dismiss="modal" [disabled]="!editStationInfo.form.valid">Enviar</button>
+            </div>
+        </div>
     </div>
 </div>
