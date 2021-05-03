@@ -33,7 +33,7 @@
 
 .sidebar a {
     display: block;
-    color: #fff;
+    color: #ffffff;
     width: 100%;
     line-height: 40px;
     text-decoration: none;
@@ -45,6 +45,11 @@
 
 .sidebar a:hover {
     background: #dc3545;
+}
+
+.link-active {
+    background: #dc3545;
+    color: var(--blue-bicirio) !important;
 }
 
 #sidebar-btn {
