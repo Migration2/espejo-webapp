@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { EstacionService } from '../../../services/estacion.service';
 import { EstadisticasService } from '../../../services/estadisticas.service';
 import { EstacionModel, StationOperationTime } from '../../../models/estacion.model';
+import { ExcelService } from '../../../services/excel.service';
 
 
 
@@ -14,7 +15,7 @@ import { EstacionModel, StationOperationTime } from '../../../models/estacion.mo
     selector: 'app-administrar-estaciones',
     templateUrl: './administrar-estaciones.component.html',
     styleUrls: ['./administrar-estaciones.component.scss'],
-    providers: [EstacionService, EstadisticasService]
+    providers: [EstacionService, EstadisticasService,ExcelService]
 })
 export class AdministrarEstacionesComponent implements OnInit {
     @ViewChild(DataTableDirective)
@@ -26,6 +27,7 @@ export class AdministrarEstacionesComponent implements OnInit {
     fechaActual = new Date();
     fechaAnterior = new Date();
     transacciones = [];
+    transaccionesReport = [];
     dtTriggerTransacciones = new Subject();
     dtOptionsTransacciones: any = {};
     activo = 'estado';
@@ -41,10 +43,12 @@ export class AdministrarEstacionesComponent implements OnInit {
     };
     public lineChartLegend = true;
     public lineChartType = 'line';
+    toFind: boolean = true;
+    toDownload: boolean = false;
+    loadingReport: boolean = false;
 
-    constructor(private estacionservice: EstacionService, private router: Router, private estadisticasService: EstadisticasService) {
+    constructor(private estacionservice: EstacionService, private router: Router, private estadisticasService: EstadisticasService, private excelService: ExcelService ) {
         this.stationOperationTime = this.newInstanceStationOperationTime();
-        const bonotes = this.getReportButtons();
         this.dtOptions = {
             responsive: true
         };
@@ -55,7 +59,7 @@ export class AdministrarEstacionesComponent implements OnInit {
             },
             // Declare the use of the extension in the dom parameter
             dom: 'Bfrtip',
-            buttons: bonotes
+            buttons: []
         };
         this.fechaAnterior.setDate(this.fechaActual.getDate() - 5);
         this.fechaActual.setHours(this.fechaActual.getHours() - 5);
@@ -68,27 +72,7 @@ export class AdministrarEstacionesComponent implements OnInit {
      }
 
     ngOnInit() {
-        
-    }
 
-    private getReportButtons():any[]{
-        return [
-            {
-                extend: 'copy',
-                text: 'Copiar',
-                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-            },
-            {
-                extend: 'print',
-                text: 'Imprimir',
-                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-            },
-            {
-                extend: 'csv',
-                text: 'Exportar',
-                messageBottom: 'Desarrollado por Dev-Codes e Inter-Telco'
-            }
-        ];
     }
 
     informacionEstacion(id: number) {
@@ -117,7 +101,7 @@ export class AdministrarEstacionesComponent implements OnInit {
             this.mostrar = true;
         });
     }
-    
+
     public updateOperationData(){
         let actualDate:string = this.datePipe.transform(new Date(), "dd-MM-yyyy");
         let newStationOperationTime = this.newInstanceStationOperationTime();
@@ -126,17 +110,45 @@ export class AdministrarEstacionesComponent implements OnInit {
         newStationOperationTime.startOp = `${actualDate} ${this.stationOperationTime.startOp}:00`;
         newStationOperationTime.loansOp = `${actualDate} ${this.stationOperationTime.loansOp}:00`;
         newStationOperationTime.returnOp = `${actualDate} ${this.stationOperationTime.returnOp}:00`;
-        
+
         this.estacionservice.updateOperationTimeAllStations(newStationOperationTime).subscribe(response => {
             if(response.status == 202){
                 console.log("updated operation time...");
             }
-        }, 
+        },
         error => console.log(error));
     }
 
     private newInstanceStationOperationTime(): StationOperationTime {
         return { code: "", name: "", startOp: "", loansOp: "", returnOp: "" };
+    }
+
+    public generateExcelReport(){
+      this.excelService.exportAsExcelFile(this.transaccionesReport, "Transacciones");
+      setTimeout(() => {
+        this.clearDataGenerateReports();
+      }, 1500);
+    }
+
+    public loadReportData(anteriorDateString:string, currentDateString:string):void{
+      this.toFind = false;
+      this.loadingReport = true;
+
+      this.estadisticasService.getTransacciones(anteriorDateString, currentDateString).subscribe(res => {
+        this.transaccionesReport = res;
+        this.loadingReport = false;
+        this.toDownload = true;
+
+      },error => {
+        this.clearDataGenerateReports();
+        console.log(error);
+      });
+    }
+
+    public clearDataGenerateReports():void{
+      this.toDownload = false;
+      this.loadingReport = false;
+      this.toFind = true;
     }
 
     HOUR_DATA: Array<string> = [
@@ -164,5 +176,6 @@ export class AdministrarEstacionesComponent implements OnInit {
         "21:00", "21:30",
         "22:00", "22:30",
         "23:00", "23:30",
+        "23:59"
     ];
 }
