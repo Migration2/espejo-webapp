@@ -13,7 +13,7 @@ import { StatisticsByPeriodModel } from '../../../models/statistics.model';
 })
 export class HomeComponent implements OnInit {
 
-    title = 'Estaciones BiciRío';
+    title = 'Estaciones BiciCeja';
     Centerlat = 6.142979;
     Centerlng = -75.378276;
 
@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
         this.configureWebSocket();
         this.subscriptiosToWebSocket();
         this.loadBikesData();
-        this.loadTransactionsData(this.fechaAnterior.toISOString().substring(0, 10), this.fechaActual.toISOString().substring(0, 10));        
+        this.loadTransactionsData(this.fechaAnterior.toISOString().substring(0, 10), this.fechaActual.toISOString().substring(0, 10));
     }
 
     ngOnDestroy() {

@@ -61,15 +61,15 @@
 }
 
 .border-left-primary {
-    border-left: .25rem solid var(--red-bicirio);
+    border-left: .25rem solid var(--green-biciceja);
 }
 
 .secondary-title {
-    color: var(--blue-bicirio);
+    color: var(--yellow-biciceja);
 }
 
 .icon-md {
     font-size: 25px;
     opacity: 90%;
-    color: var(--blue-bicirio);
+    color: var(--yellow-biciceja);
 }

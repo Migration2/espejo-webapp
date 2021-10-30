@@ -14,7 +14,7 @@ import { EstacionService } from '../../../services/estacion.service';
 	providers: [EstacionService, UserService, SancionesService]
 })
 export class HomeClienteComponent implements OnInit {
-	title: string = 'Estaciones BiciRío';
+	title: string = 'Estaciones BiciCeja';
 	Centerlat: number = 6.142979;
 	Centerlng: number = -75.378276;
 	dataSecurity = new UsuarioSecurityModel;
@@ -71,13 +71,13 @@ export class HomeClienteComponent implements OnInit {
 			this.sanciones = response;
 		});
 	}
-	
+
 	private loadUSersLendsData(userId: number) {
 		this.userService.getUserLends(userId).subscribe(response => {
 			this.prestamos = response;
 		});
 	}
-	
+
 	private getReportButtons(userData) {
 		return [
 			{

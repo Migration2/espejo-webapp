@@ -1,17 +1,17 @@
 .dropdown-menu {
-    background: var(--red-bicirio);
+    background: var(--green-biciceja);
     color: white;
 }
 
 .dropdown-item {
     // background-color: #dc3545;
-    background: var(--red-bicirio);
+    background: var(--green-biciceja);
     color: white;
 }
 
 .dropdown-item:hover {
     color: whitesmoke;
-    background-color: #c4303f;
+    background-color: var(--green-biciceja);
 }
 
 .dropdown-toggle {
@@ -19,7 +19,7 @@
 }
 
 .sidebar {
-    background: var(--red-bicirio);
+    background: var(--green-biciceja);
     // margin-top: 70px;
     padding-top: 30px;
     position: fixed;
@@ -44,17 +44,17 @@
 }
 
 .sidebar a:hover {
-    background: #dc3545;
+    background: var(--green-biciceja);
 }
 
 .link-active {
-    background: #dc3545;
-    color: var(--blue-bicirio) !important;
+    background: var(--green-biciceja);
+    color: var(--yellow-biciceja) !important;
 }
 
 #sidebar-btn {
     z-index: 1;
-    color: var(--red-bicirio);
+    color: var(--green-biciceja);
     position: fixed;
     cursor: pointer;
     left: 300px;
@@ -65,7 +65,7 @@
 }
 
 #sidebar-btn:hover {
-    color: #dc3545;
+    color: var(--green-biciceja);
 }
 
 #check:checked~.sidebar {

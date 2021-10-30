@@ -1,7 +1,7 @@
 <div class="animated fadeIn" [style.display]="mostrar ? 'block' : 'none'">
     <div class="d-flex justify-content-between align-items-center">
         <h2 class="text-danger font-weight-bold w-100">Estaciones</h2>
-        <button class="btn btn-danger" type="button" role="button" data-toggle="modal" data-target="#editStationInfo" title="Editar horarios de operación">
+        <button class="btn btn-success" type="button" role="button" data-toggle="modal" data-target="#editStationInfo" title="Editar horarios de operación">
             <i class="oi oi-pencil small mr-2"></i>Horarios de operación
         </button>
     </div>
@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <h5 class=" card-title text-primary">Transaciones</h5>
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#reportOperation" title="Generar reporte de operación" (click)="clearDataGenerateReports()">
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#reportOperation" title="Generar reporte de operación" (click)="clearDataGenerateReports()">
                           <i class="oi oi-book small mr-2"></i>Generar reporte
                         </button>
 
@@ -66,7 +66,7 @@
                                 <input type="date" class="form-control mx-sm-1" #fechaActualReference [value]="fechaActual.toISOString().substring(0, 10)">
                             </div>
                             <div class="d-flex justify-content-end align-content-end align-items-end col-md-2 w-100 mb-2">
-                                <button class="btn btn-outline-danger" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
+                                <button class="btn btn-sucess-danger" (click)="recuperarHistorial(fechaAnteriorReference.value, fechaActualReference.value)">Consultar</button>
                             </div>
                         </div>
                         <table id="tablaTransacciones" datatable [dtOptions]="dtOptionsTransacciones" [dtTrigger]="dtTriggerTransacciones" class="table row-border hover mt-2" cellspacing="0" width="100%">
@@ -187,13 +187,13 @@
                         <input type="date" class="form-control mx-sm-1" #currentDateReference [value]="fechaActual.toISOString().substring(0, 10)">
                     </div>
                     <div class="d-flex justify-content-end align-content-end align-items-end col-md-12 w-100 mb-2">
-                        <button class="btn btn-outline-danger" (click)="loadReportData(anteriorDateReference.value, currentDateReference.value)" *ngIf="toFind">Consultar</button>
+                        <button class="btn btn-outline-success" (click)="loadReportData(anteriorDateReference.value, currentDateReference.value)" *ngIf="toFind">Consultar</button>
                         <div *ngIf="toDownload">
                             <button id="cancelEditStation" class="btn btn-outline-success" data-dismiss="modal" (click)="generateExcelReport()">
                               <span class="oi oi-data-transfer-download small mr-2"></span>Descargar
                             </button>
                         </div>
-                        <button class="btn btn-danger" type="button" *ngIf="loadingReport" disabled>
+                        <button class="btn btn-success" type="button" *ngIf="loadingReport" disabled>
                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                          <span class="visually-hidden">Cargando...</span>
                       </button>

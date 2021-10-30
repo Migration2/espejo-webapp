@@ -13,7 +13,7 @@ agm-map {
     top: 40%;
     left: 15%;
     font-size: 2.5em;
-    color: #e3244b;
+    color: var(--green-biciceja);
 }
 
 tbody,
@@ -24,13 +24,13 @@ thead th {
 }
 
 .border-left-primary {
-    border-left: .25rem solid #B51F29 !important;
+    border-left: .25rem solid var(--green-biciceja) !important;
 }
 
 .icon-lg {
     font-size: 35px;
     opacity: 90%;
-    color: #003249;
+    color: var(--yellow-biciceja);
     padding: 15px;
     background-color: #0032491a;
     border-radius: 50px;
