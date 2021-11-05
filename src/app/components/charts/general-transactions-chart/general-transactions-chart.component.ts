@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CHART_COLORS } from '../../../../environments/graph_colors.prod';
 import { EstadisticasService } from '../../../services/estadisticas.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class GeneralTransactionsChartComponent implements OnInit {
   };
   public lineChartLegend = true;
   public lineChartType = 'line';
+  public lineChartColors = CHART_COLORS
 
   constructor(private statisticsService: EstadisticasService) {
     this.fechaAnterior.setDate(this.fechaActual.getDate() - 5);
@@ -30,7 +32,7 @@ export class GeneralTransactionsChartComponent implements OnInit {
 
   private getStringDate(date:Date):string{
     if(!date){
-      date = new Date();      
+      date = new Date();
     }
     return date.toISOString().substring(0, 10);
   }

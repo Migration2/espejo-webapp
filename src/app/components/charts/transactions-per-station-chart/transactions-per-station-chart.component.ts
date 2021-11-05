@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CHART_COLORS } from '../../../../environments/graph_colors.prod';
 import { EstadisticasService } from '../../../services/estadisticas.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class TransactionsPerStationChartComponent implements OnInit {
   public lineChartOptions: any = {
     responsive: true
   };
+  public lineChartColors = CHART_COLORS
 
   private fechaActual = new Date();
   private fechaAnterior = new Date();

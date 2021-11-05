@@ -4,6 +4,8 @@ import { StompService } from 'ng2-stomp-service';
 
 import { EstadisticasService } from '../../../services/estadisticas.service';
 import { StatisticsByPeriodModel } from '../../../models/statistics.model';
+import { Color } from 'ng2-charts';
+import { CHART_COLORS } from '../../../../environments/graph_colors.prod';
 
 @Component({
     selector: 'app-home',
@@ -16,6 +18,8 @@ export class HomeComponent implements OnInit {
     title = 'Estaciones BiciCeja';
     Centerlat = 6.142979;
     Centerlng = -75.378276;
+
+    public chartColors: Color[] = CHART_COLORS
 
     private subscription: any;
     public pieLabelsBicicletas: string[] = [];

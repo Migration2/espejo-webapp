@@ -1,5 +1,5 @@
 <div class="d-block">
-    <canvas class="w-100 h-100 chart-transact" width="400" height="300" *ngIf="lineChartLabels.length>0" baseChart [datasets]="lineChartData" [options]="lineChartOptions" [labels]="lineChartLabels" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+    <canvas class="w-100 h-100 chart-transact" width="400" height="300" *ngIf="lineChartLabels.length>0" baseChart [datasets]="lineChartData" [options]="lineChartOptions" [labels]="lineChartLabels" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
     <div class="row justify-content-md-center" style="width:400px; height:200px;" *ngIf="lineChartLabels.length<=0">
         <div class="text-center">
             <div id="bord"></div>

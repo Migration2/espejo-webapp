@@ -64,7 +64,7 @@
                     <h5 class="card-title text-primary">Bicicletas</h5>
                     <hr>
                     <div class="card-text d-flex align-items-center justify-content-center h-75">
-                        <canvas baseChart *ngIf="pieLabelsBicicletas.length > 0" [data]="pieDataBicicletas" [labels]="pieLabelsBicicletas | bikesLabel" [chartType]="pieChartType" [options]="pieChartTooltips">
+                        <canvas baseChart *ngIf="pieLabelsBicicletas.length > 0" [data]="pieDataBicicletas" [labels]="pieLabelsBicicletas | bikesLabel" [colors]="chartColors" [chartType]="pieChartType" [options]="pieChartTooltips">
 
                         </canvas>
                     </div>
