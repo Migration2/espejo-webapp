@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import { Cookie  } from 'ng2-cookies/ng2-cookies';
+import { DOMAIN } from '../../../../environments/domain.prod';
 
 @Component({
   selector: 'app-navbar',
@@ -27,7 +28,7 @@ export class NavbarComponent implements OnInit {
     Cookie.deleteAll();
     this.userService.logOut().subscribe(response => { });
     // window.location.href = 'http://bicirio.gov.co/site/';
-    window.location.href = 'http://bici-rio.com/';
+    window.location.href = DOMAIN;
   }
 
 }

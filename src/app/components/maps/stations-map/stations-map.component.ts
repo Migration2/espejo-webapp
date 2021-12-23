@@ -16,6 +16,7 @@ import { StompService } from 'ng2-stomp-service';
 
 import { EstacionService } from '../../../services/estacion.service';
 import { StationKeepAliveModel } from '../../../models/estacion.model';
+import { DOMAIN } from '../../../../environments/domain.prod';
 
 
 export const DEFAULT_ANCHOR = [0.5, 1];
@@ -43,7 +44,7 @@ export class StationsMapComponent implements OnInit {
   private subscriptionStationKeepAlive: any;
 
   constructor(private stationsService: EstacionService, public stompService: StompService) {
-    
+
   }
 
   ngOnInit() {
@@ -65,7 +66,7 @@ export class StationsMapComponent implements OnInit {
 
   private configureStomp(){
     this.stompService.configure({
-      host: 'http://bici-rio.com:4547/bicirio-websocket', // production
+      host: `http://${DOMAIN}:4547/bicirio-websocket'`, // production
       debug: false,
       queue: { 'init': false, 'user': false }
     });
@@ -116,7 +117,7 @@ export class StationsMapComponent implements OnInit {
   private addMarksInMap(marks: Array<Feature>, map:Map){
     const vectorSource = new VectorSource({
       features: marks
-    });    
+    });
     const vectorLayer = new VectorLayer({
         source: vectorSource
     });
@@ -166,23 +167,23 @@ export class StationsMapComponent implements OnInit {
   }
 
 
-  
+
 
   private initPoupEvent(map:Map, stationsData: Array<any>){
-    
+
     let container: HTMLElement = document.getElementById('popup');
     container.hidden = false;
     let iconStatusContainer: HTMLElement = document.getElementById('iconStatus');
     let nameStationContent: HTMLElement = document.getElementById('nameStation');
     let hourLastUpdateContent: HTMLElement = document.getElementById('hourLastUpdate');
-    
+
     var closer = document.getElementById('popup-closer');
     let overlay: Overlay = this.createOverlay(container);
-    
+
     map.addOverlay(overlay);
     this.setupCloserButton(closer, overlay);
 
-    //click Event 
+    //click Event
     map.on('singleclick', (event) => {
       this.hidePoup(closer, overlay);
       map.forEachFeatureAtPixel(event.pixel,(feature, layer) => {
@@ -195,7 +196,7 @@ export class StationsMapComponent implements OnInit {
     });
   }
 
-  private refreshCardsInfo(stationKeepAliveData:StationKeepAliveModel, 
+  private refreshCardsInfo(stationKeepAliveData:StationKeepAliveModel,
     iconStatusContainer: HTMLElement, nameStationContent: HTMLElement, container: HTMLElement, hourLastUpdateContent: HTMLElement){
     nameStationContent.innerHTML= `${stationKeepAliveData.stationName}`;
     iconStatusContainer.className = this.chooseIconClass(stationKeepAliveData);

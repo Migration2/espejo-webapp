@@ -6,6 +6,7 @@ import { EstadisticasService } from '../../../services/estadisticas.service';
 import { StatisticsByPeriodModel } from '../../../models/statistics.model';
 import { Color } from 'ng2-charts';
 import { CHART_COLORS } from '../../../../environments/graph_colors.prod';
+import { DOMAIN } from '../../../../environments/domain.prod';
 
 @Component({
     selector: 'app-home',
@@ -84,7 +85,7 @@ export class HomeComponent implements OnInit {
 
     private configureWebSocket(){
         this.stomp.configure({
-            host: 'http://bici-rio.com:4547/bicirio-websocket', // produccion
+            host: `http://${DOMAIN}:4547/bicirio-websocket'`, // produccion
             // host: 'https://orion-bike.com:4443/bicirio-websocket',//pruebas
             // host: '/websocket/bicirio-websocket',
             debug: false,

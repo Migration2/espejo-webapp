@@ -7,6 +7,7 @@ import { PaginatePipe } from '../../../pipes/paginate.pipe';
 import { Router } from '@angular/router';
 import { EstacionService } from '../../../services/estacion.service';
 import { StompService } from 'ng2-stomp-service';
+import { DOMAIN } from '../../../../environments/domain.prod';
 
 export const SERVICIO_IN:string = "SERVICIO";
 
@@ -31,7 +32,7 @@ export class StationsTableComponent implements OnInit {
   stationsData: Array<EstacionModel> = [];
   isShow: boolean = false;
   //PAGINATION
-  lengthStations: number = 0;  
+  lengthStations: number = 0;
   pageNumber: number = 0;
   pageSizeOptions = [5, 10, 20, 50, 100];
   private paginatorPipe: PaginatePipe;
@@ -46,7 +47,7 @@ export class StationsTableComponent implements OnInit {
     this.paginatorPipe = new PaginatePipe();
     this.loadStationsData();
     this.configureWebSocket();
-    this.subscribeTopicsWebSocket();  
+    this.subscribeTopicsWebSocket();
   }
 
   ngOnDestroy(): void {
@@ -67,7 +68,7 @@ export class StationsTableComponent implements OnInit {
  */
   private configureWebSocket(){
     this.stomp.configure({
-      host: 'http://bici-rio.com:4547/bicirio-websocket', // produccion
+      host: `http://${DOMAIN}:4547/bicirio-websocket'`, // produccion
       debug: false,
       queue: { 'init': false, 'user': true }
     });
@@ -95,7 +96,7 @@ export class StationsTableComponent implements OnInit {
 
   /**
    * update stations data with websocket
-   * @param response - stations data response from websocket 
+   * @param response - stations data response from websocket
    */
   private loadStationsDataWithWebsocket = (response) => {
     this.stationsData = response;

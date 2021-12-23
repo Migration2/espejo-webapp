@@ -15,6 +15,7 @@ import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { PaginatePipe } from '../../../pipes/paginate.pipe';
 import { AvailableBikeModel } from '../../../models/bicicleta.model';
 import { UserService } from '../../../services/user.service';
+import { DOMAIN } from '../../../../environments/domain.prod';
 
 
 @Component({
@@ -75,7 +76,7 @@ export class EstacionComponent implements OnInit {
     public pageSizeOptions = [5, 10, 20, 50, 100];
 
     public selectedAvaBike:AvailableBikeModel = new AvailableBikeModel();
-    
+
 
     stationOperationTime: StationOperationTime;
     stationStatictics:StatisticContactPoints = new StatisticContactPoints();
@@ -161,7 +162,7 @@ export class EstacionComponent implements OnInit {
 
     private loadStationKeepAlive(stationCode:string){
         this.estacionservice.getStationKeepAlive(stationCode).subscribe(response => {
-            
+
             console.log(response);
 
             this.stationKeepAliveData = response;
@@ -211,16 +212,16 @@ export class EstacionComponent implements OnInit {
 
     private sortContactPointList(contactPoints:Array<any>){
         contactPoints.sort((item1,item2) => {
-            let it1Num:number =Number(item1.alias); 
-            let it2Num:number =Number(item2.alias); 
+            let it1Num:number =Number(item1.alias);
+            let it2Num:number =Number(item2.alias);
             if(it1Num > it2Num){
                 return 1;
             }
-        
+
             if (it1Num < it2Num) {
                 return -1;
             }
-        
+
             return 0;
         });
     }
@@ -233,7 +234,7 @@ export class EstacionComponent implements OnInit {
         try {
           // unsubscribe
           this.subcriptionStationsKeepAlive.unsubscribe();
-    
+
           // disconnect
           this.stomp.disconnect().then(() => {});
         } catch (error) {
@@ -245,12 +246,12 @@ export class EstacionComponent implements OnInit {
         let puntosContacto: Array<any> = datosEstacion.contactPointStates;
         let contactPoints:number = puntosContacto.length;
         let availableBikes:number = datosEstacion.availableCycles;
-        let availableBikesPercentage:number = this.computePercentage(contactPoints, availableBikes);        
+        let availableBikesPercentage:number = this.computePercentage(contactPoints, availableBikes);
         let looseContactPoints:number = contactPoints - availableBikes;
-        let looseContactPointsPercentage:number = this.computePercentage(contactPoints, looseContactPoints);        
+        let looseContactPointsPercentage:number = this.computePercentage(contactPoints, looseContactPoints);
         let contactPointsInMto:number = this.getCountBikesInMaintenance(puntosContacto);
         let contactPointsInMtoPercentage:number = this.computePercentage(contactPoints, contactPointsInMto);
-        return new StatisticContactPoints(contactPoints,looseContactPoints, availableBikes, contactPointsInMto, 
+        return new StatisticContactPoints(contactPoints,looseContactPoints, availableBikes, contactPointsInMto,
             availableBikesPercentage, looseContactPointsPercentage, contactPointsInMtoPercentage);
      }
 
@@ -271,7 +272,7 @@ export class EstacionComponent implements OnInit {
      private loadLockStation(statusTotem:string){
         if(statusTotem){
             if(statusTotem != "UNLOCK_STATION"){
-                this.lockStation = true; 
+                this.lockStation = true;
             }
         }else{
             this.lockStation = false;
@@ -284,7 +285,7 @@ export class EstacionComponent implements OnInit {
             let hourStartOp = this.stationOperationTime.startOp.substring(11,16);
             let hourLoansOp = this.stationOperationTime.loansOp.substring(11,16);
             let hourReturnOp = this.stationOperationTime.returnOp.substring(11,16);
-            
+
             this.stationOperationTime.startOp = hourStartOp;
             this.stationOperationTime.loansOp = hourLoansOp;
             this.stationOperationTime.returnOp = hourReturnOp;
@@ -361,12 +362,12 @@ export class EstacionComponent implements OnInit {
         newStationOperationTime.startOp = `${actualDate} ${this.stationOperationTime.startOp}:00`;
         newStationOperationTime.loansOp = `${actualDate} ${this.stationOperationTime.loansOp}:00`;
         newStationOperationTime.returnOp = `${actualDate} ${this.stationOperationTime.returnOp}:00`;
-        
+
         this.estacionservice.updateOperationTime(newStationOperationTime).subscribe(response => {
             if(response.status == 202){
                 console.log("updated operation time...");
             }
-        }, 
+        },
         error => console.log(error));
     }
 
@@ -464,12 +465,12 @@ export class EstacionComponent implements OnInit {
      */
     private configureWebSocket(){
         this.stomp.configure({
-          host: 'http://bici-rio.com:4547/bicirio-websocket', // produccion
+          host: `http://${DOMAIN}:4547/bicirio-websocket'`, // produccion
           debug: false,
           queue: { 'init': false, 'user': true }
         });
     }
-    
+
     /**
      * susbscription at topics(station topic) by websocket
     */
@@ -513,7 +514,7 @@ export class EstacionComponent implements OnInit {
         this.pageNumber = pageEvent.pageIndex;
         this.paginateContactPointsData(this.puntosContacto, this.pageSize, this.pageNumber);
       }
-    
+
       private paginateContactPointsData(stationsData: Array<any>, pageSize: number, pageNumber: number) {
         this.contactPointsDataForView = this.paginator.transform(stationsData, pageSize, pageNumber);
         this.contactPointsDataSouce = new ContactPointsDataSource(this.contactPointsDataForView);
@@ -523,7 +524,7 @@ export class EstacionComponent implements OnInit {
       public selectContactPoint(contactPoint:any){
         this.selectedContactPoint = contactPoint;
       }
-    
+
       bikeSelected(data:AvailableBikeModel){
         this.selectedAvaBike = data;
         this.searchBikeCollapse.nativeElement.className = "collapse";
@@ -537,40 +538,40 @@ export class EstacionComponent implements OnInit {
 
         let codeStation: string = this.datosEstacion.code;
 		let idContactPoint: string = this.selectedContactPoint.alias;
-		let idBike: string = this.selectedAvaBike.alias;        
+		let idBike: string = this.selectedAvaBike.alias;
         let contactPointBike = new ContactPointBikeModel(codeStation, idContactPoint, idBike);
         console.log(contactPointBike);
         this.estacionservice.putBikeInContactPoint(contactPointBike).subscribe(
             res=>{
                 this.clearFieldsPutBike;
                 this.loadStationData(this.idEstacion);
-           }, 
+           },
             error=> {console.log(error)});
       }
 
       removeBike(){
         let codeStation: string = this.datosEstacion.code;
 		let idContactPoint: string = this.selectedContactPoint.alias;
-		let idBike: string = this.selectedContactPoint.bikeCode;        
+		let idBike: string = this.selectedContactPoint.bikeCode;
         let contactPointBike = new ContactPointBikeModel(codeStation, idContactPoint, idBike);
         this.estacionservice.removeBikeOfContactPoint(contactPointBike).subscribe(
             res=>{
                 this.clearFieldsPutBike;
                 this.loadStationData(this.idEstacion);
-           }, 
+           },
             error=> {console.log(error)});
       }
 
       public buttonCancelMod1Focused(){
         setTimeout(()=>{ // this will make the execution after the above boolean has changed
             this.btnCancelOpenMod.nativeElement.focus();
-          },400);  
+          },400);
       }
 
       public buttonCancelMod2Focused(){
         setTimeout(()=>{ // this will make the execution after the above boolean has changed
             this.btnCancelCloseMod.nativeElement.focus();
-          },400);  
+          },400);
       }
 
       public openContactPoint(){
@@ -641,10 +642,10 @@ export class ContactPointsDataSource extends DataSource<any> {
     constructor(private sanctions: any[]) {
       super();
     }
-  
+
     connect(): Observable<any[]> {
       return Observable.of(this.sanctions);
     }
-  
+
     disconnect() { }
   }

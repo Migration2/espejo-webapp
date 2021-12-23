@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from "./services/user.service";
 import { Router } from '@angular/router';
+import { DOMAIN } from '../environments/domain.prod';
 
 @Component({
 	selector: 'app-root',
@@ -42,7 +43,7 @@ export class AppComponent {
 
 			default:
 				// window.location.href = 'http://bicirio.gov.co/site/';
-				window.location.href = 'http://bici-rio.com';
+				window.location.href = DOMAIN;
 				break;
 		}
 	}

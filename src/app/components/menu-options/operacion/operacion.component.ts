@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PrestamoService } from '../../../services/prestamos.service';
 import { StompService } from 'ng2-stomp-service';
+import { DOMAIN } from '../../../../environments/domain.prod';
 
 @Component({
   selector: 'app-operacion',
@@ -33,7 +34,7 @@ export class OperacionComponent implements OnInit {
         this.mostrar = true;
       });
     this.stomp.configure({
-      host: 'http://bici-rio.com:4547/bicirio-websocket', // produccion
+      host: `http://${DOMAIN}:4547/bicirio-websocket'`, // produccion
       // host: 'https://orion-bike.com:4443/bicirio-websocket',//pruebas
       // host: '/websocket/bicirio-websocket',
       debug: false,
