@@ -248,10 +248,10 @@ function optionsSelect(json, jsonElement, idForm) {
 
 $("#cancelar").click(function (event) {
 	event.preventDefault();
-	window.location.href = "http://bicirio.gov.co/site/";
+	window.location.href = "https://www.laceja-antioquia.gov.co/Paginas/default.aspx";
 });
 
 $("#cancelarL").click(function (event) {
 	event.preventDefault();
-	window.location.href = "http://bici-rio.com:8080/oa/login/login.html";
+	window.location.href = "http://bici-ceja.com:8080/oa/login/login.html";
 });
