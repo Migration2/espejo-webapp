@@ -71,7 +71,9 @@ export class HomeComponent implements OnInit {
             // unsubscribe
             this.subscription.unsubscribe();
             // disconnect
-            this.stomp.disconnect().then(() => {});
+            this.stomp.disconnect().then(() => {
+                console.log("Disconnect to websocket");
+            });
         } catch (error) {
             console.error(`Error to retrive data from websocket ${error}`);
         }
@@ -86,8 +88,6 @@ export class HomeComponent implements OnInit {
     private configureWebSocket(){
         this.stomp.configure({
             host: `http://${DOMAIN}:4547/bicirio-websocket'`, // produccion
-            // host: 'https://orion-bike.com:4443/bicirio-websocket',//pruebas
-            // host: '/websocket/bicirio-websocket',
             debug: false,
             queue: { 'init': false, 'user': true }
         });

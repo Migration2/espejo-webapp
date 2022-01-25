@@ -26,7 +26,7 @@ body .bg-danger {
 }
 
 body .text-danger {
-    color: var(--green-biciceja) !important;
+    color: var(--yellow-biciceja) !important;
 }
 
 body .text-primary {
@@ -181,4 +181,29 @@ table tbody tr:hover {
 
 .btn-yellow-biciceja {
     color: var(--yellow-biciceja);
+}
+
+.btn-outline-danger{
+    color: var(--green-biciceja) !important;
+    border-color: var(--green-biciceja) !important;
+}
+
+.btn-outline-danger:hover{
+    background-color: var(--green-biciceja) !important;
+    color: white !important;
+}
+
+.btn-danger{
+    background-color: var(--green-biciceja) !important;
+    border-color: var(--green-biciceja) !important;
+    color: white !important;
+}
+.btn-danger:hover{
+    background-color: var(--green-biciceja) !important;
+    border-color: var(--green-biciceja) !important;
+}
+
+.btn-danger:checked{
+    background-color: var(--green-biciceja) !important;
+    border-color: var(--green-biciceja) !important;
 }

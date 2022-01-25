@@ -21,6 +21,9 @@ import { DOMAIN } from '../../../../environments/domain.prod';
 
 export const DEFAULT_ANCHOR = [0.5, 1];
 export const DEFAULT_ICON = '../../../../assets/images/iconMin.png';
+export const DEFAULT_LATITUDE:number = 6.030138309342394;
+export const DEFAULT_LONGITUDE:number = -75.43143218868626;
+
 
 const DANGER_COLOR:string = "#B51F29";
 const SUCCES_COLOR:string = "#28a745";
@@ -141,7 +144,7 @@ export class StationsMapComponent implements OnInit {
         })
       ],
       view: new View({
-        center: fromLonLat([-75.378276, 6.142979]),
+        center: fromLonLat([DEFAULT_LONGITUDE, DEFAULT_LATITUDE]),
         zoom: 14
       })
     });

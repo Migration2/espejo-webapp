@@ -9,7 +9,7 @@ export class UserName implements PipeTransform {
 		let valor:string = "";
 		if (value && value !="anonimo"){
 			valor = String(value).charAt(0).toUpperCase() + String(value).slice(1).toLowerCase();
-			valor = `Bienvenido ${valor} `
+			valor = `Perfil de ${valor} `
 		}
 		
 
