@@ -68,7 +68,7 @@ export class StationsTableComponent implements OnInit {
  */
   private configureWebSocket(){
     this.stomp.configure({
-      host: `http://${DOMAIN}:4547/bicirio-websocket'`, // produccion
+      host: `http://${DOMAIN}:4547/bicirio-websocket`,
       debug: false,
       queue: { 'init': false, 'user': true }
     });

@@ -69,7 +69,7 @@ export class StationsMapComponent implements OnInit {
 
   private configureStomp(){
     this.stompService.configure({
-      host: `http://${DOMAIN}:4547/bicirio-websocket'`, // production
+      host: `http://${DOMAIN}:4547/bicirio-websocket`,
       debug: false,
       queue: { 'init': false, 'user': false }
     });

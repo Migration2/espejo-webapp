@@ -34,9 +34,7 @@ export class OperacionComponent implements OnInit {
         this.mostrar = true;
       });
     this.stomp.configure({
-      host: `http://${DOMAIN}:4547/bicirio-websocket'`, // produccion
-      // host: 'https://orion-bike.com:4443/bicirio-websocket',//pruebas
-      // host: '/websocket/bicirio-websocket',
+      host: `http://${DOMAIN}:4547/bicirio-websocket`,
       debug: false,
       queue: { 'init': false, 'user': true }
     });
