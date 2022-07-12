@@ -15,7 +15,7 @@ import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { PaginatePipe } from '../../../pipes/paginate.pipe';
 import { AvailableBikeModel } from '../../../models/bicicleta.model';
 import { UserService } from '../../../services/user.service';
-import { DOMAIN } from '../../../../environments/domain.prod';
+import { DOMAIN, URL_WEBSOCKET } from '../../../../environments/domain.prod';
 
 
 @Component({
@@ -465,7 +465,7 @@ export class EstacionComponent implements OnInit {
      */
     private configureWebSocket(){
         this.stomp.configure({
-          host: `http://${DOMAIN}:4547/bicirio-websocket`,
+          host: URL_WEBSOCKET,
           debug: false,
           queue: { 'init': false, 'user': true }
         });

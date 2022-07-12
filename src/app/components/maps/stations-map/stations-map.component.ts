@@ -16,7 +16,7 @@ import { StompService } from 'ng2-stomp-service';
 
 import { EstacionService } from '../../../services/estacion.service';
 import { StationKeepAliveModel } from '../../../models/estacion.model';
-import { DOMAIN } from '../../../../environments/domain.prod';
+import { URL_WEBSOCKET } from '../../../../environments/domain.prod';
 
 
 export const DEFAULT_ANCHOR = [0.5, 1];
@@ -69,7 +69,7 @@ export class StationsMapComponent implements OnInit {
 
   private configureStomp(){
     this.stompService.configure({
-      host: `http://${DOMAIN}:4547/bicirio-websocket`,
+      host: URL_WEBSOCKET,
       debug: false,
       queue: { 'init': false, 'user': false }
     });

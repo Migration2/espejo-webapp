@@ -7,7 +7,7 @@ import { PaginatePipe } from '../../../pipes/paginate.pipe';
 import { Router } from '@angular/router';
 import { EstacionService } from '../../../services/estacion.service';
 import { StompService } from 'ng2-stomp-service';
-import { DOMAIN } from '../../../../environments/domain.prod';
+import { URL_WEBSOCKET } from '../../../../environments/domain.prod';
 
 export const SERVICIO_IN:string = "SERVICIO";
 
@@ -68,7 +68,7 @@ export class StationsTableComponent implements OnInit {
  */
   private configureWebSocket(){
     this.stomp.configure({
-      host: `http://${DOMAIN}:4547/bicirio-websocket`,
+      host: URL_WEBSOCKET,
       debug: false,
       queue: { 'init': false, 'user': true }
     });
