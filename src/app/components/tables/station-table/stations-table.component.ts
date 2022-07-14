@@ -46,21 +46,22 @@ export class StationsTableComponent implements OnInit {
   ngOnInit() {
     this.paginatorPipe = new PaginatePipe();
     this.loadStationsData();
-    this.configureWebSocket();
-    this.subscribeTopicsWebSocket();
+    //TODO: replace to poolling
+    // this.configureWebSocket();
+    // this.subscribeTopicsWebSocket();
   }
 
   ngOnDestroy(): void {
-    try {
-      // unsubscribe
-      this.subscriptionStationsData.unsubscribe();
-      this.subcriptionStationsKeepAlive.unsubscribe();
+    // try {
+    //   // unsubscribe
+    //   this.subscriptionStationsData.unsubscribe();
+    //   this.subcriptionStationsKeepAlive.unsubscribe();
 
-      // disconnect
-      this.stomp.disconnect().then(() => {});
-    } catch (error) {
-      console.error(`Error to disconnect web socket, ${error}`);
-    }
+    //   // disconnect
+    //   this.stomp.disconnect().then(() => {});
+    // } catch (error) {
+    //   console.error(`Error to disconnect web socket, ${error}`);
+    // }
   }
 
 /**

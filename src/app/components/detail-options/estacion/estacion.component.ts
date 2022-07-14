@@ -15,7 +15,7 @@ import { MantenimientoService } from '../../../services/mantenimiento.service';
 import { PaginatePipe } from '../../../pipes/paginate.pipe';
 import { AvailableBikeModel } from '../../../models/bicicleta.model';
 import { UserService } from '../../../services/user.service';
-import { DOMAIN, URL_WEBSOCKET } from '../../../../environments/domain.prod';
+import { URL_WEBSOCKET } from '../../../../environments/domain.prod';
 
 
 @Component({
@@ -227,19 +227,20 @@ export class EstacionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.configureWebSocket();
+        //TODO: replace to poolling
+        // this.configureWebSocket();
     }
 
     ngOnDestroy(): void {
-        try {
-          // unsubscribe
-          this.subcriptionStationsKeepAlive.unsubscribe();
+        // try {
+        //   // unsubscribe
+        //   this.subcriptionStationsKeepAlive.unsubscribe();
 
-          // disconnect
-          this.stomp.disconnect().then(() => {});
-        } catch (error) {
-          console.error(`Error to disconnect web socket, ${error}`);
-        }
+        //   // disconnect
+        //   this.stomp.disconnect().then(() => {});
+        // } catch (error) {
+        //   console.error(`Error to disconnect web socket, ${error}`);
+        // }
       }
 
      private getStatisticsContactPoints(datosEstacion:EstacionModel):StatisticContactPoints{
@@ -443,7 +444,7 @@ export class EstacionComponent implements OnInit {
     enableStation(){
         this.estacionservice.enableStation(this.datosEstacion.code).subscribe(response => {
             if(response.status == 202){
-                this.subscribeTopicsWebSocket(false);
+                // this.subscribeTopicsWebSocket(false);
                 this.isDisableLockButton = true;
             }
         },
@@ -453,7 +454,7 @@ export class EstacionComponent implements OnInit {
     disableStation(){
         this.estacionservice.disableStation(this.datosEstacion.code).subscribe(response => {
             if(response.status == 202){
-                this.subscribeTopicsWebSocket(true);
+                // this.subscribeTopicsWebSocket(true);
                 this.isDisableLockButton = true;
             }
         },

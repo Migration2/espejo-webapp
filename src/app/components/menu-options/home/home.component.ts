@@ -60,24 +60,22 @@ export class HomeComponent implements OnInit {
         this.fechaAnterior.setDate(this.fechaActual.getDate() - 4);
         this.fechaActual.setHours(this.fechaActual.getHours() - 5);
         this.loadLoansStatisticStation();
-        this.configureWebSocket();
-        this.subscriptiosToWebSocket();
+        // this.configureWebSocket();
+        // this.subscriptiosToWebSocket();
         this.loadBikesData();
         this.loadTransactionsData(this.fechaAnterior.toISOString().substring(0, 10), this.fechaActual.toISOString().substring(0, 10));
     }
 
-    ngOnDestroy() {
-        try {
-            // unsubscribe
-            this.subscription.unsubscribe();
-            // disconnect
-            this.stomp.disconnect().then(() => {
-                console.log("Disconnect to websocket");
-            });
-        } catch (error) {
-            console.error(`Error to retrive data from websocket ${error}`);
-        }
-    }
+    // ngOnDestroy() {
+    //     try {
+    //         this.subscription.unsubscribe();
+    //         this.stomp.disconnect().then(() => {
+    //             console.log("Disconnect to websocket");
+    //         });
+    //     } catch (error) {
+    //         console.error(`Error to retrive data from websocket ${error}`);
+    //     }
+    // }
 
     private loadLoansStatisticStation() {
         this.estadisticasService.getStatisticsStations().subscribe(response => {

@@ -33,6 +33,10 @@ export class OperacionComponent implements OnInit {
         this.prestamosFiltrados = res;
         this.mostrar = true;
       });
+      // this._configureWebsocket();
+  }
+
+  private _configureWebsocket(){
     this.stomp.configure({
       host: URL_WEBSOCKET,
       debug: false,
@@ -51,16 +55,14 @@ export class OperacionComponent implements OnInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
-    try {
-      // unsubscribe
-      this.subscription.unsubscribe();
+    // try {
+    //   // unsubscribe
+    //   this.subscription.unsubscribe();
+    //   this.stomp.disconnect().then(() => {
+    //   });
+    // } catch (error) {
 
-      // disconnect
-      this.stomp.disconnect().then(() => {
-      });
-    } catch (error) {
-
-    }
+    // }
   }
 
   tiempoLimite(prestamo) {
