@@ -74,6 +74,7 @@ export class EstacionComponent implements OnInit {
   dtTriggerTransacciones = new Subject();
   opcionCard = "puntosContacto";
   opcionCard2 = "tendencia";
+  stationTaskInterval: any;
 
   //WebSocket
   private subcriptionStationsKeepAlive: any;
@@ -260,12 +261,15 @@ export class EstacionComponent implements OnInit {
     if(!idEstacion){
         return;
     }
-    setInterval(() => {
+    this.stationTaskInterval = setInterval(() => {
         this._loadStationAndContactPointsData(this.idEstacion);
       }, POOLLING_TIME_IN_MILLIS);
   }
 
   ngOnDestroy(): void {
+    if(this.stationTaskInterval){
+        clearInterval(this.stationTaskInterval);
+    }
     // try {
     //   // unsubscribe
     //   this.subcriptionStationsKeepAlive.unsubscribe();

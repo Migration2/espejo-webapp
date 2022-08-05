@@ -39,6 +39,7 @@ export class StationsTableComponent implements OnInit {
   pageSizeOptions = [5, 10, 20, 50, 100];
   private paginatorPipe: PaginatePipe;
   //WEBOCKET
+  stationsIntervalTask:any;
   private subscriptionStationsData: any;
   private subcriptionStationsKeepAlive: any;
   private stationsKeepAliveData: Array<StationKeepAliveModel> = [];
@@ -52,12 +53,15 @@ export class StationsTableComponent implements OnInit {
   }
 
   private _createPoollingToRetrieveStationData() {
-    setInterval(() => {
+    this.stationsIntervalTask = setInterval(() => {
       this.loadStationsData();
     }, POOLLING_TIME_IN_MILLIS);
   }
 
   ngOnDestroy(): void {
+   if (this.stationsIntervalTask){
+    clearInterval(this.stationsIntervalTask);
+   }
   }
 
 /**
