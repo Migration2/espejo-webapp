@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { EstacionService } from '../../../services/estacion.service';
 import { StompService } from 'ng2-stomp-service';
 import { URL_WEBSOCKET } from '../../../../environments/domain.prod';
+import { POOLLING_TIME_IN_MILLIS } from '../../../../environments/environment';
 
 export const SERVICIO_IN:string = "SERVICIO";
 export const PASTOR_TEST_STATION_CODE:string = "567327383e4fee24e072625fc58836ad2441b98b20";
@@ -47,22 +48,16 @@ export class StationsTableComponent implements OnInit {
   ngOnInit() {
     this.paginatorPipe = new PaginatePipe();
     this.loadStationsData();
-    //TODO: replace to poolling
-    // this.configureWebSocket();
-    // this.subscribeTopicsWebSocket();
+    this._createPoollingToRetrieveStationData();
+  }
+
+  private _createPoollingToRetrieveStationData() {
+    setInterval(() => {
+      this.loadStationsData();
+    }, POOLLING_TIME_IN_MILLIS);
   }
 
   ngOnDestroy(): void {
-    // try {
-    //   // unsubscribe
-    //   this.subscriptionStationsData.unsubscribe();
-    //   this.subcriptionStationsKeepAlive.unsubscribe();
-
-    //   // disconnect
-    //   this.stomp.disconnect().then(() => {});
-    // } catch (error) {
-    //   console.error(`Error to disconnect web socket, ${error}`);
-    // }
   }
 
 /**
