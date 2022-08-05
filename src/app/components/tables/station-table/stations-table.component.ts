@@ -10,6 +10,7 @@ import { StompService } from 'ng2-stomp-service';
 import { URL_WEBSOCKET } from '../../../../environments/domain.prod';
 
 export const SERVICIO_IN:string = "SERVICIO";
+export const PASTOR_TEST_STATION_CODE:string = "567327383e4fee24e072625fc58836ad2441b98b20";
 
 @Component({
   selector: 'app-stations-table',
@@ -109,6 +110,7 @@ export class StationsTableComponent implements OnInit {
   private loadStationsData() {
     this.stationService.getStationsData().subscribe(response => {
       this.stationsData = response;
+      this.stationsData = this.stationsData.filter(station => station.code !== PASTOR_TEST_STATION_CODE);
       this.lengthStations = this.stationsData.length;
       this.paginateStationData(this.stationsData, this.pageSize, this.pageNumber);
       this.isShow = true;
