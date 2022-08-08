@@ -52,19 +52,11 @@ export class StationsMapComponent implements OnInit {
 
   ngOnInit() {
     this.map = this.createOpenLayerMap();
-    // this.loadStationsData();
-    //TODO: replace WS to pulling
-    // this.configureStomp();
+    this.loadStationsData();
   }
 
   ngOnDestroy(): void {
-    // try {
-    //   this.subscriptionStationKeepAlive.unsubscribe();
-    //   this.stompService.disconnect().then(() => {
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+
   }
 
   private configureStomp(){

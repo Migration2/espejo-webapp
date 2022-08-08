@@ -147,6 +147,21 @@ export class EstacionComponent implements OnInit {
     });
   }
 
+  private _loadStatiosAndContactPointsTask(stationId: number){
+    this.estacionservice.getStationById(stationId).subscribe((response) => {
+        this.datosEstacion = response;
+        this.loadStationKeepAlive(this.datosEstacion.code);
+        this.stationStatictics = this.getStatisticsContactPoints(
+          this.datosEstacion
+        );
+        // this.loadStationOperationTime(this.datosEstacion.code);
+        this.loadLockStation(this.datosEstacion.statusTotem);
+        this.puntosContacto = response.contactPointStates;
+        this.loadContactPointData(this.puntosContacto);
+        // this.loadStationMaintenanceData(this.datosEstacion.id);
+      });
+  }
+
   private _loadStationAndContactPointsData(stationId: number) {
     this.estacionservice.getStationById(stationId).subscribe((response) => {
       this.datosEstacion = response;
@@ -162,6 +177,7 @@ export class EstacionComponent implements OnInit {
         this._createOptionsTatatableTransactions(bonotes);
       this.dtOptions = this._createButtonsDtOptions(bonotes);
       this.dtOptions2 = this._createOptionsDatatableTransactions(bonotes);
+
       this.puntosContacto = response.contactPointStates;
       this.loadContactPointData(this.puntosContacto);
       this.loadStationMaintenanceData(this.datosEstacion.id);
@@ -262,7 +278,7 @@ export class EstacionComponent implements OnInit {
         return;
     }
     this.stationTaskInterval = setInterval(() => {
-        this._loadStationAndContactPointsData(this.idEstacion);
+        this._loadStatiosAndContactPointsTask(this.idEstacion);
       }, POOLLING_TIME_IN_MILLIS);
   }
 
